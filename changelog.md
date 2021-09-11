@@ -1,5 +1,6 @@
 # Incrementum changelog:
 
+- Changed the name to "Incrementum" and replaced all instances of "mod" with "game". game.js has been renamed incrementum.js, and mod.js is now game.js.
 - Upgrade effectDisplay and grid tooltip no longer display if they return "".
 
 

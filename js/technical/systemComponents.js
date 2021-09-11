@@ -114,7 +114,7 @@ var systemComponents = {
 		<br>
 		<span v-if="player.points.lt('1e1000')"  class="overlayThing">You have </span>
 		<h2  class="overlayThing" id="points">{{format(player.points)}}</h2>
-		<span v-if="player.points.lt('1e1e6')"  class="overlayThing"> {{modInfo.pointsName}}</span>
+		<span v-if="player.points.lt('1e1e6')"  class="overlayThing"> {{gameInfo.pointsName}}</span>
 		<br>
 		<span v-if="canGenPoints()"  class="overlayThing">({{tmp.other.oompsMag != 0 ? format(tmp.other.oomps) + " OOM" + (tmp.other.oompsMag < 0 ? "^OOM" : tmp.other.oompsMag > 1 ? "^" + tmp.other.oompsMag : "") + "s" : formatSmall(getPointGen())}}/sec)</span>
 		<div v-for="thing in tmp.displayThings" class="overlayThing"><span v-if="thing" v-html="thing"></span></div>
@@ -125,21 +125,21 @@ var systemComponents = {
     'info-tab': {
         template: `
         <div>
-        <h2>{{modInfo.name}}</h2>
+        <h2>{{gameInfo.name}}</h2>
         <br>
         <h3>{{VERSION.withName}}</h3>
-        <span v-if="modInfo.author">
+        <span v-if="gameInfo.author">
             <br>
-            Made by {{modInfo.author}}	
+            Made by {{gameInfo.author}}	
         </span>
         <br>
-        The Modding Tree <a v-bind:href="'https://github.com/Acamaeda/The-Modding-Tree/blob/master/changelog.md'" target="_blank" class="link" v-bind:style = "{'font-size': '14px', 'display': 'inline'}" >{{TMT_VERSION.tmtNum}}</a> by Acamaeda
+        Incrementum <a v-bind:href="'https://github.com/Acamaeda/Incrementum/blob/master/changelog.md'" target="_blank" class="link" v-bind:style = "{'font-size': '14px', 'display': 'inline'}" >{{TMT_VERSION.tmtNum}}</a> by Acamaeda
         <br>
-        The Prestige Tree made by Jacorb and Aarex
+        Based on The Prestige Tree  by Jacorb and Aarex
 		<br><br>
 		<div class="link" onclick="showTab('changelog-tab')">Changelog</div><br>
-        <span v-if="modInfo.discordLink"><a class="link" v-bind:href="modInfo.discordLink" target="_blank">{{modInfo.discordName}}</a><br></span>
-        <a class="link" href="https://discord.gg/F3xveHV" target="_blank" v-bind:style="modInfo.discordLink ? {'font-size': '16px'} : {}">The Modding Tree Discord</a><br>
+        <span v-if="gameInfo.discordLink"><a class="link" v-bind:href="gameInfo.discordLink" target="_blank">{{gameInfo.discordName}}</a><br></span>
+        <a class="link" href="https://discord.gg/F3xveHV" target="_blank" v-bind:style="gameInfo.discordLink ? {'font-size': '16px'} : {}">Incrementum Discord</a><br>
         <a class="link" href="http://discord.gg/wwQfgPa" target="_blank" v-bind:style="{'font-size': '16px'}">Main Prestige Tree server</a><br>
 		<br><br>
         Time Played: {{ formatTime(player.timePlayed) }}<br><br>

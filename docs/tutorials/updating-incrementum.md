@@ -1,4 +1,4 @@
-# Updating The Modding Tree
+# Updating Incrementum
 
 This tutorial assumes that you have used [the Getting Started Tutorial](getting-started.md), and are using Github Desktop and VSCode for your mod.
 

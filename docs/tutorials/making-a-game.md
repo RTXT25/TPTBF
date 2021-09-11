@@ -1,16 +1,16 @@
-# Making a Mod
+# Making a Game
 
-This guide assumes you have already gone through the [getting started guide](getting-started.md). It will walk you through the basics of using TMT to create a mod. Let's get started!
+This guide assumes you have already gone through the [getting started guide](getting-started.md). It will walk you through the basics of using Incrementum to create a game. Let's get started!
 
 ## Setting up mod info
 
-Open mod.js. This is where you define things that are for the mod in general as opposed to layer-specific. For now, modInfo, you can set the mod name and author name, and also the points name, which changes what the game calls your basic points (but they're still referred to as `player.points` in the code). **Be sure that you set a mod id as well**.
+Open mod.js. This is where you define things that are for the game in general as opposed to layer-specific. For now, gameInfo, you can set the mod name and author name, and also the points name, which changes what the game calls your basic points (but they're still referred to as `player.points` in the code). **Be sure that you set a game id as well**.
 
 One suggestion: When you're testing your mod, you should turn off offline progress in the in-game settings, and don't leave the game running when you aren't using it. You could unintentionally balance your game with large timewalls caused by this extra time. 
 
 ## Making a layer
 
-Now for the good stuff! Head into layers.js. There is a basic layer already there (although it has a few redundant things in it.) Let's see what it's doing...
+Now for the good stuff! Head into layers.js. There is a basic layer already there Let's see what it's doing...
 
 The most important thing is on the first line, where it says `addLayer("p", {` . This is how you create a new layer. The "p" here becomes the layer id, which is used throughout TMT to refer to the layer. You can change the id, but you will have to replace instances of "p" in the tutorial code as well.
 
@@ -24,7 +24,7 @@ Reload the page to see your newly customized layer! You can ignore the other fea
 
 ## Upgrades
 
-Upgrades are one of several Big Features in TMT, and most of them work the same way. Most of what applies to upgrades applies to milestones, buyables, etc. To add upgrades to your layer, after all of the other features, add a comma to the end of the last one, and then put:
+Upgrades are one of several Big Features in Incrementum, and most of them work the same way. Most of what applies to upgrades applies to milestones, buyables, etc. To add upgrades to your layer, after all of the other features, add a comma to the end of the last one, and then put:
 
 ```js
     upgrades: {
@@ -50,7 +50,7 @@ Reload the page, and an upgrade will appear in the layer's tab! It will just be 
     cost: new Decimal(1),
 ```
 
-Reload the page, and the upgrade will appear, fully formed! But it won't have any effect when you buy it! To impliment a boost, we need to go to the place where it is calculated. In this case, point gain is calculated in getPointGen in mod.js, so let's head over there.
+Reload the page, and the upgrade will appear, fully formed! But it won't have any effect when you buy it! To impliment a boost, we need to go to the place where it is calculated. In this case, point gain is calculated in getPointGen in game.js, so let's head over there.
 
 It's time to explain Decimals. Decimals are a special way of handling numbers over the normal Javascript limit. They are handled in a very different way. To perform any operations, instead of doing x = x + y, you have to do x = x.add(y). x has to be a Decimal, but y can be either a Decimal or Number (regular javascript number). A more detailed description is in [!general-info.md](/documentation/!general-info.md)
 

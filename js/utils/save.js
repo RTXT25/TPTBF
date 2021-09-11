@@ -2,8 +2,8 @@
 function save(force) {
 	NaNcheck(player)
 	if (NaNalert && !force) return
-	localStorage.setItem(modInfo.id, btoa(unescape(encodeURIComponent(JSON.stringify(player)))));
-	localStorage.setItem(modInfo.id+"_options", btoa(unescape(encodeURIComponent(JSON.stringify(options)))));
+	localStorage.setItem(gameInfo.id, btoa(unescape(encodeURIComponent(JSON.stringify(player)))));
+	localStorage.setItem(gameInfo.id+"_options", btoa(unescape(encodeURIComponent(JSON.stringify(options)))));
 
 }
 function startPlayerBase() {
@@ -12,14 +12,14 @@ function startPlayerBase() {
 		navTab: (layoutInfo.showTree ? layoutInfo.startNavTab : "none"),
 		time: Date.now(),
 		notify: {},
-		versionType: modInfo.id,
+		versionType: gameInfo.id,
 		version: VERSION.num,
 		beta: VERSION.beta,
 		timePlayed: 0,
 		keepGoing: false,
 		hasNaN: false,
 
-		points: modInfo.initialStartPoints,
+		points: gameInfo.initialStartPoints,
 		subtabs: {},
 		lastSafeTab: (readData(layoutInfo.showTree) ? "none" : layoutInfo.startTab)
 	};
@@ -185,7 +185,7 @@ function fixData(defaultData, newData) {
 	}
 }
 function load() {
-	let get = localStorage.getItem(modInfo.id);
+	let get = localStorage.getItem(gameInfo.id);
 
 	if (get === null || get === undefined) {
 		player = getStartPlayer();
@@ -207,7 +207,7 @@ function load() {
 	changeTheme();
 	changeTreeQuality();
 	updateLayers();
-	setupModInfo();
+	setupGameInfo();
 
 	setupTemp();
 	updateTemp();
@@ -217,7 +217,7 @@ function load() {
 }
 
 function loadOptions() {
-	let get2 = localStorage.getItem(modInfo.id+"_options");
+	let get2 = localStorage.getItem(gameInfo.id+"_options");
 	if (get2) 
 		options = Object.assign(getStartOptions(), JSON.parse(decodeURIComponent(escape(atob(get2)))));
 	else 
@@ -227,9 +227,9 @@ function loadOptions() {
 
 }
 
-function setupModInfo() {
-	modInfo.changelog = changelog;
-	modInfo.winText = winText ? winText : `Congratulations! You have reached the end and beaten this game, but for now...`;
+function setupGameInfo() {
+	gameInfo.changelog = changelog;
+	gameInfo.winText = winText ? winText : `Congratulations! You have reached the end and beaten this game, but for now...`;
 
 }
 function fixNaNs() {
@@ -246,7 +246,7 @@ function NaNcheck(data) {
 			if (!NaNalert) {
 				clearInterval(interval);
 				NaNalert = true;
-				alert("Invalid value found in player, named '" + item + "'. Please let the creator of this mod know! You can refresh the page, and you will be un-NaNed.")
+				alert("Invalid value found in player, named '" + item + "'. Please let the creator of this game know! You can refresh the page, and you will be un-NaNed.")
 				return
 			}
 		}
@@ -274,10 +274,10 @@ function importSave(imported = undefined, forced = false) {
 		imported = prompt("Paste your save here");
 	try {
 		tempPlr = Object.assign(getStartPlayer(), JSON.parse(atob(imported)));
-		if (tempPlr.versionType != modInfo.id && !forced && !confirm("This save appears to be for a different mod! Are you sure you want to import?")) // Wrong save (use "Forced" to force it to accept.)
+		if (tempPlr.versionType != gameInfo.id && !forced && !confirm("This save appears to be for a different game! Are you sure you want to import?")) // Wrong save (use "Forced" to force it to accept.)
 			return;
 		player = tempPlr;
-		player.versionType = modInfo.id;
+		player.versionType = gameInfo.id;
 		fixSave();
 		versionCheck();
 		NaNcheck(save)
@@ -291,12 +291,12 @@ function versionCheck() {
 	let setVersion = true;
 
 	if (player.versionType === undefined || player.version === undefined) {
-		player.versionType = modInfo.id;
+		player.versionType = gameInfo.id;
 		player.version = 0;
 	}
 
 	if (setVersion) {
-		if (player.versionType == modInfo.id && VERSION.num > player.version) {
+		if (player.versionType == gameInfo.id && VERSION.num > player.version) {
 			player.keepGoing = false;
 			if (fixOldSave)
 				fixOldSave(player.version);
