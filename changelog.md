@@ -1,4 +1,8 @@
-# The Modding Tree changelog:
+# Incrementum changelog:
+
+- Upgrade effectDisplay and grid tooltip no longer display if they return "".
+
+
 
 # v2.6.6.2 = 9/9/21
 - nodeStyle can now be used to set fonts.

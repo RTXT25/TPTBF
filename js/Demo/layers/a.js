@@ -60,6 +60,9 @@ addLayer("a", {
         getDisplay(data, id) {
             return data
         },
+        getTooltip(data, id) {
+            return(12)
+        }
     },
 },
 )
