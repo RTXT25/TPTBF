@@ -133,7 +133,7 @@ var systemComponents = {
             Made by {{gameInfo.author}}	
         </span>
         <br>
-        Incrementum <a v-bind:href="'https://github.com/Acamaeda/Incrementum/blob/master/changelog.md'" target="_blank" class="link" v-bind:style = "{'font-size': '14px', 'display': 'inline'}" >{{TMT_VERSION.tmtNum}}</a> by Acamaeda
+        Incrementum <a v-bind:href="'https://github.com/Acamaeda/Incrementum/blob/master/changelog.md'" target="_blank" class="link" v-bind:style = "{'font-size': '14px', 'display': 'inline'}" >{{INC_VERSION.incNum}}</a> by Acamaeda
         <br>
         Based on The Prestige Tree  by Jacorb and Aarex
 		<br><br>
