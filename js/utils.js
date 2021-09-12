@@ -208,9 +208,12 @@ function prestigeNotify(layer) {
 		}
 	}
 	if (tmp[layer].autoPrestige || tmp[layer].passiveGeneration) return false
-	else if (tmp[layer].type == "static") return tmp[layer].canReset
-	else if (tmp[layer].type == "normal") return (tmp[layer].canReset && (tmp[layer].resetGain.gte(player[layer].points.div(10))))
-	else return false
+
+	let type = PRESTIGE_TYPES[tmp[layer].type]
+	if (type === undefined) return false
+	if (type.total === true) return tmp[layer].canReset
+	if (type.total === false) return (tmp[layer].canReset && (tmp[layer].resetGain.gte(player[layer].points.div(10))))
+	return false
 }
 
 function notifyLayer(name) {

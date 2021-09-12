@@ -50,12 +50,16 @@ function canReset(layer)
 {	
 	if (layers[layer].canReset!== undefined)
 		return run(layers[layer].canReset, layers[layer])
-	else if(tmp[layer].type == "normal")
-		return tmp[layer].baseAmount.gte(tmp[layer].requires)
-	else if(tmp[layer].type== "static")
-		return tmp[layer].baseAmount.gte(tmp[layer].nextAt) 
-	else 
+	
+	let type = PRESTIGE_TYPES[tmp[layer].type]
+	if (type === undefined)
 		return false
+	if(type.total === false)
+		return tmp[layer].baseAmount.gte(tmp[layer].requires)
+	if (type.total === true)
+		return tmp[layer].baseAmount.gte(tmp[layer].nextAt) 
+
+	return false
 }
 
 function rowReset(row, layer) {
@@ -113,7 +117,7 @@ function doReset(layer, force=false) {
 		
 		if (tmp[layer].baseAmount.lt(tmp[layer].requires)) return;
 		let gain = tmp[layer].resetGain
-		if (tmp[layer].type=="static") {
+		if (PRESTIGE_TYPES[tmp[layer].type] && PRESTIGE_TYPES[tmp[layer].type].total) {
 			if (tmp[layer].baseAmount.lt(tmp[layer].nextAt)) return;
 			gain =(tmp[layer].canBuyMax ? gain : 1)
 		} 

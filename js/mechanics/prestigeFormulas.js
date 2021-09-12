@@ -23,7 +23,7 @@ function getNextAt(layer, canMax=false, useType = null) {
 	if (tmp[layer].gainMult.lte(0)) return new Decimal(Infinity)
 	if (tmp[layer].gainExp.lte(0)) return new Decimal(Infinity)
 	
-	if (PRESTIGE_TYPES[type]) return PRESTIGE_TYPES[type].nextAt(layer)
+	if (PRESTIGE_TYPES[type]) return PRESTIGE_TYPES[type].nextAt(layer, canMax)
 	return new Decimal (Infinity)	
 
 }
@@ -37,14 +37,15 @@ const PRESTIGE_TYPES = {
 			gain = gain.times(tmp[layer].directMult)
 			return gain.floor().sub(player[layer].points).add(1).max(1);
 		},
-		nextAt(layer) {
+		nextAt(layer, canMax=false) {
 			if (!tmp[layer].canBuyMax) canMax = false
 			let amt = player[layer].points.plus((canMax&&tmp[layer].baseAmount.gte(tmp[layer].nextAt))?tmp[layer].resetGain:0).div(tmp[layer].directMult)
 			let extraCost = Decimal.pow(tmp[layer].base, amt.pow(tmp[layer].exponent).div(tmp[layer].gainExp)).times(tmp[layer].gainMult)
 			let cost = extraCost.times(tmp[layer].requires).max(tmp[layer].requires)
 			if (tmp[layer].roundUpCost) cost = cost.ceil()
 			return cost;	
-		}
+		},
+		total: true,
 	},
 	normal: {
 		gain(layer) {
@@ -60,7 +61,45 @@ const PRESTIGE_TYPES = {
 			next = next.root(tmp[layer].gainExp).div(tmp[layer].gainMult).root(tmp[layer].exponent).times(tmp[layer].requires).max(tmp[layer].requires)
 			if (tmp[layer].roundUpCost) next = next.ceil()
 			return next;	
-		}
+		},
+		total: false,
+
+	},
+	linear: {
+		gain(layer) {
+			if ((!tmp[layer].canBuyMax) || tmp[layer].baseAmount.lt(tmp[layer].requires)) return decimalOne
+			let gain = tmp[layer].baseAmount.sub(tmp[layer].requires).div(tmp[layer].costStep).floor().plus(1)
+			gain = gain.times(tmp[layer].gainMult).pow(tmp[layer].gainExp).times(tmp[layer].directMult)
+			return gain.floor().sub(player[layer].points).add(1).max(1);
+		},
+		nextAt(layer, canMax=false) {
+			if (!tmp[layer].canBuyMax) canMax = false
+			let next = player[layer].points.plus((canMax&&tmp[layer].baseAmount.gte(tmp[layer].nextAt))?tmp[layer].resetGain:1).div(tmp[layer].directMult)
+			console.log(format(next))
+			next = next.root(tmp[layer].gainExp).div(tmp[layer].gainMult)
+			return tmp[layer].requires.add(next.sub(1).times(tmp[layer].costStep))
+		},
+		total: true,
+	},
+	quadratic: {
+		gain(layer) {
+			if ((!tmp[layer].canBuyMax) || tmp[layer].baseAmount.lt(tmp[layer].requires)) return decimalOne
+			let c = tmp[layer].requires.sub(tmp[layer].baseAmount)
+			let b = tmp[layer].linearStep
+			let a = tmp[layer].quadraticStep
+			let gain = (b.times(-1).add((b.pow(2).sub(a.times(c).times(4))).sqrt())).div(2).div(a).add(1)
+			gain = gain.times(tmp[layer].gainMult).pow(tmp[layer].gainExp).times(tmp[layer].directMult)
+			return gain.floor().sub(player[layer].points).add(1).max(1);
+		},
+		nextAt(layer, canMax=false) {
+			if (!tmp[layer].canBuyMax) canMax = false
+			let next = player[layer].points.plus((canMax&&tmp[layer].baseAmount.gte(tmp[layer].nextAt))?tmp[layer].resetGain:1).div(tmp[layer].directMult)
+			next = next.root(tmp[layer].gainExp).div(tmp[layer].gainMult)
+			next=next.sub(1)
+			return tmp[layer].requires.add(next.times(tmp[layer].linearStep)).add(next.pow(2).times(tmp[layer].quadraticStep))
+		},
+		total: true,
+
 	},
 	custom: {
 		gain(layer) {
@@ -69,6 +108,7 @@ const PRESTIGE_TYPES = {
 		nextAt(layer) {
 			return layers[layer].getNextAt(canMax)
 		}
+
 	},
 }
 

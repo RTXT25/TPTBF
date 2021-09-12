@@ -87,6 +87,8 @@ You can make almost any value dynamic by using a function in its place, includin
 - type: **optional**. Determines which prestige formula you use. Defaults to "none".
 
     - "normal": The amount of currency you gain is independent of its current amount (like Prestige). The formula before bonuses is based on `baseResource^exponent`
+    - "linear": The cost is dependent on the total after reset, and increases by `costStep` each time.
+    - "polynomial": The cost is dependent on the total after reset, the cost for the xth point is `quadraticStep*x^2 + linearStep*x + requires`.
     - "static": The cost is dependent on your total after reset. The formula before bonuses is based on `base^(x^exponent)`
     - "custom": You can define everything, from the calculations to the text on the button, yourself. (See more at the bottom)
     - "none": This layer does not prestige, and therefore does not need any of the other features in this section.
@@ -99,7 +101,7 @@ You can make almost any value dynamic by using a function in its place, includin
 
 - exponent: Used as described above.
 
-- base: **sometimes required**. required for "static" layers, used as described above. If absent, defaults to 2. Must be greater than 1.
+- base: **static layers only**. required for "static" layers, used as described above. If absent, defaults to 2. Must be greater than 1.
 
 - roundUpCost: **optional**. a bool, which is true if the resource cost needs to be rounded up. (use if the base resource is a "static" currency.)
 
