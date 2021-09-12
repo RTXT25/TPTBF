@@ -2,6 +2,8 @@
 
 - Changed the name to "Incrementum" and replaced all instances of "mod" with "game". game.js has been renamed incrementum.js, and mod.js is now game.js.
 - Added linear and quadratic prestige types, improved the prestige type system.
+- Added "pluralize" function, and made main point displays correctly use singular and plural (if singular is supplied).
+
 - Upgrade effectDisplay and grid tooltip no longer display if they return "".
 
 

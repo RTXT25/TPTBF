@@ -2,6 +2,7 @@ let gameInfo = {
 	name: "Incrementum",
 	id: "modbase",
 	pointsName: "points",
+	singularName: "point",
 	gameFiles: ["Demo/layers/c.js", "Demo/layers/f.js", "Demo/layers/a.js", "Demo/demoTree.js"],
 
 

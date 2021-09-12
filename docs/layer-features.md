@@ -32,6 +32,8 @@ You can make almost any value dynamic by using a function in its place, includin
 
 - resource: Name of the main currency you gain by resetting on this layer.
 
+- singular: **optional**, singular version of the currency name.
+
 - effect(): **optional**. A function that calculates and returns the current values of any bonuses inherent to the main currency. Can return a value or an object containing multiple values. *You will also have to implement the effect where it is applied.*
 
 - effectDescription: **optional**. A function that returns a description of this effect. If the text stays constant, it can just be a string.

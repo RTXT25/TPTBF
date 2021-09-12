@@ -1,3 +1,9 @@
+// Makes things grammatically correct
+function pluralize (value, singular, plural) {
+    value = new Decimal(value)
+    if (value.eq(decimalOne)) return singular
+    return plural
+}
 
 function exponentialFormat(num, precision, mantissa = true) {
     let e = num.log10().floor()

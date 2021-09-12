@@ -10,6 +10,8 @@ Here's a breakdown of what's in it:
     - id: The id for your game, a unique string that is used to determine savefile location. Be sure to set it when you start making a game, and don't change it later because it will erase all saves.
     - author: The name of the author, displayed in the info tab.
     - pointsName: This changes what is displayed instead of "points" for the main currency. (It does not affect it in the code.)
+    = singularName: The singular version of pointsName.
+    
     - gameFiles: An array of file addresses which will be loaded for this game. Using smaller files makes it easier to find what you're looking for.
     
     - discordName, discordLink: If you have a Discord server or other discussion place, you can add a link to it.
