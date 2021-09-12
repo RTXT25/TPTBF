@@ -270,6 +270,24 @@ function someLayerUnlocked(row){
     return false
 }
 
+function addShortcuts() {
+    for (layer in layers) {
+        layers[layer].data = player[layer]
+		layers[layer].tmp = tmp[layer]
+        for (id in layers[layer].buyables) {
+            layers[layer].buyables[id].data = player[layer]
+            layers[layer].buyables[id].tmp = tmp[layer].buyables[id]
+        }
+        for (id in layers[layer].upgrades) {
+            layers[layer].upgrades[id].data = player[layer]
+            layers[layer].upgrades[id].tmp = tmp[layer].upgrades[id]
+        }
+        for (id in layers[layer].clickables) {
+            layers[layer].clickables[id].data = player[layer]
+            layers[layer].clickables[id].tmp = tmp[layer].clickables[id]
+        }
+    }
+}
 
 // This isn't worth making a .ts file over
 const UP = 0

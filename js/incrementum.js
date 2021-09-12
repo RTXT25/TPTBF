@@ -352,6 +352,7 @@ var interval = setInterval(function() {
 		needCanvasUpdate = false;
 	}
 	tmp.scrolled = document.getElementById('treeTab') && document.getElementById('treeTab').scrollTop > 30
+	if (player.devSpeed === 0) return
 	updateTemp();
 	updateOomps(diff);
 	updateWidth()

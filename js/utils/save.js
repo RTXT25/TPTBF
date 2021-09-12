@@ -210,6 +210,7 @@ function load() {
 	setupGameInfo();
 
 	setupTemp();
+	addShortcuts();
 	updateTemp();
 	updateTemp();
 	updateTabFormats()

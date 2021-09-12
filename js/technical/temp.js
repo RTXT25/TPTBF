@@ -108,6 +108,8 @@ function updateTemp() {
 		tmp[layer].prestigeNotify = prestigeNotify(layer)
 		if (tmp[layer].passiveGeneration === true) tmp[layer].passiveGeneration = 1 // new Decimal(true) = decimalZero
 
+		layers[layer].data = player[layer]
+		layers[layer].tmp = tmp[layer]
 	}
 
 	tmp.pointGen = getPointGen()
@@ -119,6 +121,8 @@ function updateTemp() {
 		if (isFunction(text)) text = text()
 		tmp.displayThings.push(text) 
 	}
+
+	
 }
 
 function updateTempData(layerData, tmpData, funcsData, useThis) {
