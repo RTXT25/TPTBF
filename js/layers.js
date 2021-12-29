@@ -161,7 +161,7 @@ addLayer("c", {
             purchaseLimit: new Decimal(3),
             buy() {
                 player[this.layer].points = player[this.layer].points.sub(this.cost(getBuyableAmount('c', 12)).add(2))
-                setBuyableAmount('c', 12, getBuyableAmount('c', 12).add(2))
+                setBuyableAmount('c', 12, getBuyableAmount('c', 12).add(1))
             },
             display() {
                 return "multiplies essence gain by the amount of this upgrade bought.\nCurrently: " + (2 ** getBuyableAmount('c', 12)) + "x\n\nCost: " + getBuyableAmount('c', 12).add(2) + "\n\nBought: " + getBuyableAmount('c', 12)
