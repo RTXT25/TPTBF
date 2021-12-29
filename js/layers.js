@@ -89,7 +89,7 @@ addLayer("e", {
             description: "boosts the effect of Point Recursion by the amount of points you have",
             cost: new Decimal(50000),
             effect() {
-               return player.points.add(1).pow(0.5)
+               return player.points.add(1).pow(0.05)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
         },
