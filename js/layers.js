@@ -129,7 +129,6 @@ addLayer("c", {
     exponent: 0.2, // Prestige currency exponent
     gainMult() { // Calculate the multiplier for main currency from bonuses
         mult = new Decimal(1)
-        mult = mult.times(2 ** getBuyableAmount('c', 21))
         return mult
     },
     gainExp() { // Calculate the exponent on main currency from bonuses
@@ -163,18 +162,6 @@ addLayer("c", {
             },
             display() {
                 return "multiplies essence gain by the amount of this upgrade bought.\nCurrently: " + (2 ** getBuyableAmount('c', 12)) + "x\n\nCost: " + getBuyableAmount('c', 12).add(1) + "\n\nBought: " + getBuyableAmount('c', 12)
-            },
-        },
-        21: {
-            cost(x) { return new Decimal(1).mul(x) },
-            title: "Empowered Cores",
-            canAfford() { return player[this.layer].points.gte(this.cost(10 * getBuyableAmount('c', 21)).add(2))},
-            buy() {
-                player[this.layer].points = player[this.layer].points.sub(this.cost(10 * getBuyableAmount('c', 21)).add(2))
-                setBuyableAmount('c', 21, getBuyableAmount('c', 21).add(2))
-            },
-            display() {
-                return "multiplies core gain by the amount of this upgrade bought.\nCurrently: " + (2 * getBuyableAmount('c', 21)) + "x\n\nCost: " + (10 * getBuyableAmount('c', 21).add(2)) + "\n\nBought: " + getBuyableAmount('c', 21)
             },
         },
     },
