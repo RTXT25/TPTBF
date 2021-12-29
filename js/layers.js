@@ -30,6 +30,7 @@ addLayer("e", {
     gainMult() { // Calculate the multiplier for main currency from bonuses
         mult = new Decimal(1)
         if (hasUpgrade('e', 13)) mult = mult.times(upgradeEffect('e', 13))
+        mult = mult.times(getBuyableAmount('e', 11) + 1)
         return mult
     },
     gainExp() { // Calculate the exponent on main currency from bonuses
@@ -64,18 +65,27 @@ addLayer("e", {
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
         },
+        21: {
+            title: "Point Recursion",
+            description: "multiplies point gain by the amount of points you have",
+            cost: new Decimal(5000),
+            effect() {
+               return player.points.add(1).pow(0.05)
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+        },
     },
     buyables: {
         11: {
             cost(x) { return new Decimal(1).mul(x) },
             title: "Purer Essence",
-            canAfford() { return player[this.layer].points.gte(this.cost(10 * getBuyableAmount('e', 11) + 20)) },
+            canAfford() { return player[this.layer].points.gte(this.cost(Math.pow(12, getBuyableAmount('e', 11)) + 20))},
             buy() {
-                player[this.layer].points = player[this.layer].points.sub(this.cost(10 * getBuyableAmount('e', 11) + 20))
-                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+                player[this.layer].points = player[this.layer].points.sub(this.cost(Math.pow(12, getBuyableAmount('e', 11)) + 20))
+                setBuyableAmount('e', 11, getBuyableAmount('e', 11).add(1))
             },
             display() {
-                return "multiplies essence gain by 2.\n\nCost: " + (10 * getBuyableAmount('e', 11) + 20) + "\n\nBought: " + getBuyableAmount('e', 11)
+                return "multiplies essence gain by the amount of this upgrade bought.\n\nCost: " + (Math.pow(12, getBuyableAmount('e', 11)) + 20) + "\n\nBought: " + getBuyableAmount('e', 11)
             },
         },
     },

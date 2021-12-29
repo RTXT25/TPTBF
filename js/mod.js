@@ -19,7 +19,8 @@ let changelog = `<h1>Changelog:</h1><br>
 	<h3>v0.1</h3><br>
 		- Game Launch.<br>
 		- Changed layer 'e' exponent.<br>
-		- Added three upgrades.`
+		- Added four upgrades.<br>
+		- Added a buyable.`
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
 
@@ -44,6 +45,7 @@ function getPointGen() {
 	let gain = new Decimal(1)
 	if (hasUpgrade('e', 11)) gain = gain.times(1.5)
 	if (hasUpgrade('e', 12)) gain = gain.times(upgradeEffect('e', 12))
+	if (hasUpgrade('e', 21)) gain = gain.times(upgradeEffect('e', 21))
 	return gain
 }
 
