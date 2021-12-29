@@ -142,9 +142,9 @@ addLayer("c", {
     layerShown(){return true},
     milestones: {
         0: {
-            requirementDescription: "3 Cores",
+            requirementDescription: "5 Cores",
             effectDescription: "gives 1% of essence gain per second",
-            done() { return player[this.layer].points.gte(3) },
+            done() { return player[this.layer].points.gte(5) },
         },
     },
     buyables: {
