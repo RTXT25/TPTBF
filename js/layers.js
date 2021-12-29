@@ -1,3 +1,17 @@
+addLayer("A", {
+    name: "Achievements",
+    symbol: "A",
+    position: "side",
+    color: "#d1d1d1",
+    achievements: {
+        11: {
+            name: "First Essence",
+            done() {return player["e"].points >= 1},
+            tooltip: "obtain 1 essence.",
+        },
+    },
+})
+
 addLayer("e", {
     name: "Essence", // This is optional, only used in a few places, If absent it just uses the layer id.
     symbol: "E", // This appears on the layer's node. Default is the id with the first letter capitalized
@@ -15,6 +29,7 @@ addLayer("e", {
     exponent: 0.5, // Prestige currency exponent
     gainMult() { // Calculate the multiplier for main currency from bonuses
         mult = new Decimal(1)
+        if (hasUpgrade('e', 13)) mult = mult.times(upgradeEffect('e', 13))
         return mult
     },
     gainExp() { // Calculate the exponent on main currency from bonuses
@@ -36,9 +51,18 @@ addLayer("e", {
             description: "multiplies point gain by the amount of essence you have",
             cost: new Decimal(2),
             effect() {
-        return player[this.layer].points.add(1).pow(0.5)
-    },
-    effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+               return player[this.layer].points.add(1).pow(0.5)
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+        },
+        13: {
+            title: "Influenced Essence",
+            description: "multiplies essence gain by the amount of points you have",
+            cost: new Decimal(5),
+            effect() { 
+                return player.points.add(1).pow(0.15)
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
         },
     },
 })
