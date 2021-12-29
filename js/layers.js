@@ -30,6 +30,7 @@ addLayer("e", {
     gainMult() { // Calculate the multiplier for main currency from bonuses
         mult = new Decimal(1)
         if (hasUpgrade('e', 13)) mult = mult.times(upgradeEffect('e', 13))
+        if (hasUpgrade('e', 22)) mult = mult.times(upgradeEffect('e', 22))
         mult = mult.times(getBuyableAmount('e', 11) + 1)
         return mult
     },
@@ -71,6 +72,15 @@ addLayer("e", {
             cost: new Decimal(5000),
             effect() {
                return player.points.add(1).pow(0.05)
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+        },
+        22: {
+            title: "Essence of essence",
+            description: "multiplies essence gain by the amount of essence you have",
+            cost: new Decimal(20000),
+            effect() {
+               return player[this.layer].points.add(1).pow(0.05)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
         },

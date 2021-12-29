@@ -19,7 +19,7 @@ let changelog = `<h1>Changelog:</h1><br>
 	<h3>v0.1</h3><br>
 		- Game Launch.<br>
 		- Changed layer 'e' exponent.<br>
-		- Added four upgrades.<br>
+		- Added five upgrades.<br>
 		- Added a buyable.`
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
