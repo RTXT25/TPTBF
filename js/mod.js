@@ -11,12 +11,15 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.1",
-	name: "Game Launch",
+	num: "0.2",
+	name: "Core Update",
 }
 
 let changelog = `<h1>Changelog:</h1><br>
-	<h3>v0.1</h3><br>
+	<br><h3>v0.2: Core Update</h3><br>
+		- Added cores.<br>
+		- Added two buyables to cores.<br>
+	<br><h3>v0.1: Game Launch</h3><br>
 		- Game Launch.<br>
 		- Changed layer 'e' exponent.<br>
 		- Added six upgrades.<br>
