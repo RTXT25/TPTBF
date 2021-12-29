@@ -21,6 +21,7 @@ addLayer("e", {
 		points: new Decimal(0),
     }},
     color: "#4BDC13",
+    branches: "c",
     requires: new Decimal(5), // Can be a function that takes requirement increases into account
     resource: "essence", // Name of prestige currency
     baseResource: "points", // Name of resource prestige is based on
@@ -32,6 +33,7 @@ addLayer("e", {
         if (hasUpgrade('e', 13)) mult = mult.times(upgradeEffect('e', 13))
         if (hasUpgrade('e', 22)) mult = mult.times(upgradeEffect('e', 22))
         mult = mult.times((getBuyableAmount('e', 11) * 2.5) + 1)
+        mult = mult.times(2 ** getBuyableAmount('c', 11))
         return mult
     },
     gainExp() { // Calculate the exponent on main currency from bonuses
@@ -89,7 +91,7 @@ addLayer("e", {
             description: "boosts the effect of Point Recursion by the amount of points you have",
             cost: new Decimal(5000),
             effect() {
-               return player.points.add(1).pow(0.05)
+               return player.points.add(1).pow(0.2)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
         },
@@ -105,6 +107,61 @@ addLayer("e", {
             },
             display() {
                 return "multiplies essence gain by the amount of this upgrade bought.\nCurrently: " + ((getBuyableAmount('e', 11) * 2.5) + 1) + "x\n\nCost: " + (Math.pow(12, getBuyableAmount('e', 11)) + 20) + "\n\nBought: " + getBuyableAmount('e', 11)
+            },
+        },
+    },
+});
+
+addLayer("c", {
+    name: "Cores", // This is optional, only used in a few places, If absent it just uses the layer id.
+    symbol: "C", // This appears on the layer's node. Default is the id with the first letter capitalized
+    position: 0, // Horizontal position within a row. By default it uses the layer id and sorts in alphabetical order
+    startData() { return {
+        unlocked: true,
+        points: new Decimal(0),
+    }},
+    color: "#C2C238",
+    requires: new Decimal(30000), // Can be a function that takes requirement increases into account
+    resource: "cores", // Name of prestige currency
+    baseResource: "essence", // Name of resource prestige is based on
+    baseAmount() {return player['e'].points}, // Get the current amount of baseResource
+    type: "normal", // normal: cost to gain currency depends on amount gained. static: cost depends on how much you already have
+    exponent: 0.25, // Prestige currency exponent
+    gainMult() { // Calculate the multiplier for main currency from bonuses
+        mult = new Decimal(1)
+        return mult
+    },
+    gainExp() { // Calculate the exponent on main currency from bonuses
+        return new Decimal(1)
+    },
+    row: 1, // Row the layer is in on the tree (0 is the first row)
+    hotkeys: [
+        {key: "c", description: "C: Reset for cores", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
+    ],
+    layerShown(){return true},
+    buyables: {
+        11: {
+            cost(x) { return new Decimal(1).mul(x) },
+            title: "Empowered Points",
+            canAfford() { return player[this.layer].points.gte(this.cost(getBuyableAmount('c', 11)).add(1))},
+            buy() {
+                player[this.layer].points = player[this.layer].points.sub(this.cost(getBuyableAmount('c', 11)).add(1))
+                setBuyableAmount('c', 11, getBuyableAmount('c', 11).add(1))
+            },
+            display() {
+                return "multiplies point gain by the amount of this upgrade bought.\nCurrently: " + (2 ** getBuyableAmount('c', 11)) + "x\n\nCost: " + getBuyableAmount('c', 11).add(1) + "\n\nBought: " + getBuyableAmount('c', 11)
+            },
+        },
+        12: {
+            cost(x) { return new Decimal(1).mul(x) },
+            title: "Empowered Essence",
+            canAfford() { return player[this.layer].points.gte(this.cost(getBuyableAmount('c', 11)).add(1))},
+            buy() {
+                player[this.layer].points = player[this.layer].points.sub(this.cost(getBuyableAmount('c', 11)).add(1))
+                setBuyableAmount('c', 12, getBuyableAmount('c', 12).add(1))
+            },
+            display() {
+                return "multiplies essence gain by the amount of this upgrade bought.\nCurrently: " + (2 ** getBuyableAmount('c', 12)) + "x\n\nCost: " + getBuyableAmount('c', 12).add(1) + "\n\nBought: " + getBuyableAmount('c', 12)
             },
         },
     },
