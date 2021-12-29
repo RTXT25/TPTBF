@@ -91,7 +91,7 @@ addLayer("e", {
             description: "boosts the effect of Point Recursion by the amount of points you have",
             cost: new Decimal(5000),
             effect() {
-               return player.points.add(1).pow(0.2)
+               return player.points.add(1).pow(0.25)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
         },
@@ -121,7 +121,7 @@ addLayer("c", {
         points: new Decimal(0),
     }},
     color: "#C2C238",
-    requires: new Decimal(30000), // Can be a function that takes requirement increases into account
+    requires: new Decimal(15000), // Can be a function that takes requirement increases into account
     resource: "cores", // Name of prestige currency
     baseResource: "essence", // Name of resource prestige is based on
     baseAmount() {return player['e'].points}, // Get the current amount of baseResource
@@ -140,6 +140,13 @@ addLayer("c", {
         {key: "c", description: "C: Reset for cores", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
     layerShown(){return true},
+    milestones: {
+        0: {
+            requirementDescription: "3 Cores",
+            effectDescription: "gives 1% of essence gain per second",
+            done() { return player[this.layer].points.gte(3) },
+        },
+    },
     buyables: {
         11: {
             cost(x) { return new Decimal(1).mul(x) },
@@ -168,13 +175,13 @@ addLayer("c", {
         21: {
             cost(x) { return new Decimal(1).mul(x) },
             title: "Empowered Cores",
-            canAfford() { return player[this.layer].points.gte(this.cost(10 * getBuyableAmount('c', 21)).add(1))},
+            canAfford() { return player[this.layer].points.gte(this.cost(2 * getBuyableAmount('c', 21)).add(2))},
             buy() {
-                player[this.layer].points = player[this.layer].points.sub(this.cost(10 * getBuyableAmount('c', 21)).add(1))
-                setBuyableAmount('c', 21, getBuyableAmount('c', 21).add(1))
+                player[this.layer].points = player[this.layer].points.sub(this.cost(2 * getBuyableAmount('c', 21)).add(2))
+                setBuyableAmount('c', 21, getBuyableAmount('c', 21).add(2))
             },
             display() {
-                return "multiplies core gain by the amount of this upgrade bought.\nCurrently: " + (2 ** getBuyableAmount('c', 21)) + "x\n\nCost: " + (10 * getBuyableAmount('c', 21).add(1)) + "\n\nBought: " + getBuyableAmount('c', 21)
+                return "multiplies core gain by the amount of this upgrade bought.\nCurrently: " + (2 ** getBuyableAmount('c', 21)) + "x\n\nCost: " + (2 * getBuyableAmount('c', 21).add(2)) + "\n\nBought: " + getBuyableAmount('c', 21)
             },
         },
     },

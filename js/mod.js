@@ -18,7 +18,7 @@ let VERSION = {
 let changelog = `<h1>Changelog:</h1><br>
 	<br><h3>v0.2: Core Update</h3><br>
 		- Added cores.<br>
-		- Added two buyables to cores.<br>
+		- Added three buyables to cores.<br>
 	<br><h3>v0.1: Game Launch</h3><br>
 		- Game Launch.<br>
 		- Changed layer 'e' exponent.<br>
