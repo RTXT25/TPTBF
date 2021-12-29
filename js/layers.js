@@ -69,13 +69,13 @@ addLayer("e", {
         11: {
             cost(x) { return new Decimal(1).mul(x) },
             title: "Purer Essence",
-            canAfford() { return player[this.layer].points.gte(this.cost(10 * getBuyableAmount('e', 11) + 25)) },
+            canAfford() { return player[this.layer].points.gte(this.cost(10 * getBuyableAmount('e', 11) + 20)) },
             buy() {
-                player[this.layer].points = player[this.layer].points.sub(this.cost(10 * getBuyableAmount('e', 11) + 25))
+                player[this.layer].points = player[this.layer].points.sub(this.cost(10 * getBuyableAmount('e', 11) + 20))
                 setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
             },
             display() {
-                return "multiplies essence gain by 2.\n\nCost: " + (10 * getBuyableAmount('e', 11) + 25) + "\n\nBought: " + getBuyableAmount('e', 11)
+                return "multiplies essence gain by 2.\n\nCost: " + (10 * getBuyableAmount('e', 11) + 20) + "\n\nBought: " + getBuyableAmount('e', 11)
             },
         },
     },
