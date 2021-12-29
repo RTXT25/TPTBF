@@ -33,7 +33,7 @@ addLayer("e", {
         if (hasUpgrade('e', 13)) mult = mult.times(upgradeEffect('e', 13))
         if (hasUpgrade('e', 22)) mult = mult.times(upgradeEffect('e', 22))
         mult = mult.times((getBuyableAmount('e', 11) * 2.5) + 1)
-        mult = mult.times(2 ** getBuyableAmount('c', 11))
+        mult = mult.times(2 ** getBuyableAmount('c', 12))
         return mult
     },
     gainExp() { // Calculate the exponent on main currency from bonuses
@@ -126,9 +126,10 @@ addLayer("c", {
     baseResource: "essence", // Name of resource prestige is based on
     baseAmount() {return player['e'].points}, // Get the current amount of baseResource
     type: "normal", // normal: cost to gain currency depends on amount gained. static: cost depends on how much you already have
-    exponent: 0.25, // Prestige currency exponent
+    exponent: 0.2, // Prestige currency exponent
     gainMult() { // Calculate the multiplier for main currency from bonuses
         mult = new Decimal(1)
+        mult = mult.times(2 ** getBuyableAmount('c', 21))
         return mult
     },
     gainExp() { // Calculate the exponent on main currency from bonuses
@@ -155,13 +156,25 @@ addLayer("c", {
         12: {
             cost(x) { return new Decimal(1).mul(x) },
             title: "Empowered Essence",
-            canAfford() { return player[this.layer].points.gte(this.cost(getBuyableAmount('c', 11)).add(1))},
+            canAfford() { return player[this.layer].points.gte(this.cost(getBuyableAmount('c', 12)).add(1))},
             buy() {
-                player[this.layer].points = player[this.layer].points.sub(this.cost(getBuyableAmount('c', 11)).add(1))
+                player[this.layer].points = player[this.layer].points.sub(this.cost(getBuyableAmount('c', 12)).add(1))
                 setBuyableAmount('c', 12, getBuyableAmount('c', 12).add(1))
             },
             display() {
                 return "multiplies essence gain by the amount of this upgrade bought.\nCurrently: " + (2 ** getBuyableAmount('c', 12)) + "x\n\nCost: " + getBuyableAmount('c', 12).add(1) + "\n\nBought: " + getBuyableAmount('c', 12)
+            },
+        },
+        21: {
+            cost(x) { return new Decimal(1).mul(x) },
+            title: "Empowered Cores",
+            canAfford() { return player[this.layer].points.gte(this.cost(10 * getBuyableAmount('c', 21)).add(1))},
+            buy() {
+                player[this.layer].points = player[this.layer].points.sub(this.cost(10 * getBuyableAmount('c', 21)).add(1))
+                setBuyableAmount('c', 21, getBuyableAmount('c', 21).add(1))
+            },
+            display() {
+                return "multiplies core gain by the amount of this upgrade bought.\nCurrently: " + (2 ** getBuyableAmount('c', 21)) + "x\n\nCost: " + (10 * getBuyableAmount('c', 21).add(1)) + "\n\nBought: " + getBuyableAmount('c', 21)
             },
         },
     },
