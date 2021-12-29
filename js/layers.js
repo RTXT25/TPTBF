@@ -10,7 +10,7 @@ addLayer("A", {
             tooltip: "obtain 1 essence.",
         },
     },
-})
+});
 
 addLayer("e", {
     name: "Essence", // This is optional, only used in a few places, If absent it just uses the layer id.
@@ -65,4 +65,18 @@ addLayer("e", {
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
         },
     },
-})
+    buyables: {
+        11: {
+            cost(x) { return new Decimal(1).mul(x) },
+            title: "Purer Essence",
+            canAfford() { return player[this.layer].points.gte(this.cost(10)) },
+            display() {
+                return "multiplies essence gain by 2.\n\nCost: " + (10 ** getBuyableAmount + 1) + "\n\nBought: " + getBuyableAmount('e', 11)
+            },
+            buy() {
+                player[this.layer].points = player[this.layer].points.sub(this.cost(10 ** getBuyableAmount))
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+            },
+        },
+    },
+});
