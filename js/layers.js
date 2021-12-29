@@ -31,7 +31,7 @@ addLayer("e", {
         mult = new Decimal(1)
         if (hasUpgrade('e', 13)) mult = mult.times(upgradeEffect('e', 13))
         if (hasUpgrade('e', 22)) mult = mult.times(upgradeEffect('e', 22))
-        mult = mult.times(getBuyableAmount('e', 11).add(1) * 2.5)
+        mult = mult.times((getBuyableAmount('e', 11) * 2.5) + 1)
         return mult
     },
     gainExp() { // Calculate the exponent on main currency from bonuses
@@ -69,7 +69,7 @@ addLayer("e", {
         21: {
             title: "Point Recursion",
             description: "multiplies point gain by the amount of points you have",
-            cost: new Decimal(2500),
+            cost: new Decimal(750),
             effect() {
                return player.points.add(1).pow(0.05)
             },
@@ -78,7 +78,7 @@ addLayer("e", {
         22: {
             title: "Essence of Essence",
             description: "multiplies essence gain by the amount of essence you have",
-            cost: new Decimal(10000),
+            cost: new Decimal(5000),
             effect() {
                return player[this.layer].points.add(1).pow(0.05)
             },
@@ -87,7 +87,7 @@ addLayer("e", {
         23: {
             title: "Recurring Recursion",
             description: "boosts the effect of Point Recursion by the amount of points you have",
-            cost: new Decimal(50000),
+            cost: new Decimal(20000),
             effect() {
                return player.points.add(1).pow(0.05)
             },
@@ -104,7 +104,7 @@ addLayer("e", {
                 setBuyableAmount('e', 11, getBuyableAmount('e', 11).add(1))
             },
             display() {
-                return "multiplies essence gain by the amount of this upgrade bought.\nCurrently: " + (getBuyableAmount('e', 11).add(1) * 2.5) + "x\n\nCost: " + (Math.pow(12, getBuyableAmount('e', 11)) + 20) + "\n\nBought: " + getBuyableAmount('e', 11)
+                return "multiplies essence gain by the amount of this upgrade bought.\nCurrently: " + ((getBuyableAmount('e', 11) * 2.5) + 1) + "x\n\nCost: " + (Math.pow(12, getBuyableAmount('e', 11)) + 20) + "\n\nBought: " + getBuyableAmount('e', 11)
             },
         },
     },
