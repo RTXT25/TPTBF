@@ -27,13 +27,18 @@ addLayer("e", {
     layerShown(){return true},
     upgrades: {
         11: {
-            title: "Essence Influence",
-            description: "increases point gain by essence",
+            title: "Faster Points",
+            description: "multiplies point gain by 1.5",
             cost: new Decimal(1),
+        },
+        12: {
+            title: "Essence Influence",
+            description: "multiplies point gain by the amount of essence you have",
+            cost: new Decimal(2),
             effect() {
-                Return player[this.layer].points.add(1).pow(0.5)
-            },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+        return player[this.layer].points.add(1).pow(0.5)
+    },
+    effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
         },
     },
 })
