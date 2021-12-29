@@ -101,6 +101,7 @@ addLayer("e", {
             cost(x) { return new Decimal(1).mul(x) },
             title: "Purer Essence",
             canAfford() { return player[this.layer].points.gte(this.cost(Math.pow(12, getBuyableAmount('e', 11)) + 20))},
+            purchaseLimit: new Decimal(14),
             buy() {
                 player[this.layer].points = player[this.layer].points.sub(this.cost(Math.pow(12, getBuyableAmount('e', 11)) + 20))
                 setBuyableAmount('e', 11, getBuyableAmount('e', 11).add(1))
