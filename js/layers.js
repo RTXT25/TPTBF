@@ -89,7 +89,7 @@ addLayer("e", {
         23: {
             title: "Recurring Recursion",
             description: "boosts the effect of Point Recursion by the amount of points you have",
-            cost: new Decimal(5000),
+            cost: new Decimal(4000),
             effect() {
                return player.points.add(1).pow(0.25)
             },
@@ -127,7 +127,7 @@ addLayer("c", {
     baseResource: "essence", // Name of resource prestige is based on
     baseAmount() {return player['e'].points}, // Get the current amount of baseResource
     type: "normal", // normal: cost to gain currency depends on amount gained. static: cost depends on how much you already have
-    exponent: 0.2, // Prestige currency exponent
+    exponent: 0.3, // Prestige currency exponent
     gainMult() { // Calculate the multiplier for main currency from bonuses
         mult = new Decimal(1)
         return mult
@@ -156,13 +156,14 @@ addLayer("c", {
         12: {
             cost(x) { return new Decimal(1).mul(x) },
             title: "Empowered Essence",
-            canAfford() { return player[this.layer].points.gte(this.cost(getBuyableAmount('c', 12)).add(1))},
+            canAfford() { return player[this.layer].points.gte(this.cost(getBuyableAmount('c', 12)).add(2))},
+            purchaseLimit: new Decimal(3),
             buy() {
-                player[this.layer].points = player[this.layer].points.sub(this.cost(getBuyableAmount('c', 12)).add(1))
-                setBuyableAmount('c', 12, getBuyableAmount('c', 12).add(1))
+                player[this.layer].points = player[this.layer].points.sub(this.cost(getBuyableAmount('c', 12)).add(2))
+                setBuyableAmount('c', 12, getBuyableAmount('c', 12).add(2))
             },
             display() {
-                return "multiplies essence gain by the amount of this upgrade bought.\nCurrently: " + (2 ** getBuyableAmount('c', 12)) + "x\n\nCost: " + getBuyableAmount('c', 12).add(1) + "\n\nBought: " + getBuyableAmount('c', 12)
+                return "multiplies essence gain by the amount of this upgrade bought.\nCurrently: " + (2 ** getBuyableAmount('c', 12)) + "x\n\nCost: " + getBuyableAmount('c', 12).add(2) + "\n\nBought: " + getBuyableAmount('c', 12)
             },
         },
     },
