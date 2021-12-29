@@ -145,6 +145,7 @@ addLayer("c", {
             cost(x) { return new Decimal(1).mul(x) },
             title: "Empowered Points",
             canAfford() { return player[this.layer].points.gte(this.cost(getBuyableAmount('c', 11)).add(1))},
+            purchaseLimit: new Decimal(6),
             buy() {
                 player[this.layer].points = player[this.layer].points.sub(this.cost(getBuyableAmount('c', 11)).add(1))
                 setBuyableAmount('c', 11, getBuyableAmount('c', 11).add(1))
