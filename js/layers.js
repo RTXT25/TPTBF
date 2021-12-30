@@ -336,7 +336,7 @@ addLayer("q", {
         points: new Decimal(0),
     }},
     color: "#DB5196",
-    requires: new Decimal(1e10), // Can be a function that takes requirement increases into account
+    requires: new Decimal(1e9), // Can be a function that takes requirement increases into account
     resource: "quarks", // Name of prestige currency
     baseResource: "essence", // Name of resource prestige is based on
     baseAmount() {return player['e'].points}, // Get the current amount of baseResource
@@ -426,6 +426,7 @@ addLayer("q", {
                return player[this.layer].points.add(1).pow(0.05)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            unlocked() { return hasUpgrade("q", 11) },
         },
         22: {
             title: "Very Quirky",
@@ -435,6 +436,7 @@ addLayer("q", {
                return player.points.add(1).pow(0.01)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            unlocked() { return hasUpgrade("q", 12) },
         },
         23: {
             title: "Quark Extreme",
@@ -444,6 +446,7 @@ addLayer("q", {
                return player[this.layer].points.add(1).pow(0.05)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            unlocked() { return hasUpgrade("q", 13) },
         },
         24: {
             title: "Recurring Quarks",
@@ -453,6 +456,7 @@ addLayer("q", {
                return player[this.layer].points.add(1).pow(0.1)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            unlocked() { return hasUpgrade("q", 14) },
         },
         25: {
             title: "Recurring More",
@@ -462,6 +466,7 @@ addLayer("q", {
                return player[this.layer].points.add(1).pow(0.2)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            unlocked() { return hasUpgrade("q", 15) },
         },
         31: {
             title: "Infinite Recur",
@@ -471,6 +476,7 @@ addLayer("q", {
                return player[this.layer].points.add(1).pow(0.35)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            unlocked() { return hasUpgrade("q", 21) },
         },
         32: {
             title: "Compact Quarks",
@@ -480,6 +486,7 @@ addLayer("q", {
                return player[this.layer].points.add(1).pow(0.15)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            unlocked() { return hasUpgrade("q", 22) },
         },
         33: {
             title: "Quark Fission",
@@ -489,6 +496,7 @@ addLayer("q", {
                return player[this.layer].points.add(1).pow(0.075)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            unlocked() { return hasUpgrade("q", 23) },
         },
         34: {
             title: "The Quark Count",
@@ -498,6 +506,7 @@ addLayer("q", {
                return player[this.layer].points.add(1).pow(0.1)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            unlocked() { return hasUpgrade("q", 24) },
         },
         35: {
             title: "Quark Counting",
@@ -507,6 +516,7 @@ addLayer("q", {
                return player[this.layer].points.add(1).pow(0.15)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            unlocked() { return hasUpgrade("q", 25) },
         },
     },
 });
