@@ -18,7 +18,7 @@ addLayer("e", {
     position: 0, // Horizontal position within a row. By default it uses the layer id and sorts in alphabetical order
     startData() { return {
         unlocked: true,
-		points: new Decimal(0),
+        points: new Decimal(0),
     }},
     color: "#4BDC13",
     branches: ["c", "q"],
@@ -32,6 +32,7 @@ addLayer("e", {
         mult = new Decimal(1)
         if (hasUpgrade('e', 13)) mult = mult.times(upgradeEffect('e', 13))
         if (hasUpgrade('e', 22)) mult = mult.times(upgradeEffect('e', 22))
+        if (hasUpgrade('c', 11)) mult = mult.times(upgradeEffect('c', 11))
         mult = mult.times((getBuyableAmount('e', 11) * 2.5) + 1)
         mult = mult.times(2 ** getBuyableAmount('c', 12))
         return mult
@@ -82,7 +83,7 @@ addLayer("e", {
             description: "multiplies essence gain by the amount of essence you have",
             cost: new Decimal(2000),
             effect() {
-               return player[this.layer].points.add(1).pow(0.05)
+               return player[this.layer].points.add(1).pow(0.1)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
         },
@@ -130,6 +131,7 @@ addLayer("c", {
     exponent: 0.3, // Prestige currency exponent
     gainMult() { // Calculate the multiplier for main currency from bonuses
         mult = new Decimal(1)
+        if (hasUpgrade('c', 12)) mult = mult.times(upgradeEffect('c', 12))
         return mult
     },
     gainExp() { // Calculate the exponent on main currency from bonuses
@@ -140,6 +142,35 @@ addLayer("c", {
         {key: "c", description: "C: Reset for cores", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
     layerShown(){return true},
+    upgrades: {
+        11: {
+            title: "Heat Emission",
+            description: "multiplies essence gain by the amount of cores you have",
+            cost: new Decimal(50),
+            effect() {
+               return player[this.layer].points.add(1).pow(0.2)
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+        },
+        12: {
+            title: "Core Countdown",
+            description: "multiplies core gain by the amount of points you have",
+            cost: new Decimal(250),
+            effect() {
+               return player.points.add(1).pow(0.01)
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+        },
+        13: {
+            title: "The Quarks' Core",
+            description: "multiplies quark gain by the amount of cores you have",
+            cost: new Decimal(1500),
+            effect() {
+               return player.points.add(1).pow(0.01)
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+        },
+    },
     buyables: {
         11: {
             cost(x) { return new Decimal(1).mul(x) },
@@ -178,7 +209,7 @@ addLayer("q", {
         points: new Decimal(0),
     }},
     color: "#DB5196",
-    requires: new Decimal(1e11), // Can be a function that takes requirement increases into account
+    requires: new Decimal(1.11e11), // Can be a function that takes requirement increases into account
     resource: "quarks", // Name of prestige currency
     baseResource: "essence", // Name of resource prestige is based on
     baseAmount() {return player['e'].points}, // Get the current amount of baseResource
@@ -186,6 +217,8 @@ addLayer("q", {
     exponent: 0.1, // Prestige currency exponent
     gainMult() { // Calculate the multiplier for main currency from bonuses
         mult = new Decimal(1)
+        if (hasUpgrade('c', 13)) mult = mult.times(upgradeEffect('c', 13))
+        if (hasUpgrade('q', 11)) mult = mult.times(upgradeEffect('q', 11))
         return mult
     },
     gainExp() { // Calculate the exponent on main currency from bonuses
@@ -195,5 +228,25 @@ addLayer("q", {
     hotkeys: [
         {key: "q", description: "Q: Reset for quarks", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
-    layerShown(){return true}
+    layerShown(){return true},
+    upgrades: {
+        11: {
+            title: "The Point of Quarks",
+            description: "multiplies quark gain by the amount of points you have",
+            cost: new Decimal(1),
+            effect() {
+               return player[this.layer].points.add(1).pow(0.1)
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+        },
+        12: {
+            title: "Quark Power",
+            description: "multiplies point gain by the amount of quarks you have",
+            cost: new Decimal(3),
+            effect() {
+               return player[this.layer].points.add(1).pow(0.9)
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+        },
+    },
 });
