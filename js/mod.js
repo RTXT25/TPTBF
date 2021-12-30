@@ -17,9 +17,9 @@ let VERSION = {
 
 let changelog = `<h1>Changelog:</h1><br>
 	<br><h3>v0.4: To Infinity</h3><br>
-		- Added ten more upgrades to essence.<br>
+		- Added eleven more upgrades to essence.<br>
 		- Added another buyable to essence.<br>
-		- Added five more upgrade to quarks.<br>
+		- Added fourteen more upgrade to quarks.<br>
 		- Balance changes.<br>
 	<br><h3>v0.3: Quark Addition</h3><br>
 		- Added quarks.<br>
@@ -67,8 +67,12 @@ function getPointGen() {
 	if (hasUpgrade('e', 51)) mult = mult.times(upgradeEffect('e', 51))
 	if (hasUpgrade('e', 53)) mult = mult.times(upgradeEffect('e', 53))
 	if (hasUpgrade('e', 61)) mult = mult.times(upgradeEffect('e', 61))
+		if (hasUpgrade('e', 62)) mult = mult.times(upgradeEffect('e', 62))
 	if (hasUpgrade('q', 12)) mult = mult.times(upgradeEffect('q', 12))
 		if (hasUpgrade('q', 13)) mult = mult.times(upgradeEffect('q', 13))
+	if (hasUpgrade('q', 34)) mult = mult.times(upgradeEffect('q', 34))
+		if (hasUpgrade('q', 35)) mult = mult.times(upgradeEffect('q', 35))
+			if (hasUpgrade('q', 41)) mult = mult.times(upgradeEffect('q', 41))
 	gain = gain.times(2.5 * getBuyableAmount('c', 11) + 1)
 	return gain
 }
