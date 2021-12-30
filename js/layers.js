@@ -98,7 +98,7 @@ addLayer("e", {
         },
         31: {
             title: "Infinite Recursion",
-            description: "boosts the effect of Recurring Recursion based on the amount of essence you have",
+            description: "boosts the effect of Recurring Recursion based on the amount of points you have",
             cost: new Decimal(1e10),
             effect() {
                return player.points.add(1).pow(0.01)
@@ -123,13 +123,13 @@ addLayer("e", {
         12: {
             cost(x) { return new Decimal(1).mul(x) },
             title: "Radiant Essence",
-            canAfford() { return player[this.layer].points.gte(this.cost(Math.pow(44, getBuyableAmount('e', 12)) + 14048223625216))},
+            canAfford() { return player[this.layer].points.gte(this.cost(10 * (Math.pow(44, getBuyableAmount('e', 12))) + 14048223625216))},
             buy() {
-                player[this.layer].points = player[this.layer].points.sub(this.cost(Math.pow(44, getBuyableAmount('e', 12)) + 14048223625216))
+                player[this.layer].points = player[this.layer].points.sub(this.cost(10 * (Math.pow(44, getBuyableAmount('e', 12))) + 14048223625216))
                 setBuyableAmount('e', 12, getBuyableAmount('e', 12).add(1))
             },
             display() {
-                return "multiplies core gain based on the amount of this upgrade bought.\nCurrently: " + ((getBuyableAmount('e', 12) * 1) + 1) + "x\n\nCost: " + (Math.pow(44, getBuyableAmount('e', 12)) + 14048223625216) + "\n\nBought: " + getBuyableAmount('e', 12)
+                return "multiplies core gain based on the amount of this upgrade bought.\nCurrently: " + ((getBuyableAmount('e', 12) * 1) + 1) + "x\n\nCost: " + (10 * (Math.pow(44, getBuyableAmount('e', 12))) + 14048223625216) + "\n\nBought: " + getBuyableAmount('e', 12)
             },
         },
     },
@@ -167,7 +167,7 @@ addLayer("c", {
     upgrades: {
         11: {
             title: "Heat Emission",
-            description: "multiplies essence gain by the amount of cores you have",
+            description: "multiplies essence gain based on the amount of cores you have",
             cost: new Decimal(50),
             effect() {
                return player[this.layer].points.add(1).pow(0.2)
@@ -176,7 +176,7 @@ addLayer("c", {
         },
         12: {
             title: "Core Countdown",
-            description: "multiplies core gain by the amount of points you have",
+            description: "multiplies core gain based on the amount of points you have",
             cost: new Decimal(250),
             effect() {
                return player.points.add(1).pow(0.01)
@@ -185,7 +185,7 @@ addLayer("c", {
         },
         13: {
             title: "The Quarks' Core",
-            description: "multiplies quark gain by the amount of cores you have",
+            description: "multiplies quark gain based on the amount of cores you have",
             cost: new Decimal(1500),
             effect() {
                return player[this.layer].points.add(1).pow(0.1)
@@ -204,7 +204,7 @@ addLayer("c", {
                 setBuyableAmount('c', 11, getBuyableAmount('c', 11).add(1))
             },
             display() {
-                return "multiplies point gain by the amount of this upgrade bought.\nCurrently: " + (2.5 * getBuyableAmount('c', 11) + 1) + "x\n\nCost: " + getBuyableAmount('c', 11).add(1) + "\n\nBought: " + getBuyableAmount('c', 11)
+                return "multiplies point gain based on the amount of this upgrade bought.\nCurrently: " + (2.5 * getBuyableAmount('c', 11) + 1) + "x\n\nCost: " + getBuyableAmount('c', 11).add(1) + "\n\nBought: " + getBuyableAmount('c', 11)
             },
         },
         12: {
@@ -216,7 +216,7 @@ addLayer("c", {
                 setBuyableAmount('c', 12, getBuyableAmount('c', 12).add(1))
             },
             display() {
-                return "multiplies essence gain by the amount of this upgrade bought.\nCurrently: " + (2 ** getBuyableAmount('c', 12)) + "x\n\nCost: " + Math.pow(5, getBuyableAmount('c', 12)) + "\n\nBought: " + getBuyableAmount('c', 12)
+                return "multiplies essence gain based on the amount of this upgrade bought.\nCurrently: " + (2 ** getBuyableAmount('c', 12)) + "x\n\nCost: " + Math.pow(5, getBuyableAmount('c', 12)) + "\n\nBought: " + getBuyableAmount('c', 12)
             },
         },
     },
@@ -254,7 +254,7 @@ addLayer("q", {
     upgrades: {
         11: {
             title: "The Point of Quarks",
-            description: "multiplies quark gain by the amount of points you have",
+            description: "multiplies quark gain based on the amount of points you have",
             cost: new Decimal(1),
             effect() {
                return player.points.add(1).pow(0.01)
@@ -263,7 +263,7 @@ addLayer("q", {
         },
         12: {
             title: "Quark Power",
-            description: "multiplies point gain by the amount of quarks you have",
+            description: "multiplies point gain based on the amount of quarks you have",
             cost: new Decimal(2),
             effect() {
                return player[this.layer].points.add(1).pow(0.9)
@@ -272,7 +272,7 @@ addLayer("q", {
         },
         13: {
             title: "Super Quarks",
-            description: "multiplies the effect of Quark Power by the amount of points you have",
+            description: "multiplies the effect of Quark Power based on the amount of points you have",
             cost: new Decimal(5),
             effect() {
                return player.points.add(1).pow(0.025)
