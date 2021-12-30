@@ -11,11 +11,15 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.4",
-	name: "To Infinity",
+	num: "0.5",
+	name: "How Many Miles",
 }
 
 let changelog = `<h1>Changelog:</h1><br>
+	<br><h3>v0.5: How Many Miles</h3><br>
+		- Added two milestones to cores.<br>
+		- Reduced max amounts of some buyables.<br>
+		- Other balance changes.<br>
 	<br><h3>v0.4: To Infinity</h3><br>
 		- Added five more upgrades to essence.<br>
 		- Added another buyable to essence.<br>

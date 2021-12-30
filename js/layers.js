@@ -56,9 +56,9 @@ addLayer("e", {
             let keep = [];
             if (hasMilestone("c", 0) && resettingLayer=="c") AA = "upgrades"
             else AA = ""
-            // if (hasMilestone("__", __) && resettingLayer=="g") keep.push("upgrades")
-            // if (hasAchievement(__)) keep.push("upgrades")
-            if (layers[resettingLayer].row > this.row) layerDataReset("e", [AA])
+            if (hasMilestone("c", 1) && resettingLayer=="c") AB = "buyables"
+            else AB = ""
+            if (layers[resettingLayer].row > this.row) layerDataReset("e", [AA, AB])
         },
     upgrades: {
         11: {
@@ -228,6 +228,11 @@ addLayer("c", {
         requirementDescription: "10 cores",
         effectDescription: "keep essence upgrades on core resets",
         done() { return player[this.layer].points.gte(10) }
+    },
+    1: {
+        requirementDescription: "10,000 cores",
+        effectDescription: "keep essence buyables on core resets",
+        done() { return player[this.layer].points.gte(10000) }
     },
 },
     upgrades: {
