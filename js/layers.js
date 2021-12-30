@@ -242,7 +242,7 @@ addLayer("q", {
         12: {
             title: "Quark Power",
             description: "multiplies point gain by the amount of quarks you have",
-            cost: new Decimal(3),
+            cost: new Decimal(2),
             effect() {
                return player[this.layer].points.add(1).pow(0.9)
             },
