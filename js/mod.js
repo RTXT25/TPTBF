@@ -17,9 +17,9 @@ let VERSION = {
 
 let changelog = `<h1>Changelog:</h1><br>
 	<br><h3>v0.4: To Infinity</h3><br>
-		- Added eleven more upgrades to essence.<br>
+		- Added five more upgrades to essence.<br>
 		- Added another buyable to essence.<br>
-		- Added fourteen more upgrade to quarks.<br>
+		- Added twelve more upgrades to quarks.<br>
 		- Balance changes.<br>
 	<br><h3>v0.3: Quark Addition</h3><br>
 		- Added quarks.<br>

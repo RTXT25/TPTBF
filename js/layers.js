@@ -79,7 +79,7 @@ addLayer("e", {
         21: {
             title: "Point Recursion",
             description: "multiplies point gain based on the amount of points you have",
-            cost: new Decimal(750),
+            cost: new Decimal(500),
             effect() {
                return player.points.add(1).pow(0.075)
             },
@@ -88,7 +88,7 @@ addLayer("e", {
         22: {
             title: "Essence of Essence",
             description: "multiplies essence gain based on the amount of essence you have",
-            cost: new Decimal(2000),
+            cost: new Decimal(1250),
             effect() {
                return player[this.layer].points.add(1).pow(0.1)
             },
@@ -97,7 +97,7 @@ addLayer("e", {
         23: {
             title: "Recurring Recursion",
             description: "boosts the effect of Point Recursion based on the amount of points you have",
-            cost: new Decimal(4000),
+            cost: new Decimal(3500),
             effect() {
                return player.points.add(1).pow(0.25)
             },
@@ -106,7 +106,7 @@ addLayer("e", {
         31: {
             title: "Infinite Recursion",
             description: "boosts the effect of Recurring Recursion based on the amount of points you have",
-            cost: new Decimal(1e10),
+            cost: new Decimal(1.11e11),
             effect() {
                return player.points.add(1).pow(0.01)
             },
@@ -115,7 +115,7 @@ addLayer("e", {
         32: {
             title: "Brilliant Essence",
             description: "boosts the effect of Radiant Essence based on the amount of essence you have",
-            cost: new Decimal(1e20),
+            cost: new Decimal(3.33e33),
             effect() {
                return player[this.layer].points.add(1).pow(0.005)
             },
@@ -124,7 +124,7 @@ addLayer("e", {
         33: {
             title: "Essence Network",
             description: "boosts the effect of Essence Influence based on the amount of essence you have",
-            cost: new Decimal(1e30),
+            cost: new Decimal(5.55e55),
             effect() {
                return player[this.layer].points.add(1).pow(0.05)
             },
@@ -133,7 +133,7 @@ addLayer("e", {
         41: {
             title: "Essence Recursion",
             description: "boosts the effect of Essence of Essence based on the amount of essence you have",
-            cost: new Decimal(1e40),
+            cost: new Decimal(7.77e77),
             effect() {
                return player[this.layer].points.add(1).pow(0.002)
             },
@@ -142,61 +142,7 @@ addLayer("e", {
         42: {
             title: "Essences to Infinity",
             description: "boosts the effect of Essence Recursion based on the amount of essence you have",
-            cost: new Decimal(1e50),
-            effect() {
-               return player[this.layer].points.add(1).pow(0.02)
-            },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
-        },
-        43: {
-            title: "The Grandest Essence",
-            description: "multiplies point gain and core gain based on the amount of essence you have",
-            cost: new Decimal(1e60),
-            effect() {
-               return player[this.layer].points.add(1).pow(0.005)
-            },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
-        },
-        51: {
-            title: "The Elusive Essence",
-            description: "multiplies point gain and quark gain based on the amount of essence you have",
-            cost: new Decimal(1e70),
-            effect() {
-               return player[this.layer].points.add(1).pow(0.002)
-            },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
-        },
-        52: {
-            title: "The Absolute Essence",
-            description: "multiplies essence gain based on the amount of points you have",
-            cost: new Decimal(1e80),
-            effect() {
-               return player.points.add(1).pow(0.02)
-            },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
-        },
-        53: {
-            title: "The Recursion Essence",
-            description: "multiplies essence gain based on the amount of essence you have",
-            cost: new Decimal(1e90),
-            effect() {
-               return player[this.layer].points.add(1).pow(0.0275)
-            },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
-        },
-        61: {
-            title: "The Very Essence of Nature",
-            description: "multiplies point gain, essence gain, core gain, and quark gain based on the amount of essence you have",
-            cost: new Decimal(1.11e111),
-            effect() {
-               return player[this.layer].points.add(1).pow(0.035)
-            },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
-        },
-        62: {
-            title: "The Extreme Essence of Existence",
-            description: "multiplies the effect of The Very Essence of Nature based its own effect and on the amount of essence you have",
-            cost: new Decimal(2e200),
+            cost: new Decimal(9.99e99),
             effect() {
                return player[this.layer].points.add(1).pow(0.02)
             },
@@ -242,7 +188,7 @@ addLayer("c", {
         points: new Decimal(0),
     }},
     color: "#C2C238",
-    requires: new Decimal(15000), // Can be a function that takes requirement increases into account
+    requires: new Decimal(10000), // Can be a function that takes requirement increases into account
     resource: "cores", // Name of prestige currency
     baseResource: "essence", // Name of resource prestige is based on
     baseAmount() {return player['e'].points}, // Get the current amount of baseResource
@@ -315,14 +261,14 @@ addLayer("c", {
         12: {
             cost(x) { return new Decimal(1).mul(x) },
             title: "Empowered Essence",
-            canAfford() { return player[this.layer].points.gte(this.cost(Math.pow(5.55, getBuyableAmount('c', 12))))},
-            purchaseLimit: new Decimal(99),
+            canAfford() { return player[this.layer].points.gte(this.cost(Math.pow(6, getBuyableAmount('c', 12))))},
+            purchaseLimit: new Decimal(49),
             buy() {
-                player[this.layer].points = player[this.layer].points.sub(this.cost(Math.pow(5.55, getBuyableAmount('c', 12))))
+                player[this.layer].points = player[this.layer].points.sub(this.cost(Math.pow(6, getBuyableAmount('c', 12))))
                 setBuyableAmount('c', 12, getBuyableAmount('c', 12).add(1))
             },
             display() {
-                return "multiplies essence gain based on the amount of this upgrade bought.\nCurrently: " + (2 ** getBuyableAmount('c', 12)) + "x\n\nCost: " + Math.pow(5.55, getBuyableAmount('c', 12)) + "\n\nBought: " + getBuyableAmount('c', 12)
+                return "multiplies essence gain based on the amount of this upgrade bought.\nCurrently: " + (2 ** getBuyableAmount('c', 12)) + "x\n\nCost: " + Math.pow(6, getBuyableAmount('c', 12)) + "\n\nBought: " + getBuyableAmount('c', 12)
             },
         },
     },
@@ -499,15 +445,6 @@ addLayer("q", {
             cost: new Decimal(1.525878906e27),
             effect() {
                return player[this.layer].points.add(1).pow(0.15)
-            },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
-        },
-        41: {
-            title: "Count Recursion",
-            description: "multiplies the effect of Quark Counting based on the amount of points you have",
-            cost: new Decimal(1.907348633e32),
-            effect() {
-               return player.points.add(1).pow(0.01)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
         },
