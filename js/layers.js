@@ -88,6 +88,7 @@ addLayer("e", {
                return player[this.layer].points.add(1).pow(0.5)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            unlocked() { return hasUpgrade("e", 11) },
         },
         13: {
             title: "Influenced Essence",
@@ -97,6 +98,7 @@ addLayer("e", {
                 return player.points.add(1).pow(0.15)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            unlocked() { return hasUpgrade("e", 12) },
         },
         21: {
             title: "Point Recursion",
@@ -106,6 +108,7 @@ addLayer("e", {
                return player.points.add(1).pow(0.075)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            unlocked() { return hasUpgrade("e", 13) },
         },
         22: {
             title: "Essence of Essence",
@@ -115,6 +118,7 @@ addLayer("e", {
                return player[this.layer].points.add(1).pow(0.1)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            unlocked() { return hasUpgrade("e", 21) },
         },
         23: {
             title: "Recurring Recursion",
@@ -124,6 +128,7 @@ addLayer("e", {
                return player.points.add(1).pow(0.25)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            unlocked() { return hasUpgrade("e", 22) },
         },
         31: {
             title: "Infinite Recursion",
@@ -133,6 +138,7 @@ addLayer("e", {
                return player.points.add(1).pow(0.01)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            unlocked() { return hasMilestone("q", 0) },
         },
         32: {
             title: "Brilliant Essence",
@@ -142,6 +148,7 @@ addLayer("e", {
                return player[this.layer].points.add(1).pow(0.005)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            unlocked() { return hasUpgrade("e", 31) },
         },
         33: {
             title: "Essence Network",
@@ -151,6 +158,7 @@ addLayer("e", {
                return player[this.layer].points.add(1).pow(0.05)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            unlocked() { return hasUpgrade("e", 32) },
         },
         41: {
             title: "Essence Recursion",
@@ -160,6 +168,7 @@ addLayer("e", {
                return player[this.layer].points.add(1).pow(0.002)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            unlocked() { return hasUpgrade("e", 33) },
         },
         42: {
             title: "Essences to Infinity",
@@ -169,6 +178,7 @@ addLayer("e", {
                return player[this.layer].points.add(1).pow(0.02)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            unlocked() { return hasUpgrade("e", 41) },
         },
     },
     buyables: {
@@ -247,8 +257,8 @@ addLayer("c", {
         requirementDescription: "1,000 cores",
         effectDescription: "keep essence buyables on core resets",
         done() { return player[this.layer].points.gte(1000) }
+        },
     },
-},
     upgrades: {
         11: {
             title: "Heat Emission",
@@ -346,6 +356,13 @@ addLayer("q", {
         {key: "q", description: "Q: Reset for quarks", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
     layerShown(){return true},
+    milestones: {
+    0: {
+        requirementDescription: "5 quarks",
+        effectDescription: "you can explore further essence upgrades",
+        done() { return player[this.layer].points.gte(5) }
+        },
+    },
     upgrades: {
         11: {
             title: "The Point of Quarks",
