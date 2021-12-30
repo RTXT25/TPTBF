@@ -16,15 +16,15 @@ let VERSION = {
 }
 
 let changelog = `<h1>Changelog:</h1><br>
-	<br><h3>v0.3: Quark Addition</h3><br>
-		- Added one more upgrade to essence.<br>
+	<br><h3>v0.4: To Infinity</h3><br>
+		- Added five more upgrades to essence.<br>
 		- Added another buyable to essence.<br>
-		- Added one more upgrade to quarks.<br>
+		- Added four more upgrade to quarks.<br>
 		- Balance changes.<br>
 	<br><h3>v0.3: Quark Addition</h3><br>
 		- Added quarks.<br>
 		- Added three upgrades to cores.<br>
-		- Added two upgrades to quarks.<br>
+		- Added three upgrades to quarks.<br>
 		- Balance changes.<br>
 	<br><h3>v0.2: Core Update</h3><br>
 		- Added cores.<br>
@@ -59,6 +59,7 @@ function getPointGen() {
 	let gain = new Decimal(1)
 	if (hasUpgrade('e', 11)) gain = gain.times(1.5)
 	if (hasUpgrade('e', 12)) gain = gain.times(upgradeEffect('e', 12))
+		if (hasUpgrade('e', 33)) gain = gain.times(upgradeEffect('e', 33))
 	if (hasUpgrade('e', 21)) gain = gain.times(upgradeEffect('e', 21))
 		if (hasUpgrade('e', 23)) gain = gain.times(upgradeEffect('e', 31))
 			if (hasUpgrade('e', 31)) gain = gain.times(upgradeEffect('e', 23))
