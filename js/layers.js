@@ -55,7 +55,7 @@ addLayer("e", {
             if (hasUpgrade('q', 15)) mult = mult.times(upgradeEffect('q', 15))
         if (hasUpgrade('q', 32)) mult = mult.times(upgradeEffect('q', 32))
         mult = mult.times((getBuyableAmount('e', 11) * 2.5) + 1)
-        mult = mult.times((getBuyableAmount('e', 12) * 0.1) + 1)
+        mult = mult.times(Math.pow(getBuyableAmount('e', 12), 0.25) + 1)
         mult = mult.times(2 ** getBuyableAmount('c', 12))
         return mult
     },
@@ -69,11 +69,13 @@ addLayer("e", {
     layerShown(){return true},
         doReset(resettingLayer) {
             let keep = [];
-            if (hasMilestone("c", 0) && resettingLayer=="c") AA = "upgrades"
-            else AA = ""
-            if (hasMilestone("c", 2) && resettingLayer=="c") AB = "buyables"
-            else AB = ""
-            if (layers[resettingLayer].row > this.row) layerDataReset("e", [AA, AB])
+            if (hasMilestone("c", 0) && resettingLayer=="c") ceU = "upgrades"
+            else ceU = ""
+            if (hasMilestone("c", 2) && resettingLayer=="c") ceB = "buyables"
+            else ceB = ""
+            if (hasMilestone("q", 1) && resettingLayer=="q") qeU = "upgrades"
+            else qeU = ""
+            if (layers[resettingLayer].row > this.row) layerDataReset("e", [ceU, ceB, qeU])
         },
     upgrades: {
         11: {
@@ -206,7 +208,7 @@ addLayer("e", {
                 setBuyableAmount('e', 12, getBuyableAmount('e', 12).add(1))
             },
             display() {
-                return "multiplies core gain (and essence gain at a reduced rate) based on the amount of this upgrade bought.\nCurrently: " + ((getBuyableAmount('e', 12) * 1) + 1) + "x\nand " + ((getBuyableAmount('e', 12) * 0.1) + 1) + "x\n\nCost: " + (10 * (Math.pow(44, getBuyableAmount('e', 12))) + 85184) + "\n\nBought: " + getBuyableAmount('e', 12)
+                return "multiplies core gain (and essence gain at a reduced rate) based on the amount of this upgrade bought.\nCurrently: " + ((getBuyableAmount('e', 12) * 1) + 1) + "x\nand " + (Math.pow(getBuyableAmount('e', 12), 0.25) + 1) + "x\n\nCost: " + (10 * (Math.pow(44, getBuyableAmount('e', 12))) + 85184) + "\n\nBought: " + getBuyableAmount('e', 12)
             },
         },
     },
@@ -366,10 +368,15 @@ addLayer("q", {
     ],
     layerShown(){return true},
     milestones: {
-    0: {
-        requirementDescription: "5 quarks",
-        effectDescription: "you can explore further essence upgrades",
-        done() { return player[this.layer].points.gte(5) }
+        0: {
+            requirementDescription: "5 quarks",
+            effectDescription: "you can explore further essence upgrades",
+            done() { return player[this.layer].points.gte(5) }
+        },
+        1: {
+            requirementDescription: "50,000 quarks",
+            effectDescription: "keep essence upgrades on quark resets",
+            done() { return player[this.layer].points.gte(50000) }
         },
     },
     upgrades: {
@@ -390,133 +397,137 @@ addLayer("q", {
                return player[this.layer].points.add(1).pow(0.9)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            unlocked() { return hasUpgrade("q", 11) },
         },
         13: {
             title: "Super Quarks",
             description: "multiplies the effect of Quark Power based on the amount of points you have",
-            cost: new Decimal(10),
+            cost: new Decimal(25),
             effect() {
                return player.points.add(1).pow(0.025)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            unlocked() { return hasUpgrade("q", 12) },
         },
         14: {
             title: "Essence of Quarks",
             description: "Quark Power also affects essence gain at a reduced rate (super quarks does not affect this)",
-            cost: new Decimal(50),
+            cost: new Decimal(100),
             effect() {
                return player[this.layer].points.add(1).pow(0.2)
-            },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
-        },
-        15: {
-            title: "Quark Fusion",
-            description: "multiplies the effect of Essence of Quarks based on the amount of cores you have",
-            cost: new Decimal(2500),
-            effect() {
-               return player['c'].points.add(1).pow(0.02)
-            },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
-        },
-        21: {
-            title: "Quirky Quarks",
-            description: "multiplies core gain and quark gain based on the amount of quarks you have",
-            cost: new Decimal(125000),
-            effect() {
-               return player[this.layer].points.add(1).pow(0.05)
-            },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
-            unlocked() { return hasUpgrade("q", 11) },
-        },
-        22: {
-            title: "Very Quirky",
-            description: "multiplies the effect of Quirky Quarks based on the amount of points you have",
-            cost: new Decimal(6250000),
-            effect() {
-               return player.points.add(1).pow(0.01)
-            },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
-            unlocked() { return hasUpgrade("q", 12) },
-        },
-        23: {
-            title: "Quark Extreme",
-            description: "Quark Power also affects quark gain at a reduced rate (super quarks does not affect this)",
-            cost: new Decimal(312500000),
-            effect() {
-               return player[this.layer].points.add(1).pow(0.05)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
             unlocked() { return hasUpgrade("q", 13) },
         },
-        24: {
-            title: "Recurring Quarks",
-            description: "multiplies the effect of Quark Extreme based on the amount of quarks you have",
-            cost: new Decimal(15625000000),
+        15: {
+            title: "Quark Fusion",
+            description: "multiplies the effect of Essence of Quarks based on the amount of cores you have",
+            cost: new Decimal(750),
             effect() {
-               return player[this.layer].points.add(1).pow(0.1)
+               return player['c'].points.add(1).pow(0.02)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
             unlocked() { return hasUpgrade("q", 14) },
         },
-        25: {
-            title: "Recurring More",
-            description: "multiplies the effect of Recurring Quarks based on the amount of quarks you have",
-            cost: new Decimal(781250000000),
+        21: {
+            title: "Quirky Quarks",
+            description: "multiplies core gain and quark gain based on the amount of quarks you have",
+            cost: new Decimal(2500),
             effect() {
-               return player[this.layer].points.add(1).pow(0.2)
+               return player[this.layer].points.add(1).pow(0.05)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
             unlocked() { return hasUpgrade("q", 15) },
         },
-        31: {
-            title: "Infinite Recur",
-            description: "multiplies the effect of Recurring More based on the amount of quarks you have",
-            cost: new Decimal(39062500000000),
+        22: {
+            title: "Very Quirky",
+            description: "multiplies the effect of Quirky Quarks based on the amount of points you have",
+            cost: new Decimal(7500),
             effect() {
-               return player[this.layer].points.add(1).pow(0.35)
+               return player.points.add(1).pow(0.02)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
             unlocked() { return hasUpgrade("q", 21) },
         },
-        32: {
-            title: "Compact Quarks",
-            description: "multiplies essence gain based on the amount of quarks you have",
-            cost: new Decimal(1.953125e15),
-            effect() {
-               return player[this.layer].points.add(1).pow(0.15)
-            },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
-            unlocked() { return hasUpgrade("q", 22) },
-        },
-        33: {
-            title: "Quark Fission",
-            description: "multiplies core gain based on the amount of quarks you have",
-            cost: new Decimal(4.8828125e18),
-            effect() {
-               return player[this.layer].points.add(1).pow(0.075)
-            },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
-            unlocked() { return hasUpgrade("q", 23) },
-        },
-        34: {
-            title: "The Quark Count",
-            description: "multiplies point gain based on the amount of quarks you have",
-            cost: new Decimal(1.220703125e22),
+        23: {
+            title: "Quark Extreme",
+            description: "Quark Power also affects quark gain at a reduced rate (super quarks does not affect this)",
+            cost: new Decimal(25000),
             effect() {
                return player[this.layer].points.add(1).pow(0.1)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            unlocked() { return hasUpgrade("q", 22) },
+        },
+        24: {
+            title: "Recurring Quarks",
+            description: "multiplies the effect of Quark Extreme based on the amount of quarks you have",
+            cost: new Decimal(100000),
+            effect() {
+               return player[this.layer].points.add(1).pow(0.2)
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            unlocked() { return hasUpgrade("q", 23) },
+        },
+        25: {
+            title: "Recurring More",
+            description: "multiplies the effect of Recurring Quarks based on the amount of quarks you have",
+            cost: new Decimal(1000000),
+            effect() {
+               return player[this.layer].points.add(1).pow(0.2)
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
             unlocked() { return hasUpgrade("q", 24) },
         },
-        35: {
-            title: "Quark Counting",
-            description: "multiplies the effect of The Quark Count based on the amount of quarks you have",
-            cost: new Decimal(1.525878906e27),
+        31: {
+            title: "Infinite Recur",
+            description: "multiplies the effect of Recurring More based on the amount of quarks you have",
+            cost: new Decimal(10000000),
+            effect() {
+               return player[this.layer].points.add(1).pow(0.35)
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            unlocked() { return hasUpgrade("q", 25) },
+        },
+        32: {
+            title: "Compact Quarks",
+            description: "multiplies essence gain based on the amount of quarks you have",
+            cost: new Decimal(100000000),
             effect() {
                return player[this.layer].points.add(1).pow(0.15)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
-            unlocked() { return hasUpgrade("q", 25) },
+            unlocked() { return hasUpgrade("q", 31) },
+        },
+        33: {
+            title: "Quark Fission",
+            description: "multiplies core gain based on the amount of quarks you have",
+            cost: new Decimal(1e9),
+            effect() {
+               return player[this.layer].points.add(1).pow(0.075)
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            unlocked() { return hasUpgrade("q", 32) },
+        },
+        34: {
+            title: "The Quark Count",
+            description: "multiplies point gain based on the amount of quarks you have",
+            cost: new Decimal(1e10),
+            effect() {
+               return player[this.layer].points.add(1).pow(0.1)
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            unlocked() { return hasUpgrade("q", 33) },
+        },
+        35: {
+            title: "Quark Counting",
+            description: "multiplies the effect of The Quark Count based on the amount of quarks you have",
+            cost: new Decimal(1e11),
+            effect() {
+               return player[this.layer].points.add(1).pow(0.15)
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            unlocked() { return hasUpgrade("q", 34) },
         },
     },
 });
