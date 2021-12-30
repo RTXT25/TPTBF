@@ -52,6 +52,14 @@ addLayer("e", {
         {key: "e", description: "E: Reset for essence", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
     layerShown(){return true},
+        doReset(resettingLayer) {
+            let keep = [];
+            if (hasMilestone("c", 0) && resettingLayer=="c") AA = "upgrades"
+            else AA = ""
+            // if (hasMilestone("__", __) && resettingLayer=="g") keep.push("upgrades")
+            // if (hasAchievement(__)) keep.push("upgrades")
+            if (layers[resettingLayer].row > this.row) layerDataReset("e", [AA])
+        },
     upgrades: {
         11: {
             title: "Faster Points",
@@ -215,11 +223,18 @@ addLayer("c", {
         {key: "c", description: "C: Reset for cores", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
     layerShown(){return true},
+    milestones: {
+    0: {
+        requirementDescription: "10 cores",
+        effectDescription: "keep essence upgrades on core resets",
+        done() { return player[this.layer].points.gte(10) }
+    },
+},
     upgrades: {
         11: {
             title: "Heat Emission",
             description: "multiplies essence gain based on the amount of cores you have",
-            cost: new Decimal(50),
+            cost: new Decimal(25),
             effect() {
                return player[this.layer].points.add(1).pow(0.2)
             },
@@ -228,7 +243,7 @@ addLayer("c", {
         12: {
             title: "Core Countdown",
             description: "multiplies core gain based on the amount of points you have",
-            cost: new Decimal(250),
+            cost: new Decimal(100),
             effect() {
                return player.points.add(1).pow(0.01)
             },
@@ -237,7 +252,7 @@ addLayer("c", {
         13: {
             title: "The Quarks' Core",
             description: "multiplies quark gain based on the amount of cores you have",
-            cost: new Decimal(1500),
+            cost: new Decimal(750),
             effect() {
                return player[this.layer].points.add(1).pow(0.1)
             },
