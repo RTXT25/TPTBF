@@ -1,13 +1,27 @@
 addLayer("A", {
+    startData() { return {
+        unlocked: true,
+    }},
     name: "Achievements",
     symbol: "A",
     position: "side",
     color: "#d1d1d1",
+    layerShown() {return true},
     achievements: {
         11: {
             name: "First Essence",
             done() {return player["e"].points >= 1},
             tooltip: "obtain 1 essence.",
+        },
+        21: {
+            name: "First Core",
+            done() {return player["c"].points >= 1},
+            tooltip: "obtain 1 core.",
+        },
+        31: {
+            name: "First Quark",
+            done() {return player["q"].points >= 1},
+            tooltip: "obtain 1 quark.",
         },
     },
 });
@@ -192,7 +206,7 @@ addLayer("c", {
     symbol: "C", // This appears on the layer's node. Default is the id with the first letter capitalized
     position: 0, // Horizontal position within a row. By default it uses the layer id and sorts in alphabetical order
     startData() { return {
-        unlocked: true,
+        unlocked: false,
         points: new Decimal(0),
     }},
     color: "#C2C238",
@@ -230,9 +244,9 @@ addLayer("c", {
         done() { return player[this.layer].points.gte(10) }
     },
     1: {
-        requirementDescription: "10,000 cores",
+        requirementDescription: "1,000 cores",
         effectDescription: "keep essence buyables on core resets",
-        done() { return player[this.layer].points.gte(10000) }
+        done() { return player[this.layer].points.gte(1000) }
     },
 },
     upgrades: {
@@ -299,11 +313,11 @@ addLayer("q", {
     symbol: "Q", // This appears on the layer's node. Default is the id with the first letter capitalized
     position: 1, // Horizontal position within a row. By default it uses the layer id and sorts in alphabetical order
     startData() { return {
-        unlocked: true,
+        unlocked: false,
         points: new Decimal(0),
     }},
     color: "#DB5196",
-    requires: new Decimal(1.11e11), // Can be a function that takes requirement increases into account
+    requires: new Decimal(1e10), // Can be a function that takes requirement increases into account
     resource: "quarks", // Name of prestige currency
     baseResource: "essence", // Name of resource prestige is based on
     baseAmount() {return player['e'].points}, // Get the current amount of baseResource
