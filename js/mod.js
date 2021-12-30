@@ -18,9 +18,8 @@ let VERSION = {
 let changelog = `<h1>Changelog:</h1><br>
 	<br><h3>v0.5: How Many Miles</h3><br>
 		- Added three milestones to cores.<br>
-		- Added one milestones to quarks.<br>
-		- Reduced max amounts of some buyables.<br>
-		- Other balance changes.<br>
+		- Added two milestones to quarks.<br>
+		- Balance changes.<br>
 	<br><h3>v0.4: To Infinity</h3><br>
 		- Added five more upgrades to essence.<br>
 		- Added another buyable to essence.<br>

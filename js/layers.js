@@ -472,7 +472,7 @@ addLayer("q", {
         25: {
             title: "Recurring More",
             description: "multiplies the effect of Recurring Quarks based on the amount of quarks you have",
-            cost: new Decimal(1000000),
+            cost: new Decimal(1500000),
             effect() {
                return player[this.layer].points.add(1).pow(0.2)
             },
@@ -482,7 +482,7 @@ addLayer("q", {
         31: {
             title: "Infinite Recur",
             description: "multiplies the effect of Recurring More based on the amount of quarks you have",
-            cost: new Decimal(10000000),
+            cost: new Decimal(15000000),
             effect() {
                return player[this.layer].points.add(1).pow(0.35)
             },
@@ -492,7 +492,7 @@ addLayer("q", {
         32: {
             title: "Compact Quarks",
             description: "multiplies essence gain based on the amount of quarks you have",
-            cost: new Decimal(100000000),
+            cost: new Decimal(150000000),
             effect() {
                return player[this.layer].points.add(1).pow(0.15)
             },
@@ -502,7 +502,7 @@ addLayer("q", {
         33: {
             title: "Quark Fission",
             description: "multiplies core gain based on the amount of quarks you have",
-            cost: new Decimal(1e9),
+            cost: new Decimal(1.5e9),
             effect() {
                return player[this.layer].points.add(1).pow(0.075)
             },
@@ -512,7 +512,7 @@ addLayer("q", {
         34: {
             title: "The Quark Count",
             description: "multiplies point gain based on the amount of quarks you have",
-            cost: new Decimal(1e10),
+            cost: new Decimal(1.5e10),
             effect() {
                return player[this.layer].points.add(1).pow(0.1)
             },
@@ -522,7 +522,7 @@ addLayer("q", {
         35: {
             title: "Quark Counting",
             description: "multiplies the effect of The Quark Count based on the amount of quarks you have",
-            cost: new Decimal(1e11),
+            cost: new Decimal(1.5e11),
             effect() {
                return player[this.layer].points.add(1).pow(0.15)
             },
