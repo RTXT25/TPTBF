@@ -19,6 +19,7 @@ let changelog = `<h1>Changelog:</h1><br>
 	<br><h3>v0.2: Core Update</h3><br>
 		- Added cores.<br>
 		- Added two buyables to cores.<br>
+		- Balance changes.<br>
 	<br><h3>v0.1: Game Launch</h3><br>
 		- Game Launch.<br>
 		- Changed layer 'e' exponent.<br>
@@ -50,7 +51,7 @@ function getPointGen() {
 	if (hasUpgrade('e', 12)) gain = gain.times(upgradeEffect('e', 12))
 	if (hasUpgrade('e', 21)) gain = gain.times(upgradeEffect('e', 21))
 	if (hasUpgrade('e', 23)) gain = gain.times(upgradeEffect('e', 23))
-	gain = gain.times(2 ** getBuyableAmount('c', 11))
+	gain = gain.times(2.5 * getBuyableAmount('c', 11) + 1)
 	return gain
 }
 
