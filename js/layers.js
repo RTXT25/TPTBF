@@ -74,7 +74,7 @@ addLayer("e", {
             description: "multiplies point gain by the amount of points you have",
             cost: new Decimal(750),
             effect() {
-               return player.points.add(1).pow(0.05)
+               return player.points.add(1).pow(0.075)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
         },
@@ -235,7 +235,7 @@ addLayer("q", {
             description: "multiplies quark gain by the amount of points you have",
             cost: new Decimal(1),
             effect() {
-               return player[this.layer].points.add(1).pow(0.1)
+               return player.points.add(1).pow(0.01)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
         },
@@ -245,6 +245,15 @@ addLayer("q", {
             cost: new Decimal(2),
             effect() {
                return player[this.layer].points.add(1).pow(0.9)
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+        },
+        13: {
+            title: "Super Quarks",
+            description: "multiplies the effect of Quark Power by the amount of points you have",
+            cost: new Decimal(5),
+            effect() {
+               return player.points.add(1).pow(0.025)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
         },
