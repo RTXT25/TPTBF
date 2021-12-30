@@ -11,15 +11,20 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.3",
-	name: "Quark Addition",
+	num: "0.4",
+	name: "To Infinity",
 }
 
 let changelog = `<h1>Changelog:</h1><br>
 	<br><h3>v0.3: Quark Addition</h3><br>
+		- Added one more upgrade to essence.<br>
+		- Added another buyable to essence.<br>
+		- Added one more upgrade to quarks.<br>
+		- Balance changes.<br>
+	<br><h3>v0.3: Quark Addition</h3><br>
 		- Added quarks.<br>
 		- Added three upgrades to cores.<br>
-		- Added three upgrades to quarks.<br>
+		- Added two upgrades to quarks.<br>
 		- Balance changes.<br>
 	<br><h3>v0.2: Core Update</h3><br>
 		- Added cores.<br>
@@ -55,7 +60,8 @@ function getPointGen() {
 	if (hasUpgrade('e', 11)) gain = gain.times(1.5)
 	if (hasUpgrade('e', 12)) gain = gain.times(upgradeEffect('e', 12))
 	if (hasUpgrade('e', 21)) gain = gain.times(upgradeEffect('e', 21))
-		if (hasUpgrade('e', 23)) gain = gain.times(upgradeEffect('e', 23))
+		if (hasUpgrade('e', 23)) gain = gain.times(upgradeEffect('e', 31))
+			if (hasUpgrade('e', 31)) gain = gain.times(upgradeEffect('e', 23))
 	if (hasUpgrade('q', 12)) mult = mult.times(upgradeEffect('q', 12))
 		if (hasUpgrade('q', 13)) mult = mult.times(upgradeEffect('q', 13))
 	gain = gain.times(2.5 * getBuyableAmount('c', 11) + 1)
