@@ -55,6 +55,7 @@ addLayer("e", {
             if (hasUpgrade('q', 15)) mult = mult.times(upgradeEffect('q', 15))
         if (hasUpgrade('q', 32)) mult = mult.times(upgradeEffect('q', 32))
         mult = mult.times((getBuyableAmount('e', 11) * 2.5) + 1)
+        mult = mult.times((getBuyableAmount('e', 12) * 0.1) + 1)
         mult = mult.times(2 ** getBuyableAmount('c', 12))
         return mult
     },
@@ -198,14 +199,14 @@ addLayer("e", {
         12: {
             cost(x) { return new Decimal(1).mul(x) },
             title: "Radiant Essence",
-            canAfford() { return player[this.layer].points.gte(this.cost(10 * (Math.pow(44, getBuyableAmount('e', 12))) + 14048223625216))},
+            canAfford() { return player[this.layer].points.gte(this.cost(10 * (Math.pow(44, getBuyableAmount('e', 12))) + 85184))},
             purchaseLimit: new Decimal(99),
             buy() {
-                player[this.layer].points = player[this.layer].points.sub(this.cost(10 * (Math.pow(44, getBuyableAmount('e', 12))) + 14048223625216))
+                player[this.layer].points = player[this.layer].points.sub(this.cost(10 * (Math.pow(44, getBuyableAmount('e', 12))) + 85184))
                 setBuyableAmount('e', 12, getBuyableAmount('e', 12).add(1))
             },
             display() {
-                return "multiplies essence gain and core gain based on the amount of this upgrade bought.\nCurrently: " + ((getBuyableAmount('e', 12) * 1) + 1) + "x\n\nCost: " + (10 * (Math.pow(44, getBuyableAmount('e', 12))) + 14048223625216) + "\n\nBought: " + getBuyableAmount('e', 12)
+                return "multiplies core gain (and essence gain at a reduced rate) based on the amount of this upgrade bought.\nCurrently: " + ((getBuyableAmount('e', 12) * 1) + 1) + "x\nand " + ((getBuyableAmount('e', 12) * 0.1) + 1) + "x\n\nCost: " + (10 * (Math.pow(44, getBuyableAmount('e', 12))) + 85184) + "\n\nBought: " + getBuyableAmount('e', 12)
             },
         },
     },
@@ -259,9 +260,9 @@ addLayer("c", {
         done() { return player[this.layer].points.gte(25) }
     },
     2: {
-        requirementDescription: "1,000 cores",
+        requirementDescription: "500 cores",
         effectDescription: "keep essence buyables on core resets",
-        done() { return player[this.layer].points.gte(1000) }
+        done() { return player[this.layer].points.gte(500) }
         },
     },
     upgrades: {
