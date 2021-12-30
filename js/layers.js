@@ -70,7 +70,7 @@ addLayer("e", {
             let keep = [];
             if (hasMilestone("c", 0) && resettingLayer=="c") AA = "upgrades"
             else AA = ""
-            if (hasMilestone("c", 1) && resettingLayer=="c") AB = "buyables"
+            if (hasMilestone("c", 2) && resettingLayer=="c") AB = "buyables"
             else AB = ""
             if (layers[resettingLayer].row > this.row) layerDataReset("e", [AA, AB])
         },
@@ -254,6 +254,11 @@ addLayer("c", {
         done() { return player[this.layer].points.gte(10) }
     },
     1: {
+        requirementDescription: "25 cores",
+        effectDescription: "unlock core upgrades",
+        done() { return player[this.layer].points.gte(25) }
+    },
+    2: {
         requirementDescription: "1,000 cores",
         effectDescription: "keep essence buyables on core resets",
         done() { return player[this.layer].points.gte(1000) }
@@ -268,6 +273,7 @@ addLayer("c", {
                return player[this.layer].points.add(1).pow(0.2)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            unlocked() { return hasMilestone("c", 1) },
         },
         12: {
             title: "Core Countdown",
@@ -277,6 +283,7 @@ addLayer("c", {
                return player.points.add(1).pow(0.01)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            unlocked() { return hasUpgrade("c", 11) },
         },
         13: {
             title: "The Quarks' Core",
@@ -286,6 +293,7 @@ addLayer("c", {
                return player[this.layer].points.add(1).pow(0.1)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            unlocked() { return hasUpgrade("c", 12) },
         },
     },
     buyables: {
