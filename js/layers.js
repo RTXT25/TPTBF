@@ -72,6 +72,8 @@ addLayer("e", {
         mult = mult.times((getBuyableAmount('e', 11) * 2.5) + 1)
         mult = mult.times(Math.pow(getBuyableAmount('e', 12), 0.25) + 1)
         mult = mult.times(2 ** getBuyableAmount('c', 12))
+        mult = mult.times((getBuyableAmount('sp', 12) * 1) + 1)
+        mult = mult.times(Math.pow(((getBuyableAmount('sp', 11) * 1) + 1), -1))
         return mult
     },
     gainExp() { // Calculate the exponent on main currency from bonuses
@@ -175,7 +177,7 @@ addLayer("e", {
             description: "boosts the effect of Essence Influence based on the amount of essence you have",
             cost: new Decimal(5.55e55),
             effect() {
-               return player[this.layer].points.add(1).pow(0.05)
+               return player[this.layer].points.add(1).pow(0.025)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
             unlocked() { return hasUpgrade("e", 32) },
@@ -355,6 +357,7 @@ addLayer("q", {
         points: new Decimal(0),
     }},
     color: "#DB5196",
+    branches: ["sp"],
     requires: new Decimal(1e9), // Can be a function that takes requirement increases into account
     resource: "quarks", // Name of prestige currency
     baseResource: "essence", // Name of resource prestige is based on
@@ -374,6 +377,8 @@ addLayer("q", {
             if (hasUpgrade('q', 24)) mult = mult.times(upgradeEffect('q', 24))
                 if (hasUpgrade('q', 25)) mult = mult.times(upgradeEffect('q', 25))
                     if (hasUpgrade('q', 31)) mult = mult.times(upgradeEffect('q', 31))
+        mult = mult.times((getBuyableAmount('sp', 11) * 1) + 1)
+        mult = mult.times(Math.pow(((getBuyableAmount('sp', 13) * 1) + 1), -1))
         return mult
     },
     gainExp() { // Calculate the exponent on main currency from bonuses
@@ -544,12 +549,94 @@ addLayer("q", {
         35: {
             title: "Quark Counting",
             description: "multiplies the effect of The Quark Count based on the amount of quarks you have",
-            cost: new Decimal(7.5e12),
+            cost: new Decimal(1e13),
             effect() {
                return player[this.layer].points.add(1).pow(0.15)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
             unlocked() { return hasUpgrade("q", 34) },
+        },
+    },
+});
+
+addLayer("sp", {
+    name: "Subatomic Particles", // This is optional, only used in a few places, If absent it just uses the layer id.
+    symbol: "SP", // This appears on the layer's node. Default is the id with the first letter capitalized
+    position: 1, // Horizontal position within a row. By default it uses the layer id and sorts in alphabetical order
+    startData() { return {
+        unlocked: false,
+        points: new Decimal(0),
+    }},
+    color: "#710CC4",
+    requires: new Decimal(5e13), // Can be a function that takes requirement increases into account
+    resource: "subatomic particles", // Name of prestige currency
+    baseResource: "quarks", // Name of resource prestige is based on
+    baseAmount() {return player['q'].points}, // Get the current amount of baseResource
+    type: "normal", // normal: cost to gain currency depends on amount gained. static: cost depends on how much you already have
+    exponent: 0.2, // Prestige currency exponent
+    gainMult() { // Calculate the multiplier for main currency from bonuses
+        mult = new Decimal(1)
+        return mult
+    },
+    gainExp() { // Calculate the exponent on main currency from bonuses
+        return new Decimal(1)
+    },
+    row: 2, // Row the layer is in on the tree (0 is the first row)
+    hotkeys: [
+        {key: "s", description: "S: Reset for subatomic particles", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
+    ],
+    layerShown(){return true},
+    milestones: {
+        0: {
+            requirementDescription: "1 subatomic particle",
+            effectDescription: "unlock Protons, Neutrons, and Electrons",
+            done() { return player[this.layer].points.gte(1) }
+        },
+        1: {
+            requirementDescription: "10 subatomic particles",
+            effectDescription: "keep essence upgrades and buyables on subatomic particle resets",
+            done() { return player[this.layer].points.gte(10) }
+        },
+    },
+    buyables: {
+        11: {
+            cost(x) { return new Decimal(1).mul(x) },
+            title: "Protons",
+            canAfford() { return player[this.layer].points.gte(this.cost((getBuyableAmount('sp', 11) * 1) + 1))},
+            buy() {
+                player[this.layer].points = player[this.layer].points.sub(this.cost((getBuyableAmount('sp', 11) * 1) + 1))
+                setBuyableAmount('sp', 11, ((getBuyableAmount('sp', 11) * 1) + 1))
+            },
+            display() {
+                return "multiplies quark gain (but also decreases essence gain at a reduced rate) based on the amount of this upgrade bought.\nCurrently: " + ((getBuyableAmount('sp', 11) * 1) + 1) + "x\nand " + (Math.pow(((getBuyableAmount('sp', 11) * 1) + 1), -1)) + "x\n\nCost: " + ((getBuyableAmount('sp', 11) * 1) + 1) + "\n\nBought: " + getBuyableAmount('sp', 11)
+            },
+            unlocked() { return hasMilestone("sp", 0) },
+        },
+        12: {
+            cost(x) { return new Decimal(1).mul(x) },
+            title: "Neutrons",
+            canAfford() { return player[this.layer].points.gte(this.cost((getBuyableAmount('sp', 12) * 1) + 1))},
+            buy() {
+                player[this.layer].points = player[this.layer].points.sub(this.cost((getBuyableAmount('sp', 12) * 1) + 1))
+                setBuyableAmount('sp', 12, ((getBuyableAmount('sp', 12) * 1) + 1))
+            },
+            display() {
+                return "multiplies essence gain (but also decreases point gain at a reduced rate) based on the amount of this upgrade bought.\nCurrently: " + ((getBuyableAmount('sp', 12) * 1) + 1) + "x\nand " + (Math.pow(((getBuyableAmount('sp', 12) * 1) + 1), -1)) + "x\n\nCost: " + ((getBuyableAmount('sp', 12) * 1) + 1) + "\n\nBought: " + getBuyableAmount('sp', 12)
+            },
+            unlocked() { return hasMilestone("sp", 0) },
+        },
+        13: {
+            cost(x) { return new Decimal(1).mul(x) },
+            title: "Electrons",
+            canAfford() { return player[this.layer].points.gte(this.cost((getBuyableAmount('sp', 13) * 1) + 1))},
+            buy() {
+                player[this.layer].points = player[this.layer].points.sub(this.cost((getBuyableAmount('sp', 13) * 1) + 1))
+                setBuyableAmount('sp', 13, ((getBuyableAmount('sp', 13) * 1) + 1))
+            },
+            display() {
+                return "multiplies point gain (but also decreases quark gain at a reduced rate) based on the amount of this upgrade bought.\nCurrently: " + ((getBuyableAmount('sp', 13) * 1) + 1) + "x\nand " + (Math.pow(((getBuyableAmount('sp', 13) * 1) + 1), -1)) + "x\n\nCost: " + ((getBuyableAmount('sp', 13) * 1) + 1) + "\n\nBought: " + getBuyableAmount('sp', 13)
+            },
+            unlocked() { return hasMilestone("sp", 0) },
         },
     },
 });

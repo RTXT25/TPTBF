@@ -11,14 +11,19 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.5",
-	name: "How Many Miles",
+	num: "0.6",
+	name: "Subatomic Layer",
 }
 
 let changelog = `<h1>Changelog:</h1><br>
+	<br><h3>v0.6: Subatomic Layer</h3><br>
+		- Added subatomic particles.<br>
+		- Added three buyables to subatomic particles.<br>
+		- Added two milestones to subatomic particles.<br>
+		- Balance changes.<br>
 	<br><h3>v0.5: How Many Miles</h3><br>
 		- Added three milestones to cores.<br>
-		- Added two milestones to quarks.<br>
+		- Added three milestones to quarks.<br>
 		- Balance changes.<br>
 	<br><h3>v0.4: To Infinity</h3><br>
 		- Added five more upgrades to essence.<br>
@@ -78,6 +83,8 @@ function getPointGen() {
 		if (hasUpgrade('q', 35)) mult = mult.times(upgradeEffect('q', 35))
 			if (hasUpgrade('q', 41)) mult = mult.times(upgradeEffect('q', 41))
 	gain = gain.times(2.5 * getBuyableAmount('c', 11) + 1)
+	gain = gain.times((getBuyableAmount('sp', 11) * 1) + 1)
+	gain = gain.times(Math.pow(((getBuyableAmount('sp', 12) * 1) + 1), -1))
 	return gain
 }
 
