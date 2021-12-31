@@ -43,6 +43,11 @@ addLayer("A", {
             done() {return player["sp"].points >= 1},
             tooltip: "obtain 1 subatomic particle.",
         },
+        41: {
+            name: "First Hex",
+            done() {return player["h"].points >= 1},
+            tooltip: "obtain 1 hex.",
+        },
     },
 });
 
@@ -103,7 +108,11 @@ addLayer("e", {
             else speU = ""
             if (hasMilestone("sp", 4) && resettingLayer=="sp") speB = "buyables"
             else speB = ""
-            if (layers[resettingLayer].row > this.row) layerDataReset("e", [ceU, ceB, qeU, qeB, speU, speB])
+            if (hasMilestone("h", 0) && resettingLayer=="h") heU = "upgrades"
+            else heU = ""
+            if (hasMilestone("h", 1) && resettingLayer=="h") heB = "buyables"
+            else heB = ""
+            if (layers[resettingLayer].row > this.row) layerDataReset("e", [ceU, ceB, qeU, qeB, speU, speB, heU, heB])
         },
     upgrades: {
         11: {
@@ -251,6 +260,7 @@ addLayer("c", {
         points: new Decimal(0),
     }},
     color: "#C2C238",
+    branches: ["h"],
     requires: new Decimal(10000), // Can be a function that takes requirement increases into account
     resource: "cores", // Name of prestige currency
     baseResource: "essence", // Name of resource prestige is based on
@@ -267,6 +277,10 @@ addLayer("c", {
         if (hasUpgrade('q', 21)) mult = mult.times(upgradeEffect('q', 21))
             if (hasUpgrade('q', 22)) mult = mult.times(upgradeEffect('q', 22))
         if (hasUpgrade('q', 33)) mult = mult.times(upgradeEffect('q', 33))
+        if (hasUpgrade('h', 13)) mult = mult.times(upgradeEffect('h', 13))
+            if (hasUpgrade('h', 23)) mult = mult.times(upgradeEffect('h', 23))
+        if (hasUpgrade('h', 14)) mult = mult.times(2)
+        if (hasUpgrade('h', 24)) mult = mult.times(4)
         mult = mult.times((getBuyableAmount('e', 12) * 1) + 1)
         return mult
     },
@@ -280,7 +294,15 @@ addLayer("c", {
     layerShown(){return true},
     doReset(resettingLayer) {
         let keep = [];
-            if (layers[resettingLayer].row > this.row) layerDataReset("c", [])
+            if (hasMilestone("h", 2) && resettingLayer=="h") hcU = "upgrades"
+            else hcU = ""
+            if (hasMilestone("h", 3) && resettingLayer=="h") hcB = "buyables"
+            else hcB = ""
+            if (hasMilestone("h", 4) && resettingLayer=="sp") spcU = "upgrades"
+            else spcU = ""
+            if (hasMilestone("h", 4) && resettingLayer=="sp") spcB = "buyables"
+            else spcB = ""
+            if (layers[resettingLayer].row > this.row) layerDataReset("c", [hcU, hcB, spcU, spcB])
         },
     milestones: {
         0: {
@@ -663,10 +685,14 @@ addLayer("sp", {
         {key: "s", description: "S: Reset for subatomic particles", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
     layerShown(){return true},
+    doReset(resettingLayer) {
+        let keep = [];
+            if (layers[resettingLayer].row > this.row) layerDataReset("sp", [])
+        },
     milestones: {
         0: {
             requirementDescription: "1 subatomic particle",
-            effectDescription: "can buy max subatomic particles",
+            effectDescription: "you can buy max subatomic particles",
             done() { return player[this.layer].points.gte(1) }
         },
         1: {
@@ -726,6 +752,176 @@ addLayer("sp", {
             display() {
                 return "multiplies point gain (but also decreases quark gain at a reduced rate) based on the amount of this upgrade bought.\nCurrently: " + (5 ** getBuyableAmount('sp', 13)) + "x\nand " + (((getBuyableAmount('sp', 13) * 1) + 1) ** -1) + "x\n\nCost: " + ((getBuyableAmount('sp', 13) * 1) + 1) + "\n\nBought: " + getBuyableAmount('sp', 13)
             },
+        },
+    },
+});
+
+addLayer("h", {
+    name: "Hexes", // This is optional, only used in a few places, If absent it just uses the layer id.
+    symbol: "H", // This appears on the layer's node. Default is the id with the first letter capitalized
+    position: 0, // Horizontal position within a row. By default it uses the layer id and sorts in alphabetical order
+    startData() { return {
+        unlocked: false,
+        points: new Decimal(0),
+    }},
+    color: "#E36409",
+    requires: new Decimal(1e60), // Can be a function that takes requirement increases into account
+    resource: "hexes", // Name of prestige currency
+    baseResource: "cores", // Name of resource prestige is based on
+    baseAmount() {return player['c'].points}, // Get the current amount of baseResource
+    type: "normal", // normal: cost to gain currency depends on amount gained. static: cost depends on how much you already have
+    exponent: 0.5, // Prestige currency exponent
+    gainMult() { // Calculate the multiplier for main currency from bonuses
+        mult = new Decimal(1)
+        if (hasUpgrade('h', 12)) mult = mult.times(upgradeEffect('h', 12))
+            if (hasUpgrade('h', 22)) mult = mult.times(upgradeEffect('h', 22))
+        if (hasUpgrade('h', 14)) mult = mult.times(2)
+        if (hasUpgrade('h', 24)) mult = mult.times(3)
+        return mult
+    },
+    gainExp() { // Calculate the exponent on main currency from bonuses
+        return new Decimal(1)
+    },
+    row: 2, // Row the layer is in on the tree (0 is the first row)
+    hotkeys: [
+        {key: "h", description: "H: Reset for hexes", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
+    ],
+    layerShown(){return true},
+    doReset(resettingLayer) {
+        let keep = [];
+            if (layers[resettingLayer].row > this.row) layerDataReset("h", [])
+        },
+    milestones: {
+        0: {
+            requirementDescription: "10 hexes",
+            effectDescription: "keep essence upgrades on hex resets",
+            done() { return player[this.layer].points.gte(10) }
+        },
+        1: {
+            requirementDescription: "100 hexes",
+            effectDescription: "keep essence buyables on hex resets",
+            done() { return player[this.layer].points.gte(100) }
+        },
+        2: {
+            requirementDescription: "1,000 hexes",
+            effectDescription: "keep core upgrades on hex resets",
+            done() { return player[this.layer].points.gte(1000) }
+        },
+        3: {
+            requirementDescription: "10,000 hexes",
+            effectDescription: "keep core buyables on hex resets",
+            done() { return player[this.layer].points.gte(10000) }
+        },
+        4: {
+            requirementDescription: "100,000 hexes",
+            effectDescription: "keep core upgrades and buyables on subatomic particle resets",
+            done() { return player[this.layer].points.gte(100000) }
+        },
+    },
+    upgrades: {
+        11: {
+            title: "Hex Leak",
+            description: "multiplies point gain based on the amount of hexes you have",
+            cost: new Decimal(1),
+            effect() {
+               return player[this.layer].points.add(1).pow(0.7)
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+        },
+        12: {
+            title: "Stronger Hexes",
+            description: "multiplies hex gain based on the amount of hexes you have",
+            cost: new Decimal(5),
+            effect() {
+               return player[this.layer].points.add(1).pow(0.1)
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+        },
+        13: {
+            title: "Hex Fusion",
+            description: "multiplies core gain based on the amount of hexes you have",
+            cost: new Decimal(10),
+            effect() {
+               return player[this.layer].points.add(1).pow(0.8)
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+        },
+        14: {
+            title: "Boost Hexes",
+            description: "Hex gain and core gain are doubled",
+            cost: new Decimal(25),
+        },
+        21: {
+            title: "Numerical Hexes",
+            description: "multiplies the effect of Hex Leak based on the amount of hexes you have",
+            cost: new Decimal(100),
+            effect() {
+               return player[this.layer].points.add(1).pow(0.25)
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            unlocked() { return hasUpgrade("h", 11) && hasUpgrade("h", 12) && hasUpgrade("h", 13) && hasUpgrade("h", 14) },
+        },
+        22: {
+            title: "Super Strong Hexes",
+            description: "multiplies the effect of Stronger Hexes based on the amount of hexes you have",
+            cost: new Decimal(500),
+            effect() {
+               return player[this.layer].points.add(1).pow(0.2)
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            unlocked() { return hasUpgrade("h", 11) && hasUpgrade("h", 12) && hasUpgrade("h", 13) && hasUpgrade("h", 14) },
+        },
+        23: {
+            title: "Hex Fission",
+            description: "multiplies the effect of Hex Fusion based on the amount of hexes you have",
+            cost: new Decimal(1000),
+            effect() {
+               return player[this.layer].points.add(1).pow(0.99)
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            unlocked() { return hasUpgrade("h", 11) && hasUpgrade("h", 12) && hasUpgrade("h", 13) && hasUpgrade("h", 14) },
+        },
+        24: {
+            title: "Super Boost Hexes",
+            description: "Hex gain is tripled and core gain is quadrupled",
+            cost: new Decimal(2500),
+            unlocked() { return hasUpgrade("h", 11) && hasUpgrade("h", 12) && hasUpgrade("h", 13) && hasUpgrade("h", 14) },
+        },
+        31: {
+            title: "Hex Numerals",
+            description: "multiplies the effect of Numerical Hexes based on the amount of points you have",
+            cost: new Decimal(10000),
+            effect() {
+               return player.points.add(1).pow(0.01)
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            unlocked() { return hasUpgrade("h", 21) && hasUpgrade("h", 22) && hasUpgrade("h", 23) && hasUpgrade("h", 24) },
+        },
+        32: {
+            title: "Very Strong Hexes",
+            description: "multiplies the effect of Super Strong Hexes based on the amount of hexes you have",
+            cost: new Decimal(50000),
+            effect() {
+               return player[this.layer].points.add(1).pow(0.25)
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            unlocked() { return hasUpgrade("h", 21) && hasUpgrade("h", 22) && hasUpgrade("h", 23) && hasUpgrade("h", 24) },
+        },
+        33: {
+            title: "Core of Hexes",
+            description: "multiplies the effect of Hex Fission based on the amount of cores you have",
+            cost: new Decimal(100000),
+            effect() {
+               return player[this.layer].points.add(1).pow(0.01)
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            unlocked() { return hasUpgrade("h", 21) && hasUpgrade("h", 22) && hasUpgrade("h", 23) && hasUpgrade("h", 24) },
+        },
+        34: {
+            title: "Ultra Boost Hexes",
+            description: "Hex gain is quadrupled and core gain is raised to the power of 1.5",
+            cost: new Decimal(250000),
+            unlocked() { return hasUpgrade("h", 21) && hasUpgrade("h", 22) && hasUpgrade("h", 23) && hasUpgrade("h", 24) },
         },
     },
 });
