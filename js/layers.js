@@ -15,7 +15,7 @@ addLayer("A", {
         },
         12: {
             name: "Much Essence",
-            done() {return player["e"].points >= new Decimal(1e10)},
+            done() {return player["e"].points >= Math.pow(10, 10)},
             tooltip: "obtain 1e10 essence.",
         },
         21: {
@@ -25,7 +25,7 @@ addLayer("A", {
         },
         22: {
             name: "Many Cores",
-            done() {return player["c"].points >= new Decimal(1e10)},
+            done() {return player["c"].points >= Math.pow(10, 10)},
             tooltip: "obtain 1e10 cores.",
         },
         31: {
@@ -35,7 +35,7 @@ addLayer("A", {
         },
         32: {
             name: "Lots of Quarks",
-            done() {return player["q"].points >= new Decimal(1e10)},
+            done() {return player["q"].points >= Math.pow(10, 10)},
             tooltip: "obtain 1e10 quarks.",
         },
     },
@@ -534,7 +534,7 @@ addLayer("q", {
         34: {
             title: "The Quark Count",
             description: "multiplies point gain based on the amount of quarks you have",
-            cost: new Decimal(1e11),
+            cost: new Decimal(2.5e11),
             effect() {
                return player[this.layer].points.add(1).pow(0.1)
             },
@@ -544,7 +544,7 @@ addLayer("q", {
         35: {
             title: "Quark Counting",
             description: "multiplies the effect of The Quark Count based on the amount of quarks you have",
-            cost: new Decimal(1e12),
+            cost: new Decimal(7.5e12),
             effect() {
                return player[this.layer].points.add(1).pow(0.15)
             },
