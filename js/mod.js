@@ -18,8 +18,8 @@ let VERSION = {
 let changelog = `<h1>Changelog:</h1><br>
 	<br><h3>v0.7: The Hex Game</h3><br>
 		- Added hexes.<br>
-		- Added five milestones to hexes.<br>
-		- Added eight upgrades to hexes.<br>
+		- Added six milestones to hexes.<br>
+		- Added twelve upgrades to hexes.<br>
 		- Balance changes.<br>
 	<br><h3>v0.6: Subatomic Layer</h3><br>
 		- Added subatomic particles.<br>
@@ -90,6 +90,7 @@ function getPointGen() {
 			if (hasUpgrade('q', 41)) mult = mult.times(upgradeEffect('q', 41))
 	if (hasUpgrade('h', 11)) mult = mult.times(upgradeEffect('h', 11))
 		if (hasUpgrade('h', 21)) mult = mult.times(upgradeEffect('h', 21))
+			if (hasUpgrade('h', 31)) mult = mult.times(upgradeEffect('h', 31))
 	gain = gain.times(2.5 * getBuyableAmount('c', 11) + 1)
 	gain = gain.times(5 ** getBuyableAmount('sp', 13))
 	gain = gain.times(((getBuyableAmount('sp', 12) * 1) + 1) ** -1)

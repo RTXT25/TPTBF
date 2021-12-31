@@ -279,8 +279,10 @@ addLayer("c", {
         if (hasUpgrade('q', 33)) mult = mult.times(upgradeEffect('q', 33))
         if (hasUpgrade('h', 13)) mult = mult.times(upgradeEffect('h', 13))
             if (hasUpgrade('h', 23)) mult = mult.times(upgradeEffect('h', 23))
+                if (hasUpgrade('h', 33)) mult = mult.times(upgradeEffect('h', 33))
         if (hasUpgrade('h', 14)) mult = mult.times(2)
         if (hasUpgrade('h', 24)) mult = mult.times(4)
+        if (hasUpgrade('h', 34)) mult = mult.pow(1.5)
         mult = mult.times((getBuyableAmount('e', 12) * 1) + 1)
         return mult
     },
@@ -302,7 +304,11 @@ addLayer("c", {
             else spcU = ""
             if (hasMilestone("h", 4) && resettingLayer=="sp") spcB = "buyables"
             else spcB = ""
-            if (layers[resettingLayer].row > this.row) layerDataReset("c", [hcU, hcB, spcU, spcB])
+            if (hasMilestone("h", 5) && resettingLayer=="h") hcM = "milestones"
+            else hcM = ""
+            if (hasMilestone("h", 5) && resettingLayer=="sp") spcM = "milestones"
+            else spcM = ""
+            if (layers[resettingLayer].row > this.row) layerDataReset("c", [hcU, hcB, spcU, spcB, hcM, spcM])
         },
     milestones: {
         0: {
@@ -431,7 +437,11 @@ addLayer("q", {
             let keep = [];
             if (hasMilestone("sp", 3) && resettingLayer=="sp") spqM = "milestones"
             else spqM = ""
-            if (layers[resettingLayer].row > this.row) layerDataReset("q", [spqM])
+            if (hasMilestone("h", 5) && resettingLayer=="h") hqM = "milestones"
+            else hqM = ""
+            if (hasMilestone("h", 5) && resettingLayer=="sp") spqM = "milestones"
+            else spqM = ""
+            if (layers[resettingLayer].row > this.row) layerDataReset("q", [spqM, hqM, spqM])
         },
     milestones: {
         0: {
@@ -775,8 +785,10 @@ addLayer("h", {
         mult = new Decimal(1)
         if (hasUpgrade('h', 12)) mult = mult.times(upgradeEffect('h', 12))
             if (hasUpgrade('h', 22)) mult = mult.times(upgradeEffect('h', 22))
+                if (hasUpgrade('h', 32)) mult = mult.times(upgradeEffect('h', 32))
         if (hasUpgrade('h', 14)) mult = mult.times(2)
         if (hasUpgrade('h', 24)) mult = mult.times(3)
+        if (hasUpgrade('h', 34)) mult = mult.times(4)
         return mult
     },
     gainExp() { // Calculate the exponent on main currency from bonuses
@@ -816,6 +828,11 @@ addLayer("h", {
             requirementDescription: "100,000 hexes",
             effectDescription: "keep core upgrades and buyables on subatomic particle resets",
             done() { return player[this.layer].points.gte(100000) }
+        },
+        5: {
+            requirementDescription: "1,000,000 hexes",
+            effectDescription: "keep all row 2 milestones on hex and subatomic particle resets",
+            done() { return player[this.layer].points.gte(1000000) }
         },
     },
     upgrades: {
