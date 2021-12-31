@@ -13,15 +13,30 @@ addLayer("A", {
             done() {return player["e"].points >= 1},
             tooltip: "obtain 1 essence.",
         },
+        12: {
+            name: "Much Essence",
+            done() {return player["e"].points >= new Decimal(1e10)},
+            tooltip: "obtain 1e10 essence.",
+        },
         21: {
             name: "First Core",
             done() {return player["c"].points >= 1},
             tooltip: "obtain 1 core.",
         },
+        22: {
+            name: "Many Cores",
+            done() {return player["c"].points >= new Decimal(1e10)},
+            tooltip: "obtain 1e10 cores.",
+        },
         31: {
             name: "First Quark",
             done() {return player["q"].points >= 1},
             tooltip: "obtain 1 quark.",
+        },
+        32: {
+            name: "Lots of Quarks",
+            done() {return player["q"].points >= new Decimal(1e10)},
+            tooltip: "obtain 1e10 quarks.",
         },
     },
 });
@@ -148,7 +163,7 @@ addLayer("e", {
             description: "boosts the effect of Radiant Essence based on the amount of essence you have",
             cost: new Decimal(3.33e33),
             effect() {
-               return player[this.layer].points.add(1).pow(0.005)
+               return player[this.layer].points.add(1).pow(0.01)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
             unlocked() { return hasUpgrade("e", 31) },
@@ -378,6 +393,11 @@ addLayer("q", {
             effectDescription: "keep essence upgrades on quark resets",
             done() { return player[this.layer].points.gte(50000) }
         },
+        2: {
+            requirementDescription: "250,000,000 quarks",
+            effectDescription: "keep essence buyables on quark resets",
+            done() { return player[this.layer].points.gte(250000000) }
+        },
     },
     upgrades: {
         11: {
@@ -474,7 +494,7 @@ addLayer("q", {
             description: "multiplies the effect of Recurring Quarks based on the amount of quarks you have",
             cost: new Decimal(1500000),
             effect() {
-               return player[this.layer].points.add(1).pow(0.2)
+               return player[this.layer].points.add(1).pow(0.05)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
             unlocked() { return hasUpgrade("q", 24) },
@@ -482,9 +502,9 @@ addLayer("q", {
         31: {
             title: "Infinite Recur",
             description: "multiplies the effect of Recurring More based on the amount of quarks you have",
-            cost: new Decimal(15000000),
+            cost: new Decimal(50000000),
             effect() {
-               return player[this.layer].points.add(1).pow(0.35)
+               return player[this.layer].points.add(1).pow(0.01)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
             unlocked() { return hasUpgrade("q", 25) },
@@ -492,7 +512,7 @@ addLayer("q", {
         32: {
             title: "Compact Quarks",
             description: "multiplies essence gain based on the amount of quarks you have",
-            cost: new Decimal(150000000),
+            cost: new Decimal(1e9),
             effect() {
                return player[this.layer].points.add(1).pow(0.15)
             },
@@ -502,7 +522,7 @@ addLayer("q", {
         33: {
             title: "Quark Fission",
             description: "multiplies core gain based on the amount of quarks you have",
-            cost: new Decimal(1.5e9),
+            cost: new Decimal(1e10),
             effect() {
                return player[this.layer].points.add(1).pow(0.075)
             },
@@ -512,7 +532,7 @@ addLayer("q", {
         34: {
             title: "The Quark Count",
             description: "multiplies point gain based on the amount of quarks you have",
-            cost: new Decimal(1.5e10),
+            cost: new Decimal(1e11),
             effect() {
                return player[this.layer].points.add(1).pow(0.1)
             },
@@ -522,7 +542,7 @@ addLayer("q", {
         35: {
             title: "Quark Counting",
             description: "multiplies the effect of The Quark Count based on the amount of quarks you have",
-            cost: new Decimal(1.5e11),
+            cost: new Decimal(1e12),
             effect() {
                return player[this.layer].points.add(1).pow(0.15)
             },
