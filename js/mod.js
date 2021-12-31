@@ -84,7 +84,7 @@ function getPointGen() {
 		if (hasUpgrade('q', 35)) mult = mult.times(upgradeEffect('q', 35))
 			if (hasUpgrade('q', 41)) mult = mult.times(upgradeEffect('q', 41))
 	gain = gain.times(2.5 * getBuyableAmount('c', 11) + 1)
-	gain = gain.times(Math.pow(5, getBuyableAmount('sp', 13)))
+	gain = gain.times(5 ** getBuyableAmount('sp', 13))
 	gain = gain.times(((getBuyableAmount('sp', 12) * 1) + 1) ** -1)
 	return gain
 }
