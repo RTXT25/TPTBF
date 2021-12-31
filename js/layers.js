@@ -435,13 +435,17 @@ addLayer("q", {
     layerShown(){return true},
         doReset(resettingLayer) {
             let keep = [];
-            if (hasMilestone("sp", 3) && resettingLayer=="sp") spqM = "milestones"
-            else spqM = ""
+            if (hasMilestone("sp", 3) && resettingLayer=="sp") spqM1 = "milestones"
+            else spqM1 = ""
             if (hasMilestone("h", 5) && resettingLayer=="h") hqM = "milestones"
             else hqM = ""
-            if (hasMilestone("h", 5) && resettingLayer=="sp") spqM = "milestones"
-            else spqM = ""
-            if (layers[resettingLayer].row > this.row) layerDataReset("q", [spqM, hqM, spqM])
+            if (hasMilestone("h", 5) && resettingLayer=="sp") spqM2 = "milestones"
+            else spqM2 = ""
+            if (hasMilestone("h", 6) && resettingLayer=="sp") spqU = "upgrades"
+            else spqU = ""
+            if (hasMilestone("h", 7) && resettingLayer=="h") hqU = "upgrades"
+            else hqU = ""
+            if (layers[resettingLayer].row > this.row) layerDataReset("q", [spqM1, hqM, spqM2, spqU, hqU])
         },
     milestones: {
         0: {
@@ -805,34 +809,49 @@ addLayer("h", {
         },
     milestones: {
         0: {
-            requirementDescription: "10 hexes",
+            requirementDescription: "5 hexes",
             effectDescription: "keep essence upgrades on hex resets",
-            done() { return player[this.layer].points.gte(10) }
+            done() { return player[this.layer].points.gte(5) }
         },
         1: {
-            requirementDescription: "100 hexes",
+            requirementDescription: "25 hexes",
             effectDescription: "keep essence buyables on hex resets",
-            done() { return player[this.layer].points.gte(100) }
+            done() { return player[this.layer].points.gte(25) }
         },
         2: {
-            requirementDescription: "1,000 hexes",
+            requirementDescription: "125 hexes",
             effectDescription: "keep core upgrades on hex resets",
-            done() { return player[this.layer].points.gte(1000) }
+            done() { return player[this.layer].points.gte(125) }
         },
         3: {
-            requirementDescription: "10,000 hexes",
+            requirementDescription: "625 hexes",
             effectDescription: "keep core buyables on hex resets",
-            done() { return player[this.layer].points.gte(10000) }
+            done() { return player[this.layer].points.gte(625) }
         },
         4: {
-            requirementDescription: "100,000 hexes",
+            requirementDescription: "3,125 hexes",
             effectDescription: "keep core upgrades and buyables on subatomic particle resets",
-            done() { return player[this.layer].points.gte(100000) }
+            done() { return player[this.layer].points.gte(3125) }
         },
         5: {
-            requirementDescription: "1,000,000 hexes",
+            requirementDescription: "15,625 hexes",
             effectDescription: "keep all row 2 milestones on hex and subatomic particle resets",
-            done() { return player[this.layer].points.gte(1000000) }
+            done() { return player[this.layer].points.gte(15625) }
+        },
+        6: {
+            requirementDescription: "78,125 hexes",
+            effectDescription: "keep quark upgrades on subatomic particle resets",
+            done() { return player[this.layer].points.gte(78125) }
+        },
+        7: {
+            requirementDescription: "390,625 hexes",
+            effectDescription: "keep quark upgrades on hex resets",
+            done() { return player[this.layer].points.gte(390625) }
+        },
+        8: {
+            requirementDescription: "1,953,125 hexes",
+            effectDescription: "you can explore further core upgrades (coming soon)",
+            done() { return player[this.layer].points.gte(1953125) }
         },
     },
     upgrades: {
