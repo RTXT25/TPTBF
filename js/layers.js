@@ -77,7 +77,7 @@ addLayer("e", {
         mult = mult.times((getBuyableAmount('e', 11) * 2.5) + 1)
         mult = mult.times(Math.pow(getBuyableAmount('e', 12), 0.25) + 1)
         mult = mult.times(2 ** getBuyableAmount('c', 12))
-        mult = mult.times(Math.pow(3, getBuyableAmount('sp', 12)))
+        mult = mult.times(Math.pow(5, getBuyableAmount('sp', 12)))
         mult = mult.times(Math.pow(((getBuyableAmount('sp', 11) * 1) + 1), -1))
         return mult
     },
@@ -89,8 +89,8 @@ addLayer("e", {
         {key: "e", description: "E: Reset for essence", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
     layerShown(){return true},
-        doReset(resettingLayer) {
-            let keep = [];
+    doReset(resettingLayer) {
+        let keep = [];
             if (hasMilestone("c", 0) && resettingLayer=="c") ceU = "upgrades"
             else ceU = ""
             if (hasMilestone("c", 2) && resettingLayer=="c") ceB = "buyables"
@@ -169,7 +169,7 @@ addLayer("e", {
                return player.points.add(1).pow(0.01)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
-            unlocked() { return hasMilestone("q", 0) },
+            unlocked() { return hasMilestone("q", 0) && hasUpgrade("e", 23) },
         },
         32: {
             title: "Brilliant Essence",
@@ -179,7 +179,7 @@ addLayer("e", {
                return player[this.layer].points.add(1).pow(0.01)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
-            unlocked() { return hasUpgrade("e", 31) },
+            unlocked() { return hasMilestone("q", 0) && hasUpgrade("e", 31) },
         },
         33: {
             title: "Essence Network",
@@ -189,7 +189,7 @@ addLayer("e", {
                return player[this.layer].points.add(1).pow(0.025)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
-            unlocked() { return hasUpgrade("e", 32) },
+            unlocked() { return hasMilestone("q", 0) && hasUpgrade("e", 32) },
         },
         41: {
             title: "Essence Recursion",
@@ -199,7 +199,7 @@ addLayer("e", {
                return player[this.layer].points.add(1).pow(0.002)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
-            unlocked() { return hasUpgrade("e", 33) },
+            unlocked() { return hasMilestone("q", 0) && hasUpgrade("e", 33) },
         },
         42: {
             title: "Essences to Infinity",
@@ -209,7 +209,7 @@ addLayer("e", {
                return player[this.layer].points.add(1).pow(0.02)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
-            unlocked() { return hasUpgrade("e", 41) },
+            unlocked() { return hasMilestone("q", 0) && hasUpgrade("e", 41) },
         },
     },
     buyables: {
@@ -279,26 +279,29 @@ addLayer("c", {
     ],
     layerShown(){return true},
     doReset(resettingLayer) {
-            let keep = [];
-            if (hasMilestone("sp", 4) && resettingLayer=="sp") spqU = "upgrades"
-            else spqU = ""
-            if (layers[resettingLayer].row > this.row) layerDataReset("e", [spqU])
+        let keep = [];
+            if (layers[resettingLayer].row > this.row) layerDataReset("c", [])
         },
     milestones: {
-    0: {
-        requirementDescription: "10 cores",
-        effectDescription: "keep essence upgrades on core resets",
-        done() { return player[this.layer].points.gte(10) }
-    },
-    1: {
-        requirementDescription: "25 cores",
-        effectDescription: "unlock core upgrades",
-        done() { return player[this.layer].points.gte(25) }
-    },
-    2: {
-        requirementDescription: "500 cores",
-        effectDescription: "keep essence buyables on core resets",
-        done() { return player[this.layer].points.gte(500) }
+        0: {
+            requirementDescription: "10 cores",
+            effectDescription: "keep essence upgrades on core resets",
+            done() { return player[this.layer].points.gte(10) }
+        },
+        1: {
+            requirementDescription: "25 cores",
+            effectDescription: "unlock core upgrades",
+            done() { return player[this.layer].points.gte(25) }
+        },
+        2: {
+            requirementDescription: "500 cores",
+            effectDescription: "keep essence buyables on core resets",
+            done() { return player[this.layer].points.gte(500) }
+        },
+        3: {
+            requirementDescription: "100,000,000 cores",
+            effectDescription: "you can buy max core buyables",
+            done() { return player[this.layer].points.gte(100000000) }
         },
     },
     upgrades: {
@@ -392,7 +395,7 @@ addLayer("q", {
             if (hasUpgrade('q', 24)) mult = mult.times(upgradeEffect('q', 24))
                 if (hasUpgrade('q', 25)) mult = mult.times(upgradeEffect('q', 25))
                     if (hasUpgrade('q', 31)) mult = mult.times(upgradeEffect('q', 31))
-        mult = mult.times(Math.pow(3, getBuyableAmount('sp', 11)))
+        mult = mult.times(Math.pow(5, getBuyableAmount('sp', 11)))
         mult = mult.times(Math.pow(((getBuyableAmount('sp', 13) * 1) + 1), -1))
         return mult
     },
@@ -404,6 +407,12 @@ addLayer("q", {
         {key: "q", description: "Q: Reset for quarks", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
     layerShown(){return true},
+        doReset(resettingLayer) {
+            let keep = [];
+            if (hasMilestone("sp", 4) && resettingLayer=="sp") spqM = "milestones"
+            else spqM = ""
+            if (layers[resettingLayer].row > this.row) layerDataReset("q", [spqM])
+        },
     milestones: {
         0: {
             requirementDescription: "5 quarks",
@@ -588,9 +597,9 @@ addLayer("sp", {
     baseResource: "quarks", // Name of resource prestige is based on
     baseAmount() {return player['q'].points}, // Get the current amount of baseResource
     type: "static", // normal: cost to gain currency depends on amount gained. static: cost depends on how much you already have
-    exponent: 0.2, // Prestige currency exponent
+    exponent: 4, // Prestige currency exponent
     canBuyMax() {
-        if (hasMilestone("sp", 1)) return true
+        if (hasMilestone("sp", 0)) return true
         else return false
     },
     gainMult() { // Calculate the multiplier for main currency from bonuses
@@ -628,7 +637,7 @@ addLayer("sp", {
         },
         4: {
             requirementDescription: "5 subatomic particles",
-            effectDescription: "keep quark upgrades on subatomic particle resets",
+            effectDescription: "keep quark milestones on subatomic particle resets",
             done() { return player[this.layer].points.gte(5) }
         },
     },
@@ -642,7 +651,7 @@ addLayer("sp", {
                 setBuyableAmount('sp', 11, ((getBuyableAmount('sp', 11) * 1) + 1))
             },
             display() {
-                return "multiplies quark gain (but also decreases essence gain at a reduced rate) based on the amount of this upgrade bought.\nCurrently: " + (Math.pow(3, getBuyableAmount('sp', 11))) + "x\nand " + (Math.pow(((getBuyableAmount('sp', 11) * 1) + 1), -1)) + "x\n\nCost: " + ((getBuyableAmount('sp', 11) * 1) + 1) + "\n\nBought: " + getBuyableAmount('sp', 11)
+                return "multiplies quark gain (but also decreases essence gain at a reduced rate) based on the amount of this upgrade bought.\nCurrently: " + (Math.pow(5, getBuyableAmount('sp', 11))) + "x\nand " + (Math.pow(((getBuyableAmount('sp', 11) * 1) + 1), -1)) + "x\n\nCost: " + ((getBuyableAmount('sp', 11) * 1) + 1) + "\n\nBought: " + getBuyableAmount('sp', 11)
             },
         },
         12: {
@@ -654,7 +663,7 @@ addLayer("sp", {
                 setBuyableAmount('sp', 12, ((getBuyableAmount('sp', 12) * 1) + 1))
             },
             display() {
-                return "multiplies essence gain (but also decreases point gain at a reduced rate) based on the amount of this upgrade bought.\nCurrently: " + (Math.pow(3, getBuyableAmount('sp', 12))) + "x\nand " + (Math.pow(((getBuyableAmount('sp', 12) * 1) + 1), -1)) + "x\n\nCost: " + ((getBuyableAmount('sp', 12) * 1) + 1) + "\n\nBought: " + getBuyableAmount('sp', 12)
+                return "multiplies essence gain (but also decreases point gain at a reduced rate) based on the amount of this upgrade bought.\nCurrently: " + (Math.pow(5, getBuyableAmount('sp', 12))) + "x\nand " + (Math.pow(((getBuyableAmount('sp', 12) * 1) + 1), -1)) + "x\n\nCost: " + ((getBuyableAmount('sp', 12) * 1) + 1) + "\n\nBought: " + getBuyableAmount('sp', 12)
             },
         },
         13: {
@@ -666,7 +675,7 @@ addLayer("sp", {
                 setBuyableAmount('sp', 13, ((getBuyableAmount('sp', 13) * 1) + 1))
             },
             display() {
-                return "multiplies point gain (but also decreases quark gain at a reduced rate) based on the amount of this upgrade bought.\nCurrently: " + (Math.pow(3, getBuyableAmount('sp', 13))) + "x\nand " + (Math.pow(((getBuyableAmount('sp', 13) * 1) + 1), -1)) + "x\n\nCost: " + ((getBuyableAmount('sp', 13) * 1) + 1) + "\n\nBought: " + getBuyableAmount('sp', 13)
+                return "multiplies point gain (but also decreases quark gain at a reduced rate) based on the amount of this upgrade bought.\nCurrently: " + (Math.pow(5, getBuyableAmount('sp', 13))) + "x\nand " + (Math.pow(((getBuyableAmount('sp', 13) * 1) + 1), -1)) + "x\n\nCost: " + ((getBuyableAmount('sp', 13) * 1) + 1) + "\n\nBought: " + getBuyableAmount('sp', 13)
             },
         },
     },
