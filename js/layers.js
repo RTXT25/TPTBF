@@ -90,7 +90,9 @@ addLayer("e", {
             else ceB = ""
             if (hasMilestone("q", 1) && resettingLayer=="q") qeU = "upgrades"
             else qeU = ""
-            if (layers[resettingLayer].row > this.row) layerDataReset("e", [ceU, ceB, qeU])
+            if (hasMilestone("q", 2) && resettingLayer=="q") qeB = "buyables"
+            else qeB = ""
+            if (layers[resettingLayer].row > this.row) layerDataReset("e", [ceU, ceB, qeU, qeB])
         },
     upgrades: {
         11: {
