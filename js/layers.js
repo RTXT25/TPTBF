@@ -78,7 +78,7 @@ addLayer("e", {
         mult = mult.times(Math.pow(getBuyableAmount('e', 12), 0.25) + 1)
         mult = mult.times(2 ** getBuyableAmount('c', 12))
         mult = mult.times(Math.pow(5, getBuyableAmount('sp', 12)))
-        mult = mult.times(Math.pow(((getBuyableAmount('sp', 11) * 1) + 1), -1))
+        mult = mult.times(((getBuyableAmount('sp', 11) * 1) + 1) ** -1)
         return mult
     },
     gainExp() { // Calculate the exponent on main currency from bonuses
@@ -298,11 +298,6 @@ addLayer("c", {
             effectDescription: "keep essence buyables on core resets",
             done() { return player[this.layer].points.gte(500) }
         },
-        3: {
-            requirementDescription: "100,000,000 cores",
-            effectDescription: "you can buy max core buyables",
-            done() { return player[this.layer].points.gte(100000000) }
-        },
     },
     upgrades: {
         11: {
@@ -399,7 +394,7 @@ addLayer("q", {
             if (hasUpgrade('q', 44)) mult = mult.times(upgradeEffect('q', 44))
         if (hasUpgrade('q', 45)) mult = mult.times(upgradeEffect('q', 45))
         mult = mult.times(Math.pow(5, getBuyableAmount('sp', 11)))
-        mult = mult.times(Math.pow(((getBuyableAmount('sp', 13) * 1) + 1), -1))
+        mult = mult.times(((getBuyableAmount('sp', 11) * 1) + 1) ** -1)
         return mult
     },
     gainExp() { // Calculate the exponent on main currency from bonuses
@@ -608,7 +603,7 @@ addLayer("q", {
             description: "multiplies subatomic particle gain based on the amount of quarks you have",
             cost: new Decimal(1e18),
             effect() {
-               return player[this.layer].points.add(1).pow(0.01)
+               return player[this.layer].points.add(1).pow(0.05)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
             unlocked() { return hasMilestone("sp", 2) && hasUpgrade("q", 42) },
@@ -705,7 +700,7 @@ addLayer("sp", {
                 setBuyableAmount('sp', 11, ((getBuyableAmount('sp', 11) * 1) + 1))
             },
             display() {
-                return "multiplies quark gain (but also decreases essence gain at a reduced rate) based on the amount of this upgrade bought.\nCurrently: " + (Math.pow(5, getBuyableAmount('sp', 11))) + "x\nand " + (Math.pow(((getBuyableAmount('sp', 11) * 1) + 1), -1)) + "x\n\nCost: " + ((getBuyableAmount('sp', 11) * 1) + 1) + "\n\nBought: " + getBuyableAmount('sp', 11)
+                return "multiplies quark gain (but also decreases essence gain at a reduced rate) based on the amount of this upgrade bought.\nCurrently: " + (Math.pow(5, getBuyableAmount('sp', 11))) + "x\nand " + (((getBuyableAmount('sp', 11) * 1) + 1) ** -1) + "x\n\nCost: " + ((getBuyableAmount('sp', 11) * 1) + 1) + "\n\nBought: " + getBuyableAmount('sp', 11)
             },
         },
         12: {
@@ -717,7 +712,7 @@ addLayer("sp", {
                 setBuyableAmount('sp', 12, ((getBuyableAmount('sp', 12) * 1) + 1))
             },
             display() {
-                return "multiplies essence gain (but also decreases point gain at a reduced rate) based on the amount of this upgrade bought.\nCurrently: " + (Math.pow(5, getBuyableAmount('sp', 12))) + "x\nand " + (Math.pow(((getBuyableAmount('sp', 12) * 1) + 1), -1)) + "x\n\nCost: " + ((getBuyableAmount('sp', 12) * 1) + 1) + "\n\nBought: " + getBuyableAmount('sp', 12)
+                return "multiplies essence gain (but also decreases point gain at a reduced rate) based on the amount of this upgrade bought.\nCurrently: " + (Math.pow(5, getBuyableAmount('sp', 12))) + "x\nand " + (((getBuyableAmount('sp', 12) * 1) + 1) ** -1) + "x\n\nCost: " + ((getBuyableAmount('sp', 12) * 1) + 1) + "\n\nBought: " + getBuyableAmount('sp', 12)
             },
         },
         13: {
@@ -729,7 +724,7 @@ addLayer("sp", {
                 setBuyableAmount('sp', 13, ((getBuyableAmount('sp', 13) * 1) + 1))
             },
             display() {
-                return "multiplies point gain (but also decreases quark gain at a reduced rate) based on the amount of this upgrade bought.\nCurrently: " + (Math.pow(5, getBuyableAmount('sp', 13))) + "x\nand " + (Math.pow(((getBuyableAmount('sp', 13) * 1) + 1), -1)) + "x\n\nCost: " + ((getBuyableAmount('sp', 13) * 1) + 1) + "\n\nBought: " + getBuyableAmount('sp', 13)
+                return "multiplies point gain (but also decreases quark gain at a reduced rate) based on the amount of this upgrade bought.\nCurrently: " + (Math.pow(5, getBuyableAmount('sp', 13))) + "x\nand " + (((getBuyableAmount('sp', 13) * 1) + 1) ** -1) + "x\n\nCost: " + ((getBuyableAmount('sp', 13) * 1) + 1) + "\n\nBought: " + getBuyableAmount('sp', 13)
             },
         },
     },
