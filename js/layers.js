@@ -101,7 +101,7 @@ addLayer("e", {
             else qeB = ""
             if (hasMilestone("sp", 1) && resettingLayer=="sp") speU = "upgrades"
             else speU = ""
-            if (hasMilestone("sp", 3) && resettingLayer=="sp") speB = "buyables"
+            if (hasMilestone("sp", 4) && resettingLayer=="sp") speB = "buyables"
             else speB = ""
             if (layers[resettingLayer].row > this.row) layerDataReset("e", [ceU, ceB, qeU, qeB, speU, speB])
         },
@@ -395,6 +395,9 @@ addLayer("q", {
             if (hasUpgrade('q', 24)) mult = mult.times(upgradeEffect('q', 24))
                 if (hasUpgrade('q', 25)) mult = mult.times(upgradeEffect('q', 25))
                     if (hasUpgrade('q', 31)) mult = mult.times(upgradeEffect('q', 31))
+        if (hasUpgrade('q', 42)) mult = mult.times(upgradeEffect('q', 42))
+            if (hasUpgrade('q', 44)) mult = mult.times(upgradeEffect('q', 44))
+        if (hasUpgrade('q', 45)) mult = mult.times(upgradeEffect('q', 45))
         mult = mult.times(Math.pow(5, getBuyableAmount('sp', 11)))
         mult = mult.times(Math.pow(((getBuyableAmount('sp', 13) * 1) + 1), -1))
         return mult
@@ -409,14 +412,14 @@ addLayer("q", {
     layerShown(){return true},
         doReset(resettingLayer) {
             let keep = [];
-            if (hasMilestone("sp", 4) && resettingLayer=="sp") spqM = "milestones"
+            if (hasMilestone("sp", 3) && resettingLayer=="sp") spqM = "milestones"
             else spqM = ""
             if (layers[resettingLayer].row > this.row) layerDataReset("q", [spqM])
         },
     milestones: {
         0: {
             requirementDescription: "5 quarks",
-            effectDescription: "you can explore further essence upgrades",
+            effectDescription: "you can explore 5 further essence upgrades",
             done() { return player[this.layer].points.gte(5) }
         },
         1: {
@@ -580,6 +583,56 @@ addLayer("q", {
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
             unlocked() { return hasUpgrade("q", 34) },
         },
+        41: {
+            title: "Ticking Quarks",
+            description: "multiplies the effect of Quark Counting based on the amount of quarks you have",
+            cost: new Decimal(1e14),
+            effect() {
+               return player[this.layer].points.add(1).pow(0.05)
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            unlocked() { return hasMilestone("sp", 2) && hasUpgrade("q", 35) },
+        },
+        42: {
+            title: "Subatomic Quarks",
+            description: "multiplies quark gain based on the amount of subatomic particles you have",
+            cost: new Decimal(1e16),
+            effect() {
+               return player["sp"].points.add(1).pow(0.1)
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            unlocked() { return hasMilestone("sp", 2) && hasUpgrade("q", 41) },
+        },
+        43: {
+            title: "Quirky Particles",
+            description: "multiplies subatomic particle gain based on the amount of quarks you have",
+            cost: new Decimal(1e18),
+            effect() {
+               return player[this.layer].points.add(1).pow(0.01)
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            unlocked() { return hasMilestone("sp", 2) && hasUpgrade("q", 42) },
+        },
+        44: {
+            title: "Particle Quarks",
+            description: "multiplies the effect of Subatomic Quarks based on the amount of quarks you have",
+            cost: new Decimal(1e20),
+            effect() {
+               return player[this.layer].points.add(1).pow(0.005)
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            unlocked() { return hasMilestone("sp", 2) && hasUpgrade("q", 43) },
+        },
+        45: {
+            title: "The Ultra Quark",
+            description: "multiplies quark gain based on the amount of quarks you have",
+            cost: new Decimal(1e22),
+            effect() {
+               return player[this.layer].points.add(1).pow(0.15)
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            unlocked() { return hasMilestone("sp", 2) && hasUpgrade("q", 44) },
+        },
     },
 });
 
@@ -604,6 +657,7 @@ addLayer("sp", {
     },
     gainMult() { // Calculate the multiplier for main currency from bonuses
         mult = new Decimal(1)
+        if (hasUpgrade('q', 43)) mult = mult.times(upgradeEffect('q', 43))
         return mult
     },
     gainExp() { // Calculate the exponent on main currency from bonuses
@@ -627,17 +681,17 @@ addLayer("sp", {
         },
         2: {
             requirementDescription: "3 subatomic particles",
-            effectDescription: "you can explore further quark upgrades",
+            effectDescription: "you can explore 5 further quark upgrades",
             done() { return player[this.layer].points.gte(3) }
         },
         3: {
             requirementDescription: "4 subatomic particles",
-            effectDescription: "keep essence buyables on subatomic particle resets",
+            effectDescription: "keep quark milestones on subatomic particle resets",
             done() { return player[this.layer].points.gte(4) }
         },
         4: {
             requirementDescription: "5 subatomic particles",
-            effectDescription: "keep quark milestones on subatomic particle resets",
+            effectDescription: "keep essence buyables on subatomic particle resets",
             done() { return player[this.layer].points.gte(5) }
         },
     },
