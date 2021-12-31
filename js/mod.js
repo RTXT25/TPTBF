@@ -19,7 +19,7 @@ let changelog = `<h1>Changelog:</h1><br>
 	<br><h3>v0.6: Subatomic Layer</h3><br>
 		- Added subatomic particles.<br>
 		- Added three buyables to subatomic particles.<br>
-		- Added two milestones to subatomic particles.<br>
+		- Added five milestones to subatomic particles.<br>
 		- Balance changes.<br>
 	<br><h3>v0.5: How Many Miles</h3><br>
 		- Added three milestones to cores.<br>

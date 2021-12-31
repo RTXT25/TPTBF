@@ -38,6 +38,11 @@ addLayer("A", {
             done() {return player["q"].points >= Math.pow(10, 10)},
             tooltip: "obtain 1e10 quarks.",
         },
+        41: {
+            name: "First Subatomic Particle",
+            done() {return player["sp"].points >= 1},
+            tooltip: "obtain 1 subatomic particle.",
+        },
     },
 });
 
@@ -94,7 +99,11 @@ addLayer("e", {
             else qeU = ""
             if (hasMilestone("q", 2) && resettingLayer=="q") qeB = "buyables"
             else qeB = ""
-            if (layers[resettingLayer].row > this.row) layerDataReset("e", [ceU, ceB, qeU, qeB])
+            if (hasMilestone("sp", 1) && resettingLayer=="sp") speU = "upgrades"
+            else speU = ""
+            if (hasMilestone("sp", 3) && resettingLayer=="sp") speB = "buyables"
+            else speB = ""
+            if (layers[resettingLayer].row > this.row) layerDataReset("e", [ceU, ceB, qeU, qeB, speU, speB])
         },
     upgrades: {
         11: {
@@ -269,6 +278,12 @@ addLayer("c", {
         {key: "c", description: "C: Reset for cores", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
     layerShown(){return true},
+    doReset(resettingLayer) {
+            let keep = [];
+            if (hasMilestone("sp", 4) && resettingLayer=="sp") spqU = "upgrades"
+            else spqU = ""
+            if (layers[resettingLayer].row > this.row) layerDataReset("e", [spqU])
+        },
     milestones: {
     0: {
         requirementDescription: "10 cores",
@@ -377,7 +392,7 @@ addLayer("q", {
             if (hasUpgrade('q', 24)) mult = mult.times(upgradeEffect('q', 24))
                 if (hasUpgrade('q', 25)) mult = mult.times(upgradeEffect('q', 25))
                     if (hasUpgrade('q', 31)) mult = mult.times(upgradeEffect('q', 31))
-        (Math.pow(3, getBuyableAmount('sp', 11)))
+        mult = mult.times(Math.pow(3, getBuyableAmount('sp', 11)))
         mult = mult.times(Math.pow(((getBuyableAmount('sp', 13) * 1) + 1), -1))
         return mult
     },
@@ -572,8 +587,12 @@ addLayer("sp", {
     resource: "subatomic particles", // Name of prestige currency
     baseResource: "quarks", // Name of resource prestige is based on
     baseAmount() {return player['q'].points}, // Get the current amount of baseResource
-    type: "normal", // normal: cost to gain currency depends on amount gained. static: cost depends on how much you already have
+    type: "static", // normal: cost to gain currency depends on amount gained. static: cost depends on how much you already have
     exponent: 0.2, // Prestige currency exponent
+    canBuyMax() {
+        if (hasMilestone("sp", 1)) return true
+        else return false
+    },
     gainMult() { // Calculate the multiplier for main currency from bonuses
         mult = new Decimal(1)
         return mult
@@ -589,13 +608,28 @@ addLayer("sp", {
     milestones: {
         0: {
             requirementDescription: "1 subatomic particle",
-            effectDescription: "unlock Protons, Neutrons, and Electrons",
+            effectDescription: "can buy max subatomic particles",
             done() { return player[this.layer].points.gte(1) }
         },
         1: {
-            requirementDescription: "10 subatomic particles",
-            effectDescription: "keep essence upgrades and buyables on subatomic particle resets",
-            done() { return player[this.layer].points.gte(10) }
+            requirementDescription: "2 subatomic particles",
+            effectDescription: "keep essence upgrades on subatomic particle resets",
+            done() { return player[this.layer].points.gte(2) }
+        },
+        2: {
+            requirementDescription: "3 subatomic particles",
+            effectDescription: "you can explore further quark upgrades",
+            done() { return player[this.layer].points.gte(3) }
+        },
+        3: {
+            requirementDescription: "4 subatomic particles",
+            effectDescription: "keep essence buyables on subatomic particle resets",
+            done() { return player[this.layer].points.gte(4) }
+        },
+        4: {
+            requirementDescription: "5 subatomic particles",
+            effectDescription: "keep quark upgrades on subatomic particle resets",
+            done() { return player[this.layer].points.gte(5) }
         },
     },
     buyables: {
@@ -610,7 +644,6 @@ addLayer("sp", {
             display() {
                 return "multiplies quark gain (but also decreases essence gain at a reduced rate) based on the amount of this upgrade bought.\nCurrently: " + (Math.pow(3, getBuyableAmount('sp', 11))) + "x\nand " + (Math.pow(((getBuyableAmount('sp', 11) * 1) + 1), -1)) + "x\n\nCost: " + ((getBuyableAmount('sp', 11) * 1) + 1) + "\n\nBought: " + getBuyableAmount('sp', 11)
             },
-            unlocked() { return hasMilestone("sp", 0) },
         },
         12: {
             cost(x) { return new Decimal(1).mul(x) },
@@ -623,7 +656,6 @@ addLayer("sp", {
             display() {
                 return "multiplies essence gain (but also decreases point gain at a reduced rate) based on the amount of this upgrade bought.\nCurrently: " + (Math.pow(3, getBuyableAmount('sp', 12))) + "x\nand " + (Math.pow(((getBuyableAmount('sp', 12) * 1) + 1), -1)) + "x\n\nCost: " + ((getBuyableAmount('sp', 12) * 1) + 1) + "\n\nBought: " + getBuyableAmount('sp', 12)
             },
-            unlocked() { return hasMilestone("sp", 0) },
         },
         13: {
             cost(x) { return new Decimal(1).mul(x) },
@@ -636,7 +668,6 @@ addLayer("sp", {
             display() {
                 return "multiplies point gain (but also decreases quark gain at a reduced rate) based on the amount of this upgrade bought.\nCurrently: " + (Math.pow(3, getBuyableAmount('sp', 13))) + "x\nand " + (Math.pow(((getBuyableAmount('sp', 13) * 1) + 1), -1)) + "x\n\nCost: " + ((getBuyableAmount('sp', 13) * 1) + 1) + "\n\nBought: " + getBuyableAmount('sp', 13)
             },
-            unlocked() { return hasMilestone("sp", 0) },
         },
     },
 });
