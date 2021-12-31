@@ -72,7 +72,7 @@ addLayer("e", {
         mult = mult.times((getBuyableAmount('e', 11) * 2.5) + 1)
         mult = mult.times(Math.pow(getBuyableAmount('e', 12), 0.25) + 1)
         mult = mult.times(2 ** getBuyableAmount('c', 12))
-        (Math.pow(3, getBuyableAmount('sp', 12)))
+        mult = mult.times(Math.pow(3, getBuyableAmount('sp', 12)))
         mult = mult.times(Math.pow(((getBuyableAmount('sp', 11) * 1) + 1), -1))
         return mult
     },
