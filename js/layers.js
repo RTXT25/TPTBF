@@ -84,6 +84,7 @@ addLayer("e", {
         mult = mult.times(2 ** getBuyableAmount('c', 12))
         mult = mult.times(5 ** getBuyableAmount('sp', 11))
         mult = mult.times(((getBuyableAmount('sp', 11) * 1) + 1) ** -1)
+        EssenceMult = mult
         return mult
     },
     gainExp() { // Calculate the exponent on main currency from bonuses
@@ -94,6 +95,9 @@ addLayer("e", {
         {key: "e", description: "E: Reset for essence", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
     layerShown(){return true},
+    passiveGeneration() { 
+        if (hasMilestone("c", 3)) return 0.5
+    },
     doReset(resettingLayer) {
         let keep = [];
             if (hasMilestone("c", 0) && resettingLayer=="c") ceU = "upgrades"
@@ -326,6 +330,11 @@ addLayer("c", {
             effectDescription: "keep essence buyables on core resets",
             done() { return player[this.layer].points.gte(500) }
         },
+        3: {
+            requirementDescription: "1e64 cores",
+            effectDescription: "gain 50% of essence gain per second",
+            done() { return player[this.layer].points.gte( new Decimal(1e64) ) }
+        },
     },
     upgrades: {
         11: {
@@ -357,6 +366,36 @@ addLayer("c", {
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
             unlocked() { return hasUpgrade("c", 12) },
+        },
+        21: {
+            title: "Quarky Core",
+            description: "multiplies the effect of The Quarks' Core based on the amount of cores you have",
+            cost: new Decimal(1e100),
+            effect() {
+               return player[this.layer].points.add(1).pow(0.005)
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            unlocked() { return (hasMilestone("h", 8)) && hasUpgrade("c", 13) },
+        },
+        22: {
+            title: "Quirky Core",
+            description: "multiplies the effect of Quarky Core based on the amount of cores you have",
+            cost: new Decimal(1e150),
+            effect() {
+               return player[this.layer].points.add(1).pow(0.002)
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            unlocked() { return (hasMilestone("h", 8)) && hasUpgrade("c", 21) },
+        },
+        23: {
+            title: "Ultra Core",
+            description: "multiplies core gain based on the amount of cores you have",
+            cost: new Decimal(1e200),
+            effect() {
+               return player[this.layer].points.add(1).pow(0.001)
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            unlocked() { return (hasMilestone("h", 8)) && hasUpgrade("c", 22) },
         },
     },
     buyables: {
@@ -824,34 +863,34 @@ addLayer("h", {
             done() { return player[this.layer].points.gte(125) }
         },
         3: {
-            requirementDescription: "625 hexes",
+            requirementDescription: "1,000 hexes",
             effectDescription: "keep core buyables on hex resets",
-            done() { return player[this.layer].points.gte(625) }
+            done() { return player[this.layer].points.gte(1000) }
         },
         4: {
-            requirementDescription: "3,125 hexes",
+            requirementDescription: "25,000 hexes",
             effectDescription: "keep core upgrades and buyables on subatomic particle resets",
-            done() { return player[this.layer].points.gte(3125) }
+            done() { return player[this.layer].points.gte(25000) }
         },
         5: {
-            requirementDescription: "15,625 hexes",
+            requirementDescription: "750,000 hexes",
             effectDescription: "keep all row 2 milestones on hex and subatomic particle resets",
-            done() { return player[this.layer].points.gte(15625) }
+            done() { return player[this.layer].points.gte(750000) }
         },
         6: {
-            requirementDescription: "78,125 hexes",
+            requirementDescription: "10,000,000 hexes",
             effectDescription: "keep quark upgrades on subatomic particle resets",
-            done() { return player[this.layer].points.gte(78125) }
+            done() { return player[this.layer].points.gte(10000000) }
         },
         7: {
-            requirementDescription: "390,625 hexes",
+            requirementDescription: "250,000,000 hexes",
             effectDescription: "keep quark upgrades on hex resets",
-            done() { return player[this.layer].points.gte(390625) }
+            done() { return player[this.layer].points.gte(250000000) }
         },
         8: {
-            requirementDescription: "1,953,125 hexes",
-            effectDescription: "you can explore further core upgrades (coming soon)",
-            done() { return player[this.layer].points.gte(1953125) }
+            requirementDescription: "7.50e9 hexes",
+            effectDescription: "you can explore 3 further core upgrades",
+            done() { return player[this.layer].points.gte( new Decimal(7.5e9) ) }
         },
     },
     upgrades: {
@@ -860,7 +899,7 @@ addLayer("h", {
             description: "multiplies point gain based on the amount of hexes you have",
             cost: new Decimal(1),
             effect() {
-               return player[this.layer].points.add(1).pow(0.7)
+               return player[this.layer].points.add(1).pow(0.03333)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
         },
@@ -869,7 +908,7 @@ addLayer("h", {
             description: "multiplies hex gain based on the amount of hexes you have",
             cost: new Decimal(5),
             effect() {
-               return player[this.layer].points.add(1).pow(0.1)
+               return player[this.layer].points.add(1).pow(0.015)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
         },
@@ -878,7 +917,7 @@ addLayer("h", {
             description: "multiplies core gain based on the amount of hexes you have",
             cost: new Decimal(10),
             effect() {
-               return player[this.layer].points.add(1).pow(0.8)
+               return player[this.layer].points.add(1).pow(0.09)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
         },
@@ -890,9 +929,9 @@ addLayer("h", {
         21: {
             title: "Numerical Hexes",
             description: "multiplies the effect of Hex Leak based on the amount of hexes you have",
-            cost: new Decimal(100),
+            cost: new Decimal(1000),
             effect() {
-               return player[this.layer].points.add(1).pow(0.95)
+               return player[this.layer].points.add(1).pow(0.02)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
             unlocked() { return hasUpgrade("h", 11) && hasUpgrade("h", 12) && hasUpgrade("h", 13) && hasUpgrade("h", 14) },
@@ -900,9 +939,9 @@ addLayer("h", {
         22: {
             title: "Super Strong Hexes",
             description: "multiplies the effect of Stronger Hexes based on the amount of hexes you have",
-            cost: new Decimal(500),
+            cost: new Decimal(5000),
             effect() {
-               return player[this.layer].points.add(1).pow(0.2)
+               return player[this.layer].points.add(1).pow(0.0075)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
             unlocked() { return hasUpgrade("h", 11) && hasUpgrade("h", 12) && hasUpgrade("h", 13) && hasUpgrade("h", 14) },
@@ -910,9 +949,9 @@ addLayer("h", {
         23: {
             title: "Hex Fission",
             description: "multiplies the effect of Hex Fusion based on the amount of hexes you have",
-            cost: new Decimal(1000),
+            cost: new Decimal(10000),
             effect() {
-               return player[this.layer].points.add(1).pow(0.99)
+               return player[this.layer].points.add(1).pow(0.125)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
             unlocked() { return hasUpgrade("h", 11) && hasUpgrade("h", 12) && hasUpgrade("h", 13) && hasUpgrade("h", 14) },
@@ -920,25 +959,25 @@ addLayer("h", {
         24: {
             title: "Super Boost Hexes",
             description: "Hex gain is tripled and core gain is quadrupled",
-            cost: new Decimal(2500),
+            cost: new Decimal(25000),
             unlocked() { return hasUpgrade("h", 11) && hasUpgrade("h", 12) && hasUpgrade("h", 13) && hasUpgrade("h", 14) },
         },
         31: {
             title: "Hex Numerals",
             description: "multiplies the effect of Numerical Hexes based on the amount of points you have",
-            cost: new Decimal(10000),
+            cost: new Decimal(1000000),
             effect() {
-               return player.points.add(1).pow(0.01)
+               return player.points.add(1).pow(0.001)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
             unlocked() { return hasUpgrade("h", 21) && hasUpgrade("h", 22) && hasUpgrade("h", 23) && hasUpgrade("h", 24) },
         },
         32: {
-            title: "Very Strong Hexes",
+            title: "Extreme Hexes",
             description: "multiplies the effect of Super Strong Hexes based on the amount of hexes you have",
-            cost: new Decimal(50000),
+            cost: new Decimal(5000000),
             effect() {
-               return player[this.layer].points.add(1).pow(0.25)
+               return player[this.layer].points.add(1).pow(0.001)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
             unlocked() { return hasUpgrade("h", 21) && hasUpgrade("h", 22) && hasUpgrade("h", 23) && hasUpgrade("h", 24) },
@@ -946,9 +985,9 @@ addLayer("h", {
         33: {
             title: "Core of Hexes",
             description: "multiplies the effect of Hex Fission based on the amount of cores you have",
-            cost: new Decimal(100000),
+            cost: new Decimal(10000000),
             effect() {
-               return player[this.layer].points.add(1).pow(0.01)
+               return player[this.layer].points.add(1).pow(0.002)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
             unlocked() { return hasUpgrade("h", 21) && hasUpgrade("h", 22) && hasUpgrade("h", 23) && hasUpgrade("h", 24) },
@@ -956,7 +995,7 @@ addLayer("h", {
         34: {
             title: "Ultra Boost Hexes",
             description: "Hex gain is quadrupled and core gain is raised to the power of 1.5",
-            cost: new Decimal(250000),
+            cost: new Decimal(25000000),
             unlocked() { return hasUpgrade("h", 21) && hasUpgrade("h", 22) && hasUpgrade("h", 23) && hasUpgrade("h", 24) },
         },
     },
