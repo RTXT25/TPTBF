@@ -471,7 +471,7 @@ addLayer("q", {
     hotkeys: [
         {key: "q", description: "Q: Reset for quarks", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
-    layerShown(){return true},
+    layerShown(){return player.c.unlocked},
         doReset(resettingLayer) {
             let keep = [];
             if (hasMilestone("sp", 3) && resettingLayer=="sp") spqM1 = "milestones"
@@ -737,7 +737,7 @@ addLayer("sp", {
     hotkeys: [
         {key: "s", description: "S: Reset for subatomic particles", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
-    layerShown(){return true},
+    layerShown(){return player.q.unlocked},
     doReset(resettingLayer) {
         let keep = [];
             if (layers[resettingLayer].row > this.row) layerDataReset("sp", [])
@@ -841,7 +841,7 @@ addLayer("h", {
     hotkeys: [
         {key: "h", description: "H: Reset for hexes", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
-    layerShown(){return true},
+    layerShown(){return player.sp.unlocked},
     doReset(resettingLayer) {
         let keep = [];
             if (layers[resettingLayer].row > this.row) layerDataReset("h", [])
