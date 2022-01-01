@@ -284,9 +284,7 @@ addLayer("c", {
         if (hasUpgrade('h', 13)) mult = mult.times(upgradeEffect('h', 13))
             if (hasUpgrade('h', 23)) mult = mult.times(upgradeEffect('h', 23))
                 if (hasUpgrade('h', 33)) mult = mult.times(upgradeEffect('h', 33))
-        if (hasUpgrade('h', 14)) mult = mult.times(2)
-        if (hasUpgrade('h', 24)) mult = mult.times(4)
-        if (hasUpgrade('h', 34)) mult = mult.pow(1.5)
+        if (hasUpgrade('h', 24)) mult = mult.times(2)
         mult = mult.times((getBuyableAmount('e', 12) * 1) + 1)
         return mult
     },
@@ -460,6 +458,7 @@ addLayer("q", {
         if (hasUpgrade('q', 42)) mult = mult.times(upgradeEffect('q', 42))
             if (hasUpgrade('q', 44)) mult = mult.times(upgradeEffect('q', 44))
         if (hasUpgrade('q', 45)) mult = mult.times(upgradeEffect('q', 45))
+        if (hasUpgrade('h', 34)) mult = mult.times(2)
         mult = mult.times(5 ** getBuyableAmount('sp', 11))
         mult = mult.times(((getBuyableAmount('sp', 11) * 1) + 1) ** -1)
         return mult
@@ -830,8 +829,6 @@ addLayer("h", {
             if (hasUpgrade('h', 22)) mult = mult.times(upgradeEffect('h', 22))
                 if (hasUpgrade('h', 32)) mult = mult.times(upgradeEffect('h', 32))
         if (hasUpgrade('h', 14)) mult = mult.times(2)
-        if (hasUpgrade('h', 24)) mult = mult.times(3)
-        if (hasUpgrade('h', 34)) mult = mult.times(4)
         return mult
     },
     gainExp() { // Calculate the exponent on main currency from bonuses
@@ -923,7 +920,7 @@ addLayer("h", {
         },
         14: {
             title: "Boost Hexes",
-            description: "Hex gain and core gain are doubled",
+            description: "Hex gain is doubled",
             cost: new Decimal(25),
         },
         21: {
@@ -957,8 +954,8 @@ addLayer("h", {
             unlocked() { return hasUpgrade("h", 11) && hasUpgrade("h", 12) && hasUpgrade("h", 13) && hasUpgrade("h", 14) },
         },
         24: {
-            title: "Super Boost Hexes",
-            description: "Hex gain is tripled and core gain is quadrupled",
+            title: "Boost Cores",
+            description: "Core gain is doubled",
             cost: new Decimal(25000),
             unlocked() { return hasUpgrade("h", 11) && hasUpgrade("h", 12) && hasUpgrade("h", 13) && hasUpgrade("h", 14) },
         },
@@ -993,8 +990,8 @@ addLayer("h", {
             unlocked() { return hasUpgrade("h", 21) && hasUpgrade("h", 22) && hasUpgrade("h", 23) && hasUpgrade("h", 24) },
         },
         34: {
-            title: "Ultra Boost Hexes",
-            description: "Hex gain is quadrupled and core gain is raised to the power of 1.5",
+            title: "Boost Quarks",
+            description: "Quark gain is doubled",
             cost: new Decimal(25000000),
             unlocked() { return hasUpgrade("h", 21) && hasUpgrade("h", 22) && hasUpgrade("h", 23) && hasUpgrade("h", 24) },
         },
