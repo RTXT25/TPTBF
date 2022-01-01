@@ -892,7 +892,7 @@ addLayer("h", {
             description: "multiplies the effect of Hex Leak based on the amount of hexes you have",
             cost: new Decimal(100),
             effect() {
-               return player[this.layer].points.add(1).pow(0.25)
+               return player[this.layer].points.add(1).pow(0.95)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
             unlocked() { return hasUpgrade("h", 11) && hasUpgrade("h", 12) && hasUpgrade("h", 13) && hasUpgrade("h", 14) },

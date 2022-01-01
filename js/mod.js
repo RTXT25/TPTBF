@@ -18,7 +18,7 @@ let VERSION = {
 let changelog = `<h1>Changelog:</h1><br>
 	<br><h3>v0.7: The Hex Game</h3><br>
 		- Added hexes.<br>
-		- Added six milestones to hexes.<br>
+		- Added nine milestones to hexes.<br>
 		- Added twelve upgrades to hexes.<br>
 		- Balance changes.<br>
 	<br><h3>v0.6: Subatomic Layer</h3><br>
