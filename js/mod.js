@@ -21,6 +21,7 @@ let changelog = `<h1>Changelog:</h1><br>
 		- Added nine milestones to hexes.<br>
 		- Added twelve upgrades to hexes.<br>
 		- Added one milestone to cores.<br>
+		- Added three upgrades to cores.<br>
 		- Balance changes.<br>
 	<br><h3>v0.6: Subatomic Layer</h3><br>
 		- Added subatomic particles.<br>
