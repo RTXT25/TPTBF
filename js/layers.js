@@ -475,15 +475,17 @@ addLayer("q", {
             let keep = [];
             if (hasMilestone("sp", 3) && resettingLayer=="sp") spqM1 = "milestones"
             else spqM1 = ""
+            if (hasMilestone("sp", 5) && resettingLayer=="sp") spqU1 = "upgrades"
+            else spqU1 = ""
             if (hasMilestone("h", 5) && resettingLayer=="h") hqM = "milestones"
             else hqM = ""
             if (hasMilestone("h", 5) && resettingLayer=="sp") spqM2 = "milestones"
             else spqM2 = ""
-            if (hasMilestone("h", 6) && resettingLayer=="sp") spqU = "upgrades"
+            if (hasMilestone("h", 6) && resettingLayer=="sp") spqU2 = "upgrades"
             else spqU = ""
             if (hasMilestone("h", 7) && resettingLayer=="h") hqU = "upgrades"
             else hqU = ""
-            if (layers[resettingLayer].row > this.row) layerDataReset("q", [spqM1, hqM, spqM2, spqU, hqU])
+            if (layers[resettingLayer].row > this.row) layerDataReset("q", [spqM1, spqU1, hqM, spqM2, spqU2, hqU])
         },
     milestones: {
         0: {
@@ -719,7 +721,7 @@ addLayer("sp", {
     baseResource: "quarks", // Name of resource prestige is based on
     baseAmount() {return player['q'].points}, // Get the current amount of baseResource
     type: "static", // normal: cost to gain currency depends on amount gained. static: cost depends on how much you already have
-    exponent: 4, // Prestige currency exponent
+    exponent: 4.25, // Prestige currency exponent
     canBuyMax() {
         if (hasMilestone("sp", 0)) return true
         else return false
@@ -767,6 +769,11 @@ addLayer("sp", {
             requirementDescription: "5 subatomic particles",
             effectDescription: "keep essence buyables on subatomic particle resets",
             done() { return player[this.layer].points.gte(5) }
+        },
+        5: {
+            requirementDescription: "6 subatomic particles",
+            effectDescription: "keep quark upgrades on subatomic particle resets",
+            done() { return player[this.layer].points.gte(6) }
         },
     },
     buyables: {
