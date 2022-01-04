@@ -82,7 +82,7 @@ addLayer("e", {
         mult = mult.times((getBuyableAmount('e', 11) * 2.5) + 1)
         mult = mult.times(Math.pow(getBuyableAmount('e', 12), 0.25) + 1)
         mult = mult.times(2 ** getBuyableAmount('c', 12))
-        mult = mult.times(5 ** getBuyableAmount('sp', 11))
+        mult = mult.times(5 ** getBuyableAmount('sp', 12))
         mult = mult.times(((getBuyableAmount('sp', 11) * 1) + 1) ** -1)
         EssenceMult = mult
         return mult
@@ -460,7 +460,7 @@ addLayer("q", {
         if (hasUpgrade('q', 45)) mult = mult.times(upgradeEffect('q', 45))
         if (hasUpgrade('h', 34)) mult = mult.times(2)
         mult = mult.times(5 ** getBuyableAmount('sp', 11))
-        mult = mult.times(((getBuyableAmount('sp', 11) * 1) + 1) ** -1)
+        mult = mult.times(((getBuyableAmount('sp', 21) * 1) + 1) ** -1)
         return mult
     },
     gainExp() { // Calculate the exponent on main currency from bonuses
@@ -793,16 +793,16 @@ addLayer("sp", {
                 return "multiplies essence gain (but also decreases point gain at a reduced rate) based on the amount of this upgrade bought.\nCurrently: " + (5 ** getBuyableAmount('sp', 12)) + "x\nand " + (((getBuyableAmount('sp', 12) * 1) + 1) ** -1) + "x\n\nCost: " + ((getBuyableAmount('sp', 12) * 1) + 1) + "\n\nBought: " + getBuyableAmount('sp', 12)
             },
         },
-        13: {
+        21: {
             cost(x) { return new Decimal(1).mul(x) },
             title: "Electrons",
-            canAfford() { return player[this.layer].points.gte(this.cost((getBuyableAmount('sp', 13) * 1) + 1))},
+            canAfford() { return player[this.layer].points.gte(this.cost((getBuyableAmount('sp', 21) * 1) + 1))},
             buy() {
-                player[this.layer].points = player[this.layer].points.sub(this.cost((getBuyableAmount('sp', 13) * 1) + 1))
-                setBuyableAmount('sp', 13, ((getBuyableAmount('sp', 13) * 1) + 1))
+                player[this.layer].points = player[this.layer].points.sub(this.cost((getBuyableAmount('sp', 21) * 1) + 1))
+                setBuyableAmount('sp', 21, ((getBuyableAmount('sp', 21) * 1) + 1))
             },
             display() {
-                return "multiplies point gain (but also decreases quark gain at a reduced rate) based on the amount of this upgrade bought.\nCurrently: " + (5 ** getBuyableAmount('sp', 13)) + "x\nand " + (((getBuyableAmount('sp', 13) * 1) + 1) ** -1) + "x\n\nCost: " + ((getBuyableAmount('sp', 13) * 1) + 1) + "\n\nBought: " + getBuyableAmount('sp', 13)
+                return "multiplies point gain (but also decreases quark gain at a reduced rate) based on the amount of this upgrade bought.\nCurrently: " + (5 ** getBuyableAmount('sp', 21)) + "x\nand " + (((getBuyableAmount('sp', 21) * 1) + 1) ** -1) + "x\n\nCost: " + ((getBuyableAmount('sp', 21) * 1) + 1) + "\n\nBought: " + getBuyableAmount('sp', 21)
             },
         },
     },
