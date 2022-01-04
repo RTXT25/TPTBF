@@ -15,7 +15,7 @@ addLayer("A", {
         },
         12: {
             name: "Much Essence",
-            done() {return player["e"].points >= Math.pow(10, 11)},
+            done() {return player["e"].points >= Math.pow(10, 10)},
             tooltip: "obtain 1e10 essence.",
         },
         21: {
@@ -25,7 +25,7 @@ addLayer("A", {
         },
         22: {
             name: "Many Cores",
-            done() {return player["c"].points >= Math.pow(10, 11)},
+            done() {return player["c"].points >= Math.pow(10, 10)},
             tooltip: "obtain 1e10 cores.",
         },
         31: {
@@ -35,7 +35,7 @@ addLayer("A", {
         },
         32: {
             name: "Lots of Quarks",
-            done() {return player["q"].points >= Math.pow(10, 11)},
+            done() {return player["q"].points >= Math.pow(10, 10)},
             tooltip: "obtain 1e10 quarks.",
         },
         41: {
