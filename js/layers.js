@@ -677,7 +677,7 @@ addLayer("q", {
             description: "multiplies subatomic particle gain based on the amount of quarks you have",
             cost: new Decimal(1e18),
             effect() {
-               return player[this.layer].points.add(1).pow(0.05)
+               return player[this.layer].points.add(1).pow(0.01)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
             unlocked() { return hasMilestone("sp", 2) && hasUpgrade("q", 42) },
@@ -726,11 +726,12 @@ addLayer("sp", {
     },
     gainMult() { // Calculate the multiplier for main currency from bonuses
         mult = new Decimal(1)
-        if (hasUpgrade('q', 43)) mult = mult.times(upgradeEffect('q', 43))
         return mult
     },
     gainExp() { // Calculate the exponent on main currency from bonuses
-        return new Decimal(1)
+        gain = new Decimal(1)
+        if (hasUpgrade('q', 43)) gain = gain.times(upgradeEffect('q', 43))
+        return gain
     },
     row: 2, // Row the layer is in on the tree (0 is the first row)
     hotkeys: [
