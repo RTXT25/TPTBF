@@ -11,17 +11,21 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.7",
-	name: "The Hex Game",
+	num: "0.8",
+	name: "Core of the Earth",
 }
 
 let changelog = `<h1>Changelog:</h1><br>
-	<br><h3>v0.7: The Hex Game</h3><br>
-		- Added hexes.<br>
-		- Added nine milestones to hexes.<br>
-		- Added twelve upgrades to hexes.<br>
+	<br><h3>v0.8: Core of the Earth</h3><br>
+		- Added one milestone to hexes.<br>
+		- Added one milestone to subatomic particles.<br>
 		- Added one milestone to cores.<br>
 		- Added three upgrades to cores.<br>
+		- Balance changes.<br>
+	<br><h3>v0.7: The Hex Game</h3><br>
+		- Added hexes.<br>
+		- Added eight milestones to hexes.<br>
+		- Added twelve upgrades to hexes.<br>
 		- Balance changes.<br>
 	<br><h3>v0.6: Subatomic Layer</h3><br>
 		- Added subatomic particles.<br>

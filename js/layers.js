@@ -482,7 +482,7 @@ addLayer("q", {
             if (hasMilestone("h", 5) && resettingLayer=="sp") spqM2 = "milestones"
             else spqM2 = ""
             if (hasMilestone("h", 6) && resettingLayer=="sp") spqU2 = "upgrades"
-            else spqU = ""
+            else spqU2 = ""
             if (hasMilestone("h", 7) && resettingLayer=="h") hqU = "upgrades"
             else hqU = ""
             if (layers[resettingLayer].row > this.row) layerDataReset("q", [spqM1, spqU1, hqM, spqM2, spqU2, hqU])
