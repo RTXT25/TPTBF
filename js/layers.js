@@ -780,7 +780,11 @@ addLayer("sp", {
     layerShown(){return player.q.unlocked},
     doReset(resettingLayer) {
         let keep = [];
-            if (layers[resettingLayer].row > this.row) layerDataReset("sp", [])
+            if (hasMilestone("ds", 0) && resettingLayer=="ds") dsspB = "buyables"
+            else dsspB = ""
+            if (hasMilestone("ds", 1) && resettingLayer=="ds") dsspU = "upgrades"
+            else dsspU = ""
+            if (layers[resettingLayer].row > this.row) layerDataReset("sp", [dsspB, dsspU])
         },
     milestones: {
         0: {
@@ -886,6 +890,7 @@ addLayer("h", {
         points: new Decimal(0),
     }},
     color: "#E36409",
+    branches: ["ds"],
     requires: new Decimal(1e60), // Can be a function that takes requirement increases into account
     resource: "hexes", // Name of prestige currency
     baseResource: "cores", // Name of resource prestige is based on
@@ -1115,20 +1120,80 @@ addLayer("h", {
             description: "multiply hex gain based on the amount of subatomic particles you have",
             cost: new Decimal(1e50),
             effect() {
-               return player['sp'].points.add(1).pow(0.1)
+               return player['sp'].points.add(1).pow(2.5)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
             unlocked() { return hasUpgrade("h", 52) && hasUpgrade("h", 53) },
         },
         63: {
-            title: "Sub Hex Particle",
+            title: "Hexed Subatomic Particle",
             description: "multiply subatomic particle gain based on the amount of hexes you have",
-            cost: new Decimal(1e75),
+            cost: new Decimal(1e60),
             effect() {
-               return player[this.layer].points.add(1).pow(0.01)
+               return player[this.layer].points.add(1).pow(0.02)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
             unlocked() { return hasUpgrade("h", 52) && hasUpgrade("h", 53) },
+        },
+    },
+});
+
+addLayer("ds", {
+    name: "Demon Souls", // This is optional, only used in a few places, If absent it just uses the layer id.
+    symbol: "DS", // This appears on the layer's node. Default is the id with the first letter capitalized
+    position: 0, // Horizontal position within a row. By default it uses the layer id and sorts in alphabetical order
+    startData() { return {
+        unlocked: false,
+        points: new Decimal(0),
+    }},
+    color: "#BA0035",
+    requires: new Decimal(1e64), // Can be a function that takes requirement increases into account
+    resource: "demon souls", // Name of prestige currency
+    baseResource: "hexes", // Name of resource prestige is based on
+    baseAmount() {return player['h'].points}, // Get the current amount of baseResource
+    type: "normal", // normal: cost to gain currency depends on amount gained. static: cost depends on how much you already have
+    exponent: 0.2, // Prestige currency exponent
+    gainMult() { // Calculate the multiplier for main currency from bonuses
+        mult = new Decimal(1)
+        return mult
+    },
+    gainExp() { // Calculate the exponent on main currency from bonuses
+        return new Decimal(1)
+    },
+    row: 3, // Row the layer is in on the tree (0 is the first row)
+    hotkeys: [
+        {key: "d", description: "D: Reset for demon souls", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
+    ],
+    layerShown(){return player.h.unlocked},
+    doReset(resettingLayer) {
+        let keep = [];
+            if (layers[resettingLayer].row > this.row) layerDataReset("ds", [])
+        },
+    milestones: {
+        0: {
+            requirementDescription: "1 demon soul",
+            effectDescription: "keep subatomic particle buyables on demon soul resets",
+            done() { return player[this.layer].points.gte(1) }
+        },
+        1: {
+            requirementDescription: "10 demon souls",
+            effectDescription: "keep subatomic particle upgrades on demon soul resets",
+            done() { return player[this.layer].points.gte(10) }
+        },
+    },
+    buyables: {
+        11: {
+            cost(x) { return new Decimal(1).mul(x) },
+            title: "Demonic Energy",
+            canAfford() { return player[this.layer].points.gte(this.cost((getBuyableAmount('ds', 11) * 1) + 1))},
+            purchaseLimit: new Decimal(99),
+            buy() {
+                player[this.layer].points = player[this.layer].points.sub(this.cost((getBuyableAmount('ds', 11) * 1) + 1))
+                setBuyableAmount('ds', 11, ((getBuyableAmount('ds', 11) * 1) + 1))
+            },
+            display() {
+                return "multiplies hex gain (and also subatomic particle gain at a reduced rate) based on the amount of this upgrade bought.\nCurrently: " + (2 ** getBuyableAmount('ds', 11)) + "x\nand " + ((getBuyableAmount('ds', 11) * 1) + 1) + "x\n\nCost: " + ((getBuyableAmount('ds', 11) * 1) + 1) + "\n\nBought: " + getBuyableAmount('ds', 11)
+            },
         },
     },
 });

@@ -11,14 +11,19 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "1.0",
-	name: "Variety Rules",
+	num: "1.1",
+	name: "Demonic Faith",
 }
 
 let changelog = `<h1>Changelog:</h1><br>
+	<br><h3>v1.1: Demonic Faith</h3><br>
+		- Added demon souls.<br>
+		- Added two milestones to demon souls.<br>
+		- Added one buyable to demon souls.<br>
+		- Balance changes.<br>
 	<br><h3>v1.0: Variety Rules</h3><br>
 		- Added one milestone to hexes.<br>
-		- Added six upgrades to hexes.<br>
+		- Added eight upgrades to hexes.<br>
 		- Added one milestone to subatomic particles.<br>
 		- Added three upgrades to subatomic particles.<br>
 		- Added one milestone to cores.<br>
