@@ -297,11 +297,13 @@ addLayer("c", {
     ],
     layerShown(){return true},
     passiveGeneration() { 
-        if (hasUpgrade("h", 43) && hasUpgrade("h", 44) && hasUpgrade("h", 51)) return 0.25
+        if (hasUpgrade("h", 43) && hasUpgrade("h", 44) && hasUpgrade("h", 51) && hasUpgrade("c", 33)) return 0.5
         else
-            if (hasUpgrade("h", 43) && hasUpgrade("h", 44)) return 0.1
+            if (hasUpgrade("h", 43) && hasUpgrade("h", 44) && hasUpgrade("h", 51)) return 0.25
             else
-                if (hasUpgrade("h", 43)) return 0.01
+                if (hasUpgrade("h", 43) && hasUpgrade("h", 44)) return 0.1
+                else
+                    if (hasUpgrade("h", 43)) return 0.01
     },
     doReset(resettingLayer) {
         let keep = [];
@@ -375,7 +377,7 @@ addLayer("c", {
         21: {
             title: "Quarky Core",
             description: "multiplies the effect of The Quarks' Core based on the amount of cores you have",
-            cost: new Decimal(1e70),
+            cost: new Decimal(1e69),
             effect() {
                return player[this.layer].points.add(1).pow(0.005)
             },
@@ -385,7 +387,7 @@ addLayer("c", {
         22: {
             title: "Quirky Core",
             description: "multiplies the effect of Quarky Core based on the amount of cores you have",
-            cost: new Decimal(1e75),
+            cost: new Decimal(1e71),
             effect() {
                return player[this.layer].points.add(1).pow(0.002)
             },
@@ -393,14 +395,40 @@ addLayer("c", {
             unlocked() { return (hasMilestone("h", 8)) && hasUpgrade("c", 21) },
         },
         23: {
-            title: "Ultra Core",
+            title: "Super Core",
             description: "multiplies core gain based on the amount of cores you have",
-            cost: new Decimal(1e80),
+            cost: new Decimal(1e73),
+            effect() {
+               return player[this.layer].points.add(1).pow(0.01)
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            unlocked() { return (hasMilestone("h", 8)) && hasUpgrade("c", 22) },
+        },
+        31: {
+            title: "Ultra Core",
+            description: "multiplies the effect of Super Core based on the amount of cores you have",
+            cost: new Decimal(1e75),
+            effect() {
+               return player[this.layer].points.add(1).pow(0.0025)
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            unlocked() { return (hasUpgrade("h", 52) && hasUpgrade("c", 23) },
+        },
+        32: {
+            title: "Hexed Core",
+            description: "multiplies the effect of Ultra Core based on the amount of hexes you have",
+            cost: new Decimal(1e77),
             effect() {
                return player[this.layer].points.add(1).pow(0.001)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
-            unlocked() { return (hasMilestone("h", 8)) && hasUpgrade("c", 22) },
+            unlocked() { return (hasUpgrade("h", 52) && hasUpgrade("c", 31) },
+        },
+        33: {
+            title: "CORE LIBERATION",
+            description: "if you own Core Production Line and all subsequent upgrades, you gain an additional 25% of your core gain per second",
+            cost: new Decimal(1e80),
+            unlocked() { return (hasUpgrade("h", 52) && hasUpgrade("c", 32) },
         },
     },
     buyables: {
@@ -1033,19 +1061,19 @@ addLayer("h", {
         },
         43: {
             title: "Core Continuation",
-            description: "Gain +1% of core gain per second",
+            description: "Gain 1% of core gain per second",
             cost: new Decimal(45000000),
             unlocked() { return hasUpgrade("h", 31) && hasUpgrade("h", 32) && hasUpgrade("h", 33) && hasUpgrade("h", 34) },
         },
         44: {
             title: "Rapid Cores",
-            description: "Increase the effect of Core Continuation to +9%",
+            description: "Increase the effect of Core Continuation by 9%",
             cost: new Decimal(75000000),
             unlocked() { return hasUpgrade("h", 31) && hasUpgrade("h", 32) && hasUpgrade("h", 33) && hasUpgrade("h", 34) },
         },
         51: {
             title: "Core Production Line",
-            description: "Increase the effect of Rapid Cores to +25%",
+            description: "Increase the effect of Rapid Cores by 15%",
             cost: new Decimal(250000000),
             unlocked() { return hasUpgrade("h", 41) && hasUpgrade("h", 42) && hasUpgrade("h", 43) && hasUpgrade("h", 44) },
         },
