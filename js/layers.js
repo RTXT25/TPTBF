@@ -1134,7 +1134,7 @@ addLayer("h", {
         },
         44: {
             title: "Rapid Cores",
-            description: "Increase the effect of Core Continuation by 9%",
+            description: "Increase the effect of Core Continuation by 9% (total: 10%)",
             cost: new Decimal(75000000),
             unlocked() { return hasUpgrade("h", 31) && hasUpgrade("h", 32) && hasUpgrade("h", 33) && hasUpgrade("h", 34) },
         },
@@ -1146,7 +1146,7 @@ addLayer("h", {
         },
         52: {
             title: "Core Production Line",
-            description: "Increase the effect of Rapid Cores by 15%",
+            description: "Increase the effect of Rapid Cores by 15% (total: 25%)",
             cost: new Decimal(250000000),
             unlocked() { return hasUpgrade("h", 41) && hasUpgrade("h", 42) && hasUpgrade("h", 43) && hasUpgrade("h", 44) },
         },
