@@ -368,7 +368,7 @@ addLayer("c", {
         21: {
             title: "Quarky Core",
             description: "multiplies the effect of The Quarks' Core based on the amount of cores you have",
-            cost: new Decimal(1e100),
+            cost: new Decimal(1e75),
             effect() {
                return player[this.layer].points.add(1).pow(0.005)
             },
@@ -378,7 +378,7 @@ addLayer("c", {
         22: {
             title: "Quirky Core",
             description: "multiplies the effect of Quarky Core based on the amount of cores you have",
-            cost: new Decimal(1e150),
+            cost: new Decimal(1e100),
             effect() {
                return player[this.layer].points.add(1).pow(0.002)
             },
@@ -388,7 +388,7 @@ addLayer("c", {
         23: {
             title: "Ultra Core",
             description: "multiplies core gain based on the amount of cores you have",
-            cost: new Decimal(1e200),
+            cost: new Decimal(1e125),
             effect() {
                return player[this.layer].points.add(1).pow(0.001)
             },
@@ -913,7 +913,7 @@ addLayer("h", {
             description: "multiplies hex gain based on the amount of hexes you have",
             cost: new Decimal(5),
             effect() {
-               return player[this.layer].points.add(1).pow(0.015)
+               return player[this.layer].points.add(1).pow(0.1)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
         },
@@ -946,7 +946,7 @@ addLayer("h", {
             description: "multiplies the effect of Stronger Hexes based on the amount of hexes you have",
             cost: new Decimal(5000),
             effect() {
-               return player[this.layer].points.add(1).pow(0.075)
+               return player[this.layer].points.add(1).pow(0.05)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
             unlocked() { return hasUpgrade("h", 11) && hasUpgrade("h", 12) && hasUpgrade("h", 13) && hasUpgrade("h", 14) },
@@ -956,7 +956,7 @@ addLayer("h", {
             description: "multiplies the effect of Hex Fusion based on the amount of hexes you have",
             cost: new Decimal(10000),
             effect() {
-               return player[this.layer].points.add(1).pow(0.125)
+               return player[this.layer].points.add(1).pow(0.15)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
             unlocked() { return hasUpgrade("h", 11) && hasUpgrade("h", 12) && hasUpgrade("h", 13) && hasUpgrade("h", 14) },
@@ -972,7 +972,7 @@ addLayer("h", {
             description: "multiplies the effect of Numerical Hexes based on the amount of points you have",
             cost: new Decimal(100000),
             effect() {
-               return player.points.add(1).pow(0.001)
+               return player.points.add(1).pow(0.02)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
             unlocked() { return hasUpgrade("h", 21) && hasUpgrade("h", 22) && hasUpgrade("h", 23) && hasUpgrade("h", 24) },
@@ -982,7 +982,7 @@ addLayer("h", {
             description: "multiplies the effect of Super Strong Hexes based on the amount of hexes you have",
             cost: new Decimal(500000),
             effect() {
-               return player[this.layer].points.add(1).pow(0.001)
+               return player[this.layer].points.add(1).pow(0.01)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
             unlocked() { return hasUpgrade("h", 21) && hasUpgrade("h", 22) && hasUpgrade("h", 23) && hasUpgrade("h", 24) },
@@ -992,7 +992,7 @@ addLayer("h", {
             description: "multiplies the effect of Hex Fission based on the amount of cores you have",
             cost: new Decimal(1000000),
             effect() {
-               return player[this.layer].points.add(1).pow(0.002)
+               return player[this.layer].points.add(1).pow(0.025)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
             unlocked() { return hasUpgrade("h", 21) && hasUpgrade("h", 22) && hasUpgrade("h", 23) && hasUpgrade("h", 24) },
