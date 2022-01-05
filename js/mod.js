@@ -21,7 +21,7 @@ let changelog = `<h1>Changelog:</h1><br>
 		- Added six upgrades to hexes.<br>
 		- Added one milestone to subatomic particles.<br>
 		- Added one milestone to cores.<br>
-		- Added three upgrades to cores.<br>
+		- Added six upgrades to cores.<br>
 		- Balance changes.<br>
 	<br><h3>v0.7: The Hex Game</h3><br>
 		- Added hexes.<br>
@@ -101,6 +101,7 @@ function getPointGen() {
 				if (hasUpgrade('h', 41)) mult = mult.times(upgradeEffect('h', 41))
 	gain = gain.times(2.5 * getBuyableAmount('c', 11) + 1)
 	gain = gain.times(5 ** getBuyableAmount('sp', 21))
+	if (hasUpgrade("sp", 13)) gain = gain.times(5 ** getBuyableAmount('sp', 21))
 	gain = gain.times(((getBuyableAmount('sp', 12) * 1) + 1) ** -1)
 	return gain
 }

@@ -83,6 +83,7 @@ addLayer("e", {
         mult = mult.times(Math.pow(getBuyableAmount('e', 12), 0.25) + 1)
         mult = mult.times(2 ** getBuyableAmount('c', 12))
         mult = mult.times(5 ** getBuyableAmount('sp', 12))
+        if (hasUpgrade("sp", 12)) mult = mult.times(5 ** getBuyableAmount('sp', 12))
         mult = mult.times(((getBuyableAmount('sp', 11) * 1) + 1) ** -1)
         EssenceMult = mult
         return mult
@@ -296,7 +297,7 @@ addLayer("c", {
         {key: "c", description: "C: Reset for cores", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
     layerShown(){return true},
-    passiveGeneration() { 
+    passiveGeneration() {
         if (hasUpgrade("h", 43) && hasUpgrade("h", 44) && hasUpgrade("h", 51) && hasUpgrade("c", 33)) return 0.5
         else
             if (hasUpgrade("h", 43) && hasUpgrade("h", 44) && hasUpgrade("h", 51)) return 0.25
@@ -412,7 +413,7 @@ addLayer("c", {
                return player[this.layer].points.add(1).pow(0.0025)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
-            unlocked() { return (hasUpgrade("h", 52) && hasUpgrade("c", 23) },
+            unlocked() { return (hasMilestone("h", 8)) && hasUpgrade("h", 52) && hasUpgrade("c", 23) },
         },
         32: {
             title: "Hexed Core",
@@ -422,13 +423,13 @@ addLayer("c", {
                return player[this.layer].points.add(1).pow(0.001)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
-            unlocked() { return (hasUpgrade("h", 52) && hasUpgrade("c", 31) },
+            unlocked() { return (hasMilestone("h", 8)) && hasUpgrade("h", 52) && hasUpgrade("c", 31) },
         },
         33: {
             title: "CORE LIBERATION",
             description: "if you own Core Production Line and all subsequent upgrades, you gain an additional 25% of your core gain per second",
             cost: new Decimal(1e80),
-            unlocked() { return (hasUpgrade("h", 52) && hasUpgrade("c", 32) },
+            unlocked() { return (hasMilestone("h", 8)) && hasUpgrade("h", 52) && hasUpgrade("c", 32) },
         },
     },
     buyables: {
@@ -495,6 +496,7 @@ addLayer("q", {
         if (hasUpgrade('q', 45)) mult = mult.times(upgradeEffect('q', 45))
         if (hasUpgrade('h', 34)) mult = mult.times(2)
         mult = mult.times(5 ** getBuyableAmount('sp', 11))
+        if (hasUpgrade("sp", 11)) mult = mult.times(5 ** getBuyableAmount('sp', 11))
         mult = mult.times(((getBuyableAmount('sp', 21) * 1) + 1) ** -1)
         return mult
     },
@@ -809,6 +811,23 @@ addLayer("sp", {
             requirementDescription: "6 subatomic particles",
             effectDescription: "keep quark upgrades on subatomic particle resets",
             done() { return player[this.layer].points.gte(6) }
+        },
+    },
+    upgrades: {
+        11: {
+            title: "Positrons",
+            description: "multiplies the base buff effect of Protons by 2",
+            cost: new Decimal(6),
+        },
+        12: {
+            title: "Beta Particles",
+            description: "multiplies the base buff effect of Neutrons by 2",
+            cost: new Decimal(6),
+        },
+        13: {
+            title: "Gamma Particles",
+            description: "multiplies the base buff effect of Neutrons by 2",
+            cost: new Decimal(6),
         },
     },
     buyables: {
