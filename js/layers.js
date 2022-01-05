@@ -699,7 +699,7 @@ addLayer("q", {
             description: "multiplies quark gain based on the amount of quarks you have",
             cost: new Decimal(1e22),
             effect() {
-               return player[this.layer].points.add(1).pow(0.15)
+               return player[this.layer].points.add(1).pow(0.125)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
             unlocked() { return hasMilestone("sp", 2) && hasUpgrade("q", 44) },
