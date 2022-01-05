@@ -1098,7 +1098,7 @@ addLayer("h", {
         },
         52: {
             title: "Sub Core Particle Fusion",
-            description: "you can explore 3 new core upgrades and 3 new subatomic particle upgrades (coming soon)",
+            description: "you can explore 3 new core upgrades and 3 new subatomic particle upgrades",
             cost: new Decimal(7.5e9),
             unlocked() { return hasUpgrade("h", 41) && hasUpgrade("h", 42) && hasUpgrade("h", 43) && hasUpgrade("h", 44) },
         },
