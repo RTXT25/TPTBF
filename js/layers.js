@@ -132,7 +132,11 @@ addLayer("e", {
             else heU = ""
             if (hasMilestone("h", 1) && resettingLayer=="h") heB = "buyables"
             else heB = ""
-            if (layers[resettingLayer].row > this.row) layerDataReset("e", [ceU, ceB, qeU, qeB, speU, speB, heU, heB])
+            if (hasMilestone("ds", 3)) ALLeU = "upgrades"
+            else ALLeU = ""
+            if (hasMilestone("ds", 4)) ALLeB = "buyables"
+            else ALLeB = ""
+            if (layers[resettingLayer].row > this.row) layerDataReset("e", [ceU, ceB, qeU, qeB, speU, speB, heU, heB, ALLeU, ALLeB])
         },
     upgrades: {
         11: {
@@ -1202,9 +1206,19 @@ addLayer("ds", {
             done() { return player[this.layer].points.gte(5) }
         },
         2: {
-            requirementDescription: "25 demon souls",
+            requirementDescription: "15 demon souls",
             effectDescription: "keep row 2 milestones on demon soul resets",
-            done() { return player[this.layer].points.gte(25) }
+            done() { return player[this.layer].points.gte(15) }
+        },
+        3: {
+            requirementDescription: "50 demon souls",
+            effectDescription: "keep essence upgrades on all resets",
+            done() { return player[this.layer].points.gte(50) }
+        },
+        4: {
+            requirementDescription: "125 demon souls",
+            effectDescription: "keep essence buyables on all resets",
+            done() { return player[this.layer].points.gte(125) }
         },
     },
     buyables: {
