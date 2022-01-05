@@ -320,7 +320,9 @@ addLayer("c", {
             else hcM = ""
             if (hasMilestone("h", 5) && resettingLayer=="sp") spcM = "milestones"
             else spcM = ""
-            if (layers[resettingLayer].row > this.row) layerDataReset("c", [hcU, hcB, spcU, spcB, hcM, spcM])
+            if (hasMilestone("ds", 2) && resettingLayer=="ds") dscM = "milestones"
+            else dscM = ""
+            if (layers[resettingLayer].row > this.row) layerDataReset("c", [hcU, hcB, spcU, spcB, hcM, spcM, dscM])
         },
     milestones: {
         0: {
@@ -427,7 +429,7 @@ addLayer("c", {
         },
         33: {
             title: "Core Liberation",
-            description: "if you own Core Production Line and all subsequent upgrades, gain an +25% of your core gain per second",
+            description: "if you own Core Production Line and all subsequent upgrades, gain +25% of your core gain per second",
             cost: new Decimal(1e80),
             unlocked() { return (hasMilestone("h", 8)) && hasUpgrade("h", 53) && hasUpgrade("c", 32) },
         },
@@ -522,7 +524,9 @@ addLayer("q", {
             else spqU2 = ""
             if (hasMilestone("h", 7) && resettingLayer=="h") hqU = "upgrades"
             else hqU = ""
-            if (layers[resettingLayer].row > this.row) layerDataReset("q", [spqM1, spqU1, hqM, spqM2, spqU2, hqU])
+            if (hasMilestone("ds", 2) && resettingLayer=="ds") dsqM = "milestones"
+            else dsqM = ""
+            if (layers[resettingLayer].row > this.row) layerDataReset("q", [spqM1, spqU1, hqM, spqM2, spqU2, hqU, dsqM])
         },
     milestones: {
         0: {
@@ -771,6 +775,7 @@ addLayer("sp", {
         gain = new Decimal(1)
         if (hasUpgrade('q', 43)) gain = gain.times(upgradeEffect('q', 43))
         if (hasUpgrade('h', 63)) mult = mult.times(upgradeEffect('h', 63))
+        gain = gain.times((getBuyableAmount('ds', 11) * 1) + 1)
         return gain
     },
     row: 2, // Row the layer is in on the tree (0 is the first row)
@@ -905,6 +910,7 @@ addLayer("h", {
                     if (hasUpgrade('h', 42)) mult = mult.times(upgradeEffect('h', 42))
         if (hasUpgrade('h', 62)) mult = mult.times(upgradeEffect('h', 62))
         if (hasUpgrade('h', 14)) mult = mult.times(4)
+        mult = mult.times(2 ** getBuyableAmount('ds', 11))
         return mult
     },
     gainExp() { // Calculate the exponent on main currency from bonuses
@@ -1176,9 +1182,14 @@ addLayer("ds", {
             done() { return player[this.layer].points.gte(1) }
         },
         1: {
-            requirementDescription: "10 demon souls",
+            requirementDescription: "5 demon souls",
             effectDescription: "keep subatomic particle upgrades on demon soul resets",
-            done() { return player[this.layer].points.gte(10) }
+            done() { return player[this.layer].points.gte(5) }
+        },
+        2: {
+            requirementDescription: "25 demon souls",
+            effectDescription: "keep row 2 milestones on demon soul resets",
+            done() { return player[this.layer].points.gte(25) }
         },
     },
     buyables: {
