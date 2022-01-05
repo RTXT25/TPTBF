@@ -368,7 +368,7 @@ addLayer("c", {
         21: {
             title: "Quarky Core",
             description: "multiplies the effect of The Quarks' Core based on the amount of cores you have",
-            cost: new Decimal(1e75),
+            cost: new Decimal(1e70),
             effect() {
                return player[this.layer].points.add(1).pow(0.005)
             },
@@ -378,7 +378,7 @@ addLayer("c", {
         22: {
             title: "Quirky Core",
             description: "multiplies the effect of Quarky Core based on the amount of cores you have",
-            cost: new Decimal(1e100),
+            cost: new Decimal(1e75),
             effect() {
                return player[this.layer].points.add(1).pow(0.002)
             },
@@ -388,7 +388,7 @@ addLayer("c", {
         23: {
             title: "Ultra Core",
             description: "multiplies core gain based on the amount of cores you have",
-            cost: new Decimal(1e125),
+            cost: new Decimal(1e80),
             effect() {
                return player[this.layer].points.add(1).pow(0.001)
             },
