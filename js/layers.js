@@ -1140,7 +1140,7 @@ addLayer("h", {
         },
         51: {
             title: "Faster Essence",
-            description: "Increase essence gain per second by 25% (total: 100%)",
+            description: "Increase essence gain per second by 25% (total: 75%)",
             cost: new Decimal(1e63),
             unlocked() { return hasUpgrade("ds", 11) && hasUpgrade("h", 41) && hasUpgrade("h", 42) && hasUpgrade("h", 43) && hasUpgrade("h", 44) },
         },
@@ -1268,7 +1268,7 @@ addLayer("ds", {
         12: {
             title: "Hex Mania",
             description: "you can explore 2 further hex upgrades, and the effect of Mad Hexes is multiplied based on the amount of demon souls you have",
-            cost: new Decimal(100),
+            cost: new Decimal(75),
             effect() {
                return player[this.layer].points.add(1).pow(0.2)
             },
