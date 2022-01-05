@@ -297,9 +297,11 @@ addLayer("c", {
     ],
     layerShown(){return true},
     passiveGeneration() { 
-        if (hasUpgrade("h", 43) && hasUpgrade("h", 44)) return 0.1
+        if (hasUpgrade("h", 43) && hasUpgrade("h", 44) && hasUpgrade("h", 51)) return 0.25
         else
-            if (hasUpgrade("h", 43)) return 0.01
+            if (hasUpgrade("h", 43) && hasUpgrade("h", 44)) return 0.1
+            else
+                if (hasUpgrade("h", 43)) return 0.01
     },
     doReset(resettingLayer) {
         let keep = [];
@@ -1022,7 +1024,7 @@ addLayer("h", {
         42: {
             title: "Ultra Hexes",
             description: "multiplies the effect of Extreme Hexes based on the amount of hexes you have",
-            cost: new Decimal(25000000),
+            cost: new Decimal(15000000),
             effect() {
                return player[this.layer].points.add(1).pow(0.001)
             },
@@ -1032,25 +1034,25 @@ addLayer("h", {
         43: {
             title: "Core Continuation",
             description: "Gain +1% of core gain per second",
-            cost: new Decimal(50000000),
+            cost: new Decimal(45000000),
             unlocked() { return hasUpgrade("h", 31) && hasUpgrade("h", 32) && hasUpgrade("h", 33) && hasUpgrade("h", 34) },
         },
         44: {
             title: "Rapid Cores",
             description: "Increase the effect of Core Continuation to +9%",
-            cost: new Decimal(100000000),
+            cost: new Decimal(75000000),
             unlocked() { return hasUpgrade("h", 31) && hasUpgrade("h", 32) && hasUpgrade("h", 33) && hasUpgrade("h", 34) },
         },
         51: {
             title: "Core Production Line",
             description: "Increase the effect of Rapid Cores to +25%",
-            cost: new Decimal(1e9),
+            cost: new Decimal(250000000),
             unlocked() { return hasUpgrade("h", 41) && hasUpgrade("h", 42) && hasUpgrade("h", 43) && hasUpgrade("h", 44) },
         },
         52: {
             title: "Sub Core Particle Fusion",
-            description: "you can explore 3 new core upgrades and subatomic particle upgrades (coming soon)",
-            cost: new Decimal(1e10),
+            description: "you can explore 3 new core upgrades and 3 new subatomic particle upgrades (coming soon)",
+            cost: new Decimal(7.5e9),
             unlocked() { return hasUpgrade("h", 41) && hasUpgrade("h", 42) && hasUpgrade("h", 43) && hasUpgrade("h", 44) },
         },
     },
