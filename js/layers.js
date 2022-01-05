@@ -296,6 +296,11 @@ addLayer("c", {
         {key: "c", description: "C: Reset for cores", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
     layerShown(){return true},
+    passiveGeneration() { 
+        if (hasUpgrade("h", 43) && hasUpgrade("h", 44)) return 0.1
+        else
+            if (hasUpgrade("h", 43)) return 0.01
+    },
     doReset(resettingLayer) {
         let keep = [];
             if (hasMilestone("h", 2) && resettingLayer=="h") hcU = "upgrades"
@@ -836,6 +841,7 @@ addLayer("h", {
         if (hasUpgrade('h', 12)) mult = mult.times(upgradeEffect('h', 12))
             if (hasUpgrade('h', 22)) mult = mult.times(upgradeEffect('h', 22))
                 if (hasUpgrade('h', 32)) mult = mult.times(upgradeEffect('h', 32))
+                    if (hasUpgrade('h', 42)) mult = mult.times(upgradeEffect('h', 42))
         if (hasUpgrade('h', 14)) mult = mult.times(4)
         return mult
     },
@@ -1002,6 +1008,50 @@ addLayer("h", {
             description: "Quark gain is doubled",
             cost: new Decimal(2500000),
             unlocked() { return hasUpgrade("h", 21) && hasUpgrade("h", 22) && hasUpgrade("h", 23) && hasUpgrade("h", 24) },
+        },
+        41: {
+            title: "Numero Hex",
+            description: "multiplies the effect of Hex Numerals based on the amount of hexes you have",
+            cost: new Decimal(7500000),
+            effect() {
+               return player.points.add(1).pow(0.001)
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            unlocked() { return hasUpgrade("h", 31) && hasUpgrade("h", 32) && hasUpgrade("h", 33) && hasUpgrade("h", 34) },
+        },
+        42: {
+            title: "Ultra Hexes",
+            description: "multiplies the effect of Extreme Hexes based on the amount of hexes you have",
+            cost: new Decimal(25000000),
+            effect() {
+               return player[this.layer].points.add(1).pow(0.001)
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            unlocked() { return hasUpgrade("h", 31) && hasUpgrade("h", 32) && hasUpgrade("h", 33) && hasUpgrade("h", 34) },
+        },
+        43: {
+            title: "Core Continuation",
+            description: "Gain +1% of core gain per second",
+            cost: new Decimal(50000000),
+            unlocked() { return hasUpgrade("h", 31) && hasUpgrade("h", 32) && hasUpgrade("h", 33) && hasUpgrade("h", 34) },
+        },
+        44: {
+            title: "Rapid Cores",
+            description: "Increase the effect of Core Continuation to +9%",
+            cost: new Decimal(100000000),
+            unlocked() { return hasUpgrade("h", 31) && hasUpgrade("h", 32) && hasUpgrade("h", 33) && hasUpgrade("h", 34) },
+        },
+        51: {
+            title: "Core Production Line",
+            description: "Increase the effect of Rapid Cores to +25%",
+            cost: new Decimal(1e9),
+            unlocked() { return hasUpgrade("h", 41) && hasUpgrade("h", 42) && hasUpgrade("h", 43) && hasUpgrade("h", 44) },
+        },
+        52: {
+            title: "Sub Core Particle Fusion",
+            description: "you can explore 3 new core upgrades and subatomic particle upgrades (coming soon)",
+            cost: new Decimal(1e10),
+            unlocked() { return hasUpgrade("h", 41) && hasUpgrade("h", 42) && hasUpgrade("h", 43) && hasUpgrade("h", 44) },
         },
     },
 });

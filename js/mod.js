@@ -18,6 +18,7 @@ let VERSION = {
 let changelog = `<h1>Changelog:</h1><br>
 	<br><h3>v0.8: Core of the Earth</h3><br>
 		- Added one milestone to hexes.<br>
+		- Added six upgrades to hexes.<br>
 		- Added one milestone to subatomic particles.<br>
 		- Added one milestone to cores.<br>
 		- Added three upgrades to cores.<br>
@@ -97,6 +98,7 @@ function getPointGen() {
 	if (hasUpgrade('h', 11)) mult = mult.times(upgradeEffect('h', 11))
 		if (hasUpgrade('h', 21)) mult = mult.times(upgradeEffect('h', 21))
 			if (hasUpgrade('h', 31)) mult = mult.times(upgradeEffect('h', 31))
+				if (hasUpgrade('h', 41)) mult = mult.times(upgradeEffect('h', 41))
 	gain = gain.times(2.5 * getBuyableAmount('c', 11) + 1)
 	gain = gain.times(5 ** getBuyableAmount('sp', 21))
 	gain = gain.times(((getBuyableAmount('sp', 12) * 1) + 1) ** -1)
