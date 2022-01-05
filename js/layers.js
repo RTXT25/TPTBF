@@ -298,9 +298,9 @@ addLayer("c", {
     ],
     layerShown(){return true},
     passiveGeneration() {
-        if (hasUpgrade("h", 43) && hasUpgrade("h", 44) && hasUpgrade("h", 51) && hasUpgrade("c", 33)) return 0.5
+        if (hasUpgrade("h", 43) && hasUpgrade("h", 44) && hasUpgrade("h", 52) && hasUpgrade("c", 33)) return 0.5
         else
-            if (hasUpgrade("h", 43) && hasUpgrade("h", 44) && hasUpgrade("h", 51)) return 0.25
+            if (hasUpgrade("h", 43) && hasUpgrade("h", 44) && hasUpgrade("h", 52)) return 0.25
             else
                 if (hasUpgrade("h", 43) && hasUpgrade("h", 44)) return 0.1
                 else
@@ -413,7 +413,7 @@ addLayer("c", {
                return player[this.layer].points.add(1).pow(0.0025)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
-            unlocked() { return (hasMilestone("h", 8)) && hasUpgrade("h", 52) && hasUpgrade("c", 23) },
+            unlocked() { return (hasMilestone("h", 8)) && hasUpgrade("h", 53) && hasUpgrade("c", 23) },
         },
         32: {
             title: "Hexed Core",
@@ -423,13 +423,13 @@ addLayer("c", {
                return player[this.layer].points.add(1).pow(0.001)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
-            unlocked() { return (hasMilestone("h", 8)) && hasUpgrade("h", 52) && hasUpgrade("c", 31) },
+            unlocked() { return (hasMilestone("h", 8)) && hasUpgrade("h", 53) && hasUpgrade("c", 31) },
         },
         33: {
             title: "Core Liberation",
             description: "if you own Core Production Line and all subsequent upgrades, gain an +25% of your core gain per second",
             cost: new Decimal(1e80),
-            unlocked() { return (hasMilestone("h", 8)) && hasUpgrade("h", 52) && hasUpgrade("c", 32) },
+            unlocked() { return (hasMilestone("h", 8)) && hasUpgrade("h", 53) && hasUpgrade("c", 32) },
         },
     },
     buyables: {
@@ -770,6 +770,7 @@ addLayer("sp", {
     gainExp() { // Calculate the exponent on main currency from bonuses
         gain = new Decimal(1)
         if (hasUpgrade('q', 43)) gain = gain.times(upgradeEffect('q', 43))
+        if (hasUpgrade('h', 63)) mult = mult.times(upgradeEffect('h', 63))
         return gain
     },
     row: 2, // Row the layer is in on the tree (0 is the first row)
@@ -818,19 +819,19 @@ addLayer("sp", {
             title: "Positrons",
             description: "multiplies the base buff effect of Protons by 2",
             cost: new Decimal(6),
-            unlocked() { return (hasMilestone("h", 8)) && hasUpgrade("h", 52) },
+            unlocked() { return (hasMilestone("h", 8)) && hasUpgrade("h", 53) },
         },
         12: {
             title: "Beta Particles",
             description: "multiplies the base buff effect of Neutrons by 2",
             cost: new Decimal(6),
-            unlocked() { return (hasMilestone("h", 8)) && hasUpgrade("h", 52) },
+            unlocked() { return (hasMilestone("h", 8)) && hasUpgrade("h", 53) },
         },
         13: {
             title: "Gamma Particles",
             description: "multiplies the base buff effect of Neutrons by 2",
             cost: new Decimal(6),
-            unlocked() { return (hasMilestone("h", 8)) && hasUpgrade("h", 52) },
+            unlocked() { return (hasMilestone("h", 8)) && hasUpgrade("h", 53) },
         },
     },
     buyables: {
@@ -897,6 +898,7 @@ addLayer("h", {
             if (hasUpgrade('h', 22)) mult = mult.times(upgradeEffect('h', 22))
                 if (hasUpgrade('h', 32)) mult = mult.times(upgradeEffect('h', 32))
                     if (hasUpgrade('h', 42)) mult = mult.times(upgradeEffect('h', 42))
+        if (hasUpgrade('h', 62)) mult = mult.times(upgradeEffect('h', 62))
         if (hasUpgrade('h', 14)) mult = mult.times(4)
         return mult
     },
@@ -1096,17 +1098,37 @@ addLayer("h", {
             cost: new Decimal(75000000),
             unlocked() { return hasUpgrade("h", 31) && hasUpgrade("h", 32) && hasUpgrade("h", 33) && hasUpgrade("h", 34) },
         },
-        51: {
+        52: {
             title: "Core Production Line",
             description: "Increase the effect of Rapid Cores by 15%",
             cost: new Decimal(250000000),
             unlocked() { return hasUpgrade("h", 41) && hasUpgrade("h", 42) && hasUpgrade("h", 43) && hasUpgrade("h", 44) },
         },
-        52: {
+        53: {
             title: "Sub Core Particle Fusion",
             description: "you can explore 3 new core upgrades and 3 new subatomic particle upgrades",
             cost: new Decimal(7.5e9),
             unlocked() { return hasUpgrade("h", 41) && hasUpgrade("h", 42) && hasUpgrade("h", 43) && hasUpgrade("h", 44) },
+        },
+        62: {
+            title: "Sub Hex Particle",
+            description: "multiply hex gain based on the amount of subatomic particles you have",
+            cost: new Decimal(1e50),
+            effect() {
+               return player['sp'].points.add(1).pow(0.1)
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            unlocked() { return hasUpgrade("h", 52) && hasUpgrade("h", 53) },
+        },
+        63: {
+            title: "Sub Hex Particle",
+            description: "multiply subatomic particle gain based on the amount of hexes you have",
+            cost: new Decimal(1e75),
+            effect() {
+               return player[this.layer].points.add(1).pow(0.01)
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            unlocked() { return hasUpgrade("h", 52) && hasUpgrade("h", 53) },
         },
     },
 });
