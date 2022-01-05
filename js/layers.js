@@ -868,34 +868,34 @@ addLayer("h", {
             done() { return player[this.layer].points.gte(125) }
         },
         3: {
-            requirementDescription: "1,000 hexes",
+            requirementDescription: "625 hexes",
             effectDescription: "keep core buyables on hex resets",
-            done() { return player[this.layer].points.gte(1000) }
+            done() { return player[this.layer].points.gte(625) }
         },
         4: {
-            requirementDescription: "25,000 hexes",
+            requirementDescription: "3,125 hexes",
             effectDescription: "keep core upgrades and buyables on subatomic particle resets",
-            done() { return player[this.layer].points.gte(25000) }
+            done() { return player[this.layer].points.gte(3125) }
         },
         5: {
-            requirementDescription: "750,000 hexes",
+            requirementDescription: "15,625 hexes",
             effectDescription: "keep all row 2 milestones on row 3 resets",
-            done() { return player[this.layer].points.gte(750000) }
+            done() { return player[this.layer].points.gte(15625) }
         },
         6: {
-            requirementDescription: "10,000,000 hexes",
+            requirementDescription: "78,125 hexes",
             effectDescription: "keep quark upgrades on subatomic particle resets",
-            done() { return player[this.layer].points.gte(10000000) }
+            done() { return player[this.layer].points.gte(78125) }
         },
         7: {
-            requirementDescription: "250,000,000 hexes",
+            requirementDescription: "390,625 hexes",
             effectDescription: "keep quark upgrades on hex resets",
-            done() { return player[this.layer].points.gte(250000000) }
+            done() { return player[this.layer].points.gte(390625) }
         },
         8: {
-            requirementDescription: "7.50e9 hexes",
+            requirementDescription: "1,953,125 hexes",
             effectDescription: "you can explore 3 further core upgrades",
-            done() { return player[this.layer].points.gte( new Decimal(7.5e9) ) }
+            done() { return player[this.layer].points.gte(1953125) }
         },
     },
     upgrades: {
@@ -936,7 +936,7 @@ addLayer("h", {
             description: "multiplies the effect of Hex Leak based on the amount of hexes you have",
             cost: new Decimal(1000),
             effect() {
-               return player[this.layer].points.add(1).pow(0.02)
+               return player[this.layer].points.add(1).pow(0.25)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
             unlocked() { return hasUpgrade("h", 11) && hasUpgrade("h", 12) && hasUpgrade("h", 13) && hasUpgrade("h", 14) },
@@ -970,7 +970,7 @@ addLayer("h", {
         31: {
             title: "Hex Numerals",
             description: "multiplies the effect of Numerical Hexes based on the amount of points you have",
-            cost: new Decimal(1000000),
+            cost: new Decimal(100000),
             effect() {
                return player.points.add(1).pow(0.001)
             },
@@ -980,7 +980,7 @@ addLayer("h", {
         32: {
             title: "Extreme Hexes",
             description: "multiplies the effect of Super Strong Hexes based on the amount of hexes you have",
-            cost: new Decimal(5000000),
+            cost: new Decimal(500000),
             effect() {
                return player[this.layer].points.add(1).pow(0.001)
             },
@@ -990,7 +990,7 @@ addLayer("h", {
         33: {
             title: "Core of Hexes",
             description: "multiplies the effect of Hex Fission based on the amount of cores you have",
-            cost: new Decimal(10000000),
+            cost: new Decimal(1000000),
             effect() {
                return player[this.layer].points.add(1).pow(0.002)
             },
@@ -1000,7 +1000,7 @@ addLayer("h", {
         34: {
             title: "Boost Quarks",
             description: "Quark gain is doubled",
-            cost: new Decimal(25000000),
+            cost: new Decimal(2500000),
             unlocked() { return hasUpgrade("h", 21) && hasUpgrade("h", 22) && hasUpgrade("h", 23) && hasUpgrade("h", 24) },
         },
     },
