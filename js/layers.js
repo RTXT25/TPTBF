@@ -1268,7 +1268,7 @@ addLayer("ds", {
         12: {
             title: "Hex Mania",
             description: "you can explore 2 further hex upgrades, and the effect of Mad Hexes is multiplied based on the amount of demon souls you have",
-            cost: new Decimal(10),
+            cost: new Decimal(100),
             effect() {
                return player[this.layer].points.add(1).pow(0.2)
             },
