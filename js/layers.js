@@ -112,7 +112,15 @@ addLayer("e", {
     ],
     layerShown(){return true},
     passiveGeneration() { 
-        if (hasMilestone("c", 3)) return 0.5
+        if (hasMilestone("c", 3) && hasUpgrade("h", 51) && hasUpgrade("h", 52) && hasUpgrade("h", 61) && hasUpgrade("h", 64)) return 1.5
+        else
+            if (hasMilestone("c", 3) && hasUpgrade("h", 51) && hasUpgrade("h", 54) && hasUpgrade("h", 61)) return 1.25
+            else
+                if (hasMilestone("c", 3) && hasUpgrade("h", 51) && hasUpgrade("h", 54)) return 1
+                else
+                    if (hasMilestone("c", 3) && hasUpgrade("h", 51)) return 0.75
+                    else
+                        if (hasMilestone("c", 3)) return 0.5
     },
     doReset(resettingLayer) {
         let keep = [];
@@ -927,8 +935,10 @@ addLayer("h", {
             if (hasUpgrade('h', 22)) mult = mult.times(upgradeEffect('h', 22))
                 if (hasUpgrade('h', 32)) mult = mult.times(upgradeEffect('h', 32))
                     if (hasUpgrade('h', 42)) mult = mult.times(upgradeEffect('h', 42))
-        if (hasUpgrade('h', 62)) mult = mult.times(upgradeEffect('h', 62))
         if (hasUpgrade('h', 14)) mult = mult.times(4)
+        if (hasUpgrade('h', 62)) mult = mult.times(upgradeEffect('h', 62))
+        if (hasUpgrade('ds', 11)) mult = mult.times(upgradeEffect('h', 11))
+            if (hasUpgrade('ds', 12)) mult = mult.times(upgradeEffect('h', 12))
         mult = mult.times(2 ** getBuyableAmount('ds', 11))
         return mult
     },
@@ -1128,6 +1138,12 @@ addLayer("h", {
             cost: new Decimal(75000000),
             unlocked() { return hasUpgrade("h", 31) && hasUpgrade("h", 32) && hasUpgrade("h", 33) && hasUpgrade("h", 34) },
         },
+        51: {
+            title: "Faster Essence",
+            description: "Increase essence gain per second by 25% (total: 100%)",
+            cost: new Decimal(1e63),
+            unlocked() { return hasUpgrade("ds", 11) && hasUpgrade("h", 41) && hasUpgrade("h", 42) && hasUpgrade("h", 43) && hasUpgrade("h", 44) },
+        },
         52: {
             title: "Core Production Line",
             description: "Increase the effect of Rapid Cores by 15%",
@@ -1139,6 +1155,18 @@ addLayer("h", {
             description: "you can explore 3 new core upgrades and 3 new subatomic particle upgrades",
             cost: new Decimal(7.5e9),
             unlocked() { return hasUpgrade("h", 41) && hasUpgrade("h", 42) && hasUpgrade("h", 43) && hasUpgrade("h", 44) },
+        },
+        54: {
+            title: "Fastest Essence",
+            description: "Increase the effect of Faster Essence by 25% (total: 100%)",
+            cost: new Decimal(1e66),
+            unlocked() { return hasUpgrade("ds", 11) && hasUpgrade("h", 41) && hasUpgrade("h", 42) && hasUpgrade("h", 43) && hasUpgrade("h", 44) },
+        },
+        61: {
+            title: "Essence Overdrive",
+            description: "Increase the effect of Fastest Essence by 25% (total: 125%)",
+            cost: new Decimal(1e69),
+            unlocked() { return hasUpgrade("ds", 12) && hasUpgrade("h", 51) && hasUpgrade("h", 52) && hasUpgrade("h", 53) && hasUpgrade("h", 54) },
         },
         62: {
             title: "Sub Hex Particle",
@@ -1159,6 +1187,12 @@ addLayer("h", {
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
             unlocked() { return hasUpgrade("h", 52) && hasUpgrade("h", 53) },
+        },
+        64: {
+            title: "Essence Potential",
+            description: "Increase the effect of Fastest Essence by 25% (total: 150%)",
+            cost: new Decimal(1e72),
+            unlocked() { return hasUpgrade("ds", 12) && hasUpgrade("h", 51) && hasUpgrade("h", 52) && hasUpgrade("h", 53) && hasUpgrade("h", 54) },
         },
     },
 });
@@ -1221,18 +1255,38 @@ addLayer("ds", {
             done() { return player[this.layer].points.gte(125) }
         },
     },
+    upgrades: {
+        11: {
+            title: "Mad Hexes",
+            description: "you can explore 2 further hex upgrades, and hex gain is multiplied based on the amount of demon souls you have",
+            cost: new Decimal(10),
+            effect() {
+               return player[this.layer].points.add(1).pow(0.1)
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+        },
+        12: {
+            title: "Hex Mania",
+            description: "you can explore 2 further hex upgrades, and the effect of Mad Hexes is multiplied based on the amount of demon souls you have",
+            cost: new Decimal(10),
+            effect() {
+               return player[this.layer].points.add(1).pow(0.2)
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+        },
+    },
     buyables: {
         11: {
             cost(x) { return new Decimal(1).mul(x) },
             title: "Demonic Energy",
-            canAfford() { return player[this.layer].points.gte(this.cost((getBuyableAmount('ds', 11) * 1) + 1))},
+            canAfford() { return player[this.layer].points.gte(this.cost((getBuyableAmount('ds', 11) ** 2) + 1))},
             purchaseLimit: new Decimal(99),
             buy() {
-                player[this.layer].points = player[this.layer].points.sub(this.cost((getBuyableAmount('ds', 11) * 1) + 1))
+                player[this.layer].points = player[this.layer].points.sub(this.cost((getBuyableAmount('ds', 11) ** 2) + 1))
                 setBuyableAmount('ds', 11, ((getBuyableAmount('ds', 11) * 1) + 1))
             },
             display() {
-                return "multiplies hex gain (and also subatomic particle gain at a reduced rate) based on the amount of this upgrade bought.\nCurrently: " + (2 ** getBuyableAmount('ds', 11)) + "x\nand " + ((getBuyableAmount('ds', 11) * 1) + 1) + "x\n\nCost: " + ((getBuyableAmount('ds', 11) * 1) + 1) + "\n\nBought: " + getBuyableAmount('ds', 11)
+                return "multiplies hex gain (and also subatomic particle gain at a reduced rate) based on the amount of this upgrade bought.\nCurrently: " + (2 ** getBuyableAmount('ds', 11)) + "x\nand " + ((getBuyableAmount('ds', 11) * 1) + 1) + "x\n\nCost: " + ((getBuyableAmount('ds', 11) ** 2) + 1) + "\n\nBought: " + getBuyableAmount('ds', 11)
             },
         },
     },
