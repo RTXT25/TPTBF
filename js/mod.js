@@ -20,6 +20,7 @@ let changelog = `<h1>Changelog:</h1><br>
 		- Added demon souls.<br>
 		- Added three milestones to demon souls.<br>
 		- Added one buyable to demon souls.<br>
+		- Added one achievement.<br>
 		- Balance changes.<br>
 	<br><h3>v1.0: Variety Rules</h3><br>
 		- Added one milestone to hexes.<br>
@@ -28,21 +29,25 @@ let changelog = `<h1>Changelog:</h1><br>
 		- Added three upgrades to subatomic particles.<br>
 		- Added one milestone to cores.<br>
 		- Added six upgrades to cores.<br>
+		- Added two achievements.<br>
 		- Balance changes.<br>
 	<br><h3>v0.7: The Hex Game</h3><br>
 		- Added hexes.<br>
 		- Added eight milestones to hexes.<br>
 		- Added twelve upgrades to hexes.<br>
+		- Added one achievement.<br>
 		- Balance changes.<br>
 	<br><h3>v0.6: Subatomic Layer</h3><br>
 		- Added subatomic particles.<br>
 		- Added three buyables to subatomic particles.<br>
 		- Added five milestones to subatomic particles.<br>
 		- Added five upgrades to quarks.<br>
+		- Added one achievement.<br>
 		- Balance changes.<br>
 	<br><h3>v0.5: How Many Miles</h3><br>
 		- Added three milestones to cores.<br>
 		- Added three milestones to quarks.<br>
+		- Added six achievements.<br>
 		- Balance changes.<br>
 	<br><h3>v0.4: To Infinity</h3><br>
 		- Added five more upgrades to essence.<br>

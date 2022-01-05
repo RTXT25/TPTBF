@@ -15,7 +15,7 @@ addLayer("A", {
         },
         12: {
             name: "Much Essence",
-            done() {return player["e"].points >= Math.pow(10, 10)},
+            done() {return player["e"].points >= (10 ** 10)},
             tooltip: "obtain 1e10 essence.",
         },
         21: {
@@ -25,7 +25,7 @@ addLayer("A", {
         },
         22: {
             name: "Many Cores",
-            done() {return player["c"].points >= Math.pow(10, 10)},
+            done() {return player["c"].points >= (10 ** 10)},
             tooltip: "obtain 1e10 cores.",
         },
         31: {
@@ -35,7 +35,7 @@ addLayer("A", {
         },
         32: {
             name: "Lots of Quarks",
-            done() {return player["q"].points >= Math.pow(10, 10)},
+            done() {return player["q"].points >= (10 ** 10)},
             tooltip: "obtain 1e10 quarks.",
         },
         41: {
@@ -43,10 +43,25 @@ addLayer("A", {
             done() {return player["sp"].points >= 1},
             tooltip: "obtain 1 subatomic particle.",
         },
-        41: {
+        42: {
+            name: "Subatomic Double Digit",
+            done() {return player["sp"].points >= 10},
+            tooltip: "obtain 10 subatomic particle.",
+        },
+        51: {
             name: "First Hex",
             done() {return player["h"].points >= 1},
             tooltip: "obtain 1 hex.",
+        },
+        52: {
+            name: "Many Hexes",
+            done() {return player["h"].points >= (10 ** 10)},
+            tooltip: "obtain 1e10 hexes.",
+        },
+        61: {
+            name: "First Demon Soul",
+            done() {return player["ds"].points >= 1},
+            tooltip: "obtain 1 demon soul.",
         },
     },
 });
@@ -1153,7 +1168,7 @@ addLayer("ds", {
         points: new Decimal(0),
     }},
     color: "#BA0035",
-    requires: new Decimal(1e64), // Can be a function that takes requirement increases into account
+    requires: new Decimal(1e60), // Can be a function that takes requirement increases into account
     resource: "demon souls", // Name of prestige currency
     baseResource: "hexes", // Name of resource prestige is based on
     baseAmount() {return player['h'].points}, // Get the current amount of baseResource
