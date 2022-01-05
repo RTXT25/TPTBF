@@ -426,8 +426,8 @@ addLayer("c", {
             unlocked() { return (hasMilestone("h", 8)) && hasUpgrade("h", 52) && hasUpgrade("c", 31) },
         },
         33: {
-            title: "CORE LIBERATION",
-            description: "if you own Core Production Line and all subsequent upgrades, you gain an additional 25% of your core gain per second",
+            title: "Core Liberation",
+            description: "if you own Core Production Line and all subsequent upgrades, gain an +25% of your core gain per second",
             cost: new Decimal(1e80),
             unlocked() { return (hasMilestone("h", 8)) && hasUpgrade("h", 52) && hasUpgrade("c", 32) },
         },
@@ -706,7 +706,7 @@ addLayer("q", {
             description: "multiplies quark gain based on the amount of subatomic particles you have",
             cost: new Decimal(1e16),
             effect() {
-               return player["sp"].points.add(1).pow(0.1)
+               return player["sp"].points.add(1).pow(0.5)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
             unlocked() { return hasMilestone("sp", 2) && hasUpgrade("q", 41) },
@@ -818,16 +818,19 @@ addLayer("sp", {
             title: "Positrons",
             description: "multiplies the base buff effect of Protons by 2",
             cost: new Decimal(6),
+            unlocked() { return (hasMilestone("h", 8)) && hasUpgrade("h", 52) },
         },
         12: {
             title: "Beta Particles",
             description: "multiplies the base buff effect of Neutrons by 2",
             cost: new Decimal(6),
+            unlocked() { return (hasMilestone("h", 8)) && hasUpgrade("h", 52) },
         },
         13: {
             title: "Gamma Particles",
             description: "multiplies the base buff effect of Neutrons by 2",
             cost: new Decimal(6),
+            unlocked() { return (hasMilestone("h", 8)) && hasUpgrade("h", 52) },
         },
     },
     buyables: {
@@ -835,6 +838,7 @@ addLayer("sp", {
             cost(x) { return new Decimal(1).mul(x) },
             title: "Protons",
             canAfford() { return player[this.layer].points.gte(this.cost((getBuyableAmount('sp', 11) * 1) + 1))},
+            purchaseLimit: new Decimal(9),
             buy() {
                 player[this.layer].points = player[this.layer].points.sub(this.cost((getBuyableAmount('sp', 11) * 1) + 1))
                 setBuyableAmount('sp', 11, ((getBuyableAmount('sp', 11) * 1) + 1))
@@ -847,6 +851,7 @@ addLayer("sp", {
             cost(x) { return new Decimal(1).mul(x) },
             title: "Neutrons",
             canAfford() { return player[this.layer].points.gte(this.cost((getBuyableAmount('sp', 12) * 1) + 1))},
+            purchaseLimit: new Decimal(9),
             buy() {
                 player[this.layer].points = player[this.layer].points.sub(this.cost((getBuyableAmount('sp', 12) * 1) + 1))
                 setBuyableAmount('sp', 12, ((getBuyableAmount('sp', 12) * 1) + 1))
@@ -859,6 +864,7 @@ addLayer("sp", {
             cost(x) { return new Decimal(1).mul(x) },
             title: "Electrons",
             canAfford() { return player[this.layer].points.gte(this.cost((getBuyableAmount('sp', 21) * 1) + 1))},
+            purchaseLimit: new Decimal(9),
             buy() {
                 player[this.layer].points = player[this.layer].points.sub(this.cost((getBuyableAmount('sp', 21) * 1) + 1))
                 setBuyableAmount('sp', 21, ((getBuyableAmount('sp', 21) * 1) + 1))
