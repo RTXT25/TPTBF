@@ -11,91 +11,106 @@ addLayer("A", {
     tooltip() {return "Achievements"},
     achievements: {
         11: {
+            name: "The Point",
+            done() {return player.points >= 1},
+            tooltip: "obtain 1 point.",
+        },
+        12: {
+            name: "Very Pointy",
+            done() {return player.points >= (10 ** 10)},
+            tooltip: "obtain 1e10 points.",
+        },
+        13: {
+            name: "Now That's Really Pointy",
+            done() {return player.points >= (10 ** 100)},
+            tooltip: "obtain 1e100 points.",
+        },
+        21: {
             name: "Essence of Rat",
             done() {return player["e"].points >= 1},
             tooltip: "obtain 1 essence.",
         },
-        12: {
+        22: {
             name: "Shining Essence",
             done() {return player["e"].points >= (10 ** 10)},
             tooltip: "obtain 1e10 essence.",
         },
-        13: {
+        23: {
             name: "Gleaming, Golden Essence",
             done() {return player["e"].points >= (10 ** 100)},
             tooltip: "obtain 1e100 essence.",
         },
-        21: {
+        31: {
             name: "Cracked Core",
             done() {return player["c"].points >= 1},
             tooltip: "obtain 1 core.",
         },
-        22: {
+        32: {
             name: "Mountainous Core",
             done() {return player["c"].points >= (10 ** 10)},
             tooltip: "obtain 1e10 cores.",
         },
-        23: {
+        33: {
             name: "Core of the Earth",
             done() {return player["c"].points >= (10 ** 100)},
             tooltip: "obtain 1e100 cores.",
         },
-        31: {
+        41: {
             name: "The Smallest Quark",
             done() {return player["q"].points >= 1},
             tooltip: "obtain 1 quark.",
         },
-        32: {
+        42: {
             name: "Quark Field",
             done() {return player["q"].points >= (10 ** 10)},
             tooltip: "obtain 1e10 quarks.",
         },
-        33: {
+        43: {
             name: "Oh, the Quark of it all",
             done() {return player["q"].points >= (10 ** 100)},
             tooltip: "obtain 1e100 quarks.",
         },
-        41: {
+        51: {
             name: "Submarine, Subatomic",
             done() {return player["sp"].points >= 1},
             tooltip: "obtain 1 subatomic particle.",
         },
-        42: {
+        52: {
             name: "Variant Particles",
             done() {return player["sp"].points >= 10},
             tooltip: "obtain 10 subatomic particles.",
         },
-        43: {
+        53: {
             name: "Periodic Particles",
             done() {return player["sp"].points >= 100},
             tooltip: "obtain 100 subatomic particles.",
         },
-        51: {
+        61: {
             name: "The Hex Game",
             done() {return player["h"].points >= 1},
             tooltip: "obtain 1 hex.",
         },
-        52: {
+        62: {
             name: "Cursed into Oblivion",
             done() {return player["h"].points >= (10 ** 10)},
             tooltip: "obtain 1e10 hexes.",
         },
-        53: {
+        63: {
             name: "The Prophecy of Doom",
             done() {return player["h"].points >= (10 ** 100)},
             tooltip: "obtain 1e100 hexes.",
         },
-        61: {
+        71: {
             name: "First Demon Soul",
             done() {return player["ds"].points >= 1},
             tooltip: "obtain 1 demon soul.",
         },
-        62: {
+        72: {
             name: "Demonic Ruin",
             done() {return player["ds"].points >= (10 ** 10)},
             tooltip: "obtain 1e10 demon souls.",
         },
-        63: {
+        73: {
             name: "Demonic Origin",
             done() {return player["ds"].points >= (10 ** 100)},
             tooltip: "obtain 1e100 demon souls.",
@@ -843,7 +858,7 @@ addLayer("sp", {
         gain = new Decimal(1)
         if (hasUpgrade('q', 43)) gain = gain.times(upgradeEffect('q', 43))
         if (hasUpgrade('h', 63)) mult = mult.times(upgradeEffect('h', 63))
-        gain = gain.times((getBuyableAmount('ds', 11) * 1) + 1)
+        gain = gain.times((getBuyableAmount('ds', 11) * 7) + 1)
         return gain
     },
     row: 2, // Row the layer is in on the tree (0 is the first row)
@@ -1331,15 +1346,15 @@ addLayer("ds", {
             cost(x) { return new Decimal(1).mul(x) },
             title: "Demonic Energy",
             canAfford() { 
-                return player[this.layer].points.gte(this.cost((getBuyableAmount('ds', 11) ** 5) + 1))
+                return player[this.layer].points.gte(this.cost((2 ** getBuyableAmount('ds', 11)) + 1))
             },
-            purchaseLimit: new Decimal(99),
+            purchaseLimit: new Decimal(49),
             buy() {
-                player[this.layer].points = player[this.layer].points.sub(this.cost((getBuyableAmount('ds', 11) ** 5) + 1))
+                player[this.layer].points = player[this.layer].points.sub(this.cost((2 ** getBuyableAmount('ds', 11)) + 1))
                 setBuyableAmount('ds', 11, ((getBuyableAmount('ds', 11) * 1) + 1))
             },
             display() {
-                return "multiplies hex gain (and also subatomic particle gain at a reduced rate) based on the amount of this upgrade bought.\nCurrently: " + (2 ** getBuyableAmount('ds', 11)) + "x\nand " + ((getBuyableAmount('ds', 11) * 1) + 1) + "x\n\nCost: " + ((getBuyableAmount('ds', 11) ** 5) + 1) + "\n\nBought: " + getBuyableAmount('ds', 11)
+                return "multiplies hex gain (and also subatomic particle gain at a reduced rate) based on the amount of this upgrade bought.\nCurrently: " + (2 ** getBuyableAmount('ds', 11)) + "x\nand " + ((getBuyableAmount('ds', 11) * 7) + 1) + "x\n\nCost: " + ((2 ** getBuyableAmount('ds', 11)) + 1) + "\n\nBought: " + getBuyableAmount('ds', 11)
             },
         },
     },
