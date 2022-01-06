@@ -5,7 +5,7 @@ addLayer("A", {
     startData() { return {
         unlocked: true,
     }},
-    color: "#d1d1d1",
+    color: "#A5BCC2",
     row: "side",
     layerShown() {return true},
     tooltip() {return "Achievements"},
@@ -19,101 +19,121 @@ addLayer("A", {
             name: "Very Pointy",
             done() {return player.points >= (10 ** 10)},
             tooltip: "obtain 1e10 points.",
+            unlocked() { if (hasAchievement("A", 11)) return true }
         },
         13: {
             name: "Now That's Really Pointy",
             done() {return player.points >= (10 ** 100)},
             tooltip: "obtain 1e100 points.",
+            unlocked() { if (hasAchievement("A", 12)) return true }
         },
         21: {
             name: "Essence of Rat",
             done() {return player["e"].points >= 1},
             tooltip: "obtain 1 essence.",
+            unlocked() { if (hasAchievement("A", 11)) return true }
         },
         22: {
             name: "Shining Essence",
             done() {return player["e"].points >= (10 ** 10)},
             tooltip: "obtain 1e10 essence.",
+            unlocked() { if (hasAchievement("A", 21)) return true }
         },
         23: {
             name: "Gleaming, Golden Essence",
             done() {return player["e"].points >= (10 ** 100)},
             tooltip: "obtain 1e100 essence.",
+            unlocked() { if (hasAchievement("A", 22)) return true }
         },
         31: {
             name: "Cracked Core",
             done() {return player["c"].points >= 1},
             tooltip: "obtain 1 core.",
+            unlocked() { if (hasAchievement("A", 21)) return true }
         },
         32: {
             name: "Mountainous Core",
             done() {return player["c"].points >= (10 ** 10)},
             tooltip: "obtain 1e10 cores.",
+            unlocked() { if (hasAchievement("A", 31)) return true }
         },
         33: {
             name: "Core of the Earth",
             done() {return player["c"].points >= (10 ** 100)},
             tooltip: "obtain 1e100 cores.",
+            unlocked() { if (hasAchievement("A", 32)) return true }
         },
         41: {
             name: "The Smallest Quark",
             done() {return player["q"].points >= 1},
             tooltip: "obtain 1 quark.",
+            unlocked() { if (hasAchievement("A", 31)) return true }
         },
         42: {
             name: "Quark Field",
             done() {return player["q"].points >= (10 ** 10)},
             tooltip: "obtain 1e10 quarks.",
+            unlocked() { if (hasAchievement("A", 41)) return true }
         },
         43: {
             name: "Oh, the Quark of it all",
             done() {return player["q"].points >= (10 ** 100)},
             tooltip: "obtain 1e100 quarks.",
+            unlocked() { if (hasAchievement("A", 42)) return true }
         },
         51: {
             name: "Submarine, Subatomic",
             done() {return player["sp"].points >= 1},
             tooltip: "obtain 1 subatomic particle.",
+            unlocked() { if (hasAchievement("A", 41)) return true }
         },
         52: {
             name: "Variant Particles",
             done() {return player["sp"].points >= 10},
             tooltip: "obtain 10 subatomic particles.",
+            unlocked() { if (hasAchievement("A", 51)) return true }
         },
         53: {
             name: "Periodic Particles",
             done() {return player["sp"].points >= 100},
             tooltip: "obtain 100 subatomic particles.",
+            unlocked() { if (hasAchievement("A", 52)) return true }
         },
         61: {
             name: "The Hex Game",
             done() {return player["h"].points >= 1},
             tooltip: "obtain 1 hex.",
+            unlocked() { if (hasAchievement("A", 51)) return true }
         },
         62: {
             name: "Cursed into Oblivion",
             done() {return player["h"].points >= (10 ** 10)},
             tooltip: "obtain 1e10 hexes.",
+            unlocked() { if (hasAchievement("A", 61)) return true }
         },
         63: {
             name: "The Prophecy of Doom",
             done() {return player["h"].points >= (10 ** 100)},
             tooltip: "obtain 1e100 hexes.",
+            unlocked() { if (hasAchievement("A", 62)) return true }
         },
         71: {
             name: "First Demon Soul",
             done() {return player["ds"].points >= 1},
             tooltip: "obtain 1 demon soul.",
+            unlocked() { if (hasAchievement("A", 61)) return true }
         },
         72: {
             name: "Demonic Ruin",
             done() {return player["ds"].points >= (10 ** 10)},
             tooltip: "obtain 1e10 demon souls.",
+            unlocked() { if (hasAchievement("A", 71)) return true }
         },
         73: {
             name: "Demonic Origin",
             done() {return player["ds"].points >= (10 ** 100)},
             tooltip: "obtain 1e100 demon souls.",
+            unlocked() { if (hasAchievement("A", 72)) return true }
         },
     },
 });
