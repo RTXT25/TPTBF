@@ -22,7 +22,8 @@ let changelog = `<h1>Changelog:</h1><br>
 		- Added two upgrades to demon souls.<br>
 		- Added four upgrades to hexes.<br>
 		- Added one buyable to demon souls.<br>
-		- Added four achievements.<br>
+		- Added seven achievements.<br>
+		- Renamed most achievements.<br>
 		- Balance changes.<br>
 	<br><h3>v1.0: Variety Rules</h3><br>
 		- Added one milestone to hexes.<br>

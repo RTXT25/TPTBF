@@ -9,74 +9,89 @@ addLayer("A", {
     layerShown() {return true},
     achievements: {
         11: {
-            name: "First Essence",
+            name: "Essence of Rat",
             done() {return player["e"].points >= 1},
             tooltip: "obtain 1 essence.",
         },
         12: {
-            name: "Much Essence",
+            name: "Shining Essence",
             done() {return player["e"].points >= (10 ** 10)},
             tooltip: "obtain 1e10 essence.",
         },
         13: {
-            name: "Too Much Essence",
+            name: "Gleaming, Golden Essence",
             done() {return player["e"].points >= (10 ** 100)},
             tooltip: "obtain 1e100 essence.",
         },
         21: {
-            name: "First Core",
+            name: "Cracked Core",
             done() {return player["c"].points >= 1},
             tooltip: "obtain 1 core.",
         },
         22: {
-            name: "Many Cores",
+            name: "Mountainous Core",
             done() {return player["c"].points >= (10 ** 10)},
             tooltip: "obtain 1e10 cores.",
         },
         23: {
-            name: "Too Many Cores",
+            name: "Core of the Earth",
             done() {return player["c"].points >= (10 ** 100)},
             tooltip: "obtain 1e100 cores.",
         },
         31: {
-            name: "First Quark",
+            name: "The Smallest Quark",
             done() {return player["q"].points >= 1},
             tooltip: "obtain 1 quark.",
         },
         32: {
-            name: "Lots of Quarks",
+            name: "Quark Field",
             done() {return player["q"].points >= (10 ** 10)},
             tooltip: "obtain 1e10 quarks.",
         },
         33: {
-            name: "Tons of Quarks",
+            name: "Oh, the Quark of it all",
             done() {return player["q"].points >= (10 ** 100)},
             tooltip: "obtain 1e100 quarks.",
         },
         41: {
-            name: "First Subatomic Particle",
+            name: "Submarine, Subatomic",
             done() {return player["sp"].points >= 1},
             tooltip: "obtain 1 subatomic particle.",
         },
         42: {
-            name: "Subatomic Double Digit",
+            name: "Variant Particles",
             done() {return player["sp"].points >= 10},
-            tooltip: "obtain 10 subatomic particle.",
+            tooltip: "obtain 10 subatomic particles.",
+        },
+        43: {
+            name: "Periodic Particles",
+            done() {return player["sp"].points >= 100},
+            tooltip: "obtain 100 subatomic particles.",
         },
         51: {
-            name: "First Hex",
+            name: "The Hex Game",
             done() {return player["h"].points >= 1},
             tooltip: "obtain 1 hex.",
         },
         52: {
-            name: "Many Hexes",
+            name: "Cursed into Oblivion",
             done() {return player["h"].points >= (10 ** 10)},
             tooltip: "obtain 1e10 hexes.",
+        },
+        53: {
+            name: "The Prophecy of Doom",
+            done() {return player["h"].points >= (10 ** 100)},
+            tooltip: "obtain 1e100 hexes.",
         },
         61: {
             name: "First Demon Soul",
             done() {return player["ds"].points >= 1},
             tooltip: "obtain 1 demon soul.",
+        },
+        62: {
+            name: "Demonic Ruin",
+            done() {return player["ds"].points >= (10 ** 10)},
+            tooltip: "obtain 1e10 demon souls.",
         },
     },
 });
@@ -1184,7 +1199,7 @@ addLayer("h", {
         61: {
             title: "Essence Overdrive",
             description: "Increase the effect of Fastest Essence by 25% (total: 125%)",
-            cost: new Decimal(1e69),
+            cost: new Decimal(1e70),
             unlocked() { return hasUpgrade("ds", 12) && hasUpgrade("h", 51) && hasUpgrade("h", 52) && hasUpgrade("h", 53) && hasUpgrade("h", 54) },
         },
         62: {
@@ -1210,7 +1225,7 @@ addLayer("h", {
         64: {
             title: "Essence Potential",
             description: "Increase the effect of Fastest Essence by 25% (total: 150%)",
-            cost: new Decimal(1e72),
+            cost: new Decimal(1e75),
             unlocked() { return hasUpgrade("ds", 12) && hasUpgrade("h", 51) && hasUpgrade("h", 52) && hasUpgrade("h", 53) && hasUpgrade("h", 54) },
         },
     },
@@ -1279,7 +1294,7 @@ addLayer("ds", {
             done() { return player[this.layer].points.gte(625) }
         },
         6: {
-            requirementDescription: "3125 demon souls",
+            requirementDescription: "3,125 demon souls",
             effectDescription: "keep core buyables on demon soul resets",
             done() { return player[this.layer].points.gte(3125) }
         },
@@ -1308,14 +1323,16 @@ addLayer("ds", {
         11: {
             cost(x) { return new Decimal(1).mul(x) },
             title: "Demonic Energy",
-            canAfford() { return player[this.layer].points.gte(this.cost((getBuyableAmount('ds', 11) ** 2) + 1))},
+            canAfford() { 
+                return player[this.layer].points.gte(this.cost((getBuyableAmount('ds', 11) ** 5) + 1))
+            },
             purchaseLimit: new Decimal(99),
             buy() {
-                player[this.layer].points = player[this.layer].points.sub(this.cost((getBuyableAmount('ds', 11) ** 2) + 1))
+                player[this.layer].points = player[this.layer].points.sub(this.cost((getBuyableAmount('ds', 11) ** 5) + 1))
                 setBuyableAmount('ds', 11, ((getBuyableAmount('ds', 11) * 1) + 1))
             },
             display() {
-                return "multiplies hex gain (and also subatomic particle gain at a reduced rate) based on the amount of this upgrade bought.\nCurrently: " + (2 ** getBuyableAmount('ds', 11)) + "x\nand " + ((getBuyableAmount('ds', 11) * 1) + 1) + "x\n\nCost: " + ((getBuyableAmount('ds', 11) ** 2) + 1) + "\n\nBought: " + getBuyableAmount('ds', 11)
+                return "multiplies hex gain (and also subatomic particle gain at a reduced rate) based on the amount of this upgrade bought.\nCurrently: " + (2 ** getBuyableAmount('ds', 11)) + "x\nand " + ((getBuyableAmount('ds', 11) * 1) + 1) + "x\n\nCost: " + ((getBuyableAmount('ds', 11) ** 5) + 1) + "\n\nBought: " + getBuyableAmount('ds', 11)
             },
         },
     },
