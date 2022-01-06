@@ -1,12 +1,14 @@
 addLayer("A", {
+    name: "Achievements",
+    symbol: "A",
+    position: 0,
     startData() { return {
         unlocked: true,
     }},
-    name: "Achievements",
-    symbol: "A",
-    position: "side",
     color: "#d1d1d1",
+    row: "side",
     layerShown() {return true},
+    tooltip() {return "Achievements"},
     achievements: {
         11: {
             name: "Essence of Rat",
@@ -92,6 +94,11 @@ addLayer("A", {
             name: "Demonic Ruin",
             done() {return player["ds"].points >= (10 ** 10)},
             tooltip: "obtain 1e10 demon souls.",
+        },
+        63: {
+            name: "Demonic Origin",
+            done() {return player["ds"].points >= (10 ** 100)},
+            tooltip: "obtain 1e100 demon souls.",
         },
     },
 });
