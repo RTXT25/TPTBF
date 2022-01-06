@@ -46,12 +46,12 @@ let changelog = `<h1>Changelog:</h1><br>
 		- Added three buyables to subatomic particles.<br>
 		- Added five milestones to subatomic particles.<br>
 		- Added five upgrades to quarks.<br>
-		- Added one achievement.<br>
+		- Added two achievements.<br>
 		- Balance changes.<br>
 	<br><h3>v0.5: How Many Miles</h3><br>
 		- Added three milestones to cores.<br>
 		- Added three milestones to quarks.<br>
-		- Added six achievements.<br>
+		- Added eight achievements.<br>
 		- Balance changes.<br>
 	<br><h3>v0.4: To Infinity</h3><br>
 		- Added five more upgrades to essence.<br>
