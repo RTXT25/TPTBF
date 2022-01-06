@@ -160,8 +160,6 @@ addLayer("e", {
         if (hasUpgrade('e', 22)) mult = mult.times(upgradeEffect('e', 22))
             if (hasUpgrade('e', 41)) mult = mult.times(upgradeEffect('e', 41))
                 if (hasUpgrade('e', 42)) mult = mult.times(upgradeEffect('e', 42))
-        if (hasUpgrade('e', 61)) mult = mult.times(upgradeEffect('e', 61))
-            if (hasUpgrade('e', 62)) mult = mult.times(upgradeEffect('e', 62))
         if (hasUpgrade('c', 11)) mult = mult.times(upgradeEffect('c', 11))
         if (hasUpgrade('q', 14)) mult = mult.times(upgradeEffect('q', 14))
             if (hasUpgrade('q', 15)) mult = mult.times(upgradeEffect('q', 15))
@@ -374,9 +372,6 @@ addLayer("c", {
     gainMult() { // Calculate the multiplier for main currency from bonuses
         mult = new Decimal(1)
         if (hasUpgrade('e', 32)) mult = mult.times(upgradeEffect('e', 32))
-        if (hasUpgrade('e', 43)) mult = mult.times(upgradeEffect('e', 43))
-        if (hasUpgrade('e', 61)) mult = mult.times(upgradeEffect('e', 61))
-            if (hasUpgrade('e', 62)) mult = mult.times(upgradeEffect('e', 62))
         if (hasUpgrade('c', 12)) mult = mult.times(upgradeEffect('c', 12))
         if (hasUpgrade('q', 21)) mult = mult.times(upgradeEffect('q', 21))
             if (hasUpgrade('q', 22)) mult = mult.times(upgradeEffect('q', 22))
@@ -585,9 +580,6 @@ addLayer("q", {
     exponent: 0.1, // Prestige currency exponent
     gainMult() { // Calculate the multiplier for main currency from bonuses
         mult = new Decimal(1)
-        if (hasUpgrade('e', 51)) mult = mult.times(upgradeEffect('e', 51))
-        if (hasUpgrade('e', 61)) mult = mult.times(upgradeEffect('e', 61))
-            if (hasUpgrade('e', 62)) mult = mult.times(upgradeEffect('e', 62))
         if (hasUpgrade('c', 13)) mult = mult.times(upgradeEffect('c', 13))
         if (hasUpgrade('q', 11)) mult = mult.times(upgradeEffect('q', 11))
         if (hasUpgrade('q', 21)) mult = mult.times(upgradeEffect('q', 21))
