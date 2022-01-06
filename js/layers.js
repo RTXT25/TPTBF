@@ -33,7 +33,7 @@ addLayer("A", {
             done() {return player["c"].points >= (10 ** 10)},
             tooltip: "obtain 1e10 cores.",
         },
-        22: {
+        23: {
             name: "Too Many Cores",
             done() {return player["c"].points >= (10 ** 100)},
             tooltip: "obtain 1e100 cores.",
