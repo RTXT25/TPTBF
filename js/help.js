@@ -29,4 +29,45 @@ let help_data = {
 		Grinding more Quarks is usless until you get to buy max Subatomic Particles.",
 		unlocked() { if (hasAchievement("A", 41)) return true },
 	},
+	sp: {
+		id: "sp",
+		title: "Subatomic Particles",
+		text: "Buy one of the buyable Neutrons, first. 
+		Next, push your way back up, and then buy either a Proton or an Electron. 
+		Then, either buy the other one, or keep pushing to get 2 Subatomic Particles. 
+		After that, keep repeating the previous steps. 
+		When you get 3 Subatomic Particles, make sure to buy the new quark upgrades when you can. 
+		If you get all of the buyables up to when they cost 6, then you can either buy them again, or try to unlock Hexes. 
+		Either option will need a bit of grinding (or leaving and coming back later) to get.",
+		unlocked() { if (hasAchievement("A", 51)) return true },
+	},
+	h: {
+		id: "h",
+		title: "Hexes",
+		text: "In this part, what you need to do for the most part is just grind and push to unlock milestones and new upgrades. 
+		You should get at least the 5 Hexes from resetting the first time to unlock the first milestone. 
+		When you unlock the last Hex milestone, be sure to go purchase the new Core upgrades when you can. 
+		The first one should be easy to get. 
+		After you get the Core Continuation upgrade and all of the new Core upgrades, you won't have to check Cores for a while. 
+		Then it's back to grinding. 
+		Also, once in a while you'll want to go back to Subatomic Particles to check if you can get some more of the buyables. 
+		Once you get get the Sub Core Particle Fusion upgrade, you should go and buy all of the new upgrades when you can. 
+		When you get 1e60 Hexes, either do a Demon Souls reset, or get the Hexed Subatomic Particle upgrade. 
+		If you pick the latter, be sure to make use of the upgrade and get more Subatomic Particles when you can. 
+		Then, you should try to unlock the 5 Demon Souls milestone on your first reset, if time allows.",
+		unlocked() { if (hasAchievement("A", 61)) return true },
+	},
+	ds: {
+		id: "ds",
+		title: "Demon Souls",
+		text: "For Demon Souls, always buy upgrades and Demonic Energy when you can. 
+		Gradually unlock more milestones, and keep more things when you reset. 
+		When you purchase Mad Hexes or Hex Mania, make sure to buy the newly unlocked upgrades when you have enough. 
+		They might not seem worth it, but the upgrades are very good, because they increase the automated essence gain. 
+		This, it turn, boosts all of your production, on both branches of the tree. 
+		Then, you keep grinding until you can unlock the Demon Gateway. 
+		(Demon Gateway is currently in progress, and has not been published yet.
+		Check back here once it is published for more info.)",
+		unlocked() { if (hasAchievement("A", 71)) return true },
+	},
 },

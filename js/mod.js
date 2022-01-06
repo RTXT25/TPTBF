@@ -23,8 +23,8 @@ let changelog = `<h1>Changelog:</h1><br>
 		- Added four upgrades to hexes.<br>
 		- Added one buyable to demon souls.<br>
 		- Added seven achievements.<br>
-		- Added one unobtainable (so far) achievement.<br>
 		- Renamed most achievements.<br>
+		- Added Help.<br>
 		- Balance changes.<br>
 	<br><h3>v1.0: Variety Rules</h3><br>
 		- Added one milestone to hexes.<br>
@@ -33,7 +33,7 @@ let changelog = `<h1>Changelog:</h1><br>
 		- Added three upgrades to subatomic particles.<br>
 		- Added one milestone to cores.<br>
 		- Added six upgrades to cores.<br>
-		- Added two achievements.<br>
+		- Added three achievements.<br>
 		- Balance changes.<br>
 	<br><h3>v0.7: The Hex Game</h3><br>
 		- Added hexes.<br>

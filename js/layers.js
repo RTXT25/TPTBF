@@ -1305,7 +1305,7 @@ addLayer("ds", {
             if (layers[resettingLayer].row > this.row) layerDataReset("ds", [])
         },
     tabFormat: {
-        "Demonic Connection": {
+        "Demonic Curses": {
             milestones: {
                 0: {
                     requirementDescription: "1 demon soul",
