@@ -18,6 +18,11 @@ addLayer("A", {
             done() {return player["e"].points >= (10 ** 10)},
             tooltip: "obtain 1e10 essence.",
         },
+        13: {
+            name: "Too Much Essence",
+            done() {return player["e"].points >= (10 ** 100)},
+            tooltip: "obtain 1e100 essence.",
+        },
         21: {
             name: "First Core",
             done() {return player["c"].points >= 1},
@@ -28,6 +33,11 @@ addLayer("A", {
             done() {return player["c"].points >= (10 ** 10)},
             tooltip: "obtain 1e10 cores.",
         },
+        22: {
+            name: "Too Many Cores",
+            done() {return player["c"].points >= (10 ** 100)},
+            tooltip: "obtain 1e100 cores.",
+        },
         31: {
             name: "First Quark",
             done() {return player["q"].points >= 1},
@@ -37,6 +47,11 @@ addLayer("A", {
             name: "Lots of Quarks",
             done() {return player["q"].points >= (10 ** 10)},
             tooltip: "obtain 1e10 quarks.",
+        },
+        33: {
+            name: "Tons of Quarks",
+            done() {return player["q"].points >= (10 ** 100)},
+            tooltip: "obtain 1e100 quarks.",
         },
         41: {
             name: "First Subatomic Particle",
