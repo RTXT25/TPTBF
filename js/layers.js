@@ -257,7 +257,7 @@ addLayer("e", {
             description: "multiplies essence gain based on the amount of essence you have",
             cost: new Decimal(1250),
             effect() {
-               return player[this.layer].points.add(1).pow(0.1)
+               return player[this.layer].points.add(1).pow(0.11111111111)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
             unlocked() { return hasUpgrade("e", 21) },
@@ -307,7 +307,7 @@ addLayer("e", {
             description: "boosts the effect of Essence of Essence based on the amount of essence you have",
             cost: new Decimal(7.77e77),
             effect() {
-               return player[this.layer].points.add(1).pow(0.002)
+               return player[this.layer].points.add(1).pow(0.001)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
             unlocked() { return hasMilestone("q", 0) && hasUpgrade("e", 33) },
@@ -317,7 +317,7 @@ addLayer("e", {
             description: "boosts the effect of Essence Recursion based on the amount of essence you have",
             cost: new Decimal(9.99e99),
             effect() {
-               return player[this.layer].points.add(1).pow(0.02)
+               return player[this.layer].points.add(1).pow(0.01)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
             unlocked() { return hasMilestone("q", 0) && hasUpgrade("e", 41) },
@@ -655,7 +655,7 @@ addLayer("q", {
             description: "multiplies point gain based on the amount of quarks you have",
             cost: new Decimal(2),
             effect() {
-               return player[this.layer].points.add(1).pow(0.9)
+               return player[this.layer].points.add(1).pow(0.09)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
             unlocked() { return hasUpgrade("q", 11) },
@@ -665,7 +665,7 @@ addLayer("q", {
             description: "multiplies the effect of Quark Power based on the amount of points you have",
             cost: new Decimal(25),
             effect() {
-               return player.points.add(1).pow(0.025)
+               return player.points.add(1).pow(0.0025)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
             unlocked() { return hasUpgrade("q", 12) },
@@ -775,7 +775,7 @@ addLayer("q", {
             description: "multiplies point gain based on the amount of quarks you have",
             cost: new Decimal(2.5e11),
             effect() {
-               return player[this.layer].points.add(1).pow(0.1)
+               return player[this.layer].points.add(1).pow(0.01)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
             unlocked() { return hasUpgrade("q", 33) },
@@ -785,7 +785,7 @@ addLayer("q", {
             description: "multiplies the effect of The Quark Count based on the amount of quarks you have",
             cost: new Decimal(1e13),
             effect() {
-               return player[this.layer].points.add(1).pow(0.15)
+               return player[this.layer].points.add(1).pow(0.015)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
             unlocked() { return hasUpgrade("q", 34) },
@@ -795,7 +795,7 @@ addLayer("q", {
             description: "multiplies the effect of Quark Counting based on the amount of quarks you have",
             cost: new Decimal(1e14),
             effect() {
-               return player[this.layer].points.add(1).pow(0.05)
+               return player[this.layer].points.add(1).pow(0.005)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
             unlocked() { return hasMilestone("sp", 2) && hasUpgrade("q", 35) },
@@ -1075,7 +1075,7 @@ addLayer("h", {
             description: "multiplies point gain based on the amount of hexes you have",
             cost: new Decimal(1),
             effect() {
-               return player[this.layer].points.add(1).pow(0.05)
+               return player[this.layer].points.add(1).pow(0.005)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
         },
@@ -1107,7 +1107,7 @@ addLayer("h", {
             description: "multiplies the effect of Hex Leak based on the amount of hexes you have",
             cost: new Decimal(1000),
             effect() {
-               return player[this.layer].points.add(1).pow(0.25)
+               return player[this.layer].points.add(1).pow(0.025)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
             unlocked() { return hasUpgrade("h", 11) && hasUpgrade("h", 12) && hasUpgrade("h", 13) && hasUpgrade("h", 14) },
@@ -1143,7 +1143,7 @@ addLayer("h", {
             description: "multiplies the effect of Numerical Hexes based on the amount of points you have",
             cost: new Decimal(100000),
             effect() {
-               return player.points.add(1).pow(0.02)
+               return player.points.add(1).pow(0.002)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
             unlocked() { return hasUpgrade("h", 21) && hasUpgrade("h", 22) && hasUpgrade("h", 23) && hasUpgrade("h", 24) },
@@ -1179,7 +1179,7 @@ addLayer("h", {
             description: "multiplies the effect of Hex Numerals based on the amount of hexes you have",
             cost: new Decimal(7500000),
             effect() {
-               return player.points.add(1).pow(0.001)
+               return player.points.add(1).pow(0.0001)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
             unlocked() { return hasUpgrade("h", 31) && hasUpgrade("h", 32) && hasUpgrade("h", 33) && hasUpgrade("h", 34) },

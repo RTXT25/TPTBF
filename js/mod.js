@@ -24,7 +24,6 @@ let changelog = `<h1>Changelog:</h1><br>
 		- Added one buyable to demon souls.<br>
 		- Added seven achievements.<br>
 		- Renamed most achievements.<br>
-		- Added Help.<br>
 		- Balance changes.<br>
 	<br><h3>v1.0: Variety Rules</h3><br>
 		- Added one milestone to hexes.<br>
@@ -100,15 +99,15 @@ function getPointGen() {
 	if (hasUpgrade('e', 21)) gain = gain.times(upgradeEffect('e', 21))
 		if (hasUpgrade('e', 23)) gain = gain.times(upgradeEffect('e', 31))
 			if (hasUpgrade('e', 31)) gain = gain.times(upgradeEffect('e', 23))
-	if (hasUpgrade('q', 12)) mult = mult.times(upgradeEffect('q', 12))
-		if (hasUpgrade('q', 13)) mult = mult.times(upgradeEffect('q', 13))
-	if (hasUpgrade('q', 34)) mult = mult.times(upgradeEffect('q', 34))
-		if (hasUpgrade('q', 35)) mult = mult.times(upgradeEffect('q', 35))
-			if (hasUpgrade('q', 41)) mult = mult.times(upgradeEffect('q', 41))
-	if (hasUpgrade('h', 11)) mult = mult.times(upgradeEffect('h', 11))
-		if (hasUpgrade('h', 21)) mult = mult.times(upgradeEffect('h', 21))
-			if (hasUpgrade('h', 31)) mult = mult.times(upgradeEffect('h', 31))
-				if (hasUpgrade('h', 41)) mult = mult.times(upgradeEffect('h', 41))
+	if (hasUpgrade('q', 12)) gain = gain.times(upgradeEffect('q', 12))
+		if (hasUpgrade('q', 13)) gain = gain.times(upgradeEffect('q', 13))
+	if (hasUpgrade('q', 34)) gain = gain.times(upgradeEffect('q', 34))
+		if (hasUpgrade('q', 35)) gain = gain.times(upgradeEffect('q', 35))
+			if (hasUpgrade('q', 41)) gain = gain.times(upgradeEffect('q', 41))
+	if (hasUpgrade('h', 11)) gain = gain.times(upgradeEffect('h', 11))
+		if (hasUpgrade('h', 21)) gain = gain.times(upgradeEffect('h', 21))
+			if (hasUpgrade('h', 31)) gain = gain.times(upgradeEffect('h', 31))
+				if (hasUpgrade('h', 41)) gain = gain.times(upgradeEffect('h', 41))
 	gain = gain.times(2.5 * getBuyableAmount('c', 11) + 1)
 	gain = gain.times(5 ** getBuyableAmount('sp', 21))
 	if (hasUpgrade("sp", 13)) gain = gain.times(5 ** getBuyableAmount('sp', 21))
