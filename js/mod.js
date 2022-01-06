@@ -18,7 +18,7 @@ let VERSION = {
 let changelog = `<h1>Changelog:</h1><br>
 	<br><h3>v1.1: Demonic Faith</h3><br>
 		- Added demon souls.<br>
-		- Added five milestones to demon souls.<br>
+		- Added seven milestones to demon souls.<br>
 		- Added two upgrades to demon souls.<br>
 		- Added four upgrades to hexes.<br>
 		- Added one buyable to demon souls.<br>

@@ -349,7 +349,11 @@ addLayer("c", {
             else spcM = ""
             if (hasMilestone("ds", 2) && resettingLayer=="ds") dscM = "milestones"
             else dscM = ""
-            if (layers[resettingLayer].row > this.row) layerDataReset("c", [hcU, hcB, spcU, spcB, hcM, spcM, dscM])
+            if (hasMilestone("ds", 5) && resettingLayer=="ds") dscU = "upgrades"
+            else dscU = ""
+            if (hasMilestone("ds", 6) && resettingLayer=="ds") dscB = "buyables"
+            else dscB = ""
+            if (layers[resettingLayer].row > this.row) layerDataReset("c", [hcU, hcB, spcU, spcB, hcM, spcM, dscM, dscU, dscB])
         },
     milestones: {
         0: {
@@ -1253,6 +1257,16 @@ addLayer("ds", {
             requirementDescription: "125 demon souls",
             effectDescription: "keep essence buyables on all resets",
             done() { return player[this.layer].points.gte(125) }
+        },
+        5: {
+            requirementDescription: "625 demon souls",
+            effectDescription: "keep core upgrades on demon soul resets",
+            done() { return player[this.layer].points.gte(625) }
+        },
+        6: {
+            requirementDescription: "3125 demon souls",
+            effectDescription: "keep core buyables on demon soul resets",
+            done() { return player[this.layer].points.gte(3125) }
         },
     },
     upgrades: {
