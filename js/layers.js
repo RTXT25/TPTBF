@@ -861,7 +861,7 @@ addLayer("sp", {
         points: new Decimal(0),
     }},
     color: "#710CC4",
-    requires: new Decimal(5e13), // Can be a function that takes requirement increases into account
+    requires: new Decimal(1e15), // Can be a function that takes requirement increases into account
     resource: "subatomic particles", // Name of prestige currency
     baseResource: "quarks", // Name of resource prestige is based on
     baseAmount() {return player['q'].points}, // Get the current amount of baseResource
@@ -878,8 +878,8 @@ addLayer("sp", {
     gainExp() { // Calculate the exponent on main currency from bonuses
         gain = new Decimal(1)
         if (hasUpgrade('q', 43)) gain = gain.times(upgradeEffect('q', 43))
-        if (hasUpgrade('h', 63)) mult = mult.times(upgradeEffect('h', 63))
-        gain = gain.times((getBuyableAmount('ds', 11) * 7) + 1)
+        if (hasUpgrade('h', 63)) gain = gain.times(upgradeEffect('h', 63))
+        if (getBuyableAmount('ds',11) >= 0.1) gain = gain.times((getBuyableAmount('ds', 11) * 7) + 1)
         return gain
     },
     row: 2, // Row the layer is in on the tree (0 is the first row)
@@ -1016,7 +1016,7 @@ addLayer("h", {
         if (hasUpgrade('h', 62)) mult = mult.times(upgradeEffect('h', 62))
         if (hasUpgrade('ds', 11)) mult = mult.times(upgradeEffect('h', 11))
             if (hasUpgrade('ds', 12)) mult = mult.times(upgradeEffect('h', 12))
-        mult = mult.times(2 ** getBuyableAmount('ds', 11))
+        if (getBuyableAmount('ds',11) >= 0.1) mult = mult.times(2 ** getBuyableAmount('ds', 11))
         if (inChallenge('ds', 11)) mult = mult.times(0.001)
         return mult
     },
