@@ -580,14 +580,14 @@ addLayer("c", {
         11: {
             cost(x) { return new Decimal(1).mul(x) },
             title: "Empowered Points",
-            canAfford() { return player[this.layer].points.gte(this.cost(getBuyableAmount('c', 11)).add(1))},
-            purchaseLimit: new Decimal(199),
+            canAfford() { return player[this.layer].points.gte(this.cost(getBuyableAmount('c', 11) * 2))},
+            purchaseLimit: new Decimal(99),
             buy() {
-                player[this.layer].points = player[this.layer].points.sub(this.cost(getBuyableAmount('c', 11)).add(1))
+                player[this.layer].points = player[this.layer].points.sub(this.cost(getBuyableAmount('c', 11) * 2))
                 setBuyableAmount('c', 11, getBuyableAmount('c', 11).add(1))
             },
             display() {
-                return "multiplies point gain based on the amount of this upgrade bought.\nCurrently: " + (2.5 * getBuyableAmount('c', 11) + 1) + "x\n\nCost: " + getBuyableAmount('c', 11).add(1) + "\n\nBought: " + getBuyableAmount('c', 11)
+                return "multiplies point gain based on the amount of this upgrade bought.\nCurrently: " + (5 * getBuyableAmount('c', 11) + 1) + "x\n\nCost: " + (getBuyableAmount('c', 11) * 2) + "\n\nBought: " + getBuyableAmount('c', 11)
             },
         },
         12: {

@@ -11,7 +11,7 @@ let help_data = {
 		title: "Cores",
 		text: "Once you unlock Cores, buy one of each buyable first. 
 		Then, keep building up your essence and buying more Core buyables. 
-		(the second one has a harsher cost scaling, but is better than the first one.) 
+		(the second one has a harsher cost scaling, but it's effect multiplies itself.) 
 		Once you unlock Core upgrades, don't buy them right away. 
 		Keep building up your Essence and Cores until you have over twice as much the cost. 
 		Once you get enough Essence to unlock Quarks, don't get it right away. 
