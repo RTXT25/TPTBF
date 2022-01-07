@@ -1,7 +1,5 @@
 Temp. Code Trash
 
-Achievements
-
         76: {
             name: "Occult Uprising",
             done() {return getBuyableAmount("ds", 11) <= 0.1 && player["ds"].points >= (10 ** 10)},
