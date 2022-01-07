@@ -1,0 +1,46 @@
+Temp. Code Trash
+
+Achievements
+
+		16: {
+            name: "Dull Points",
+            done() {return player["e"].points <= 0.1 && player.points >= (10 ** 10)},
+            tooltip: "obtain 1e10 points with no essence.",
+            unlocked() { if (hasAchievement("A", 12) && hasAchievement("A", 31)) return true },
+        },
+        26: {
+            name: "A Pointless Mechanic?",
+            done() {return getBuyableAmount("e", 11) <= 0.1 && getBuyableAmount("e", 12) <= 0.1 && player["e"].points >= (10 ** 10)},
+            tooltip: "obtain 1e10 essence with no essence buyables.",
+            unlocked() {if (hasAchievement("A", 22)) return true },
+        },
+        36: {
+            name: "The Pointless Core",
+            done() {return getBuyableAmount("c", 11) <= 0.1 && getBuyableAmount("c", 12) <= 0.1 && player["c"].points >= (10 ** 10)},
+            tooltip: "obtain 1e10 cores with no core buyables.",
+            unlocked() { if (hasAchievement("A", 32)) return true },
+        },
+        46: {
+            name: "The Outside",
+            done() {return player["c"].points <= 0.1 && player["q"].points >= (10 ** 10)},
+            tooltip: "obtain 1e10 quarks with no cores.",
+            unlocked() { if (hasAchievement("A", 42)) return true },
+        },
+        56: {
+            name: "Hollow Particles",
+            done() {return getBuyableAmount("sp", 11) <= 0.1 && getBuyableAmount("sp", 12) <= 0.1 && getBuyableAmount("sp", 21) <= 0.1 && player["sp"].points >= 10},
+            tooltip: "obtain 10 subatomic particles with no subatomic particle buyables.",
+            unlocked() { if (hasAchievement("A", 52)) return true },
+        },
+        66: {
+            name: "Plain Old Curses",
+            done() {return player["sp"].points <= 0.1 && player["h"].points >= (10 ** 10)},
+            tooltip: "obtain 1e10 hexes with no subatomic particles.",
+            unlocked() { if (hasAchievement("A", 62)) return true },
+        },
+        76: {
+            name: "Occult Uprising",
+            done() {return getBuyableAmount("ds", 11) <= 0.1 && player["ds"].points >= (10 ** 10)},
+            tooltip: "obtain 1e10 demon souls with no demon soul buyables.",
+            unlocked() { if (hasAchievement("A", 72)) return true },
+        },
