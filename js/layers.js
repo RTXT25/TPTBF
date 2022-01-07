@@ -44,7 +44,7 @@ addLayer("A", {
             name: "Essence of Rat",
             done() {return player["e"].points >= 1},
             tooltip: "obtain 1 essence.",
-            unlocked() { if (hasAchievement("A", 11)) return true },
+            unlocked() { if (hasAchievement("A", 21)) return true },
         },
         22: {
             name: "Shining Essence",
@@ -68,7 +68,7 @@ addLayer("A", {
             name: "Cracked Core",
             done() {return player["c"].points >= 1},
             tooltip: "obtain 1 core.",
-            unlocked() { if (hasAchievement("A", 21)) return true },
+            unlocked() { if (hasAchievement("A", 31)) return true },
         },
         32: {
             name: "Mountainous Core",
@@ -92,7 +92,7 @@ addLayer("A", {
             name: "The Smallest Quark",
             done() {return player["q"].points >= 1},
             tooltip: "obtain 1 quark.",
-            unlocked() { if (hasAchievement("A", 31)) return true },
+            unlocked() { if (hasAchievement("A", 41)) return true },
         },
         42: {
             name: "Quark Field",
@@ -116,7 +116,7 @@ addLayer("A", {
             name: "Submarine, Subatomic",
             done() {return player["sp"].points >= 1},
             tooltip: "obtain 1 subatomic particle.",
-            unlocked() { if (hasAchievement("A", 41)) return true },
+            unlocked() { if (hasAchievement("A", 51)) return true },
         },
         52: {
             name: "Variant Particles",
@@ -140,7 +140,7 @@ addLayer("A", {
             name: "The Hex Game",
             done() {return player["h"].points >= 1},
             tooltip: "obtain 1 hex.",
-            unlocked() { if (hasAchievement("A", 51)) return true },
+            unlocked() { if (hasAchievement("A", 61)) return true },
         },
         62: {
             name: "Cursed into Oblivion",
@@ -164,7 +164,7 @@ addLayer("A", {
             name: "First Demon Soul",
             done() {return player["ds"].points >= 1},
             tooltip: "obtain 1 demon soul.",
-            unlocked() { if (hasAchievement("A", 61)) return true },
+            unlocked() { if (hasAchievement("A", 71)) return true },
         },
         72: {
             name: "Demonic Ruin",
