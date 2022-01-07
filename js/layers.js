@@ -120,8 +120,8 @@ addLayer("A", {
         },
         46: {
             name: "The Outside",
-            done() {return getBuyableAmount("e", 11) <= 0.1 && getBuyableAmount("e", 12) <= 0.1 && player["c"].points <= 0.1 && player["q"].points >= (10 ** 10)},
-            tooltip: "obtain 1e10 quarks with no essence buyables and cores.",
+            done() {return player["c"].points <= 0.1 && player["q"].points >= (10 ** 10)},
+            tooltip: "obtain 1e10 quarks with no cores.",
             unlocked() { if (hasAchievement("A", 42) && hasAchievement("A", 51)) return true },
         },
         51: {
