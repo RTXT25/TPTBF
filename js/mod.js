@@ -97,8 +97,9 @@ function getPointGen() {
 	if (hasUpgrade('e', 12)) gain = gain.times(upgradeEffect('e', 12))
 		if (hasUpgrade('e', 33)) gain = gain.times(upgradeEffect('e', 33))
 	if (hasUpgrade('e', 21)) gain = gain.times(upgradeEffect('e', 21))
-		if (hasUpgrade('e', 23)) gain = gain.times(upgradeEffect('e', 31))
-			if (hasUpgrade('e', 31)) gain = gain.times(upgradeEffect('e', 23))
+		if (hasUpgrade('e', 23)) gain = gain.times(upgradeEffect('e', 23))
+			if (hasUpgrade('e', 31)) gain = gain.times(upgradeEffect('e', 31))
+	if (hasUpgrade('e', 32)) gain = gain.times(upgradeEffect('e', 32))
 	if (hasUpgrade('q', 12)) gain = gain.times(upgradeEffect('q', 12))
 		if (hasUpgrade('q', 13)) gain = gain.times(upgradeEffect('q', 13))
 	if (hasUpgrade('q', 34)) gain = gain.times(upgradeEffect('q', 34))
@@ -112,6 +113,7 @@ function getPointGen() {
 	gain = gain.times(5 ** getBuyableAmount('sp', 21))
 	if (hasUpgrade("sp", 13)) gain = gain.times(5 ** getBuyableAmount('sp', 21))
 	gain = gain.times(((getBuyableAmount('sp', 12) * 1) + 1) ** -1)
+	gain = gain.times(Math.round( 10 * (player.A.achievements.length * 0.1 + 1)) / 10)
 	return gain
 }
 

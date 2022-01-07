@@ -9,6 +9,13 @@ addLayer("A", {
     row: "side",
     layerShown() {return true},
     tooltip() {return "Achievements"},
+    tabFormat: [
+        ["display-text",
+            function() { return 'You have ' + player.A.achievements.length + ' achievements,<br>and they are multiplying your point gain by ' + (Math.round( 10 * (player.A.achievements.length * 0.1 + 1)) / 10) + 'x'},
+            { "color": "white", "font-size": "16px", "font-family": "Lucida Console" }],
+        "blank",
+        "achievements",
+    ],
     achievements: {
         11: {
             name: "The Point",
@@ -287,7 +294,7 @@ addLayer("e", {
             description: "boosts the effect of Radiant Essence based on the amount of essence you have",
             cost: new Decimal(3.33e33),
             effect() {
-               return player[this.layer].points.add(1).pow(0.01)
+               return player[this.layer].points.add(1).pow(0.001)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
             unlocked() { return hasMilestone("q", 0) && hasUpgrade("e", 31) },
