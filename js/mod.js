@@ -19,9 +19,9 @@ let changelog = `<h1>Changelog:</h1><br>
 	<br><h3>v1.2: Demonic Gateway</h3><br>
 		- Added demonic gateway (trial version).<br>
 		- Added one challenge to demon souls.<br>
-		- Added seven achievements.<br>
+		- Added six achievements.<br>
 		- Balance changes.<br>
-		- NOTE: this build is not public yet.<br>
+		- NOTE: this build is not yet tested.<br>
 	<br><h3>v1.1: Demonic Faith</h3><br>
 		- Added demon souls.<br>
 		- Added seven milestones to demon souls.<br>
