@@ -11,7 +11,7 @@ addLayer("A", {
     tooltip() {return "Achievements"},
     tabFormat: [
         ["display-text",
-            function() { return 'You have ' + player.A.achievements.length + ' achievements,<br>and they are multiplying your point gain by ' + (Math.round( 10 * (player.A.achievements.length * 0.1 + 1)) / 10) + 'x'},
+            function() { return 'You have ' + player.A.achievements.length + ' achievements,<br>which are multiplying your point gain by ' + (Math.round( 10 * (player.A.achievements.length * 0.1 + 1)) / 10) + 'x'},
             { "color": "white", "font-size": "16px", "font-family": "Lucida Console" }],
         "blank",
         "achievements",
