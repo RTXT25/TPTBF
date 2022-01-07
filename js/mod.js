@@ -21,7 +21,7 @@ let changelog = `<h1>Changelog:</h1><br>
 		- Added one challenge to demon souls.<br>
 		- Added six achievements.<br>
 		- Balance changes.<br>
-		- NOTE: this build is not yet tested.<br>
+		- WARNING: this build is not yet tested.<br>
 	<br><h3>v1.1: Demonic Faith</h3><br>
 		- Added demon souls.<br>
 		- Added seven milestones to demon souls.<br>
