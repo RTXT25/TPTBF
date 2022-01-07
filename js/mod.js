@@ -19,7 +19,7 @@ let changelog = `<h1>Changelog:</h1><br>
 	<br><h3>v1.2: Demonic Gateway</h3><br>
 		- Added demonic gateway (trial version).<br>
 		- Added one challenge to demon souls.<br>
-		- Added six achievements.<br>
+		- Added eight achievements.<br>
 		- Balance changes.<br>
 		- WARNING: this build is not yet tested.<br>
 	<br><h3>v1.1: Demonic Faith</h3><br>

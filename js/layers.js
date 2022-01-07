@@ -34,6 +34,12 @@ addLayer("A", {
             tooltip: "obtain 1e100 points.",
             unlocked() { if (hasAchievement("A", 12)) return true },
         },
+        14: {
+            name: "The Sharpest Point",
+            done() {return player.points >= (10 ** 1000)},
+            tooltip: "obtain 1e1,000 points.",
+            unlocked() { if (hasAchievement("A", 13)) return true },
+        },
         16: {
             name: "Dull Points",
             done() {return player["e"].points <= 0.1 && player.points >= (10 ** 10)},
@@ -57,6 +63,12 @@ addLayer("A", {
             done() {return player["e"].points >= (10 ** 100)},
             tooltip: "obtain 1e100 essence.",
             unlocked() { if (hasAchievement("A", 22)) return true },
+        },
+        24: {
+            name: "The Essence of the Universe",
+            done() {return player["e"].points >= (10 ** 1000)},
+            tooltip: "obtain 1e1,000 essence.",
+            unlocked() { if (hasAchievement("A", 23)) return true },
         },
         26: {
             name: "A Pointless Mechanic?",
