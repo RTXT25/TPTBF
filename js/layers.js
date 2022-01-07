@@ -34,6 +34,12 @@ addLayer("A", {
             tooltip: "obtain 1e100 points.",
             unlocked() { if (hasAchievement("A", 12)) return true },
         },
+        16: {
+            name: "Dull Points",
+            done() {return player["e"].points <= 0.1 && player.points >= (10 ** 10)},
+            tooltip: "obtain 1e10 points with no essence.",
+            unlocked() { if (hasAchievement("A", 12) && hasAchievement("A", 21)) return true },
+        },
         21: {
             name: "Essence of Rat",
             done() {return player["e"].points >= 1},
@@ -51,6 +57,12 @@ addLayer("A", {
             done() {return player["e"].points >= (10 ** 100)},
             tooltip: "obtain 1e100 essence.",
             unlocked() { if (hasAchievement("A", 22)) return true },
+        },
+        26: {
+            name: "A Pointless Mechanic?",
+            done() {return getBuyableAmount("e", 11) <= 0.1 && getBuyableAmount("e", 12) <= 0.1 && player["e"].points >= (10 ** 10)},
+            tooltip: "obtain 1e10 essence with no essence buyables.",
+            unlocked() {if (hasAchievement("A", 22) && hasAchievement("A", 31)) return true },
         },
         31: {
             name: "Cracked Core",
@@ -70,6 +82,12 @@ addLayer("A", {
             tooltip: "obtain 1e100 cores.",
             unlocked() { if (hasAchievement("A", 32)) return true },
         },
+        36: {
+            name: "The Pointless Core",
+            done() {return getBuyableAmount("c", 11) <= 0.1 && getBuyableAmount("c", 12) <= 0.1 && player["q"].points <= 0.1 && player["c"].points >= (10 ** 10)},
+            tooltip: "obtain 1e10 cores with no core buyables and quarks.",
+            unlocked() { if (hasAchievement("A", 32) && hasAchievement("A", 41)) return true },
+        },
         41: {
             name: "The Smallest Quark",
             done() {return player["q"].points >= 1},
@@ -87,6 +105,12 @@ addLayer("A", {
             done() {return player["q"].points >= (10 ** 100)},
             tooltip: "obtain 1e100 quarks.",
             unlocked() { if (hasAchievement("A", 42)) return true },
+        },
+        46: {
+            name: "The Outside",
+            done() {return getBuyableAmount("e", 11) <= 0.1 && getBuyableAmount("e", 12) <= 0.1 && player["c"].points <= 0.1 && player["q"].points >= (10 ** 10)},
+            tooltip: "obtain 1e10 quarks with no essence buyables and cores.",
+            unlocked() { if (hasAchievement("A", 42) && hasAchievement("A", 51)) return true },
         },
         51: {
             name: "Submarine, Subatomic",
@@ -106,6 +130,12 @@ addLayer("A", {
             tooltip: "obtain 100 subatomic particles.",
             unlocked() { if (hasAchievement("A", 52)) return true },
         },
+        56: {
+            name: "Hollow Particles",
+            done() {return getBuyableAmount("sp", 11) <= 0.1 && getBuyableAmount("sp", 12) <= 0.1 && getBuyableAmount("sp", 21) <= 0.1 && player["h"].points <= 0.1 && player["sp"].points >= 10},
+            tooltip: "obtain 10 subatomic particles with no subatomic particle buyables and hexes.",
+            unlocked() { if (hasAchievement("A", 52) && hasAchievement("A", 61)) return true },
+        },
         61: {
             name: "The Hex Game",
             done() {return player["h"].points >= 1},
@@ -123,6 +153,12 @@ addLayer("A", {
             done() {return player["h"].points >= (10 ** 100)},
             tooltip: "obtain 1e100 hexes.",
             unlocked() { if (hasAchievement("A", 62)) return true },
+        },
+        66: {
+            name: "Plain Old Curses",
+            done() {return getBuyableAmount("c", 11) <= 0.1 && getBuyableAmount("c", 12) <= 0.1 && player["sp"].points <= 0.1 && player["h"].points >= (10 ** 10)},
+            tooltip: "obtain 1e10 hexes with no subatomic particles and core buyables.",
+            unlocked() { if (hasAchievement("A", 62) && hasAchievement("A", 71)) return true },
         },
         71: {
             name: "First Demon Soul",
