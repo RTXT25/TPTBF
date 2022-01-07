@@ -54,7 +54,7 @@ let help_data = {
 		Once you get get the Sub Core Particle Fusion upgrade, you should go and buy all of the new upgrades when you can. 
 		When you get 1e60 Hexes, either do a Demon Souls reset, or get the Hexed Subatomic Particle upgrade. 
 		If you pick the latter, be sure to make use of the upgrade and get more Subatomic Particles when you can. 
-		Then, you should try to unlock the 5 Demon Souls milestone on your first reset, if time allows.",
+		Then, you should try to unlock the highest milestone you can from the reset.",
 		unlocked() { if (hasAchievement("A", 61)) return true },
 	},
 	ds: {

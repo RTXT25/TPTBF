@@ -1255,7 +1255,7 @@ addLayer("h", {
         51: {
             title: "Faster Essence",
             description: "Increase essence gain per second by 25% (total: 75%)",
-            cost: new Decimal(1e63),
+            cost: new Decimal(9e90),
             unlocked() { return hasUpgrade("ds", 11) && hasUpgrade("h", 41) && hasUpgrade("h", 42) && hasUpgrade("h", 43) && hasUpgrade("h", 44) },
         },
         52: {
@@ -1273,13 +1273,13 @@ addLayer("h", {
         54: {
             title: "Fastest Essence",
             description: "Increase the effect of Faster Essence by 25% (total: 100%)",
-            cost: new Decimal(1e66),
+            cost: new Decimal(9.5e95),
             unlocked() { return hasUpgrade("ds", 11) && hasUpgrade("h", 41) && hasUpgrade("h", 42) && hasUpgrade("h", 43) && hasUpgrade("h", 44) },
         },
         61: {
             title: "Essence Overdrive",
             description: "Increase the effect of Fastest Essence by 25% (total: 125%)",
-            cost: new Decimal(1e70),
+            cost: new Decimal(1e100),
             unlocked() { return hasUpgrade("ds", 12) && hasUpgrade("h", 51) && hasUpgrade("h", 52) && hasUpgrade("h", 53) && hasUpgrade("h", 54) },
         },
         62: {
@@ -1295,7 +1295,7 @@ addLayer("h", {
         63: {
             title: "Hexed Subatomic Particle",
             description: "multiply subatomic particle gain based on the amount of hexes you have",
-            cost: new Decimal(1e60),
+            cost: new Decimal(6e60),
             effect() {
                return player[this.layer].points.add(1).pow(0.02)
             },
@@ -1305,7 +1305,7 @@ addLayer("h", {
         64: {
             title: "Essence Potential",
             description: "Increase the effect of Fastest Essence by 25% (total: 150%)",
-            cost: new Decimal(1e75),
+            cost: new Decimal(1.11e111),
             unlocked() { return hasUpgrade("ds", 12) && hasUpgrade("h", 51) && hasUpgrade("h", 52) && hasUpgrade("h", 53) && hasUpgrade("h", 54) },
         },
     },
@@ -1325,7 +1325,7 @@ addLayer("ds", {
     baseResource: "hexes", // Name of resource prestige is based on
     baseAmount() {return player['h'].points}, // Get the current amount of baseResource
     type: "normal", // normal: cost to gain currency depends on amount gained. static: cost depends on how much you already have
-    exponent: 0.2, // Prestige currency exponent
+    exponent: 0.05, // Prestige currency exponent
     gainMult() { // Calculate the multiplier for main currency from bonuses
         mult = new Decimal(1)
         return mult
@@ -1344,104 +1344,106 @@ addLayer("ds", {
         },
     tabFormat: {
         "Demonic Curses": {
-            display: [
+            content: [
                 "main-display",
-                ["prestige-button"],
+                "prestige-button",
+                "resource-display",
                 "blank",
                 "milestones",
                 "blank",
                 "buyables",
                 "upgrades",
             ],
-            milestones: {
-                0: {
-                    requirementDescription: "1 demon soul",
-                    effectDescription: "keep subatomic particle buyables on demon soul resets",
-                    done() { return player[this.layer].points.gte(1) }
-                },
-                1: {
-                    requirementDescription: "5 demon souls",
-                    effectDescription: "keep subatomic particle upgrades on demon soul resets",
-                    done() { return player[this.layer].points.gte(5) }
-                },
-                2: {
-                    requirementDescription: "15 demon souls",
-                    effectDescription: "keep row 2 milestones on demon soul resets",
-                    done() { return player[this.layer].points.gte(15) }
-                },
-                3: {
-                    requirementDescription: "50 demon souls",
-                    effectDescription: "keep essence upgrades on all resets",
-                    done() { return player[this.layer].points.gte(50) }
-                },
-                4: {
-                    requirementDescription: "125 demon souls",
-                    effectDescription: "keep essence buyables on all resets",
-                    done() { return player[this.layer].points.gte(125) }
-                },
-                5: {
-                    requirementDescription: "625 demon souls",
-                    effectDescription: "keep core upgrades on demon soul resets",
-                    done() { return player[this.layer].points.gte(625) }
-                },
-                6: {
-                    requirementDescription: "3,125 demon souls",
-                    effectDescription: "keep core buyables on demon soul resets",
-                    done() { return player[this.layer].points.gte(3125) }
-                },
-            },
-            upgrades: {
-                11: {
-                    title: "Mad Hexes",
-                    description: "you can explore 2 further hex upgrades, and hex gain is multiplied based on the amount of demon souls you have",
-                    cost: new Decimal(10),
-                    effect() {
-                        return player["ds"].points.add(1).pow(0.1)
-                    },
-                    effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
-                },
-                12: {
-                    title: "Hex Mania",
-                    description: "you can explore 2 further hex upgrades, and the effect of Mad Hexes is multiplied based on the amount of demon souls you have",
-                    cost: new Decimal(75),
-                    effect() {
-                       return player["ds"].points.add(1).pow(0.2)
-                    },
-                    effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
-                },
-            },
-            buyables: {
-                11: {
-                    cost(x) { return new Decimal(1).mul(x) },
-                    title: "Demonic Energy",
-                    canAfford() { 
-                        return player["ds"].points.gte(this.cost((2 ** getBuyableAmount('ds', 11)) + 1))
-                    },
-                    purchaseLimit: new Decimal(49),
-                    buy() {
-                        player["ds"].points = player["ds"].points.sub(this.cost((2 ** getBuyableAmount('ds', 11)) + 1))
-                        setBuyableAmount('ds', 11, ((getBuyableAmount('ds', 11) * 1) + 1))
-                    },
-                    display() {
-                        return "multiplies hex gain (and also subatomic particle gain at a reduced rate) based on the amount of this upgrade bought.\nCurrently: " + (2 ** getBuyableAmount('ds', 11)) + "x\nand " + ((getBuyableAmount('ds', 11) * 7) + 1) + "x\n\nCost: " + ((2 ** getBuyableAmount('ds', 11)) + 1) + "\n\nBought: " + getBuyableAmount('ds', 11)
-                    },
-                },
-            },
         },
         "Demon Gateway": {
-            display: [
+            content: [
                 "main-display",
-                ["prestige-button"],
+                "prestige-button",
+                "resource-display",
                 "blank",
                 "challenges",
             ],
-            challenges: {
-                11: {
-                    name: "Blazing Curse",
-                    challengeDescription: " - Hex gain is divided by 1,000<br> - Core gain is divided by 100<br> - Quark gain is divided by 10",
-                    goal: new Decimal(1e500),
-                },
+        },
+    },
+    milestones: {
+        0: {
+            requirementDescription: "1 demon soul",
+            effectDescription: "keep subatomic particle buyables on demon soul resets",
+            done() { return player[this.layer].points.gte(1) }
+        },
+        1: {
+            requirementDescription: "5 demon souls",
+            effectDescription: "keep subatomic particle upgrades on demon soul resets",
+            done() { return player[this.layer].points.gte(5) }
+        },
+        2: {
+            requirementDescription: "15 demon souls",
+            effectDescription: "keep row 2 milestones on demon soul resets",
+            done() { return player[this.layer].points.gte(15) }
+        },
+        3: {
+            requirementDescription: "50 demon souls",
+            effectDescription: "keep essence upgrades on all resets",
+            done() { return player[this.layer].points.gte(50) }
+        },
+        4: {
+            requirementDescription: "125 demon souls",
+            effectDescription: "keep essence buyables on all resets",
+            done() { return player[this.layer].points.gte(125) }
+        },
+        5: {
+            requirementDescription: "625 demon souls",
+            effectDescription: "keep core upgrades on demon soul resets",
+            done() { return player[this.layer].points.gte(625) }
+        },
+        6: {
+            requirementDescription: "3,125 demon souls",
+            effectDescription: "keep core buyables on demon soul resets",
+            done() { return player[this.layer].points.gte(3125) }
+        },
+    },
+            upgrades: {
+        11: {
+            title: "Mad Hexes",
+            description: "you can explore 2 further hex upgrades, and hex gain is multiplied based on the amount of demon souls you have",
+            cost: new Decimal(10),
+            effect() {
+                return player["ds"].points.add(1).pow(0.1)
             },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+        },
+        12: {
+            title: "Hex Mania",
+            description: "you can explore 2 further hex upgrades, and the effect of Mad Hexes is multiplied based on the amount of demon souls you have",
+            cost: new Decimal(75),
+            effect() {
+                return player["ds"].points.add(1).pow(0.2)
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+        },
+    },
+    buyables: {
+        11: {
+            cost(x) { return new Decimal(1).mul(x) },
+            title: "Demonic Energy",
+            canAfford() { 
+                return player["ds"].points.gte(this.cost((2 ** getBuyableAmount('ds', 11)) + 1))
+            },
+            purchaseLimit: new Decimal(49),
+            buy() {
+                player["ds"].points = player["ds"].points.sub(this.cost((2 ** getBuyableAmount('ds', 11)) + 1))
+                setBuyableAmount('ds', 11, ((getBuyableAmount('ds', 11) * 1) + 1))
+            },
+            display() {
+                return "multiplies hex gain (and also subatomic particle gain at a reduced rate) based on the amount of this upgrade bought.\nCurrently: " + (2 ** getBuyableAmount('ds', 11)) + "x\nand " + ((getBuyableAmount('ds', 11) * 7) + 1) + "x\n\nCost: " + ((2 ** getBuyableAmount('ds', 11)) + 1) + "\n\nBought: " + getBuyableAmount('ds', 11)
+            },
+        },
+    },
+    challenges: {
+        11: {
+            name: "Blazing Curse",
+            challengeDescription: " - Hex gain is divided by 1,000<br> - Core gain is divided by 100<br> - Quark gain is divided by 10",
+            goal: new Decimal(1e500),
         },
     },
 });
