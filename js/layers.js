@@ -94,6 +94,12 @@ addLayer("A", {
             tooltip: "obtain 1e100 cores.",
             unlocked() { if (hasAchievement("A", 32)) return true },
         },
+        34: {
+            name: "Core of the Sun",
+            done() {return player["c"].points >= (new Decimal(1e1000))},
+            tooltip: "obtain 1e1,000 cores.",
+            unlocked() { if (hasAchievement("A", 33)) return true },
+        },
         36: {
             name: "The Pointless Core",
             done() {return getBuyableAmount("c", 11) <= 0.1 && getBuyableAmount("c", 12) <= 0.1 && player["q"].points <= 0.1 && player["c"].points >= (10 ** 10)},
@@ -117,6 +123,12 @@ addLayer("A", {
             done() {return player["q"].points >= (10 ** 100)},
             tooltip: "obtain 1e100 quarks.",
             unlocked() { if (hasAchievement("A", 42)) return true },
+        },
+        44: {
+            name: "Quirky Random Purpetuation",
+            done() {return player["q"].points >= (new Decimal(1e1000))},
+            tooltip: "obtain 1e1,000 quarks.",
+            unlocked() { if (hasAchievement("A", 43)) return true },
         },
         46: {
             name: "The Outside",
@@ -142,6 +154,12 @@ addLayer("A", {
             tooltip: "obtain 100 subatomic particles.",
             unlocked() { if (hasAchievement("A", 52)) return true },
         },
+        54: {
+            name: "That's no Particle no More",
+            done() {return player["sp"].points >= 1000},
+            tooltip: "obtain 1,000 subatomic particles.",
+            unlocked() { if (hasAchievement("A", 53)) return true },
+        },
         56: {
             name: "Hollow Particles",
             done() {return getBuyableAmount("sp", 11) <= 0.1 && getBuyableAmount("sp", 12) <= 0.1 && getBuyableAmount("sp", 21) <= 0.1 && player["h"].points <= 0.1 && player["sp"].points >= 10},
@@ -165,6 +183,12 @@ addLayer("A", {
             done() {return player["h"].points >= (10 ** 100)},
             tooltip: "obtain 1e100 hexes.",
             unlocked() { if (hasAchievement("A", 62)) return true },
+        },
+        64: {
+            name: "The Advent (of the universe ending)",
+            done() {return player["h"].points >= (new Decimal(1e1000))},
+            tooltip: "obtain 1e1,000 hexes.",
+            unlocked() { if (hasAchievement("A", 63)) return true },
         },
         66: {
             name: "Plain Old Curses",
@@ -927,7 +951,7 @@ addLayer("sp", {
         gain = new Decimal(1)
         if (hasUpgrade('q', 43)) gain = gain.times(upgradeEffect('q', 43))
         if (hasUpgrade('h', 63)) gain = gain.times(upgradeEffect('h', 63))
-        if (getBuyableAmount('ds',11) >= 0.1) gain = gain.times((getBuyableAmount('ds', 11) * 7) + 1)
+        if (getBuyableAmount('ds',11) >= 0.1) gain = gain.times((getBuyableAmount('ds', 11) * 5) + 1)
         return gain
     },
     row: 2, // Row the layer is in on the tree (0 is the first row)
@@ -1360,7 +1384,6 @@ addLayer("ds", {
                 "main-display",
                 "prestige-button",
                 "resource-display",
-                "blank",
                 "milestones",
                 "blank",
                 "buyables",
@@ -1375,6 +1398,7 @@ addLayer("ds", {
                 "blank",
                 "challenges",
             ],
+            unlocked() { if (hasUpgrade("ds", 21)) return true }
         },
     },
     milestones: {
@@ -1433,6 +1457,11 @@ addLayer("ds", {
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
         },
+        21: {
+            title: "Demonic Key",
+            description: "unlocks the Demon Gateway",
+            cost: new Decimal(10000),
+        },
     },
     buyables: {
         11: {
@@ -1441,13 +1470,13 @@ addLayer("ds", {
             canAfford() { 
                 return player["ds"].points.gte(this.cost((2 ** getBuyableAmount('ds', 11)) + 1))
             },
-            purchaseLimit: new Decimal(49),
+            purchaseLimit: new Decimal(22),
             buy() {
                 player["ds"].points = player["ds"].points.sub(this.cost((2 ** getBuyableAmount('ds', 11)) + 1))
                 setBuyableAmount('ds', 11, ((getBuyableAmount('ds', 11) * 1) + 1))
             },
             display() {
-                return "multiplies hex gain (and also subatomic particle gain at a reduced rate) based on the amount of this upgrade bought.\nCurrently: " + (2 ** getBuyableAmount('ds', 11)) + "x\nand " + ((getBuyableAmount('ds', 11) * 7) + 1) + "x\n\nCost: " + ((2 ** getBuyableAmount('ds', 11)) + 1) + "\n\nBought: " + getBuyableAmount('ds', 11)
+                return "multiplies hex gain (and also subatomic particle gain at a reduced rate) based on the amount of this upgrade bought.\nCurrently: " + (2 ** getBuyableAmount('ds', 11)) + "x\nand " + ((getBuyableAmount('ds', 11) * 5) + 1) + "x\n\nCost: " + ((2 ** getBuyableAmount('ds', 11)) + 1) + "\n\nBought: " + getBuyableAmount('ds', 11)
             },
         },
     },
