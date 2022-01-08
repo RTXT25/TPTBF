@@ -70,8 +70,8 @@ let help_data = {
 		Or, first you can max out Demonic Energy, if you haven't already done so. 
 		After you complete the first challenge, try the next one. 
 		Exit it and buy more upgrades if you can't complete it within a reasonable time frame.
-		Continue with this process until you complete all the challenges.
-		For the third challenge, Reverse Polarity, you need to get the 1e14 demon soul milestone first.",
+		For the third challenge, Reverse Polarity, you need to get the 1e14 demon soul milestone first.
+		After that, use the effect from the third challenge to build up lots of Subatomic Particles to unlock Atoms.",
 		unlocked() { if (hasAchievement("A", 71)) return true },
 	},
 },

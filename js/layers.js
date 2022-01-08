@@ -752,7 +752,11 @@ addLayer("q", {
             else dsqM = ""
             if (hasMilestone('ds', 7) && resettingLayer=="ds") dsqU = "upgrades"
             else dsqU = ""
-            if (layers[resettingLayer].row > this.row) layerDataReset("q", [spqM1, spqU1, hqM, spqM2, spqU2, hqU, dsqM, dsqU])
+            if (hasMilestone("a", 0) && resettingLayer=="a") aqB = "buyables"
+            else aqB = ""
+            if (hasMilestone("a", 1) && resettingLayer=="a") aqU = "upgrades"
+            else aqU = ""
+            if (layers[resettingLayer].row > this.row) layerDataReset("q", [spqM1, spqU1, hqM, spqM2, spqU2, hqU, dsqM, dsqU, aqB, aqU])
         },
     tabFormat: [
         "main-display",
@@ -996,6 +1000,7 @@ addLayer("sp", {
         points: new Decimal(0),
     }},
     color: "#710CC4",
+    branches: ["a"],
     requires: new Decimal(1e15), // Can be a function that takes requirement increases into account
     resource: "subatomic particles", // Name of prestige currency
     baseResource: "quarks", // Name of resource prestige is based on
@@ -1015,8 +1020,8 @@ addLayer("sp", {
         if (hasUpgrade('q', 43)) gain = gain.times(upgradeEffect('q', 43))
         if (hasUpgrade('h', 63)) gain = gain.times(upgradeEffect('h', 63))
         if (getBuyableAmount('ds',11) >= 0.1) gain = gain.times((getBuyableAmount('ds', 11) * 5) + 1)
-        if (inChallenge('ds', 12)) gain = gain.times(player['q'].points ** -0.05)
         if (hasChallenge('ds', 21)) gain = gain.times(player['ds'].points.add(1).pow(0.15))
+        if (inChallenge('ds', 12)) gain = gain.times(player['q'].points ** -0.05)
         return gain
     },
     row: 2, // Row the layer is in on the tree (0 is the first row)
@@ -1030,7 +1035,11 @@ addLayer("sp", {
             else dsspB = ""
             if (hasMilestone("ds", 1) && resettingLayer=="ds") dsspU = "upgrades"
             else dsspU = ""
-            if (layers[resettingLayer].row > this.row) layerDataReset("sp", [dsspB, dsspU])
+            if (hasMilestone("a", 0) && resettingLayer=="a") aspB = "buyables"
+            else aspB = ""
+            if (hasMilestone("a", 1) && resettingLayer=="a") aspU = "upgrades"
+            else aspU = ""
+            if (layers[resettingLayer].row > this.row) layerDataReset("sp", [dsspB, dsspU, aspB, aspU])
         },
     tabFormat: [
         "main-display",
@@ -1462,6 +1471,7 @@ addLayer("ds", {
     exponent: 0.05, // Prestige currency exponent
     gainMult() { // Calculate the multiplier for main currency from bonuses
         mult = new Decimal(1)
+        if (hasUpgrade('a', 11)) mult = mult.times(upgradeEffect('a', 11))
         if (hasChallenge('ds', 11)) mult = mult.times(player['ds'].points.add(1).pow(0.25))
         if (hasChallenge('ds', 12)) mult = mult.times(player['h'].points.add(1).pow(0.02))
         return mult
@@ -1561,7 +1571,7 @@ addLayer("ds", {
             done() { return player[this.layer].points.gte(10 ** 14) }
         },
     },
-            upgrades: {
+    upgrades: {
         11: {
             title: "Mad Hexes",
             description: "you can explore 2 further hex upgrades, and hex gain is multiplied based on the amount of demon souls you have",
@@ -1672,6 +1682,76 @@ addLayer("ds", {
             },
             rewardDescription: "multiply subatomic particle<br>gain by the amount of demon souls<br>you have",
             rewardDisplay() { return (Math.round(100 * player['ds'].points.add(1).pow(0.15)) / 100) + 'x' },
+        },
+    },
+});
+
+addLayer("a", {
+    name: "Atoms",
+    symbol: "A",
+    position: 1,
+    startData() { return {
+        unlocked: false,
+        points: new Decimal(0),
+    }},
+    color: "#533DC4",
+    requires: new Decimal(1000),
+    resource: "atoms",
+    baseResource: "subatomic particles",
+    baseAmount() {return player['sp'].points},
+    type: "static",
+    exponent: 2,
+    canBuyMax() { return true },
+    gainMult() {
+        mult = new Decimal(1)
+        return mult
+    },
+    gainExp() {
+        return new Decimal(1)
+    },
+    row: 3,
+    hotkeys: [
+        {key: "a", description: "A: Reset for atoms", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
+    ],
+    layerShown(){return player.ds.unlocked},
+    doReset(resettingLayer) {
+        let keep = [];
+            if (layers[resettingLayer].row > this.row) layerDataReset("a", [])
+        },
+    tabFormat: [
+        "main-display",
+        "prestige-button",
+        "resource-display",
+        ["display-text",
+            function() {return 'You have ' + formatWhole(player.a.best) + ' best atoms'},
+            {}],
+        ["display-text",
+            function() {return 'You have ' + formatWhole(player.a.total) + ' total atoms'},
+            {}],
+        "milestones",
+        "upgrades",
+    ],
+    milestones: {
+        0: {
+            requirementDescription: "1 atom",
+            effectDescription: "keep core and subatomic particle buyables on atom resets",
+            done() { return player[this.layer].points.gte(1) }
+        },
+        1: {
+            requirementDescription: "2 atoms",
+            effectDescription: "keep core and subatomic particle upgrades on atom resets",
+            done() { return player[this.layer].points.gte(2) }
+        },
+    },
+    upgrades: {
+        11: {
+            title: "The Demon of the Atom",
+            description: "demon soul gain is multiplied based on the amount of atoms you have",
+            cost: new Decimal(1),
+            effect() {
+                return player["a"].points.add(1).pow(0.5)
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
         },
     },
 });
