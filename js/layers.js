@@ -11,13 +11,19 @@ addLayer("A", {
     tooltip() {return "Achievements"},
     tabFormat: [
         ["display-text",
-            function() { return 'You have ' + player.A.achievements.length + ' achievements,<br>which are multiplying your point gain by ' + (Math.round( 10 * (player.A.achievements.length * 0.1 + 1)) / 10) + 'x'},
+            function() { if (!hasUpgrade("ds", 24)) return 'You have ' + player.A.achievements.length + ' achievements,<br>which are multiplying your point gain by ' + (Math.round(100 * (player.A.achievements.length * 0.1 + 1)) / 100) + 'x'},
             { "color": "white", "font-size": "16px", "font-family": "Lucida Console" }],
         ["display-text",
-            function() { if (hasUpgrade("ds", 21)) return 'and also multiplying essence gain by ' + (Math.round( 10 * (player.A.achievements.length * 0.2)) / 10) + 'x'},
+            function() { if (hasUpgrade("ds", 21) && !hasUpgrade("ds", 24)) return 'and also multiplying essence gain by ' + (Math.round(100 * (player.A.achievements.length * 0.2)) / 100) + 'x'},
             { "color": "white", "font-size": "16px", "font-family": "Lucida Console" }],
         ["display-text",
-            function() { if (hasUpgrade("ds", 23)) return 'addtionally, also multiplying core and quark gain by ' + (Math.round( 100 * (player.A.achievements.length ** 2)) / 10000) + 'x'},
+            function() { if (hasUpgrade('ds', 24)) return 'You have ' + player.A.achievements.length + ' achievements,<br>which are multiplying your point and essence gain by ' + (Math.round(100 * (player.A.achievements.length * 0.2)) / 100) + 'x'},
+            { "color": "white", "font-size": "16px", "font-family": "Lucida Console" }],
+        ["display-text",
+            function() { if (hasUpgrade("ds", 23) && !hasUpgrade("ds", 24)) return 'addtionally, also multiplying core and quark gain by ' + (Math.round(100 * (player.A.achievements.length ** 2)) / 10000) + 'x'},
+            { "color": "white", "font-size": "16px", "font-family": "Lucida Console" }],
+        ["display-text",
+            function() { if (hasUpgrade("ds", 23) && hasUpgrade("ds", 24)) return 'and also multiplying core and quark gain by ' + (Math.round(100 * (player.A.achievements.length ** 2)) / 10000) + 'x'},
             { "color": "white", "font-size": "16px", "font-family": "Lucida Console" }],
         "blank",
         "achievements",
@@ -255,7 +261,7 @@ addLayer("e", {
         mult = mult.times(5 ** getBuyableAmount('sp', 12))
         if (hasUpgrade("sp", 12)) mult = mult.times(5 ** getBuyableAmount('sp', 12))
         mult = mult.times(((getBuyableAmount('sp', 11) * 1) + 1) ** -1)
-        if (hasUpgrade("ds", 21)) mult = mult.times(Math.round( 10 * (player.A.achievements.length * 0.2)) / 10)
+        if (hasUpgrade("ds", 21)) mult = mult.times(Math.round(100 * (player.A.achievements.length * 0.2)) / 100)
         return mult
     },
     gainExp() { // Calculate the exponent on main currency from bonuses
@@ -482,7 +488,7 @@ addLayer("c", {
                 if (hasUpgrade('h', 33)) mult = mult.times(upgradeEffect('h', 33))
         if (hasUpgrade('h', 24)) mult = mult.times(3)
         mult = mult.times((getBuyableAmount('e', 12) * 1) + 1)
-        if (hasUpgrade("ds", 23)) mult = mult.times(Math.round( 100 * (player.A.achievements.length ** 2)) / 10000)
+        if (hasUpgrade("ds", 23)) mult = mult.times(Math.round(100 * (player.A.achievements.length ** 2)) / 10000)
         if (inChallenge('ds', 11)) mult = mult.times(0.01)
         return mult
     },
@@ -714,7 +720,7 @@ addLayer("q", {
         mult = mult.times(5 ** getBuyableAmount('sp', 11))
         if (hasUpgrade("sp", 11)) mult = mult.times(5 ** getBuyableAmount('sp', 11))
         mult = mult.times(((getBuyableAmount('sp', 21) * 1) + 1) ** -1)
-        if (hasUpgrade("ds", 23)) mult = mult.times(Math.round( 100 * (player.A.achievements.length ** 2)) / 10000)
+        if (hasUpgrade("ds", 23)) mult = mult.times(Math.round(100 * (player.A.achievements.length ** 2)) / 10000)
         if (inChallenge('ds', 11)) mult = mult.times(0.1)
         if (inChallenge('ds', 11)) mult = mult.times(0.00001)
         return mult
@@ -1571,16 +1577,25 @@ addLayer("ds", {
             title: "Hall of Fame",
             description: "achievements also multiply essence gain",
             cost: new Decimal(5000),
+            unlocked() { return hasUpgrade("ds", 11) && hasUpgrade("ds", 12) }
         },
         22: {
             title: "Demonic Key",
             description: "unlocks the Demon Gateway",
             cost: new Decimal(100000),
+            unlocked() { return hasUpgrade("ds", 11) && hasUpgrade("ds", 12) }
         },
         23: {
             title: "Trophy of Glory",
             description: "achievements also multiply core and quark gain",
             cost: new Decimal(2500000),
+            unlocked() { return hasUpgrade("ds", 11) && hasUpgrade("ds", 12) && hasUpgrade("ds", 21) }
+        },
+        24: {
+            title: "Buried History",
+            description: "achievements boosting point gain uses a better formula",
+            cost: new Decimal(1.11e11),
+            unlocked() { return hasUpgrade("ds", 11) && hasUpgrade("ds", 12) && hasUpgrade("ds", 23) }
         },
     },
     buyables: {
