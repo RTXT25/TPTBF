@@ -120,6 +120,7 @@ function getPointGen() {
 	if (hasUpgrade("sp", 13)) gain = gain.times(5 ** getBuyableAmount('sp', 21))
 	gain = gain.times(((getBuyableAmount('sp', 12) * 1) + 1) ** -1)
 	gain = gain.times(Math.round( 10 * (player.A.achievements.length * 0.1 + 1)) / 10)
+	if (inChallenge('ds', 11)) mult = mult.times(0.0001)
 	return gain
 }
 

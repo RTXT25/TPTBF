@@ -960,6 +960,7 @@ addLayer("sp", {
         if (hasUpgrade('q', 43)) gain = gain.times(upgradeEffect('q', 43))
         if (hasUpgrade('h', 63)) gain = gain.times(upgradeEffect('h', 63))
         if (getBuyableAmount('ds',11) >= 0.1) gain = gain.times((getBuyableAmount('ds', 11) * 5) + 1)
+        if (inChallenge('ds', 11)) mult = mult.times(0.00001)
         return gain
     },
     row: 2, // Row the layer is in on the tree (0 is the first row)
@@ -1501,7 +1502,7 @@ addLayer("ds", {
     challenges: {
         11: {
             name: "Blazing Curse",
-            challengeDescription: " - Hex gain is divided by 1,000<br> - Core gain is divided by 100<br> - Quark gain is divided by 10",
+            challengeDescription: " - Subatomic Particle gain is divided by 100,000<br> - Point gain is divided by 10,000<br> - Hex gain is divided by 1,000<br> - Core gain is divided by 100<br> - Quark gain is divided by 10",
             goal: new Decimal(1e500),
         },
     },
