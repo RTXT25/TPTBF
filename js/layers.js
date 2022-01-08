@@ -1502,8 +1502,15 @@ addLayer("ds", {
     challenges: {
         11: {
             name: "Blazing Curse",
-            challengeDescription: " - Quark gain is divided by 100,000<br> - Point gain is divided by 10,000<br> - Hex gain is divided by 1,000<br> - Core gain is divided by 100<br> - Quark gain is divided by 10",
-            goal: new Decimal(1e500),
+            challengeDescription: " - Forces a Demon Soul reset<br> - Quark gain is divided by 100,000<br> - Point gain is divided by 10,000<br> - Hex gain is divided by 1,000<br> - Core gain is divided by 100<br> - Quark gain is divided by 10",
+            goalDescription: 'the most expensive hex upgrade',
+            canComplete() {
+                if (hasUpgrade('h', 64)) return true
+                else return false
+            },
+            onEnter() {
+                doReset(resettingLayer)
+            },
         },
     },
 });
