@@ -20,6 +20,7 @@ let changelog = `<h1>Changelog:</h1><br>
 		- Added demonic gateway.<br>
 		- Added one challenge to demon souls.<br>
 		- Added twelve achievements.<br>
+		- Reformatted all tabs.<br>
 		- Balance changes.<br>
 	<br><h3>v1.1: Demonic Faith</h3><br>
 		- Added demon souls.<br>
