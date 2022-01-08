@@ -12,11 +12,11 @@ let modInfo = {
 // Set your version in num and name
 let VERSION = {
 	num: "1.1",
-	name: "Demonic Faith",
+	name: "Demon Gateway",
 }
 
 let changelog = `<h1>Changelog:</h1><br>
-	<br><h3>v1.2: Demonic Gateway</h3><br>
+	<br><h3>v1.2: Demon Gateway</h3><br>
 		- Added demonic gateway.<br>
 		- Added one challenge to demon souls.<br>
 		- Added twelve achievements.<br>
