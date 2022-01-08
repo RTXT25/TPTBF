@@ -544,7 +544,6 @@ addLayer("c", {
             function() {return 'You have ' + formatWhole(player.c.total) + ' total cores'},
             {}],
         "milestones",
-        "blank",
         "buyables",
         "blank",
         "upgrades",
@@ -766,7 +765,6 @@ addLayer("q", {
             function() {return 'You have ' + formatWhole(player.q.total) + ' total quarks'},
             {}],
         "milestones",
-        "blank",
         "upgrades",
     ],
     milestones: {
@@ -1032,7 +1030,9 @@ addLayer("sp", {
             else dsspB = ""
             if (hasMilestone("ds", 1) && resettingLayer=="ds") dsspU = "upgrades"
             else dsspU = ""
-            if (layers[resettingLayer].row > this.row) layerDataReset("sp", [dsspB, dsspU])
+            if (hasMilestone("ds", 8) && resettingLayer=="ds") dsspM = "milestones"
+            else dsspM = ""
+            if (layers[resettingLayer].row > this.row) layerDataReset("sp", [dsspB, dsspU, dsspM])
         },
     tabFormat: [
         "main-display",
@@ -1045,7 +1045,6 @@ addLayer("sp", {
             function() {return 'You have ' + formatWhole(player.sp.total) + ' total subatomic particles'},
             {}],
         "milestones",
-        "blank",
         "buyables",
         "blank",
         "upgrades",
@@ -1201,7 +1200,6 @@ addLayer("h", {
             function() {return 'You have ' + formatWhole(player.h.total) + ' total hexes'},
             {}],
         "milestones",
-        "blank",
         "upgrades",
     ],
     milestones: {
@@ -1493,7 +1491,6 @@ addLayer("ds", {
                     function() {return 'You have ' + formatWhole(player.ds.total) + ' total demon souls'},
                     {}],
                 "milestones",
-                "blank",
                 "buyables",
                 "blank",
                 "upgrades",
@@ -1556,6 +1553,11 @@ addLayer("ds", {
             requirementDescription: "1e10 demon souls",
             effectDescription: "keep quark upgrades on demon soul resets",
             done() { return player[this.layer].points.gte(10 ** 10) }
+        },
+        8: {
+            requirementDescription: "1e15 demon souls",
+            effectDescription: "keep subatomic particle milestones on demon soul resets",
+            done() { return player[this.layer].points.gte(10 ** 15) }
         },
     },
             upgrades: {

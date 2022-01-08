@@ -18,7 +18,7 @@ let VERSION = {
 let changelog = `<h1>Changelog:</h1><br>
 	<br><h3>v1.2: Demon Gateway</h3><br>
 		- Added demonic gateway.<br>
-		- Added one milestone to demon souls.<br>
+		- Added two milestones to demon souls.<br>
 		- Added one upgrade to demon souls.<br>
 		- Added three challenges to demon souls.<br>
 		- Added twelve achievements.<br>

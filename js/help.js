@@ -66,11 +66,12 @@ let help_data = {
 		They might not seem worth it, but the upgrades are very good, because they increase the automated essence gain. 
 		This, it turn, boosts all of your production, on both branches of the tree. 
 		Then, you keep grinding until you can buy the Demonic Key and unlock the Demon Gateway.
-		When you unlock Demon Gateway, you probably can complete Blazing Curse in a reasonable amount of time. 
+		When you unlock Demon Gateway, you probably can complete the first challenge, Blazing Curse, in a reasonable amount of time. 
 		Or, first you can max out Demonic Energy, if you haven't already done so. 
 		After you complete the first challenge, try the next one. 
 		Exit it and buy more upgrades if you can't complete it within a reasonable time frame.
-		Continue with this process until you complete all the challenges.",
+		Continue with this process until you complete all the challenges.
+		For the third challenge, Reverse Polarity, you need to get the 1e15 demon soul milestone first.",
 		unlocked() { if (hasAchievement("A", 71)) return true },
 	},
 },
