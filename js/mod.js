@@ -20,7 +20,7 @@ let changelog = `<h1>Changelog:</h1><br>
 		- Added demonic gateway.<br>
 		- Added one milestone to demon souls.<br>
 		- Added one upgrade to demon souls.<br>
-		- Added two challenges to demon souls.<br>
+		- Added three challenges to demon souls.<br>
 		- Added twelve achievements.<br>
 		- Reformatted all tabs.<br>
 		- Balance changes.<br>
@@ -126,6 +126,7 @@ function getPointGen() {
 	if (hasUpgrade('ds', 24)) gain = gain.times(Math.round(100 * (player.A.achievements.length * 0.2)) / 100)
 	if (inChallenge('ds', 11)) gain = gain.times(0.0001)
 	if (inChallenge('ds', 12)) gain = gain.times(0.000001)
+	if (inChallenge('ds', 21)) gain = gain.times(0.0000000001)
 	return gain
 }
 
