@@ -301,6 +301,22 @@ addLayer("e", {
             else ALLeB = ""
             if (layers[resettingLayer].row > this.row) layerDataReset("e", [ceU, ceB, qeU, qeB, speU, speB, heU, heB, ALLeU, ALLeB])
         },
+    tabFormat: [
+        "main-display",
+        "prestige-button",
+        "resource-display",
+        ["display-text",
+            function() {return 'You have ' + formatWhole(player.e.best) + ' best essence'},
+            {}],
+        ["display-text",
+            function() {return 'You have ' + formatWhole(player.e.total) + ' total essence'},
+            {}],
+        "milestones",
+        "blank",
+        "buyables",
+        "blank",
+        "upgrades",
+    ],
     upgrades: {
         11: {
             title: "Faster Points",
@@ -509,6 +525,22 @@ addLayer("c", {
             else dscB = ""
             if (layers[resettingLayer].row > this.row) layerDataReset("c", [hcU, hcB, spcU, spcB, hcM, spcM, dscM, dscU, dscB])
         },
+    tabFormat: [
+        "main-display",
+        "prestige-button",
+        "resource-display",
+        ["display-text",
+            function() {return 'You have ' + formatWhole(player.c.best) + ' best cores'},
+            {}],
+        ["display-text",
+            function() {return 'You have ' + formatWhole(player.c.total) + ' total cores'},
+            {}],
+        "milestones",
+        "blank",
+        "buyables",
+        "blank",
+        "upgrades",
+    ],
     milestones: {
         0: {
             requirementDescription: "10 cores",
@@ -713,6 +745,20 @@ addLayer("q", {
             else dsqM = ""
             if (layers[resettingLayer].row > this.row) layerDataReset("q", [spqM1, spqU1, hqM, spqM2, spqU2, hqU, dsqM])
         },
+    tabFormat: [
+        "main-display",
+        "prestige-button",
+        "resource-display",
+        ["display-text",
+            function() {return 'You have ' + formatWhole(player.q.best) + ' best quarks'},
+            {}],
+        ["display-text",
+            function() {return 'You have ' + formatWhole(player.q.total) + ' total quarks'},
+            {}],
+        "milestones",
+        "blank",
+        "upgrades",
+    ],
     milestones: {
         0: {
             requirementDescription: "5 quarks",
@@ -976,6 +1022,22 @@ addLayer("sp", {
             else dsspU = ""
             if (layers[resettingLayer].row > this.row) layerDataReset("sp", [dsspB, dsspU])
         },
+    tabFormat: [
+        "main-display",
+        "prestige-button",
+        "resource-display",
+        ["display-text",
+            function() {return 'You have ' + formatWhole(player.sp.best) + ' best subatomic particles'},
+            {}],
+        ["display-text",
+            function() {return 'You have ' + formatWhole(player.sp.total) + ' total subatomic particles'},
+            {}],
+        "milestones",
+        "blank",
+        "buyables",
+        "blank",
+        "upgrades",
+    ],
     milestones: {
         0: {
             requirementDescription: "1 subatomic particle",
@@ -1098,6 +1160,7 @@ addLayer("h", {
         if (hasUpgrade('ds', 11)) mult = mult.times(upgradeEffect('h', 11))
             if (hasUpgrade('ds', 12)) mult = mult.times(upgradeEffect('h', 12))
         if (getBuyableAmount('ds',11) >= 0.1) mult = mult.times(2 ** getBuyableAmount('ds', 11))
+        if (hasChallenge('ds', 11)) mult = mult.times(player['ds'].points.add(1).pow(0.25))
         if (inChallenge('ds', 11)) mult = mult.times(0.001)
         return mult
     },
@@ -1113,6 +1176,20 @@ addLayer("h", {
         let keep = [];
             if (layers[resettingLayer].row > this.row) layerDataReset("h", [])
         },
+    tabFormat: [
+        "main-display",
+        "prestige-button",
+        "resource-display",
+        ["display-text",
+            function() {return 'You have ' + formatWhole(player.h.best) + ' best hexes'},
+            {}],
+        ["display-text",
+            function() {return 'You have ' + formatWhole(player.h.total) + ' total hexes'},
+            {}],
+        "milestones",
+        "blank",
+        "upgrades",
+    ],
     milestones: {
         0: {
             requirementDescription: "5 hexes",
@@ -1373,6 +1450,7 @@ addLayer("ds", {
     exponent: 0.05, // Prestige currency exponent
     gainMult() { // Calculate the multiplier for main currency from bonuses
         mult = new Decimal(1)
+        if (hasChallenge('ds', 11)) mult = mult.times(player['ds'].points.add(1).pow(0.25))
         return mult
     },
     gainExp() { // Calculate the exponent on main currency from bonuses
@@ -1393,9 +1471,16 @@ addLayer("ds", {
                 "main-display",
                 "prestige-button",
                 "resource-display",
+                ["display-text",
+                    function() {return 'You have ' + formatWhole(player.ds.best) + ' best demon souls'},
+                    {}],
+                ["display-text",
+                    function() {return 'You have ' + formatWhole(player.ds.total) + ' total demon souls'},
+                    {}],
                 "milestones",
                 "blank",
                 "buyables",
+                "blank",
                 "upgrades",
             ],
         },
@@ -1511,6 +1596,8 @@ addLayer("ds", {
             onEnter() {
                 doReset(resettingLayer)
             },
+            rewardDescription: 'multiplies hex and demon soul gain by the amount of demon souls<br>you have',
+            rewardDisplay() { return (Math.round(100 * player['ds'].points.add(1).pow(0.25)) / 100) + 'x' },
         },
     },
 });

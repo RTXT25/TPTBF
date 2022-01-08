@@ -6,3 +6,14 @@ Temp. Code Trash
             tooltip: "obtain 1e10 demon souls with no demon soul buyables.",
             unlocked() { if (hasAchievement("A", 72) && hasAchievement("A", 81)) return true },
         },
+
+NOTE: effects go
+	Normal Upgrades
+		Tiered Upgrades
+	Buyables
+		Upgrades that buff Buyables
+	Special Upgrades
+	Challenge Completion Effects
+	Achievement Effects
+	Achievement Rewards
+	In Challenge Effects
