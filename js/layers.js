@@ -262,7 +262,7 @@ addLayer("e", {
         if (hasUpgrade("sp", 12)) mult = mult.times(5 ** getBuyableAmount('sp', 12))
         mult = mult.times(((getBuyableAmount('sp', 11) * 1) + 1) ** -1)
         if (hasUpgrade("ds", 21)) mult = mult.times(Math.round(100 * (player.A.achievements.length * 0.2)) / 100)
-        if (inChallenge('ds', 21)) mult = mult.times(0.000000000000000000000000000001)
+        if (inChallenge('ds', 21)) mult = mult.times(0.00000000000000000001)
         return mult
     },
     gainExp() { // Calculate the exponent on main currency from bonuses
@@ -491,7 +491,7 @@ addLayer("c", {
         mult = mult.times((getBuyableAmount('e', 12) * 1) + 1)
         if (hasUpgrade("ds", 23)) mult = mult.times(Math.round(100 * (player.A.achievements.length ** 2)) / 10000)
         if (inChallenge('ds', 11)) mult = mult.times(0.01)
-        if (inChallenge('ds', 21)) mult = mult.times(0.00000000000000000001)
+        if (inChallenge('ds', 21)) mult = mult.times(0.000000000000001)
         return mult
     },
     gainExp() { // Calculate the exponent on main currency from bonuses
@@ -1016,7 +1016,7 @@ addLayer("sp", {
         if (hasUpgrade('h', 63)) gain = gain.times(upgradeEffect('h', 63))
         if (getBuyableAmount('ds',11) >= 0.1) gain = gain.times((getBuyableAmount('ds', 11) * 5) + 1)
         if (inChallenge('ds', 12)) gain = gain.times(player['q'].points ** -0.05)
-        if (hasChallenge('ds', 21)) gain = gain.times(player['ds'].points.add(1).pow(0.2))
+        if (hasChallenge('ds', 21)) gain = gain.times(player['ds'].points.add(1).pow(0.15))
         return gain
     },
     row: 2, // Row the layer is in on the tree (0 is the first row)
@@ -1030,9 +1030,7 @@ addLayer("sp", {
             else dsspB = ""
             if (hasMilestone("ds", 1) && resettingLayer=="ds") dsspU = "upgrades"
             else dsspU = ""
-            if (hasMilestone("ds", 8) && resettingLayer=="ds") dsspM = "milestones"
-            else dsspM = ""
-            if (layers[resettingLayer].row > this.row) layerDataReset("sp", [dsspB, dsspU, dsspM])
+            if (layers[resettingLayer].row > this.row) layerDataReset("sp", [dsspB, dsspU])
         },
     tabFormat: [
         "main-display",
@@ -1174,7 +1172,7 @@ addLayer("h", {
         if (hasChallenge('ds', 11)) mult = mult.times(player['ds'].points.add(1).pow(0.25))
         if (inChallenge('ds', 11)) mult = mult.times(0.001)
         if (inChallenge('ds', 12)) mult = mult.times(0.0000000001)
-        if (inChallenge('ds', 21)) mult = mult.times(0.0000000000000000000000000000000000000001)
+        if (inChallenge('ds', 21)) mult = mult.times(0.00001)
         return mult
     },
     gainExp() { // Calculate the exponent on main currency from bonuses
@@ -1187,7 +1185,9 @@ addLayer("h", {
     layerShown(){return player.sp.unlocked},
     doReset(resettingLayer) {
         let keep = [];
-            if (layers[resettingLayer].row > this.row) layerDataReset("h", [])
+            if (hasMilestone("ds", 8) && resettingLayer=="ds") dshM = "milestones"
+            else dshM = ""
+            if (layers[resettingLayer].row > this.row) layerDataReset("h", [dshM])
         },
     tabFormat: [
         "main-display",
@@ -1509,6 +1509,7 @@ addLayer("ds", {
                     {}],
                 "blank",
                 "challenges",
+                "blank",
             ],
             unlocked() { if (hasUpgrade("ds", 22)) return true }
         },
@@ -1555,9 +1556,9 @@ addLayer("ds", {
             done() { return player[this.layer].points.gte(10 ** 10) }
         },
         8: {
-            requirementDescription: "1e15 demon souls",
-            effectDescription: "keep subatomic particle milestones on demon soul resets",
-            done() { return player[this.layer].points.gte(10 ** 15) }
+            requirementDescription: "1e14 demon souls",
+            effectDescription: "keep hex milestones on demon soul resets",
+            done() { return player[this.layer].points.gte(10 ** 14) }
         },
     },
             upgrades: {
@@ -1656,10 +1657,10 @@ addLayer("ds", {
         },
         21: {
             name: "Opposite Polarity",
-            challengeDescription: " - Forces a Demon Soul reset<br> - Point gain is divided by 1e10<br> - Core gain is divided by 1e20<br> - Essence gain is divided by 1e30<br> - Hex gain is divided by 1e40",
-            goalDescription: "the second to last hex upgrade",
+            challengeDescription: " - Forces a Demon Soul reset<br> - Hex gain is divided by 100,000<br> - Point gain is divided by 1e10<br> - Core gain is divided by 1e15<br> - Essence gain is divided by 1e20",
+            goalDescription: "Sub Core Particle Fusion",
             canComplete() {
-                if (hasUpgrade('h', 63)) return true
+                if (hasUpgrade('h', 53)) return true
                 else return false
             },
             onEnter() {
@@ -1670,7 +1671,7 @@ addLayer("ds", {
                 else return false
             },
             rewardDescription: "multiply subatomic particle<br>gain by the amount of demon souls<br>you have",
-            rewardDisplay() { return (Math.round(100 * player['ds'].points.add(1).pow(0.2)) / 100) + 'x' },
+            rewardDisplay() { return (Math.round(100 * player['ds'].points.add(1).pow(0.15)) / 100) + 'x' },
         },
     },
 });

@@ -71,7 +71,7 @@ let help_data = {
 		After you complete the first challenge, try the next one. 
 		Exit it and buy more upgrades if you can't complete it within a reasonable time frame.
 		Continue with this process until you complete all the challenges.
-		For the third challenge, Reverse Polarity, you need to get the 1e15 demon soul milestone first.",
+		For the third challenge, Reverse Polarity, you need to get the 1e14 demon soul milestone first.",
 		unlocked() { if (hasAchievement("A", 71)) return true },
 	},
 },
