@@ -1435,7 +1435,7 @@ addLayer("h", {
             unlocked() { return hasUpgrade("h", 52) && hasUpgrade("h", 53) },
         },
         64: {
-            title: "Essence Potential",
+            title: "Potential Essence Potential",
             description: "Increase the effect of Fastest Essence by 25% (total: 150%)",
             cost: new Decimal(1.11e111),
             unlocked() { return hasUpgrade("ds", 12) && hasUpgrade("h", 51) && hasUpgrade("h", 52) && hasUpgrade("h", 53) && hasUpgrade("h", 54) },
