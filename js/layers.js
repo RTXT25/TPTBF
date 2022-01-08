@@ -250,7 +250,7 @@ addLayer("e", {
             if (hasUpgrade('q', 15)) mult = mult.times(upgradeEffect('q', 15))
         if (hasUpgrade('q', 32)) mult = mult.times(upgradeEffect('q', 32))
         mult = mult.times((getBuyableAmount('e', 11) * 2.5) + 1)
-        mult = mult.times(Math.pow(getBuyableAmount('e', 12), 0.25) + 1)
+        mult = mult.times((getBuyableAmount('e', 12) ** 0.25) + 1)
         mult = mult.times(2 ** getBuyableAmount('c', 12))
         mult = mult.times(5 ** getBuyableAmount('sp', 12))
         if (hasUpgrade("sp", 12)) mult = mult.times(5 ** getBuyableAmount('sp', 12))
@@ -428,27 +428,27 @@ addLayer("e", {
         11: {
             cost(x) { return new Decimal(1).mul(x) },
             title: "Purer Essence",
-            canAfford() { return player[this.layer].points.gte(this.cost(Math.pow(12, getBuyableAmount('e', 11)) + 20))},
+            canAfford() { return player[this.layer].points.gte(this.cost((12 ** getBuyableAmount('e', 11)) + 20))},
             purchaseLimit: new Decimal(14),
             buy() {
-                player[this.layer].points = player[this.layer].points.sub(this.cost(Math.pow(12, getBuyableAmount('e', 11)) + 20))
+                player[this.layer].points = player[this.layer].points.sub(this.cost((12 ** getBuyableAmount('e', 11)) + 20))
                 setBuyableAmount('e', 11, getBuyableAmount('e', 11).add(1))
             },
             display() {
-                return "multiplies essence gain based on the amount of this upgrade bought.\nCurrently: " + ((getBuyableAmount('e', 11) * 2.5) + 1) + "x\n\nCost: " + (Math.pow(12, getBuyableAmount('e', 11)) + 20) + "\n\nBought: " + getBuyableAmount('e', 11)
+                return "multiplies essence gain based on the amount of this upgrade bought.\nCurrently: " + ((getBuyableAmount('e', 11) * 2.5) + 1) + "x\n\nCost: " + ((12 ** getBuyableAmount('e', 11)) + 20) + "\n\nBought: " + getBuyableAmount('e', 11)
             },
         },
         12: {
             cost(x) { return new Decimal(1).mul(x) },
             title: "Radiant Essence",
-            canAfford() { return player[this.layer].points.gte(this.cost(10 * (Math.pow(44, getBuyableAmount('e', 12))) + 85184))},
+            canAfford() { return player[this.layer].points.gte(this.cost(10 * (44 ** getBuyableAmount('e', 12)) + 85184))},
             purchaseLimit: new Decimal(99),
             buy() {
-                player[this.layer].points = player[this.layer].points.sub(this.cost(10 * (Math.pow(44, getBuyableAmount('e', 12))) + 85184))
+                player[this.layer].points = player[this.layer].points.sub(this.cost(10 * (44 ** getBuyableAmount('e', 12)) + 85184))
                 setBuyableAmount('e', 12, getBuyableAmount('e', 12).add(1))
             },
             display() {
-                return "multiplies core gain (and essence gain at a reduced rate) based on the amount of this upgrade bought.\nCurrently: " + ((getBuyableAmount('e', 12) * 1) + 1) + "x\nand " + (Math.pow(getBuyableAmount('e', 12), 0.25) + 1) + "x\n\nCost: " + (10 * (Math.pow(44, getBuyableAmount('e', 12))) + 85184) + "\n\nBought: " + getBuyableAmount('e', 12)
+                return "multiplies core gain (and essence gain at a reduced rate) based on the amount of this upgrade bought.\nCurrently: " + ((getBuyableAmount('e', 12) * 1) + 1) + "x\nand " + ((getBuyableAmount('e', 12) ** 0.25) + 1) + "x\n\nCost: " + (10 * (44 ** getBuyableAmount('e', 12)) + 85184) + "\n\nBought: " + getBuyableAmount('e', 12)
             },
         },
     },
@@ -668,14 +668,14 @@ addLayer("c", {
         12: {
             cost(x) { return new Decimal(1).mul(x) },
             title: "Empowered Essence",
-            canAfford() { return player[this.layer].points.gte(this.cost(Math.pow(6, getBuyableAmount('c', 12))))},
+            canAfford() { return player[this.layer].points.gte(this.cost(6 ** getBuyableAmount('c', 12)))},
             purchaseLimit: new Decimal(49),
             buy() {
-                player[this.layer].points = player[this.layer].points.sub(this.cost(Math.pow(6, getBuyableAmount('c', 12))))
+                player[this.layer].points = player[this.layer].points.sub(this.cost(6 ** getBuyableAmount('c', 12)))
                 setBuyableAmount('c', 12, getBuyableAmount('c', 12).add(1))
             },
             display() {
-                return "multiplies essence gain based on the amount of this upgrade bought.\nCurrently: " + (2 ** getBuyableAmount('c', 12)) + "x\n\nCost: " + Math.pow(6, getBuyableAmount('c', 12)) + "\n\nBought: " + getBuyableAmount('c', 12)
+                return "multiplies essence gain based on the amount of this upgrade bought.\nCurrently: " + (2 ** getBuyableAmount('c', 12)) + "x\n\nCost: " + (6 ** getBuyableAmount('c', 12)) + "\n\nBought: " + getBuyableAmount('c', 12)
             },
         },
     },
@@ -1588,7 +1588,7 @@ addLayer("ds", {
         11: {
             name: "Blazing Curse",
             challengeDescription: " - Forces a Demon Soul reset<br> - Quark gain is divided by 100,000<br> - Point gain is divided by 10,000<br> - Hex gain is divided by 1,000<br> - Core gain is divided by 100<br> - Quark gain is divided by 10",
-            goalDescription: 'the most expensive hex upgrade',
+            goalDescription: "the most expensive hex upgrade",
             canComplete() {
                 if (hasUpgrade('h', 64)) return true
                 else return false
@@ -1596,7 +1596,7 @@ addLayer("ds", {
             onEnter() {
                 doReset(resettingLayer)
             },
-            rewardDescription: 'multiplies hex and demon soul gain by the amount of demon souls<br>you have',
+            rewardDescription: "multiplies hex and demon soul gain by the amount of demon souls<br>you have",
             rewardDisplay() { return (Math.round(100 * player['ds'].points.add(1).pow(0.25)) / 100) + 'x' },
         },
     },

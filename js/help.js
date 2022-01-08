@@ -65,8 +65,9 @@ let help_data = {
 		When you purchase Mad Hexes or Hex Mania, make sure to buy the newly unlocked upgrades when you have enough. 
 		They might not seem worth it, but the upgrades are very good, because they increase the automated essence gain. 
 		This, it turn, boosts all of your production, on both branches of the tree. 
-		Then, you keep grinding until you can buy the Demonic Key and unlock the Demon Gateway. 
-		NOTE: Demon Gateway is not useable yet.",
+		Then, you keep grinding until you can buy the Demonic Key and unlock the Demon Gateway.
+		When you unlock Demon Gateway, you probably can beat Blazing Curse in a reasonable amount of time. 
+		Or, first you can max out Demonic Energy, if you haven't already done so.",
 		unlocked() { if (hasAchievement("A", 71)) return true },
 	},
 },
