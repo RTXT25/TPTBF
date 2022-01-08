@@ -122,6 +122,7 @@ function getPointGen() {
 	gain = gain.times(((getBuyableAmount('sp', 12) * 1) + 1) ** -1)
 	gain = gain.times(Math.round( 10 * (player.A.achievements.length * 0.1 + 1)) / 10)
 	if (inChallenge('ds', 11)) gain = gain.times(0.0001)
+	if (inChallenge('ds', 12)) gain = gain.times(0.000001)
 	return gain
 }
 

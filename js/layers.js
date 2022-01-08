@@ -743,7 +743,9 @@ addLayer("q", {
             else hqU = ""
             if (hasMilestone("ds", 2) && resettingLayer=="ds") dsqM = "milestones"
             else dsqM = ""
-            if (layers[resettingLayer].row > this.row) layerDataReset("q", [spqM1, spqU1, hqM, spqM2, spqU2, hqU, dsqM])
+            if (hasMilestone('ds', 7) && resettingLayer=="ds") dsqU = "upgrades"
+            else dsqU = ""
+            if (layers[resettingLayer].row > this.row) layerDataReset("q", [spqM1, spqU1, hqM, spqM2, spqU2, hqU, dsqM, dsqU])
         },
     tabFormat: [
         "main-display",
@@ -1007,6 +1009,7 @@ addLayer("sp", {
         if (hasUpgrade('q', 43)) gain = gain.times(upgradeEffect('q', 43))
         if (hasUpgrade('h', 63)) gain = gain.times(upgradeEffect('h', 63))
         if (getBuyableAmount('ds',11) >= 0.1) gain = gain.times((getBuyableAmount('ds', 11) * 5) + 1)
+        if (inChallenge('ds', 12)) gain = gain.times(player['q'].points ** -0.05)
         return gain
     },
     row: 2, // Row the layer is in on the tree (0 is the first row)
@@ -1162,6 +1165,7 @@ addLayer("h", {
         if (getBuyableAmount('ds',11) >= 0.1) mult = mult.times(2 ** getBuyableAmount('ds', 11))
         if (hasChallenge('ds', 11)) mult = mult.times(player['ds'].points.add(1).pow(0.25))
         if (inChallenge('ds', 11)) mult = mult.times(0.001)
+        if (inChallenge('ds', 12)) mult = mult.times(0.0000000001)
         return mult
     },
     gainExp() { // Calculate the exponent on main currency from bonuses
@@ -1417,7 +1421,7 @@ addLayer("h", {
         63: {
             title: "Hexed Subatomic Particle",
             description: "multiply subatomic particle gain based on the amount of hexes you have",
-            cost: new Decimal(6e60),
+            cost: new Decimal(6.66e66),
             effect() {
                return player[this.layer].points.add(1).pow(0.02)
             },
@@ -1451,6 +1455,7 @@ addLayer("ds", {
     gainMult() { // Calculate the multiplier for main currency from bonuses
         mult = new Decimal(1)
         if (hasChallenge('ds', 11)) mult = mult.times(player['ds'].points.add(1).pow(0.25))
+        if (hasChallenge('ds', 12)) mult = mult.times(player['h'].points.add(1).pow(0.02))
         return mult
     },
     gainExp() { // Calculate the exponent on main currency from bonuses
@@ -1489,6 +1494,12 @@ addLayer("ds", {
                 "main-display",
                 "prestige-button",
                 "resource-display",
+                ["display-text",
+                    function() {return 'You have ' + formatWhole(player.ds.best) + ' best demon souls'},
+                    {}],
+                ["display-text",
+                    function() {return 'You have ' + formatWhole(player.ds.total) + ' total demon souls'},
+                    {}],
                 "blank",
                 "challenges",
             ],
@@ -1530,6 +1541,11 @@ addLayer("ds", {
             requirementDescription: "3,125 demon souls",
             effectDescription: "keep core buyables on demon soul resets",
             done() { return player[this.layer].points.gte(3125) }
+        },
+        7: {
+            requirementDescription: "1e10 demon souls",
+            effectDescription: "keep quark upgrades on demon soul resets",
+            done() { return player[this.layer].points.gte(10 ** 10) }
         },
     },
             upgrades: {
@@ -1598,6 +1614,24 @@ addLayer("ds", {
             },
             rewardDescription: "multiplies hex and demon soul gain by the amount of demon souls<br>you have",
             rewardDisplay() { return (Math.round(100 * player['ds'].points.add(1).pow(0.25)) / 100) + 'x' },
+        },
+        12: {
+            name: "Hellfire",
+            challengeDescription: " - Forces a Demon Soul reset<br> - Point gain is divided by 1,000,000<br> - Hex gain is divided by 1e10<br> - Subatomic Particle gain is divided by the number of Quarks you have",
+            goalDescription: "the second to last hex upgrade",
+            canComplete() {
+                if (hasUpgrade('h', 63)) return true
+                else return false
+            },
+            onEnter() {
+                doReset(resettingLayer)
+            },
+            unlocked() {
+                if (hasChallenge('ds', 11)) return true
+                else return false
+            },
+            rewardDescription: "multiply demon soul gain by<br>the amount of hexes you have",
+            rewardDisplay() { return (Math.round(100 * player['h'].points.add(1).pow(0.02)) / 100) + 'x' },
         },
     },
 });
