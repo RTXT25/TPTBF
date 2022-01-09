@@ -1740,7 +1740,7 @@ addLayer("a", {
     baseResource: "subatomic particles",
     baseAmount() {return player['sp'].points},
     type: "static",
-    exponent: 1.25,
+    exponent: 1,
     canBuyMax() { return true },
     gainMult() {
         mult = new Decimal(1)
