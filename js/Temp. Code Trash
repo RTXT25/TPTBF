@@ -1,10 +1,10 @@
 Temp. Code Trash
 
-        76: {
-            name: "Occult Uprising",
-            done() {return getBuyableAmount("ds", 11) <= 0.1 && player["ds"].points >= (10 ** 10)},
-            tooltip: "obtain 1e10 demon souls with no demon soul buyables.",
-            unlocked() { if (hasAchievement("A", 72) && hasAchievement("A", 81)) return true },
+        77: {
+            name: "No to Nuclear",
+            done() {return player["ds"] <= 0.1 && player["a"].points >= 10},
+            tooltip: "obtain 10 atoms with no demon souls.",
+            unlocked() { if (hasAchievement("A", 82) && hasAchievement("A", 91)) return true },
         },
 
 NOTE: effects go

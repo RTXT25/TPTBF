@@ -19,8 +19,8 @@ let changelog = `<h1>Changelog:</h1><br>
 	<br><h3>v1.3: Atomic Measure</h3><br>
 		- Added atoms.<br>
 		- Added two milestones to atoms.<br>
-		- Added one upgrade to atoms.<br>
-		- Added two achievements.<br>
+		- Added six upgrades to atoms.<br>
+		- Added three achievements.<br>
 		- More new features coming soon!<br>
 		- Balance changes.<br>
 	<br><h3>v1.2: Demon Gateway</h3><br>

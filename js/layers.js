@@ -226,6 +226,12 @@ addLayer("A", {
             tooltip: "obtain 1e100 demon souls.",
             unlocked() { if (hasAchievement("A", 72)) return true },
         },
+        76: {
+            name: "Occult Uprising",
+            done() {return getBuyableAmount("ds", 11) <= 0.1 && player["ds"].points >= (10 ** 10)},
+            tooltip: "obtain 1e10 demon souls with no demon soul buyables.",
+            unlocked() { if (hasAchievement("A", 72) && hasAchievement("A", 81)) return true },
+        },
         81: {
             name: "Atomic Mass",
             done() {return player["a"].points >= 1},
@@ -543,7 +549,11 @@ addLayer("c", {
             else dscU = ""
             if (hasMilestone("ds", 6) && resettingLayer=="ds") dscB = "buyables"
             else dscB = ""
-            if (layers[resettingLayer].row > this.row) layerDataReset("c", [hcU, hcB, spcU, spcB, hcM, spcM, dscM, dscU, dscB])
+            if (hasMilestone("a", 1) && resettingLayer=="a") acB = "buyables"
+            else acB = ""
+            if (hasMilestone("a", 2) && resettingLayer=="a") acU = "upgrades"
+            else acU = ""
+            if (layers[resettingLayer].row > this.row) layerDataReset("c", [hcU, hcB, spcU, spcB, hcM, spcM, dscM, dscU, dscB, acB, acU])
         },
     tabFormat: [
         "main-display",
@@ -1051,7 +1061,7 @@ addLayer("sp", {
             else dsspU = ""
             if (hasMilestone("a", 0) && resettingLayer=="a") aspB = "buyables"
             else aspB = ""
-            if (hasMilestone("a", 1) && resettingLayer=="a") aspU = "upgrades"
+            if (hasMilestone("a", 3) && resettingLayer=="a") aspU = "upgrades"
             else aspU = ""
             if (layers[resettingLayer].row > this.row) layerDataReset("sp", [dsspB, dsspU, aspB, aspU])
         },
@@ -1712,7 +1722,7 @@ addLayer("a", {
         unlocked: false,
         points: new Decimal(0),
     }},
-    color: "#533DC4",
+    color: "#4D2FE0",
     requires: new Decimal(1000),
     resource: "atoms",
     baseResource: "subatomic particles",
@@ -1748,29 +1758,109 @@ addLayer("a", {
             {}],
         "blank",
         "milestones",
-        "upgrades",
+        ["display-text",
+            function() {return 'When you buy one of these upgrades, you cannot<br>buy any upgrades that are not on its path.'},
+            {}],
+        ["upgrades", [1]],
+        "blank",
+        ["upgrades", [2]],
+        "blank",
+        ["upgrades", [3]],
     ],
     milestones: {
         0: {
             requirementDescription: "1 atom",
-            effectDescription: "keep core and subatomic particle buyables on atom resets",
+            effectDescription: "keep subatomic particle buyables on atom resets",
             done() { return player[this.layer].points.gte(1) }
         },
         1: {
             requirementDescription: "2 atoms",
-            effectDescription: "keep core and subatomic particle upgrades on atom resets",
+            effectDescription: "keep core buyables on atom resets",
             done() { return player[this.layer].points.gte(2) }
+        },
+        2: {
+            requirementDescription: "3 atoms",
+            effectDescription: "keep core upgrades on atom resets",
+            done() { return player[this.layer].points.gte(3) }
+        },
+        3: {
+            requirementDescription: "4 atoms",
+            effectDescription: "keep subatomic particle upgrades on atom resets",
+            done() { return player[this.layer].points.gte(4) }
         },
     },
     upgrades: {
         11: {
             title: "The Demon of the Atom",
-            description: "demon soul gain is multiplied based on the amount of atoms you have",
+            description: "multiplies demon soul gain based on the amount of atoms you have",
             cost: new Decimal(1),
             effect() {
                 return player["a"].points.add(1).pow(0.5)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            branches: [21, 22],
+        },
+        21: {
+            title: "Decaying Atoms",
+            description: "multiplies subatomic particle gain based on your best atoms",
+            cost: new Decimal(2),
+            effect() {
+                return player.a.best.add(1).pow(0.75)
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            branches: [31, 32],
+            unlocked() {
+                if (!hasUpgrade('a', 22)) return true
+            },
+        },
+        22: {
+            title: "Atom Construction",
+            description: "multiplies atom gain based on the amount of subatomic particles you have",
+            cost: new Decimal(2),
+            effect() {
+                return player["sp"].points.add(1).pow(0.1)
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            branches: [32, 33],
+            unlocked() {
+                if (!hasUpgrade('a', 21)) return true
+            },
+        },
+        31: {
+            title: "Decayed Atoms",
+            description: "multiplies subatomic particle gain based on your total atoms",
+            cost: new Decimal(3),
+            effect() {
+                return player.a.total.add(1).pow(0.5)
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            unlocked() {
+                if (!hasUpgrade('a', 22) && !hasUpgrade('a', 32) && !hasUpgrade('a', 33)) return true
+            },
+        },
+        32: {
+            title: "Atomic Recursion",
+            description: "multiplies atom gain based on your total atoms",
+            cost: new Decimal(3),
+            effect() {
+                return player.a.total.add(1).pow(0.875)
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            unlocked() {
+                if (!hasUpgrade('a', 31) && !hasUpgrade('a', 33)) return true
+            },
+        },
+        33: {
+            title: "Atom Production",
+            description: "multiplies atom gain based on the amount of subatomic particles you have",
+            cost: new Decimal(3),
+            effect() {
+                return player.a.total.add(1).pow(0.15)
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            unlocked() {
+                if (!hasUpgrade('a', 21) && !hasUpgrade('a', 31) && !hasUpgrade('a', 33)) return true
+            },
         },
     },
 });
