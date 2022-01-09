@@ -276,12 +276,13 @@ addLayer("e", {
         if (hasUpgrade('q', 14)) mult = mult.times(upgradeEffect('q', 14))
             if (hasUpgrade('q', 15)) mult = mult.times(upgradeEffect('q', 15))
         if (hasUpgrade('q', 32)) mult = mult.times(upgradeEffect('q', 32))
-        mult = mult.times((getBuyableAmount('e', 11) * 2.5) + 1)
-        mult = mult.times((getBuyableAmount('e', 12) ** 0.25) + 1)
-        mult = mult.times(2 ** getBuyableAmount('c', 12))
-        mult = mult.times(5 ** getBuyableAmount('sp', 12))
+        if (hasUpgrade('a', 73)) mult = mult.times(upgradeEffect('a', 73))
+        if (getBuyableAmount('e', 11) >= 0.1) mult = mult.times((getBuyableAmount('e', 11) * 2.5) + 1)
+        if (getBuyableAmount('e', 12) >= 0.1) mult = mult.times((getBuyableAmount('e', 12) ** 0.25) + 1)
+        if (getBuyableAmount('c', 12) >= 0.1) mult = mult.times(2 ** getBuyableAmount('c', 12))
+        if (getBuyableAmount('sp', 12) >= 0.1) mult = mult.times(5 ** getBuyableAmount('sp', 12))
         if (hasUpgrade("sp", 12)) mult = mult.times(5 ** getBuyableAmount('sp', 12))
-        mult = mult.times(((getBuyableAmount('sp', 11) * 1) + 1) ** -1)
+        if (getBuyableAmount('sp', 11) >= 0.1) mult = mult.times(((getBuyableAmount('sp', 11) * 1) + 1) ** -1)
         if (hasUpgrade("ds", 21)) mult = mult.times(Math.round(100 * (player.A.achievements.length * 0.2)) / 100)
         if (inChallenge('ds', 21)) mult = mult.times(0.00000000000000000001)
         return mult
@@ -509,7 +510,7 @@ addLayer("c", {
             if (hasUpgrade('h', 23)) mult = mult.times(upgradeEffect('h', 23))
                 if (hasUpgrade('h', 33)) mult = mult.times(upgradeEffect('h', 33))
         if (hasUpgrade('h', 24)) mult = mult.times(3)
-        mult = mult.times((getBuyableAmount('e', 12) * 1) + 1)
+        if (getBuyableAmount('e', 12) >= 0.1) mult = mult.times((getBuyableAmount('e', 12) * 1) + 1)
         if (hasUpgrade("ds", 23)) mult = mult.times(Math.round(100 * (player.A.achievements.length ** 2)) / 10000)
         if (inChallenge('ds', 11)) mult = mult.times(0.01)
         if (inChallenge('ds', 21)) mult = mult.times(0.000000000000001)
@@ -747,9 +748,9 @@ addLayer("q", {
         if (hasUpgrade('q', 45)) mult = mult.times(upgradeEffect('q', 45))
         if (hasUpgrade('h', 34)) mult = mult.times(2)
         if (hasUpgrade('a', 41)) mult = mult.times(upgradeEffect('a', 41))
-        mult = mult.times(5 ** getBuyableAmount('sp', 11))
+        if (getBuyableAmount('sp', 11) >= 0.1) mult = mult.times(5 ** getBuyableAmount('sp', 11))
         if (hasUpgrade("sp", 11)) mult = mult.times(5 ** getBuyableAmount('sp', 11))
-        mult = mult.times(((getBuyableAmount('sp', 21) * 1) + 1) ** -1)
+        if (getBuyableAmount('sp', 21) >= 0.1) mult = mult.times(((getBuyableAmount('sp', 21) * 1) + 1) ** -1)
         if (hasUpgrade("ds", 23)) mult = mult.times(Math.round(100 * (player.A.achievements.length ** 2)) / 10000)
         if (inChallenge('ds', 11)) mult = mult.times(0.1)
         if (inChallenge('ds', 11)) mult = mult.times(0.00001)
@@ -1492,32 +1493,33 @@ addLayer("h", {
 });
 
 addLayer("ds", {
-    name: "Demon Souls", // This is optional, only used in a few places, If absent it just uses the layer id.
-    symbol: "DS", // This appears on the layer's node. Default is the id with the first letter capitalized
-    position: 0, // Horizontal position within a row. By default it uses the layer id and sorts in alphabetical order
+    name: "Demon Souls",
+    symbol: "DS",
+    position: 0,
     startData() { return {
         unlocked: false,
         points: new Decimal(0),
     }},
     color: "#BA0035",
-    requires: new Decimal(1e60), // Can be a function that takes requirement increases into account
-    resource: "demon souls", // Name of prestige currency
-    baseResource: "hexes", // Name of resource prestige is based on
-    baseAmount() {return player['h'].points}, // Get the current amount of baseResource
-    type: "normal", // normal: cost to gain currency depends on amount gained. static: cost depends on how much you already have
-    exponent: 0.05, // Prestige currency exponent
-    gainMult() { // Calculate the multiplier for main currency from bonuses
+    requires: new Decimal(1e60),
+    resource: "demon souls",
+    baseResource: "hexes",
+    baseAmount() {return player['h'].points},
+    type: "normal",
+    exponent: 0.05,
+    gainMult() {
         mult = new Decimal(1)
         if (hasUpgrade('a', 11)) mult = mult.times(upgradeEffect('a', 11))
         if (hasUpgrade('a', 42)) mult = mult.times(upgradeEffect('a', 42))
+        if (hasUpgrade('a', 71)) mult = mult.times(upgradeEffect('a', 71))
         if (hasChallenge('ds', 11)) mult = mult.times(player['ds'].points.add(1).pow(0.25))
         if (hasChallenge('ds', 12)) mult = mult.times(player['h'].points.add(1).pow(0.02))
         return mult
     },
-    gainExp() { // Calculate the exponent on main currency from bonuses
+    gainExp() {
         return new Decimal(1)
     },
-    row: 3, // Row the layer is in on the tree (0 is the first row)
+    row: 3,
     hotkeys: [
         {key: "d", description: "D: Reset for demon souls", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
@@ -1751,6 +1753,9 @@ addLayer("a", {
         if (hasUpgrade('a', 22)) gain = gain.times(upgradeEffect('a', 22))
         if (hasUpgrade('a', 32)) gain = gain.times(upgradeEffect('a', 32))
         if (hasUpgrade('a', 33)) gain = gain.times(upgradeEffect('a', 33))
+        if (hasUpgrade('a', 61)) gain = gain.times(upgradeEffect('a', 61))
+        if (hasUpgrade('a', 62)) gain = gain.times(upgradeEffect('a', 62))
+        if (hasUpgrade('a', 72)) gain = gain.times(upgradeEffect('a', 72))
         return gain
     },
     row: 3,
@@ -1815,32 +1820,37 @@ addLayer("a", {
         0: {
             requirementDescription: "1 atom",
             effectDescription: "keep subatomic particle buyables on atom resets",
-            done() { return player[this.layer].points.gte(1) }
+            done() { return player["a"].points.gte(1) }
         },
         1: {
             requirementDescription: "2 atoms",
             effectDescription: "keep core buyables on atom resets",
-            done() { return player[this.layer].points.gte(2) }
+            done() { return player["a"].points.gte(2) }
         },
         2: {
             requirementDescription: "3 atoms",
             effectDescription: "keep core upgrades on atom resets",
-            done() { return player[this.layer].points.gte(3) }
+            done() { return player["a"].points.gte(3) }
         },
         3: {
             requirementDescription: "4 atoms",
             effectDescription: "keep subatomic particle upgrades on atom resets",
-            done() { return player[this.layer].points.gte(4) }
+            done() { return player["a"].points.gte(4) }
         },
         4: {
             requirementDescription: "5 atoms",
             effectDescription: "keep core milestones on atom resets",
-            done() { return player[this.layer].points.gte(5) }
+            done() { return player["a"].points.gte(5) }
         },
         5: {
             requirementDescription: "6 atoms",
             effectDescription: "keep quark milestones on atom resets",
-            done() { return player[this.layer].points.gte(6) }
+            done() { return player["a"].points.gte(6) }
+        },
+        6: {
+            requirementDescription: "25 total atoms",
+            effectDescription: "unlock a new demon soul challenge (coming soon)",
+            done() { return player.a.total.gte(25) }
         },
     },
     upgrades: {
