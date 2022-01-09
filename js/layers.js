@@ -25,6 +25,9 @@ addLayer("A", {
         ["display-text",
             function() { if (hasUpgrade("ds", 23) && hasUpgrade("ds", 24)) return 'and also multiplying core and quark gain by ' + (Math.round(100 * (player.A.achievements.length ** 2)) / 10000) + 'x'},
             { "color": "white", "font-size": "16px", "font-family": "Lucida Console" }],
+        ["display-text",
+            function() { if (hasUpgrade('a', 51)) return 'additionally, also multiplying subatomic particle gain by ' + (Math.round(100 * (player.A.achievements.length ** 3)) / 10000) + 'x'},
+            { "color": "white", "font-size": "16px", "font-family": "Lucida Console" }],
         "blank",
         "achievements",
     ],
@@ -741,6 +744,7 @@ addLayer("q", {
             if (hasUpgrade('q', 44)) mult = mult.times(upgradeEffect('q', 44))
         if (hasUpgrade('q', 45)) mult = mult.times(upgradeEffect('q', 45))
         if (hasUpgrade('h', 34)) mult = mult.times(2)
+        if (hasUpgrade('a', 41)) mult = mult.times(upgradeEffect('a', 41))
         mult = mult.times(5 ** getBuyableAmount('sp', 11))
         if (hasUpgrade("sp", 11)) mult = mult.times(5 ** getBuyableAmount('sp', 11))
         mult = mult.times(((getBuyableAmount('sp', 21) * 1) + 1) ** -1)
@@ -1043,8 +1047,11 @@ addLayer("sp", {
         gain = new Decimal(1)
         if (hasUpgrade('q', 43)) gain = gain.times(upgradeEffect('q', 43))
         if (hasUpgrade('h', 63)) gain = gain.times(upgradeEffect('h', 63))
+        if (hasUpgrade('a', 22)) gain = gain.times(upgradeEffect('a', 22))
+        if (hasUpgrade('a', 31)) gain = gain.times(upgradeEffect('a', 31))
         if (getBuyableAmount('ds',11) >= 0.1) gain = gain.times((getBuyableAmount('ds', 11) * 5) + 1)
-        if (hasChallenge('ds', 21)) gain = gain.times(player['ds'].points.add(1).pow(0.15))
+        if (hasUpgrade('a', 51)) gain = gain.times(Math.round(100 * (player.A.achievements.length ** 3)) / 10000)
+        if (hasChallenge('ds', 21)) gain = gain.times(player['ds'].points.add(1).pow(0.2))
         if (inChallenge('ds', 12)) gain = gain.times(player['q'].points ** -0.05)
         return gain
     },
@@ -1498,6 +1505,7 @@ addLayer("ds", {
     gainMult() { // Calculate the multiplier for main currency from bonuses
         mult = new Decimal(1)
         if (hasUpgrade('a', 11)) mult = mult.times(upgradeEffect('a', 11))
+        if (hasUpgrade('a', 42)) mult = mult.times(upgradeEffect('a', 42))
         if (hasChallenge('ds', 11)) mult = mult.times(player['ds'].points.add(1).pow(0.25))
         if (hasChallenge('ds', 12)) mult = mult.times(player['h'].points.add(1).pow(0.02))
         return mult
@@ -1709,7 +1717,7 @@ addLayer("ds", {
                 else return false
             },
             rewardDescription: "multiply subatomic particle<br>gain by the amount of demon souls<br>you have",
-            rewardDisplay() { return (Math.round(100 * player['ds'].points.add(1).pow(0.15)) / 100) + 'x' },
+            rewardDisplay() { return (Math.round(100 * player['ds'].points.add(1).pow(0.2)) / 100) + 'x' },
         },
     },
 });
@@ -1728,14 +1736,18 @@ addLayer("a", {
     baseResource: "subatomic particles",
     baseAmount() {return player['sp'].points},
     type: "static",
-    exponent: 2,
+    exponent: 1.25,
     canBuyMax() { return true },
     gainMult() {
         mult = new Decimal(1)
         return mult
     },
     gainExp() {
-        return new Decimal(1)
+        gain = new Decimal(1)
+        if (hasUpgrade('a', 22)) gain = gain.times(upgradeEffect('a', 22))
+        if (hasUpgrade('a', 32)) gain = gain.times(upgradeEffect('a', 32))
+        if (hasUpgrade('a', 33)) gain = gain.times(upgradeEffect('a', 33))
+        return gain
     },
     row: 3,
     hotkeys: [
@@ -1766,6 +1778,10 @@ addLayer("a", {
         ["upgrades", [2]],
         "blank",
         ["upgrades", [3]],
+        "blank",
+        ["upgrades", [4]],
+        "blank",
+        ["upgrades", [5]],
     ],
     milestones: {
         0: {
@@ -1831,9 +1847,10 @@ addLayer("a", {
             description: "multiplies subatomic particle gain based on your total atoms",
             cost: new Decimal(3),
             effect() {
-                return player.a.total.add(1).pow(0.5)
+                return player.a.total.add(1).pow(0.75)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            branches: [41],
             unlocked() {
                 if (!hasUpgrade('a', 22) && !hasUpgrade('a', 32) && !hasUpgrade('a', 33)) return true
             },
@@ -1843,9 +1860,10 @@ addLayer("a", {
             description: "multiplies atom gain based on your total atoms",
             cost: new Decimal(3),
             effect() {
-                return player.a.total.add(1).pow(0.875)
+                return player.a.total.add(1).pow(0.9)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            branches: [41, 42],
             unlocked() {
                 if (!hasUpgrade('a', 31) && !hasUpgrade('a', 33)) return true
             },
@@ -1855,12 +1873,45 @@ addLayer("a", {
             description: "multiplies atom gain based on the amount of subatomic particles you have",
             cost: new Decimal(3),
             effect() {
-                return player.a.total.add(1).pow(0.15)
+                return player["sp"].points.add(1).pow(0.2)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            branches: [42],
             unlocked() {
                 if (!hasUpgrade('a', 21) && !hasUpgrade('a', 31) && !hasUpgrade('a', 33)) return true
             },
+        },
+        41: {
+            title: "Atom Revenants",
+            description: "multiplies quark gain based on your total atoms minus your current atoms",
+            cost: new Decimal(4),
+            effect() {
+                return ((player.a.total - player["a"].points) ** 0.5)
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            branches: [51],
+            unlocked() {
+                if (!hasUpgrade('a', 33) && !hasUpgrade('a', 42)) return true
+            },
+        },
+        42: {
+            title: "The Fallen",
+            description: "multiplies demon soul gain based on your best atoms minus your current atoms",
+            cost: new Decimal(4),
+            effect() {
+                return ((player.a.best - player["a"].points) ** 0.5)
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            branches: [51],
+            unlocked() {
+                if (!hasUpgrade('a', 31) && !hasUpgrade('a', 41)) return true
+            },
+        },
+        51: {
+            title: "Famed Atoms' Donations",
+            description: "multiplies subatomic particle gain based on your numeber of acievements",
+            cost: new Decimal(5),
+            unlocked() { return true },
         },
     },
 });
