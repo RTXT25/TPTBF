@@ -19,7 +19,7 @@ let changelog = `<h1>Changelog:</h1><br>
 	<br><h3>v1.3: Atomic Measure</h3><br>
 		- Added atoms.<br>
 		- Added six milestones to atoms.<br>
-		- Added nine upgrades to atoms.<br>
+		- Added fourteen upgrades to atoms.<br>
 		- Added three achievements.<br>
 		- More new features coming soon!<br>
 		- Balance changes.<br>
