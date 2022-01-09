@@ -556,7 +556,9 @@ addLayer("c", {
             else acB = ""
             if (hasMilestone("a", 2) && resettingLayer=="a") acU = "upgrades"
             else acU = ""
-            if (layers[resettingLayer].row > this.row) layerDataReset("c", [hcU, hcB, spcU, spcB, hcM, spcM, dscM, dscU, dscB, acB, acU])
+            if (hasMilestone("a", 4) && resettingLayer=="a") acM = "milestones"
+            else acM = ""
+            if (layers[resettingLayer].row > this.row) layerDataReset("c", [hcU, hcB, spcU, spcB, hcM, spcM, dscM, dscU, dscB, acB, acU, acM])
         },
     tabFormat: [
         "main-display",
@@ -783,7 +785,9 @@ addLayer("q", {
             else aqB = ""
             if (hasMilestone("a", 1) && resettingLayer=="a") aqU = "upgrades"
             else aqU = ""
-            if (layers[resettingLayer].row > this.row) layerDataReset("q", [spqM1, spqU1, hqM, spqM2, spqU2, hqU, dsqM, dsqU, aqB, aqU])
+            if (hasMilestone("a", 5) && resettingLayer=="a") aqM = "milestones"
+            else aqM = ""
+            if (layers[resettingLayer].row > this.row) layerDataReset("q", [spqM1, spqU1, hqM, spqM2, spqU2, hqU, dsqM, dsqU, aqB, aqU, aqM])
         },
     tabFormat: [
         "main-display",
@@ -1758,31 +1762,51 @@ addLayer("a", {
         let keep = [];
             if (layers[resettingLayer].row > this.row) layerDataReset("a", [])
         },
-    tabFormat: [
-        "main-display",
-        "prestige-button",
-        "resource-display",
-        ["display-text",
-            function() {return 'You have ' + formatWhole(player.a.best) + ' best atoms'},
-            {}],
-        ["display-text",
-            function() {return 'You have ' + formatWhole(player.a.total) + ' total atoms'},
-            {}],
-        "blank",
-        "milestones",
-        ["display-text",
-            function() {return 'When you buy one of these upgrades, you cannot<br>buy any upgrades that are not on its path.'},
-            {}],
-        ["upgrades", [1]],
-        "blank",
-        ["upgrades", [2]],
-        "blank",
-        ["upgrades", [3]],
-        "blank",
-        ["upgrades", [4]],
-        "blank",
-        ["upgrades", [5]],
-    ],
+    tabFormat: {
+        "Atomic Progress": {
+            content: [
+                "main-display",
+                "prestige-button",
+                "resource-display",
+                ["display-text",
+                    function() {return 'You have ' + formatWhole(player.a.best) + ' best atoms'},
+                    {}],
+                ["display-text",
+                    function() {return 'You have ' + formatWhole(player.a.total) + ' total atoms'},
+                    {}],
+                "blank",
+                "milestones",
+            ],
+        },
+        "Atomic Tree": {
+            content: [
+                "main-display",
+                "prestige-button",
+                "resource-display",
+                ["display-text",
+                    function() {return 'You have ' + formatWhole(player.a.best) + ' best atoms'},
+                    {}],
+                ["display-text",
+                    function() {return 'You have ' + formatWhole(player.a.total) + ' total atoms'},
+                    {}],
+                "blank",
+                ["display-text",
+                    function() {return 'When you buy one of these upgrades, you cannot<br>buy any upgrades that are not on its path.'},
+                    {}],
+                "blank",
+                ["upgrades", [1]],
+                "blank",
+                ["upgrades", [2]],
+                "blank",
+                ["upgrades", [3]],
+                "blank",
+                ["upgrades", [4]],
+                "blank",
+                ["upgrades", [5]],
+            ],
+            unlocked() { if (hasUpgrade("ds", 22)) return true }
+        },
+    },
     milestones: {
         0: {
             requirementDescription: "1 atom",
@@ -1803,6 +1827,16 @@ addLayer("a", {
             requirementDescription: "4 atoms",
             effectDescription: "keep subatomic particle upgrades on atom resets",
             done() { return player[this.layer].points.gte(4) }
+        },
+        4: {
+            requirementDescription: "5 atoms",
+            effectDescription: "keep core milestones on atom resets",
+            done() { return player[this.layer].points.gte(5) }
+        },
+        5: {
+            requirementDescription: "6 atoms",
+            effectDescription: "keep quark milestones on atom resets",
+            done() { return player[this.layer].points.gte(6) }
         },
     },
     upgrades: {
