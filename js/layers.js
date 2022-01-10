@@ -454,7 +454,7 @@ addLayer("e", {
         },
         32: {
             title: "Brilliance",
-            description: "some of the effect of Radiant Essence is applied to point gain based on the amount of essence you have",
+            description: "some of the effect of Radiant Essence is applied to point gain (based on essence)",
             cost: new Decimal(3.33e33),
             effect() {
                return player[this.layer].points.add(1).pow(0.001)
