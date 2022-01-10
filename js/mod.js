@@ -19,7 +19,7 @@ let changelog = `<h1>Changelog:</h1><br>
 		- Added atoms.<br>
 		- Added six milestones to atoms.<br>
 		- Added fourteen upgrades to atoms.<br>
-		- Added three achievements.<br>
+		- Added four achievements.<br>
 		- Balance changes.<br>
 	<br><h3>v1.2: Demon Gateway</h3><br>
 		- Added demonic gateway.<br>

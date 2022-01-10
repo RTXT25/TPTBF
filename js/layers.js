@@ -175,6 +175,12 @@ addLayer("A", {
             tooltip: "obtain 1,000 subatomic particles.",
             unlocked() { if (hasAchievement("A", 53)) return true },
         },
+        55: {
+            name: "The Universe in a Particle",
+            done() {return player["sp"].points >= 10000},
+            tooltip: "obtain 10,000 subatomic particles.",
+            unlocked() { if (hasAchievement("A", 54)) return true },
+        },
         56: {
             name: "Hollow Particles",
             done() {return getBuyableAmount("sp", 11) <= 0.1 && getBuyableAmount("sp", 12) <= 0.1 && getBuyableAmount("sp", 21) <= 0.1 && player["h"].points <= 0.1 && player["sp"].points >= 10},
