@@ -5,11 +5,10 @@ let modInfo = {
 	pointsName: "points",
 	modFiles: ["layers.js", "tree.js"],
 
-	initialStartPoints: new Decimal (0), // Used for hard resets and new players
+	initialStartPoints: new Decimal (0),
 	offlineLimit: 1,  // In hours
 }
 
-// Set your version in num and name
 let VERSION = {
 	num: "1.3",
 	name: "Atomic Measure",
@@ -124,10 +123,10 @@ function getPointGen() {
 		if (hasUpgrade('h', 21)) gain = gain.times(upgradeEffect('h', 21))
 			if (hasUpgrade('h', 31)) gain = gain.times(upgradeEffect('h', 31))
 				if (hasUpgrade('h', 41)) gain = gain.times(upgradeEffect('h', 41))
-	gain = gain.times(5 * getBuyableAmount('c', 11) + 1)
-	gain = gain.times(5 ** getBuyableAmount('sp', 21))
+	if (getBuyableAmount('c', 11) >= 0.1) gain = gain.times(5 * getBuyableAmount('c', 11) + 1)
+	if (getBuyableAmount('sp', 21) >= 0.1) gain = gain.times(5 ** getBuyableAmount('sp', 21))
 	if (hasUpgrade("sp", 13)) gain = gain.times(5 ** getBuyableAmount('sp', 21))
-	gain = gain.times(((getBuyableAmount('sp', 12) * 1) + 1) ** -1)
+	if (getBuyableAmount('sp', 12) >= 0.1) gain = gain.times(((getBuyableAmount('sp', 12) * 1) + 1) ** -1)
 	if (!hasUpgrade('ds', 24)) gain = gain.times(Math.round(100 * (player.A.achievements.length * 0.1 + 1)) / 100)
 	if (hasUpgrade('ds', 24)) gain = gain.times(Math.round(100 * (player.A.achievements.length * 0.2)) / 100)
 	if (inChallenge('ds', 11)) gain = gain.times(0.0001)

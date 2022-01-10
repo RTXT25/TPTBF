@@ -251,22 +251,22 @@ addLayer("A", {
 });
 
 addLayer("e", {
-    name: "Essence", // This is optional, only used in a few places, If absent it just uses the layer id.
-    symbol: "E", // This appears on the layer's node. Default is the id with the first letter capitalized
-    position: 0, // Horizontal position within a row. By default it uses the layer id and sorts in alphabetical order
+    name: "Essence",
+    symbol: "E",
+    position: 0,
     startData() { return {
         unlocked: true,
         points: new Decimal(0),
     }},
     color: "#4BDC13",
     branches: ["c", "q"],
-    requires: new Decimal(5), // Can be a function that takes requirement increases into account
-    resource: "essence", // Name of prestige currency
-    baseResource: "points", // Name of resource prestige is based on
-    baseAmount() {return player.points}, // Get the current amount of baseResource
-    type: "normal", // normal: cost to gain currency depends on amount gained. static: cost depends on how much you already have
-    exponent: 0.5, // Prestige currency exponent
-    gainMult() { // Calculate the multiplier for main currency from bonuses
+    requires: new Decimal(5),
+    resource: "essence",
+    baseResource: "points",
+    baseAmount() {return player.points},
+    type: "normal",
+    exponent: 0.5,
+    gainMult() {
         mult = new Decimal(1)
         if (hasUpgrade('e', 13)) mult = mult.times(upgradeEffect('e', 13))
         if (hasUpgrade('e', 22)) mult = mult.times(upgradeEffect('e', 22))
@@ -484,22 +484,22 @@ addLayer("e", {
 });
 
 addLayer("c", {
-    name: "Cores", // This is optional, only used in a few places, If absent it just uses the layer id.
-    symbol: "C", // This appears on the layer's node. Default is the id with the first letter capitalized
-    position: 0, // Horizontal position within a row. By default it uses the layer id and sorts in alphabetical order
+    name: "Cores",
+    symbol: "C",
+    position: 0,
     startData() { return {
         unlocked: false,
         points: new Decimal(0),
     }},
     color: "#C2C238",
     branches: ["h"],
-    requires: new Decimal(10000), // Can be a function that takes requirement increases into account
-    resource: "cores", // Name of prestige currency
-    baseResource: "essence", // Name of resource prestige is based on
-    baseAmount() {return player['e'].points}, // Get the current amount of baseResource
-    type: "normal", // normal: cost to gain currency depends on amount gained. static: cost depends on how much you already have
-    exponent: 0.3, // Prestige currency exponent
-    gainMult() { // Calculate the multiplier for main currency from bonuses
+    requires: new Decimal(10000),
+    resource: "cores",
+    baseResource: "essence",
+    baseAmount() {return player['e'].points},
+    type: "normal",
+    exponent: 0.3,
+    gainMult() {
         mult = new Decimal(1)
         if (hasUpgrade('e', 32)) mult = mult.times(upgradeEffect('e', 32))
         if (hasUpgrade('c', 12)) mult = mult.times(upgradeEffect('c', 12))
@@ -516,10 +516,10 @@ addLayer("c", {
         if (inChallenge('ds', 21)) mult = mult.times(0.000000000000001)
         return mult
     },
-    gainExp() { // Calculate the exponent on main currency from bonuses
+    gainExp() {
         return new Decimal(1)
     },
-    row: 1, // Row the layer is in on the tree (0 is the first row)
+    row: 1,
     hotkeys: [
         {key: "c", description: "C: Reset for cores", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
@@ -718,22 +718,22 @@ addLayer("c", {
 });
 
 addLayer("q", {
-    name: "Quarks", // This is optional, only used in a few places, If absent it just uses the layer id.
-    symbol: "Q", // This appears on the layer's node. Default is the id with the first letter capitalized
-    position: 1, // Horizontal position within a row. By default it uses the layer id and sorts in alphabetical order
+    name: "Quarks",
+    symbol: "Q",
+    position: 1,
     startData() { return {
         unlocked: false,
         points: new Decimal(0),
     }},
     color: "#DB5196",
     branches: ["sp"],
-    requires: new Decimal(1e9), // Can be a function that takes requirement increases into account
-    resource: "quarks", // Name of prestige currency
-    baseResource: "essence", // Name of resource prestige is based on
-    baseAmount() {return player['e'].points}, // Get the current amount of baseResource
-    type: "normal", // normal: cost to gain currency depends on amount gained. static: cost depends on how much you already have
-    exponent: 0.1, // Prestige currency exponent
-    gainMult() { // Calculate the multiplier for main currency from bonuses
+    requires: new Decimal(1e9),
+    resource: "quarks",
+    baseResource: "essence",
+    baseAmount() {return player['e'].points},
+    type: "normal",
+    exponent: 0.1,
+    gainMult() {
         mult = new Decimal(1)
         if (hasUpgrade('c', 13)) mult = mult.times(upgradeEffect('c', 13))
         if (hasUpgrade('q', 11)) mult = mult.times(upgradeEffect('q', 11))
@@ -756,10 +756,10 @@ addLayer("q", {
         if (inChallenge('ds', 11)) mult = mult.times(0.00001)
         return mult
     },
-    gainExp() { // Calculate the exponent on main currency from bonuses
+    gainExp() {
         return new Decimal(1)
     },
-    row: 1, // Row the layer is in on the tree (0 is the first row)
+    row: 1,
     hotkeys: [
         {key: "q", description: "Q: Reset for quarks", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
@@ -1025,30 +1025,30 @@ addLayer("q", {
 });
 
 addLayer("sp", {
-    name: "Subatomic Particles", // This is optional, only used in a few places, If absent it just uses the layer id.
-    symbol: "SP", // This appears on the layer's node. Default is the id with the first letter capitalized
-    position: 1, // Horizontal position within a row. By default it uses the layer id and sorts in alphabetical order
+    name: "Subatomic Particles", 
+    symbol: "SP",
+    position: 1,
     startData() { return {
         unlocked: false,
         points: new Decimal(0),
     }},
     color: "#710CC4",
     branches: ["a"],
-    requires: new Decimal(1e15), // Can be a function that takes requirement increases into account
-    resource: "subatomic particles", // Name of prestige currency
-    baseResource: "quarks", // Name of resource prestige is based on
-    baseAmount() {return player['q'].points}, // Get the current amount of baseResource
-    type: "static", // normal: cost to gain currency depends on amount gained. static: cost depends on how much you already have
-    exponent: 4.25, // Prestige currency exponent
+    requires: new Decimal(1e15),
+    resource: "subatomic particles",
+    baseResource: "quarks",
+    baseAmount() {return player['q'].points},
+    type: "static",
+    exponent: 4.25,
     canBuyMax() {
         if (hasMilestone("sp", 0)) return true
         else return false
     },
-    gainMult() { // Calculate the multiplier for main currency from bonuses
+    gainMult() {
         mult = new Decimal(1)
         return mult
     },
-    gainExp() { // Calculate the exponent on main currency from bonuses
+    gainExp() {
         gain = new Decimal(1)
         if (hasUpgrade('q', 43)) gain = gain.times(upgradeEffect('q', 43))
         if (hasUpgrade('h', 63)) gain = gain.times(upgradeEffect('h', 63))
@@ -1060,7 +1060,7 @@ addLayer("sp", {
         if (inChallenge('ds', 12)) gain = gain.times(player['q'].points ** -0.05)
         return gain
     },
-    row: 2, // Row the layer is in on the tree (0 is the first row)
+    row: 2,
     hotkeys: [
         {key: "s", description: "S: Reset for subatomic particles", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
@@ -1189,22 +1189,22 @@ addLayer("sp", {
 });
 
 addLayer("h", {
-    name: "Hexes", // This is optional, only used in a few places, If absent it just uses the layer id.
-    symbol: "H", // This appears on the layer's node. Default is the id with the first letter capitalized
-    position: 0, // Horizontal position within a row. By default it uses the layer id and sorts in alphabetical order
+    name: "Hexes",
+    symbol: "H",
+    position: 0,
     startData() { return {
         unlocked: false,
         points: new Decimal(0),
     }},
     color: "#E36409",
     branches: ["ds"],
-    requires: new Decimal(1e60), // Can be a function that takes requirement increases into account
-    resource: "hexes", // Name of prestige currency
-    baseResource: "cores", // Name of resource prestige is based on
-    baseAmount() {return player['c'].points}, // Get the current amount of baseResource
-    type: "normal", // normal: cost to gain currency depends on amount gained. static: cost depends on how much you already have
-    exponent: 0.5, // Prestige currency exponent
-    gainMult() { // Calculate the multiplier for main currency from bonuses
+    requires: new Decimal(1e60),
+    resource: "hexes",
+    baseResource: "cores",
+    baseAmount() {return player['c'].points},
+    type: "normal",
+    exponent: 0.5,
+    gainMult() {
         mult = new Decimal(1)
         if (hasUpgrade('h', 12)) mult = mult.times(upgradeEffect('h', 12))
             if (hasUpgrade('h', 22)) mult = mult.times(upgradeEffect('h', 22))
@@ -1221,10 +1221,10 @@ addLayer("h", {
         if (inChallenge('ds', 21)) mult = mult.times(0.00001)
         return mult
     },
-    gainExp() { // Calculate the exponent on main currency from bonuses
+    gainExp() {
         return new Decimal(1)
     },
-    row: 2, // Row the layer is in on the tree (0 is the first row)
+    row: 2,
     hotkeys: [
         {key: "h", description: "H: Reset for hexes", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
@@ -1859,7 +1859,7 @@ addLayer("a", {
             description: "multiplies demon soul gain based on the amount of atoms you have",
             cost: new Decimal(1),
             effect() {
-                return player["a"].points.add(1).pow(0.75)
+                return player["a"].points.add(1).pow(1.25)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
             branches: [21, 22],
@@ -1869,7 +1869,7 @@ addLayer("a", {
             description: "multiplies subatomic particle gain based on your best atoms",
             cost: new Decimal(2),
             effect() {
-                return player.a.best.add(1).pow(2)
+                return player.a.best.add(1).pow(2.5)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
             branches: [31, 32],
@@ -1882,7 +1882,7 @@ addLayer("a", {
             description: "multiplies atom gain based on the amount of subatomic particles you have",
             cost: new Decimal(2),
             effect() {
-                return player["sp"].points.add(1).pow(0.2)
+                return player["sp"].points.add(1).pow(0.02)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
             branches: [32, 33],
@@ -1908,7 +1908,7 @@ addLayer("a", {
             description: "multiplies atom gain based on your total atoms",
             cost: new Decimal(3),
             effect() {
-                return player.a.total.add(1).pow(1.25)
+                return player.a.total.add(1).pow(0.25)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
             branches: [41, 42],
@@ -1921,7 +1921,7 @@ addLayer("a", {
             description: "multiplies atom gain based on the amount of subatomic particles you have",
             cost: new Decimal(3),
             effect() {
-                return player["sp"].points.add(1).pow(0.25)
+                return player["sp"].points.add(1).pow(0.025)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
             branches: [42],
@@ -1967,7 +1967,7 @@ addLayer("a", {
             description: "multiplies atom gain based on your total atoms minus your best atoms",
             cost: new Decimal(6),
             effect() {
-                return ((player.a.total - player.a.best) ** 1.75)
+                return ((player.a.total - player.a.best) ** 0.75)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
             branches: [71, 72],
@@ -1980,7 +1980,7 @@ addLayer("a", {
             description: "multiplies atom gain based on your total atoms times your current atoms",
             cost: new Decimal(6),
             effect() {
-                return (((player.a.total / 1.5) * player["a"].points + 1) ** 0.75)
+                return (((player.a.total / 1.5) * player["a"].points) ** 0.25)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
             branches: [72, 73],
@@ -2005,7 +2005,7 @@ addLayer("a", {
             description: "multiplies atom gain based on your total atoms",
             cost: new Decimal(7),
             effect() {
-                return player.a.total.add(1).pow(1.25)
+                return player.a.total.add(1).pow(0.25)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
             unlocked() {
