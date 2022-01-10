@@ -11,7 +11,10 @@ addLayer("A", {
     tooltip() {return "Achievements"},
     tabFormat: [
         ["display-text",
-            function() { if (!hasUpgrade("ds", 24)) return 'You have ' + player.A.achievements.length + ' achievements,<br>which are multiplying your point gain by ' + (Math.round(100 * (player.A.achievements.length * 0.1 + 1)) / 100) + 'x'},
+            function() { if (!hasUpgrade("ds", 24) && (player.A.achievements.length = 1)) return 'You have 1 achievement,<br>which is multiplying your point gain by 1.1x'},
+            { "color": "white", "font-size": "16px", "font-family": "Lucida Console" }],
+        ["display-text",
+            function() { if (!hasUpgrade("ds", 24) && (player.A.achievements.length != 1)) return 'You have ' + player.A.achievements.length + ' achievements,<br>which are multiplying your point gain by ' + (Math.round(100 * (player.A.achievements.length * 0.1 + 1)) / 100) + 'x'},
             { "color": "white", "font-size": "16px", "font-family": "Lucida Console" }],
         ["display-text",
             function() { if (hasUpgrade("ds", 21) && !hasUpgrade("ds", 24)) return 'and also multiplying essence gain by ' + (Math.round(100 * (player.A.achievements.length * 0.2)) / 100) + 'x'},
