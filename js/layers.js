@@ -231,8 +231,8 @@ addLayer("A", {
         },
         76: {
             name: "Occult Uprising",
-            done() {return getBuyableAmount("ds", 11) <= 0.1 && player["ds"].points >= (10 ** 10)},
-            tooltip: "obtain 1e10 demon souls with no demon soul buyables.",
+            done() {return getBuyableAmount("ds", 11) <= 0.1 && player["a"].points <= 0.1 && player["ds"].points >= (10 ** 10)},
+            tooltip: "obtain 1e10 demon souls with no demon soul buyables and atoms.",
             unlocked() { if (hasAchievement("A", 72) && hasAchievement("A", 81)) return true },
         },
         81: {
