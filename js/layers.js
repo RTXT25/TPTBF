@@ -285,6 +285,7 @@ addLayer("e", {
         if (getBuyableAmount('sp', 11) >= 0.1) mult = mult.times(((getBuyableAmount('sp', 11) * 1) + 1) ** -1)
         if (hasUpgrade("ds", 21)) mult = mult.times(Math.round(100 * (player.A.achievements.length * 0.2)) / 100)
         if (inChallenge('ds', 21)) mult = mult.times(0.00000000000000000001)
+        if (inChallenge('ds', 22)) mult = mult.times(0.0000000000000000000000001)
         return mult
     },
     gainExp() { // Calculate the exponent on main currency from bonuses
@@ -753,7 +754,7 @@ addLayer("q", {
         if (getBuyableAmount('sp', 21) >= 0.1) mult = mult.times(((getBuyableAmount('sp', 21) * 1) + 1) ** -1)
         if (hasUpgrade("ds", 23)) mult = mult.times(Math.round(100 * (player.A.achievements.length ** 2)) / 10000)
         if (inChallenge('ds', 11)) mult = mult.times(0.1)
-        if (inChallenge('ds', 11)) mult = mult.times(0.00001)
+        if (inChallenge('ds', 22)) mult = mult.times(0.00000000000000000000000000000000000000000000000001)
         return mult
     },
     gainExp() {
@@ -1058,6 +1059,7 @@ addLayer("sp", {
         if (hasUpgrade('a', 51)) gain = gain.times(Math.round(100 * (player.A.achievements.length ** 3)) / 10000)
         if (hasChallenge('ds', 21)) gain = gain.times(player['ds'].points.add(1).pow(0.2))
         if (inChallenge('ds', 12)) gain = gain.times(player['q'].points ** -0.05)
+        if (inChallenge('ds', 22)) gain = gain.times(0.00000000000000000000000000000000000000000000000001)
         return gain
     },
     row: 2,
@@ -1725,6 +1727,24 @@ addLayer("ds", {
             rewardDescription: "multiply subatomic particle<br>gain by the amount of demon souls<br>you have",
             rewardDisplay() { return (Math.round(100 * player['ds'].points.add(1).pow(0.2)) / 100) + 'x' },
         },
+        22: {
+            name: "No Science Allowed",
+            challengeDescription: " - Forces a Demon Soul reset<br> - Point gain is divided by 1e10<br> - Essence gain is divided by 1e15<br> - Quark and Subatomic Particle gain is divided by 1e50<br>",
+            goalDescription: "the most expensive hex upgrade",
+            canComplete() {
+                if (hasUpgrade('h', 64)) return true
+                else return false
+            },
+            onEnter() {
+                doReset(resettingLayer)
+            },
+            unlocked() {
+                if (hasMilestone('a', 6)) return true
+                else return false
+            },
+            rewardDescription: "multiply atom<br>gain by the amount of demon souls<br>you have",
+            rewardDisplay() { return (Math.round(100 * player['ds'].points.add(1).pow(0.01)) / 100) + 'x' },
+        },
     },
 });
 
@@ -1756,6 +1776,7 @@ addLayer("a", {
         if (hasUpgrade('a', 61)) gain = gain.times(upgradeEffect('a', 61))
         if (hasUpgrade('a', 62)) gain = gain.times(upgradeEffect('a', 62))
         if (hasUpgrade('a', 72)) gain = gain.times(upgradeEffect('a', 72))
+        if (hasChallenge('ds', 22)) mult = mult.times(player['ds'].points.add(1).pow(0.01))
         return gain
     },
     row: 3,

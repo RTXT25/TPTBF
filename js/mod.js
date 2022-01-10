@@ -132,6 +132,7 @@ function getPointGen() {
 	if (inChallenge('ds', 11)) gain = gain.times(0.0001)
 	if (inChallenge('ds', 12)) gain = gain.times(0.000001)
 	if (inChallenge('ds', 21)) gain = gain.times(0.0000000001)
+	if (inChallenge('ds', 22)) gain = gain.times(0.0000000001)
 	return gain
 }
 

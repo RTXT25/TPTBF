@@ -38,7 +38,7 @@ let help_data = {
 	ds: {
 		id: "a",
 		title: "Atoms",
-		text: "When you unlock Atoms, you will see two tabs. The second one is the most important. It contains the upgrade tree, which is essentially, a tree of upgrades. You will have to chose between different upgrades, and you should take into account what options that will give you for the next upgrade pick. Generally, for speed, the upgrades that multiply Atom gain are the best. However, they are not always the best choice. Experiment and find out which ones best suit you! Keep going until you get the 25 total Atoms milestone, and the you will unlock a new Demon Soul challenge. (NOTE: the challenge hasn't been added yet.)",
+		text: "When you unlock Atoms, you will see two tabs. The second one is the most important. It contains the upgrade tree, which is essentially, a tree of upgrades. You will have to chose between different upgrades, and you should take into account what options that will give you for the next upgrade pick. Generally, for speed, the upgrades that multiply Atom gain are the best. However, they are not always the best choice. Experiment and find out which ones best suit you! Keep going until you get the 25 total Atoms milestone, and the you will unlock a new Demon Soul challenge.",
 		unlocked() { if (hasAchievement("A", 81)) return true },
 	},
 },
