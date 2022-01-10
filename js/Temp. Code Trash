@@ -4,7 +4,7 @@ Temp. Code Trash
             name: "No to Nuclear",
             done() {return player["ds"] <= 0.1 && player["a"].points >= 10},
             tooltip: "obtain 10 atoms with no demon souls.",
-            unlocked() { if (hasAchievement("A", 82) && hasAchievement("A", 91)) return true },
+            unlocked() { if (hasAchievement("A", 82) && hasAchievement("A", 101)) return true },
         },
 
 NOTE: effects go
@@ -14,6 +14,7 @@ NOTE: effects go
 		Upgrades that buff Buyables
 	Buyable negative effects
 	Special Upgrades
+	Clickable Effects
 	Challenge Completion Effects
 	Achievement Effects
 	Achievement Rewards

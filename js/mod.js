@@ -19,7 +19,8 @@ let changelog = `<h1>Changelog:</h1><br>
 		- Added atoms.<br>
 		- Added six milestones to atoms.<br>
 		- Added fourteen upgrades to atoms.<br>
-		- Added four achievements.<br>
+		- Added one clickable to atoms.<br>
+		- Added nine achievements.<br>
 		- Balance changes.<br>
 	<br><h3>v1.2: Demon Gateway</h3><br>
 		- Added demonic gateway.<br>
@@ -125,7 +126,8 @@ function getPointGen() {
 				if (hasUpgrade('h', 41)) gain = gain.times(upgradeEffect('h', 41))
 	if (getBuyableAmount('c', 11) >= 0.1) gain = gain.times(5 * getBuyableAmount('c', 11) + 1)
 	if (getBuyableAmount('sp', 21) >= 0.1) gain = gain.times(5 ** getBuyableAmount('sp', 21))
-	if (hasUpgrade("sp", 13)) gain = gain.times(5 ** getBuyableAmount('sp', 21))
+		if (hasUpgrade("sp", 13)) gain = gain.times(5 ** getBuyableAmount('sp', 21))
+	if (getClickableState('a', 11) >= 0.1) gain = gain.times((getClickableState('a', 11) + 1) ** 0.1)
 	if (getBuyableAmount('sp', 12) >= 0.1) gain = gain.times(((getBuyableAmount('sp', 12) * 1) + 1) ** -1)
 	if (!hasUpgrade('ds', 24)) gain = gain.times(Math.round(100 * (player.A.achievements.length * 0.1 + 1)) / 100)
 	if (hasUpgrade('ds', 24)) gain = gain.times(Math.round(100 * (player.A.achievements.length * 0.2)) / 100)
@@ -148,8 +150,6 @@ var displayThings = [
 function isEndgame() {
 	return player.points.gte(new Decimal("e280000000"))
 }
-
-
 
 // Less important things beyond this point!
 

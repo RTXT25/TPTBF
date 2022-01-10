@@ -26,7 +26,7 @@ addLayer("A", {
             function() { if (hasUpgrade("ds", 23) && hasUpgrade("ds", 24)) return 'and also multiplying core and quark gain by ' + (Math.round(100 * (player.A.achievements.length ** 2)) / 10000) + 'x'},
             { "color": "white", "font-size": "16px", "font-family": "Lucida Console" }],
         ["display-text",
-            function() { if (hasUpgrade('a', 51)) return 'additionally, also multiplying subatomic particle gain by ' + (Math.round(100 * (player.A.achievements.length ** 3)) / 10000) + 'x'},
+            function() { if (hasUpgrade('a', 51)) return 'additionally, also multiplying subatomic particle gain by ' + (Math.round(100 * (player.A.achievements.length ** 1.25)) / 100) + 'x'},
             { "color": "white", "font-size": "16px", "font-family": "Lucida Console" }],
         "blank",
         "achievements",
@@ -253,6 +253,36 @@ addLayer("A", {
             tooltip: "obtain 10 atoms.",
             unlocked() { if (hasAchievement("A", 81)) return true },
         },
+        91: {
+            name: "Atom's Doom",
+            done() {return getClickableState('a', 11) >= 0.1},
+            tooltip: "Perform 1 atom upgrade reset.",
+            unlocked() { if (hasAchievement("A", 81)) return true },
+        },
+        92: {
+            name: "I'll be back",
+            done() {return getClickableState('a', 11) >= 5},
+            tooltip: "Reset 5 upgrades total with atom upgrade reset.",
+            unlocked() { if (hasAchievement("A", 91)) return true },
+        },
+        93: {
+            name: "Atomic Convergence",
+            done() {return getClickableState('a', 11) >= 10},
+            tooltip: "Reset 10 upgrades total with atom upgrade reset.",
+            unlocked() { if (hasAchievement("A", 92)) return true },
+        },
+        94: {
+            name: "Back to Scratch",
+            done() {return getClickableState('a', 11) >= 25},
+            tooltip: "Reset 25 upgrades total with atom upgrade reset.",
+            unlocked() { if (hasAchievement("A", 93)) return true },
+        },
+        95: {
+            name: "Atomic Oblivion",
+            done() {return getClickableState('a', 11) >= 75},
+            tooltip: "Reset 75 upgrades total with atom upgrade reset.",
+            unlocked() { if (hasAchievement("A", 94)) return true },
+        },
     },
 });
 
@@ -287,17 +317,17 @@ addLayer("e", {
         if (getBuyableAmount('e', 12) >= 0.1) mult = mult.times((getBuyableAmount('e', 12) ** 0.25) + 1)
         if (getBuyableAmount('c', 12) >= 0.1) mult = mult.times(2 ** getBuyableAmount('c', 12))
         if (getBuyableAmount('sp', 12) >= 0.1) mult = mult.times(5 ** getBuyableAmount('sp', 12))
-        if (hasUpgrade("sp", 12)) mult = mult.times(5 ** getBuyableAmount('sp', 12))
+            if (hasUpgrade("sp", 12)) mult = mult.times(5 ** getBuyableAmount('sp', 12))
         if (getBuyableAmount('sp', 11) >= 0.1) mult = mult.times(((getBuyableAmount('sp', 11) * 1) + 1) ** -1)
         if (hasUpgrade("ds", 21)) mult = mult.times(Math.round(100 * (player.A.achievements.length * 0.2)) / 100)
         if (inChallenge('ds', 21)) mult = mult.times(0.00000000000000000001)
         if (inChallenge('ds', 22)) mult = mult.times(0.0000000000000000000000001)
         return mult
     },
-    gainExp() { // Calculate the exponent on main currency from bonuses
+    gainExp() {
         return new Decimal(1)
     },
-    row: 0, // Row the layer is in on the tree (0 is the first row)
+    row: 0,
     hotkeys: [
         {key: "e", description: "E: Reset for essence", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
@@ -420,8 +450,8 @@ addLayer("e", {
             unlocked() { return hasMilestone("q", 0) && hasUpgrade("e", 23) },
         },
         32: {
-            title: "Brilliant Essence",
-            description: "boosts the effect of Radiant Essence based on the amount of essence you have",
+            title: "Brilliance",
+            description: "some of the effect of Radiant Essence is applied to point gain based on the amount of essence you have",
             cost: new Decimal(3.33e33),
             effect() {
                return player[this.layer].points.add(1).pow(0.001)
@@ -756,7 +786,7 @@ addLayer("q", {
         if (hasUpgrade('h', 34)) mult = mult.times(2)
         if (hasUpgrade('a', 41)) mult = mult.times(upgradeEffect('a', 41))
         if (getBuyableAmount('sp', 11) >= 0.1) mult = mult.times(5 ** getBuyableAmount('sp', 11))
-        if (hasUpgrade("sp", 11)) mult = mult.times(5 ** getBuyableAmount('sp', 11))
+            if (hasUpgrade("sp", 11)) mult = mult.times(5 ** getBuyableAmount('sp', 11))
         if (getBuyableAmount('sp', 21) >= 0.1) mult = mult.times(((getBuyableAmount('sp', 21) * 1) + 1) ** -1)
         if (hasUpgrade("ds", 23)) mult = mult.times(Math.round(100 * (player.A.achievements.length ** 2)) / 10000)
         if (inChallenge('ds', 11)) mult = mult.times(0.1)
@@ -1062,7 +1092,7 @@ addLayer("sp", {
         if (hasUpgrade('a', 22)) gain = gain.times(upgradeEffect('a', 22))
         if (hasUpgrade('a', 31)) gain = gain.times(upgradeEffect('a', 31))
         if (getBuyableAmount('ds',11) >= 0.1) gain = gain.times((getBuyableAmount('ds', 11) * 5) + 1)
-        if (hasUpgrade('a', 51)) gain = gain.times(Math.round(100 * (player.A.achievements.length ** 3)) / 10000)
+        if (hasUpgrade('a', 51)) gain = gain.times(Math.round(100 * (player.A.achievements.length ** 2.5)) / 10000)
         if (hasChallenge('ds', 21)) gain = gain.times(player['ds'].points.add(1).pow(0.2))
         if (inChallenge('ds', 12)) gain = gain.times(player['q'].points ** -0.05)
         if (inChallenge('ds', 22)) gain = gain.times(0.00000000000000000000000000000000000000000000000001)
@@ -1694,7 +1724,7 @@ addLayer("ds", {
             onEnter() {
                 doReset(resettingLayer)
             },
-            rewardDescription: "multiplies hex and demon soul gain by the amount of demon souls<br>you have",
+            rewardDescription: "multiplies hex and demon soul gain based on the amount of demon<br>souls you have",
             rewardDisplay() { return (Math.round(100 * player['ds'].points.add(1).pow(0.25)) / 100) + 'x' },
         },
         12: {
@@ -1712,7 +1742,7 @@ addLayer("ds", {
                 if (hasChallenge('ds', 11)) return true
                 else return false
             },
-            rewardDescription: "multiply demon soul gain by<br>the amount of hexes you have",
+            rewardDescription: "multiply demon soul gain based on the amount of hexes you have",
             rewardDisplay() { return (Math.round(100 * player['h'].points.add(1).pow(0.02)) / 100) + 'x' },
         },
         21: {
@@ -1730,12 +1760,12 @@ addLayer("ds", {
                 if (hasChallenge('ds', 12)) return true
                 else return false
             },
-            rewardDescription: "multiply subatomic particle<br>gain by the amount of demon souls<br>you have",
+            rewardDescription: "multiply subatomic particle<br>gain based on the amount of demon<br>souls you have",
             rewardDisplay() { return (Math.round(100 * player['ds'].points.add(1).pow(0.2)) / 100) + 'x' },
         },
         22: {
             name: "No Science Allowed",
-            challengeDescription: " - Forces a Demon Soul reset<br> - Point gain is divided by 1e10<br> - Essence gain is divided by 1e15<br> - Quark and Subatomic Particle gain is divided by 1e50<br>",
+            challengeDescription: " - Forces a Demon Soul reset<br> - Point gain is divided by 1e10<br> - Essence gain is divided by 1e15<br> - Quark and Subatomic Particle gain is divided by 1e50",
             goalDescription: "the most expensive hex upgrade",
             canComplete() {
                 if (hasUpgrade('h', 64)) return true
@@ -1748,7 +1778,7 @@ addLayer("ds", {
                 if (hasMilestone('a', 6)) return true
                 else return false
             },
-            rewardDescription: "multiply atom<br>gain by the amount of demon souls<br>you have",
+            rewardDescription: "multiply atom gain based on the amount of demon souls you have",
             rewardDisplay() { return (Math.round(100 * player['ds'].points.add(1).pow(0.01)) / 100) + 'x' },
         },
     },
@@ -1794,6 +1824,9 @@ addLayer("a", {
         let keep = [];
             if (layers[resettingLayer].row > this.row) layerDataReset("a", [])
         },
+    doReset(aResetUpgrades) {
+        layerDataReset("a", ["milestones", "points", "best", "total"])
+    },
     tabFormat: {
         "Atomic Progress": {
             content: [
@@ -1821,6 +1854,8 @@ addLayer("a", {
                 ["display-text",
                     function() {return 'You have ' + formatWhole(player.a.total) + ' total atoms'},
                     {}],
+                "blank",
+                "clickables",
                 "blank",
                 ["display-text",
                     function() {return 'When you buy one of these upgrades, you cannot<br>buy any upgrades that are not on its path.'},
@@ -1876,8 +1911,43 @@ addLayer("a", {
         },
         6: {
             requirementDescription: "25 total atoms",
-            effectDescription: "unlock a new demon soul challenge (coming soon)",
+            effectDescription: "unlock a new demon soul challenge",
             done() { return player.a.total.gte(25) }
+        },
+    },
+    clickables: {
+        11: {
+            title: "RESET UPGRADES",
+            display() { return "this will completely reset your atom upgrades. You will not recieve any refunds. This will also force an atom reset. You will recieve a minor bonus to point gain based on the number of upgrades reset<br>Currently: " + ((getClickableState('a', 11) + 1) ** 0.1) + "x" },
+            tooltip() { return "NOTE: this is required to obtain some achievements" },
+            canClick() {
+                if (hasUpgrade('a', 11)) return true
+                else return false
+            },
+            onClick() {
+                let numUpgradesReset = 0
+                if (hasUpgrade('a', 11)) numUpgradesReset = numUpgradesReset + 1
+                if (hasUpgrade('a', 21)) numUpgradesReset = numUpgradesReset + 1
+                if (hasUpgrade('a', 22)) numUpgradesReset = numUpgradesReset + 1
+                if (hasUpgrade('a', 31)) numUpgradesReset = numUpgradesReset + 1
+                if (hasUpgrade('a', 32)) numUpgradesReset = numUpgradesReset + 1
+                if (hasUpgrade('a', 33)) numUpgradesReset = numUpgradesReset + 1
+                if (hasUpgrade('a', 41)) numUpgradesReset = numUpgradesReset + 1
+                if (hasUpgrade('a', 42)) numUpgradesReset = numUpgradesReset + 1
+                if (hasUpgrade('a', 51)) numUpgradesReset = numUpgradesReset + 1
+                if (hasUpgrade('a', 61)) numUpgradesReset = numUpgradesReset + 1
+                if (hasUpgrade('a', 62)) numUpgradesReset = numUpgradesReset + 1
+                if (hasUpgrade('a', 71)) numUpgradesReset = numUpgradesReset + 1
+                if (hasUpgrade('a', 72)) numUpgradesReset = numUpgradesReset + 1
+                if (hasUpgrade('a', 73)) numUpgradesReset = numUpgradesReset + 1
+                if (!getClickableState('a', 11) >= 0)
+                    setClickableState('a', 11) = 0
+                let numUpgradesPast = getClickableState('a', 11)
+                setClickableState('a', 11, (numUpgradesPast + numUpgradesReset))
+                resettingAupgrades = 1
+                return doReset(aResetUpgrades)
+            },
+            style: {'width':'200px'},
         },
     },
     upgrades: {
@@ -1935,7 +2005,7 @@ addLayer("a", {
             description: "multiplies atom gain based on your total atoms",
             cost: new Decimal(3),
             effect() {
-                return player.a.total.add(1).pow(0.25)
+                return player.a.total.add(1).pow(0.05)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
             branches: [41, 42],
@@ -1953,7 +2023,7 @@ addLayer("a", {
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
             branches: [42],
             unlocked() {
-                if (!hasUpgrade('a', 21) && !hasUpgrade('a', 31) && !hasUpgrade('a', 33)) return true
+                if (!hasUpgrade('a', 21) && !hasUpgrade('a', 31) && !hasUpgrade('a', 32)) return true
             },
         },
         41: {
@@ -1994,7 +2064,7 @@ addLayer("a", {
             description: "multiplies atom gain based on your total atoms minus your best atoms",
             cost: new Decimal(6),
             effect() {
-                return ((player.a.total - player.a.best) ** 0.75)
+                return ((player.a.total - player.a.best) ** 0.2)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
             branches: [71, 72],
@@ -2007,7 +2077,7 @@ addLayer("a", {
             description: "multiplies atom gain based on your total atoms times your current atoms",
             cost: new Decimal(6),
             effect() {
-                return (((player.a.total / 1.5) * player["a"].points) ** 0.25)
+                return (((player.a.total / 1.5) * player["a"].points) ** 0.05)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
             branches: [72, 73],
@@ -2032,7 +2102,7 @@ addLayer("a", {
             description: "multiplies atom gain based on your total atoms",
             cost: new Decimal(7),
             effect() {
-                return player.a.total.add(1).pow(0.25)
+                return player.a.total.add(1).pow(0.1)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
             unlocked() {
