@@ -17,8 +17,9 @@ let VERSION = {
 let changelog = `<h1>Changelog:</h1><br>
 	<br><h3>v1.3: Atomic Measure</h3><br>
 		- Added atoms.<br>
-		- Added ten milestones to atoms.<br>
+		- Added eleven milestones to atoms.<br>
 		- Added fourteen upgrades to atoms.<br>
+		- Added one challenge to demon souls.<br>
 		- Added five achievements.<br>
 		- Balance changes.<br>
 	<br><h3>v1.2: Demon Gateway</h3><br>

@@ -306,7 +306,6 @@ addLayer("e", {
         if (getBuyableAmount('sp', 11) >= 9) mult = mult.times(0.1)
         if (hasUpgrade('ds', 21)) mult = mult.times(Math.round(100 * (player.A.achievements.length * 0.2)) / 100)
         if (inChallenge('ds', 21)) mult = mult.times(0.00000000000000000001)
-        if (inChallenge('ds', 22)) mult = mult.times(0.0000000000000000000000001)
         return mult
     },
     gainExp() {
@@ -791,7 +790,7 @@ addLayer("q", {
         if (getBuyableAmount('sp', 21) >= 9) mult = mult.times(0.1)
         if (hasUpgrade('ds', 23)) mult = mult.times(Math.round(100 * (player.A.achievements.length ** 2)) / 10000)
         if (inChallenge('ds', 11)) mult = mult.times(0.1)
-        if (inChallenge('ds', 22)) mult = mult.times(0.00000000000000000000000000000000000000000000000001)
+        if (inChallenge('ds', 22)) mult = mult.times(0.0000000000000000000000000000000000000001)
         return mult
     },
     gainExp() {
@@ -1102,7 +1101,7 @@ addLayer("sp", {
         if (hasUpgrade('a', 51)) gain = gain.times(Math.round(100 * (player.A.achievements.length ** 2.5)) / 10000)
         if (hasChallenge('ds', 21)) gain = gain.times(player['ds'].points.add(1).pow(0.2))
         if (inChallenge('ds', 12)) gain = gain.times(player['q'].points ** -0.05)
-        if (inChallenge('ds', 22)) gain = gain.times(0.00000000000000000000000000000000000000000000000001)
+        if (inChallenge('ds', 22)) gain = gain.times(0.0000000000000000000000000000000000000001)
         return gain
     },
     row: 2,
@@ -1784,11 +1783,11 @@ addLayer("ds", {
             rewardDisplay() { return (Math.round(100 * player['ds'].points.add(1).pow(0.2)) / 100) + 'x' },
         },
         22: {
-            name: "No Science Allowed",
-            challengeDescription: " - Forces a Demon Soul reset<br> - Point gain is divided by 1e10<br> - Essence gain is divided by 1e15<br> - Quark and Subatomic Particle gain is divided by 1e50",
-            goalDescription: "the most expensive hex upgrade",
+            name: "Dreaded Science",
+            challengeDescription: " - Forces a Demon Soul reset<br> - Point gain is divided by 1e10<br> - Quark and Subatomic Particle gain is divided by 1e40",
+            goalDescription: "Famed Atom's Donations",
             canComplete() {
-                if (hasUpgrade('h', 64)) return true
+                if (hasUpgrade('a', 51)) return true
                 else return false
             },
             onEnter() {
@@ -1876,6 +1875,9 @@ addLayer("a", {
                 ["display-text",
                     function() {return 'When you buy one of these upgrades, you cannot buy<br>any upgrades that are not on its path. When you<br>do a row 4 reset, all atom upgrades will be reset.'},
                     {}],
+                ["display-text",
+                    function() {if (hasMilestone('a', 10)) return '<br>From the effect of the 11th atom milestone: you<br>can buy upgrades that are not on the path but they<br>are more expensive per upgrade bought that would<br>normally make the upgrade impossible to buy.'},
+                    {}],
                 "blank",
                 ["upgrades", [1]],
                 "blank",
@@ -1928,21 +1930,26 @@ addLayer("a", {
         6: {
             requirementDescription: "7 atoms",
             effectDescription: "keep hex milestones on atom resets",
-            done() { return player["a"].points.gte(6) }
+            done() { return player["a"].points.gte(7) }
         },
         7: {
-            requirementDescription: "50 total atoms",
+            requirementDescription: "45 total atoms",
             effectDescription: "unlock a new demon soul challenge",
-            done() { return player.a.total.gte(50) }
+            done() { return player.a.total.gte(45) }
         },
         8: {
-            requirementDescription: "100 total atoms",
+            requirementDescription: "75 total atoms",
             effectDescription: "gain 1% of quark gain per second",
-            done() { return player.a.total.gte(100) }
+            done() { return player.a.total.gte(75) }
         },
         9: {
-            requirementDescription: "250 total atoms",
+            requirementDescription: "125 total atoms",
             effectDescription: "gain +9% of quark gain per second (total: 10%)",
+            done() { return player.a.total.gte(125) }
+        },
+        10: {
+            requirementDescription: "250 total atoms",
+            effectDescription: "you can buy upgrades that are not on the<br>other's paths, but they are more expensive<br>per upgrade bought that would normally<br>make the upgrade impossible to buy",
             done() { return player.a.total.gte(250) }
         },
     },
@@ -2073,7 +2080,7 @@ addLayer("a", {
             description: "multiplies atom gain based on your total atoms times your current atoms",
             cost: new Decimal(3),
             effect() {
-                return (((player.a.total / 1.5) * player["a"].points) ** 0.05)
+                return ((player.a.total * player["a"].points) ** 0.05)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
             branches: [72, 73],
