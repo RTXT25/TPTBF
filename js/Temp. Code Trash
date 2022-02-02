@@ -1,21 +1,23 @@
 Temp. Code Trash
 
-        77: {
+		86: {
             name: "No to Nuclear",
             done() {return player["ds"] <= 0.1 && player["a"].points >= 10},
             tooltip: "obtain 10 atoms with no demon souls.",
-            unlocked() { if (hasAchievement("A", 82) && hasAchievement("A", 101)) return true },
+            unlocked() { if (hasAchievement("A", 82) && hasAchievement("A", 91)) return true },
         },
 
 NOTE: effects go
 	Normal Upgrades
 		Tiered Upgrades
-	Buyables postitive effects
+	Buyable postitive effects
 		Upgrades that buff Buyables
+	Buyable capped positive effects
 	Buyable negative effects
-	Special Upgrades
+	Buyable capped negative effects
+	Special Upgrades (set effects)
 	Clickable Effects
 	Challenge Completion Effects
-	Achievement Effects
+	Special Upgrades (achievement effects)
 	Achievement Rewards
 	In Challenge Effects

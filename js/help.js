@@ -35,10 +35,10 @@ let help_data = {
 		text: "For Demon Souls, always buy upgrades and Demonic Energy when you can. Gradually unlock more milestones, and keep more things when you reset. When you purchase Mad Hexes or Hex Mania, make sure to buy the newly unlocked upgrades when you have enough. They might not seem worth it, but the upgrades are very good, because they increase the automated essence gain. This, it turn, boosts all of your production, on both branches of the tree. Then, you keep grinding until you can buy the Demonic Key and unlock the Demon Gateway. When you unlock Demon Gateway, you probably can complete the first challenge, Blazing Curse, in a reasonable amount of time. Or, first you can max out Demonic Energy, if you haven't already done so. After you complete the first challenge, try the next one. Exit it and buy more upgrades if you can't complete it within a reasonable time frame. For the third challenge, Reverse Polarity, you need to get the 1e14 demon soul milestone first. After that, use the effect from the third challenge to build up lots of Subatomic Particles to unlock Atoms.",
 		unlocked() { if (hasAchievement("A", 71)) return true },
 	},
-	ds: {
+	a: {
 		id: "a",
 		title: "Atoms",
-		text: "When you unlock Atoms, you will see two tabs. The second one is the most important. It contains the upgrade tree, which is essentially, a tree of upgrades. You will have to chose between different upgrades, and you should take into account what options that will give you for the next upgrade pick. Generally, for speed, the upgrades that multiply Atom gain are the best. However, they are not always the best choice. Experiment and find out which ones best suit you! Keep going until you get the 25 total Atoms milestone, and the you will unlock a new Demon Soul challenge.",
+		text: "When you unlock Atoms, you will see two tabs. The second one is the most important. It contains the upgrade tree, which is essentially, a tree of upgrades. You will have to chose between different upgrades, and you should take into account what options that will give you for the next upgrade pick. Generally, for speed, the upgrades that multiply Atom gain are the best. However, they are not always the best choice. Experiment and find out which ones best suit you! Keep going until you get the 50 total Atoms milestone, and the you will unlock a new Demon Soul challenge.",
 		unlocked() { if (hasAchievement("A", 81)) return true },
 	},
 },
