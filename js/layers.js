@@ -1287,7 +1287,9 @@ addLayer("h", {
         let keep = [];
             if (hasMilestone("ds", 8) && resettingLayer=="ds") dshM = "milestones"
             else dshM = ""
-            if (layers[resettingLayer].row > this.row) layerDataReset("h", [dshM])
+            if (hasMilestone("a", 6) && resettingLayer=="a") ahM = "milestones"
+            else ahM = ""
+            if (layers[resettingLayer].row > this.row) layerDataReset("h", [dshM, ahM])
         },
     tabFormat: [
         "main-display",
@@ -1724,10 +1726,13 @@ addLayer("ds", {
                 setBuyableAmount('ds', 11, getBuyableAmount('ds', 11).add(1))
             },
             display() {
-                if (getBuyableAmount('ds', 11) < 22)
-                    return "multiplies hex gain (and also subatomic particle gain at a reduced rate) based on the amount of this upgrade bought.\nCurrently: " + (2 ** getBuyableAmount('ds', 11)) + "x\nand " + ((getBuyableAmount('ds', 11) * 5) + 1) + "x\n\nCost: " + new Decimal((2 ** getBuyableAmount('ds', 11))) + "\n\nBought: " + getBuyableAmount('ds', 11)
+                if (getBuyableAmount('ds', 11) < 1)
+                    return "multiplies hex gain (and also subatomic particle gain at a reduced rate) based on the amount of this upgrade bought.\nCurrently: " + (2 ** getBuyableAmount('ds', 11)) + "x\nand " + ((getBuyableAmount('ds', 11) * 5) + 1) + "x\n\nCost: 1 demon soul\n\nBought: 0"
                 else
-                    return "multiplies hex gain (and also subatomic particle gain at a reduced rate) based on the amount of this upgrade bought.\nCurrently: 4194304x\nand 111x\n\nCost: 4194304\n\nBought: 22"
+                    if (getBuyableAmount('ds', 11) < 22)
+                        return "multiplies hex gain (and also subatomic particle gain at a reduced rate) based on the amount of this upgrade bought.\nCurrently: " + (2 ** getBuyableAmount('ds', 11)) + "x\nand " + ((getBuyableAmount('ds', 11) * 5) + 1) + "x\n\nCost: " + new Decimal((2 ** getBuyableAmount('ds', 11))) + " demon souls\n\nBought: " + getBuyableAmount('ds', 11)
+                    else
+                        return "multiplies hex gain (and also subatomic particle gain at a reduced rate) based on the amount of this upgrade bought.\nCurrently: 4194304x\nand 111x\n\nCost: 4194304 demon souls\n\nBought: 22"
             },
         },
     },
@@ -1798,7 +1803,7 @@ addLayer("ds", {
                 else return false
             },
             rewardDescription: "multiply atom gain based on the amount of demon souls you have",
-            rewardDisplay() { return (Math.round(100 * player['ds'].points.add(1).pow(0.01)) / 100) + 'x' },
+            rewardDisplay() { return (Math.round(100 * player['ds'].points.add(1).pow(0.1)) / 100) + 'x' },
         },
     },
 });
@@ -1841,6 +1846,18 @@ addLayer("a", {
     layerShown(){return player.ds.unlocked},
     doReset(resettingLayer) {
         let keep = [];
+            a21 = 1
+            a22 = 1
+            a31 = 1
+            a32 = 1
+            a33 = 1
+            a41 = 1
+            a42 = 1
+            a61 = 1
+            a62 = 1
+            a71 = 1
+            a72 = 1
+            a73 = 1
             if (layers[resettingLayer].row = this.row) layerDataReset("a", ["milestones", "points", "best", "total"])
             if (layers[resettingLayer].row > this.row) layerDataReset("a", [])
         },
@@ -1896,6 +1913,18 @@ addLayer("a", {
             unlocked() { if (hasUpgrade("ds", 22)) return true }
         },
     },
+    let: a21 = 1,
+    let: a22 = 1,
+	let: a31 = 1,
+	let: a32 = 1,
+	let: a33 = 1,
+	let: a41 = 1,
+	let: a42 = 1,
+	let: a61 = 1,
+	let: a62 = 1,
+	let: a71 = 1,
+	let: a72 = 1,
+	let: a73 = 1,
     milestones: {
         0: {
             requirementDescription: "1 atom",
@@ -1967,97 +1996,104 @@ addLayer("a", {
         21: {
             title: "Decaying Atoms",
             description: "multiplies subatomic particle gain based on your best atoms",
-            cost: new Decimal(1),
+            cost: new Decimal(1 * a22 * a33),
             effect() {
+                a21 = 3
                 return player.a.best.add(1).pow(2.5)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
             branches: [31, 32],
             unlocked() {
-                if (!hasUpgrade('a', 22) && !hasUpgrade('a', 33)) return true
+                if (!hasUpgrade('a', 22) && !hasUpgrade('a', 33) || hasMilestone('a', 10)) return true
             },
         },
         22: {
             title: "Atom Construction",
             description: "multiplies atom gain based on the amount of subatomic particles you have",
-            cost: new Decimal(1),
+            cost: new Decimal(1 * a21 * a31),
             effect() {
+                a22 = 3
                 return player["sp"].points.add(1).pow(0.02)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
             branches: [32, 33],
             unlocked() {
-                if (!hasUpgrade('a', 21) && !hasUpgrade('a', 31)) return true
+                if (!hasUpgrade('a', 21) && !hasUpgrade('a', 31) || hasMilestone('a', 10)) return true
             },
         },
         31: {
             title: "Decayed Atoms",
             description: "multiplies subatomic particle gain based on your total atoms",
-            cost: new Decimal(2),
+            cost: new Decimal(2 * a22 * a32 * a33 * a42),
             effect() {
+                a31 = 3
                 return player.a.total.add(1).pow(1.5)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
             branches: [41],
             unlocked() {
-                if (!hasUpgrade('a', 22) && !hasUpgrade('a', 32) && !hasUpgrade('a', 33) && !hasUpgrade('a', 42)) return true
+                if (!hasUpgrade('a', 22) && !hasUpgrade('a', 32) && !hasUpgrade('a', 33) && !hasUpgrade('a', 42) || hasMilestone('a', 10)) return true
             },
         },
         32: {
             title: "Atomic Recursion",
             description: "multiplies atom gain based on your total atoms",
-            cost: new Decimal(2),
+            cost: new Decimal(2 * a31 * a33),
             effect() {
+                a32 = 3
                 return player.a.total.add(1).pow(0.05)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
             branches: [41, 42],
             unlocked() {
-                if (!hasUpgrade('a', 31) && !hasUpgrade('a', 33)) return true
+                if (!hasUpgrade('a', 31) && !hasUpgrade('a', 33) || hasMilestone('a', 10)) return true
             },
         },
         33: {
             title: "Atom Production",
             description: "multiplies atom gain based on the amount of subatomic particles you have",
-            cost: new Decimal(2),
+            cost: new Decimal(2 * a21 * a31 * a32 * a41),
             effect() {
+                a33 = 3
                 return player["sp"].points.add(1).pow(0.025)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
             branches: [42],
             unlocked() {
-                if (!hasUpgrade('a', 21) && !hasUpgrade('a', 31) && !hasUpgrade('a', 32) && !hasUpgrade('a', 41)) return true
+                if (!hasUpgrade('a', 21) && !hasUpgrade('a', 31) && !hasUpgrade('a', 32) && !hasUpgrade('a', 41) || hasMilestone('a', 10)) return true
             },
         },
         41: {
             title: "Atom Revenants",
             description: "multiplies quark gain based on your total atoms minus your current atoms",
-            cost: new Decimal(2),
+            cost: new Decimal(2 * a33 * a42),
             effect() {
+                a41 = 3
                 return ((player.a.total - player["a"].points) ** 0.75)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
             branches: [51],
             unlocked() {
-                if (!hasUpgrade('a', 33) && !hasUpgrade('a', 42)) return true
+                if (!hasUpgrade('a', 33) && !hasUpgrade('a', 42) || hasMilestone('a', 10)) return true
             },
         },
         42: {
             title: "The Fallen",
             description: "multiplies demon soul gain based on your best atoms minus your current atoms",
-            cost: new Decimal(2),
+            cost: new Decimal(2 * a31 * a41),
             effect() {
+                a42 = 3
                 return (((player.a.best * 1.5) - player["a"].points) ** 1.5)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
             branches: [51],
             unlocked() {
-                if (!hasUpgrade('a', 31) && !hasUpgrade('a', 41)) return true
+                if (!hasUpgrade('a', 31) && !hasUpgrade('a', 41) || hasMilestone('a', 10)) return true
             },
         },
         51: {
             title: "Famed Atoms' Donations",
-            description: "multiplies subatomic particle gain based on your numeber of acievements",
+            description: "multiplies subatomic particle gain based on your number of acievements",
             cost: new Decimal(3),
             branches: [61, 62],
             unlocked() { return true },
@@ -2065,63 +2101,68 @@ addLayer("a", {
         61: {
             title: "Unpeaked",
             description: "multiplies atom gain based on your total atoms minus your best atoms",
-            cost: new Decimal(3),
+            cost: new Decimal(3 * a62 * a73),
             effect() {
+                a61 = 3
                 return ((player.a.total - player.a.best) ** 0.2)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
             branches: [71, 72],
             unlocked() {
-                if (!hasUpgrade('a', 62) && !hasUpgrade('a', 73)) return true
+                if (!hasUpgrade('a', 62) && !hasUpgrade('a', 73) || hasMilestone('a', 10)) return true
             },
         },
         62: {
             title: "Higher Peak",
             description: "multiplies atom gain based on your total atoms times your current atoms",
-            cost: new Decimal(3),
+            cost: new Decimal(3 * a61 * a71),
             effect() {
+                a62 = 3
                 return ((player.a.total * player["a"].points) ** 0.05)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
             branches: [72, 73],
             unlocked() {
-                if (!hasUpgrade('a', 61) && !hasUpgrade('a', 71)) return true
+                if (!hasUpgrade('a', 61) && !hasUpgrade('a', 71) || hasMilestone('a', 10)) return true
             },
         },
         71: {
             title: "Demons Inside",
             description: "multiplies demon soul gain based on your best atoms times your current atoms",
-            cost: new Decimal(4),
+            cost: new Decimal(4 * a62 * a72 * a73),
             effect() {
+                a71 = 3
                 return ((player.a.best * player["a"].points * 2.5) ** 0.75)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
             unlocked() {
-                if (!hasUpgrade('a', 62) && !hasUpgrade('a', 72) && !hasUpgrade('a', 73)) return true
+                if (!hasUpgrade('a', 62) && !hasUpgrade('a', 72) && !hasUpgrade('a', 73) || hasMilestone('a', 10)) return true
             },
         },
         72: {
             title: "Recurred, Recurring",
             description: "multiplies atom gain based on your total atoms",
-            cost: new Decimal(4),
+            cost: new Decimal(4 * a71 * a73),
             effect() {
+                a72 = 3
                 return player.a.total.add(1).pow(0.1)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
             unlocked() {
-                if (!hasUpgrade('a', 71) && !hasUpgrade('a', 73)) return true
+                if (!hasUpgrade('a', 71) && !hasUpgrade('a', 73) || hasMilestone('a', 10)) return true
             },
         },
         73: {
             title: "Atomic Essence",
             description: "multiplies essence gain based on the amount of atoms you have",
-            cost: new Decimal(4),
+            cost: new Decimal(4 * a61 * a71 * a72),
             effect() {
+                a73 = 3
                 return player["a"].points.add(1).pow(1.75)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
             unlocked() {
-                if (!hasUpgrade('a', 61) && !hasUpgrade('a', 71) && !hasUpgrade('a', 72)) return true
+                if (!hasUpgrade('a', 61) && !hasUpgrade('a', 71) && !hasUpgrade('a', 72) || hasMilestone('a', 10)) return true
             },
         },
     },
