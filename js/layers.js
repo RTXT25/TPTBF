@@ -23,10 +23,13 @@ addLayer("A", {
             function() { if (hasUpgrade('ds', 24)) return 'You have ' + player.A.achievements.length + ' achievements,<br>which are multiplying your point and essence gain by ' + (Math.round(100 * (player.A.achievements.length * 0.2)) / 100) + 'x' },
             { "color": "white", "font-size": "16px", "font-family": "Lucida Console" }],
         ["display-text",
-            function() { if (hasUpgrade("ds", 23) && !hasUpgrade("ds", 24)) return 'addtionally, also multiplying core and quark gain by ' + (Math.round(100 * (player.A.achievements.length ** 2)) / 10000) + 'x' },
+            function() { if (hasUpgrade("ds", 23) && !hasUpgrade("ds", 24) && !hasUpgrade("p", 31)) return 'addtionally, also multiplying core and quark gain by ' + (Math.round(100 * (player.A.achievements.length ** 2)) / 10000) + 'x' },
             { "color": "white", "font-size": "16px", "font-family": "Lucida Console" }],
         ["display-text",
-            function() { if (hasUpgrade("ds", 23) && hasUpgrade("ds", 24)) return 'and also multiplying core and quark gain by ' + (Math.round(100 * (player.A.achievements.length ** 2)) / 10000) + 'x' },
+            function() { if (hasUpgrade("ds", 23) && hasUpgrade("ds", 24) && !hasUpgrade("p", 31)) return 'and also multiplying core and quark gain by ' + (Math.round(100 * (player.A.achievements.length ** 2)) / 10000) + 'x' },
+            { "color": "white", "font-size": "16px", "font-family": "Lucida Console" }],
+        ["display-text",
+            function() { if (hasUpgrade("ds", 23) && hasUpgrade("ds", 24) && hasUpgrade("p", 31)) return 'and also multiplying core, prayer, and quark gain by ' + (Math.round(100 * (player.A.achievements.length ** 2)) / 10000) + 'x' },
             { "color": "white", "font-size": "16px", "font-family": "Lucida Console" }],
         ["display-text",
             function() { if (hasUpgrade('a', 51)) return 'additionally, also multiplying subatomic particle gain by ' + (Math.round(100 * (player.A.achievements.length ** 1.25)) / 100) + 'x' },
@@ -54,7 +57,7 @@ addLayer("A", {
         },
         14: {
             name: "The Sharpest Point",
-            done() {return player.points >= (new Decimal(1e1000))},
+            done() {return player.points >= (new Decimal("1e1000"))},
             tooltip: "obtain 1e1,000 points.",
             unlocked() { if (hasAchievement("A", 13)) return true },
         },
@@ -84,7 +87,7 @@ addLayer("A", {
         },
         24: {
             name: "The Essence of the Universe",
-            done() {return player["e"].points >= (new Decimal(1e1000))},
+            done() {return player["e"].points >= (new Decimal("1e1000"))},
             tooltip: "obtain 1e1,000 essence.",
             unlocked() { if (hasAchievement("A", 23)) return true },
         },
@@ -286,6 +289,12 @@ addLayer("A", {
             tooltip: "obtain 1,000 prayers.",
             unlocked() { if (hasAchievement("A", 91)) return true },
         },
+        93: {
+            name: "Church Prayer Circle",
+            done() {return player["p"].points >= 1000000},
+            tooltip: "obtain 1,000,000 prayers.",
+            unlocked() { if (hasAchievement("A", 92)) return true },
+        },
     },
 });
 
@@ -329,6 +338,7 @@ addLayer("e", {
             if (hasUpgrade('sp', 12)) mult = mult.times(1953125)
         if (getBuyableAmount('sp', 11) >= 0.1 && getBuyableAmount('sp', 11) < 9) mult = mult.times(((getBuyableAmount('sp', 11) * 1) + 1) ** -1)
         if (getBuyableAmount('sp', 11) >= 9) mult = mult.times(0.1)
+        if (hasUpgrade('p', 22)) mult = mult.times(((player.p.holiness + 1) ** 0.05) + 0.5)
         if (hasUpgrade('ds', 21)) mult = mult.times(Math.round(100 * (player.A.achievements.length * 0.2)) / 100)
         if (inChallenge('ds', 21)) mult = mult.times(0.00000000000000000001)
         return mult
@@ -2176,6 +2186,7 @@ addLayer("p", {
         power: new Decimal(0),
         tickTime: new Decimal(0),
         divinity: new Decimal(0),
+        holiness: new Decimal(0),
     }},
     color: "#FA99FF",
     requires: new Decimal("1e1000"),
@@ -2186,6 +2197,8 @@ addLayer("p", {
     exponent: 0.012,
     gainMult() {
         mult = new Decimal(1)
+        if (hasUpgrade('p', 21)) mult = mult.times(upgradeEffect('p', 21))
+        if (hasUpgrade('p', 31)) mult = mult.times(Math.round(100 * (player.A.achievements.length ** 2)) / 10000)
         return mult
     },
     gainExp() {
@@ -2209,13 +2222,17 @@ addLayer("p", {
     },
     doReset(resettingLayer) {
         let keep = [];
+        let holyAdd = (Math.round(player.p.holiness * 100) / 100);
             player.p.power = new Decimal(0)
-            player.p.divinity = new Decimal(0)
-            if (resettingLayer == "h") layerDataReset("p", ["points", "best", "total", "milestones"])
+            if (resettingLayer == "h") layerDataReset("p", ["points", "best", "total", "milestones"]), player.p.holiness = new Decimal(0)
             else
-                if (resettingLayer == "sp") layerDataReset("p", ["points", "best", "total", "milestones"])
+                if (resettingLayer == "sp") layerDataReset("p", ["points", "best", "total", "milestones"]), player.p.holiness = new Decimal(0)
                 else
-                    if (layers[resettingLayer].row > this.row) layerDataReset("p", [])
+                    if (layers[resettingLayer].row > this.row) layerDataReset("p", []), player.p.holiness = new Decimal(0)
+                    else
+                        if (hasUpgrade('p', 22) && !hasUpgrade('p', 23)) player.p.holiness = new Decimal(holyAdd + player.p.divinity / 25)
+                        if (hasUpgrade('p', 23)) player.p.holiness = new Decimal(holyAdd + player.p.divinity / 20)
+            player.p.divinity = new Decimal(0)
         },
     update(diff) {
         player.p.divinity = player.p.divinity - (format(0 - tmp.p.effect)) * diff
@@ -2232,7 +2249,10 @@ addLayer("p", {
             {}],
         "blank",
         ["display-text",
-            function() {return 'You have ' + Math.round(player.p.divinity) + ' divinity, which boosts point generation by ' + (Math.round(((player.p.divinity + 1) ** 0.1) * 100) / 100) + 'x'},
+            function() {return 'You have ' + (Math.round(player.p.divinity * 100) / 100) + ' divinity, which boosts point generation by ' + (Math.round(((player.p.divinity + 1) ** 0.1) * 100) / 100) + 'x'},
+            {}],
+        ["display-text",
+            function() {if (hasUpgrade('p', 22)) return 'You have ' + (Math.round(player.p.holiness * 100) / 100) + ' holiness, which boosts essence gain by ' + ((Math.round(((player.p.holiness + 1) ** 0.05) * 100) / 100) + 0.5) + 'x'},
             {}],
         "blank",
         "milestones",
@@ -2275,16 +2295,47 @@ addLayer("p", {
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
         },
         21: {
-            fullDisplay() { return '<font size="2">Divine Prayers</font><br>multiplies prayer gain based on the amount of divinity you have<br>Currently: ' + format(upgradeEffect(this.layer, this.id)) + 'x<br><br>Cost: 100 divinity' },
+            fullDisplay() { return '<font size="2">Divine Prayers</font><br>multiplies prayer gain based on the amount of divinity you have<br>Currently: ' + format(upgradeEffect(this.layer, this.id)) + 'x<br><br>Cost: 25 divinity' },
             canAfford() {
-                if (player.p.divinity >= 100) return true
+                if (player.p.divinity >= 25) return true
                 else return false
             },
             pay() {
-                player.p.divinity = Math.round(player.p.divinity) - 100
+                player.p.divinity = Math.round(player.p.divinity) - 25
             },
             effect() {
-                return ((player.p.divinity + 1) ** 0.05)
+                return ((player.p.divinity + 1) ** 0.01)
+            },
+        },
+        22: {
+            fullDisplay() { return '<font size="2">Holy Light</font><br>unlocks holiness<br><br>Cost: 75 divinity' },
+            canAfford() {
+                if (player.p.divinity >= 75) return true
+                else return false
+            },
+            pay() {
+                player.p.divinity = Math.round(player.p.divinity) - 75
+            },
+        },
+        23: {
+            fullDisplay() { return '<font size="2">Holy Channeling</font><br>increases efficiency of holiness<br>0.04 --> 0.05<br><br>Cost: 50 holiness' },
+            canAfford() {
+                if (player.p.holiness >= 50) return true
+                else return false
+            },
+            pay() {
+                player.p.holiness = Math.round(player.p.holiness) - 50
+            },
+        },
+        31: {
+            fullDisplay() { return '<font size="2">Church Relics</font><br>achievements also multiply prayer gain<br><br>Cost: 250 divinity,<br>75 holiness' },
+            canAfford() {
+                if (player.p.divinity >= 250 && player.p.holiness >= 75) return true
+                else return false
+            },
+            pay() {
+                player.p.divinity = Math.round(player.p.divinity) - 250
+                player.p.holiness = Math.round(player.p.holiness) - 75
             },
         },
     },

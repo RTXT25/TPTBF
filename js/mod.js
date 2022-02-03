@@ -18,8 +18,8 @@ let changelog = `<h1>Changelog:</h1><br>
 	<br><h3>v1.4: Praise the Sky</h3><br>
 		- Added prayers.<br>
 		- Added two milestones to prayers.<br>
-		- Added four upgrades to prayers.<br>
-		- Added three achievements.<br>
+		- Added seven upgrades to prayers.<br>
+		- Added four achievements.<br>
 		- Balance changes.<br>
 	<br><h3>v1.3: Atomic Measure</h3><br>
 		- Added atoms.<br>
