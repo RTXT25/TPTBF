@@ -6,7 +6,7 @@ let modInfo = {
 	modFiles: ["layers.js", "tree.js"],
 
 	initialStartPoints: new Decimal (0),
-	offlineLimit: 1,  // In hours
+	offlineLimit: 1, // In hours
 }
 
 let VERSION = {
@@ -18,6 +18,7 @@ let changelog = `<h1>Changelog:</h1><br>
 	<br><h3>v1.4: Praise the Sky</h3><br>
 		- Added prayers.<br>
 		- Added two milestones to prayers.<br>
+		- Added one milestone to atoms.<br>
 		- Added seven upgrades to prayers.<br>
 		- Added four achievements.<br>
 		- Balance changes.<br>
@@ -170,7 +171,7 @@ var backgroundStyle = {
 }
 
 function maxTickLength() {
-	return(1)
+	return(1) // In seconds
 }
 
 // Use this if you need to undo inflation from an older version. If the version is older than the version that fixed the issue,

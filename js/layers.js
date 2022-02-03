@@ -1885,7 +1885,8 @@ addLayer("a", {
     layerShown(){return player.ds.unlocked},
     doReset(resettingLayer) {
         let keep = [];
-            if (layers[resettingLayer].row = this.row) layerDataReset("a", ["milestones", "points", "best", "total"])
+            if (resettingLayer == "ds" && !hasMilestone('a', 12)) layerDataReset("a", ["milestones", "points", "best", "total"])
+            if (resettingLayer == "a") layerDataReset("a", ["milestones", "points", "best", "total"])
             if (layers[resettingLayer].row > this.row) layerDataReset("a", [])
         },
     tabFormat: {
@@ -1998,8 +1999,13 @@ addLayer("a", {
         },
         11: {
             requirementDescription: "50 atoms & 450 total atoms",
-            effectDescription: "heep hex upgrades on row 4 resets",
+            effectDescription: "keep hex upgrades on row 4 resets",
             done() { return player["a"].points.gte(50) && player.a.total.gte(450) }
+        },
+        12: {
+            requirementDescription: "1,000 atoms and 2,000 total atoms",
+            effectDescription: "keep atom upgrades on demon soul resets",
+            done() { return player["a"].points.gte(1000) && player.a.total.gte(2000) }
         },
     },
     upgrades: {
@@ -2212,8 +2218,8 @@ addLayer("p", {
     effect() {
         let effBase = new Decimal(0)
         let effBoost = new Decimal(0.01)
-        if (hasMilestone("p", 1)) effBoost = effBoost.times(2)
-        if (hasUpgrade("p", 13)) effBoost = effBoost.times(upgradeEffect("p", 13))
+        if (hasMilestone('p', 1)) effBoost = effBoost.times(2)
+        if (hasUpgrade('p', 13)) effBoost = effBoost.times(upgradeEffect('p', 13))
         effFinal = effBase.add(effBoost * player['p'].points)
         return (Math.round(effFinal * 100) /100)
     },
