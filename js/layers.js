@@ -174,14 +174,14 @@ addLayer("A", {
         },
         54: {
             name: "That's no Particle no More",
-            done() {return player["sp"].points >= 1000},
-            tooltip: "obtain 1,000 subatomic particles.",
+            done() {return player["sp"].points >= 5000},
+            tooltip: "obtain 5,000 subatomic particles.",
             unlocked() { if (hasAchievement("A", 53)) return true },
         },
         55: {
             name: "The Universe in a Particle",
-            done() {return player["sp"].points >= 10000},
-            tooltip: "obtain 10,000 subatomic particles.",
+            done() {return player["sp"].points >= 100000},
+            tooltip: "obtain 100,000 subatomic particles.",
             unlocked() { if (hasAchievement("A", 54)) return true },
         },
         56: {
@@ -262,6 +262,30 @@ addLayer("A", {
             tooltip: "obtain 100 atoms.",
             unlocked() { if (hasAchievement("A", 82)) return true },
         },
+        84: {
+            name: "Atom Grams (as seen on TV!)",
+            done() {return player["a"].points >= 1000},
+            tooltip: "obtain 1,000 atoms.",
+            unlocked() { if (hasAchievement("A", 83)) return true },
+        },
+        86: {
+            name: "No to Nuclear",
+            done() {return player["ds"] <= 0.1 && player["a"].points >= 10},
+            tooltip: "obtain 10 atoms with no demon souls.",
+            unlocked() { if (hasAchievement("A", 82) && hasAchievement("A", 91)) return true },
+        },
+        91: {
+            name: "Praise the Lord",
+            done() {return player["p"].points >= 1},
+            tooltip: "obtain 1 prayer.",
+            unlocked() { if (hasAchievement("A", 91)) return true },
+        },
+        92: {
+            name: "Prayers all around",
+            done() {return player["p"].points >= 1000},
+            tooltip: "obtain 1,000 prayers.",
+            unlocked() { if (hasAchievement("A", 91)) return true },
+        },
     },
 });
 
@@ -274,7 +298,7 @@ addLayer("e", {
         points: new Decimal(0),
     }},
     color: "#4BDC13",
-    branches: ["c", "q"],
+    branches: ["c", "q", "p"],
     requires: new Decimal(5),
     resource: "essence",
     baseResource: "points",
@@ -292,6 +316,7 @@ addLayer("e", {
             if (hasUpgrade('q', 15)) mult = mult.times(upgradeEffect('q', 15))
         if (hasUpgrade('q', 32)) mult = mult.times(upgradeEffect('q', 32))
         if (hasUpgrade('a', 73)) mult = mult.times(upgradeEffect('a', 73))
+        if (hasUpgrade('p', 11)) mult = mult.times(upgradeEffect('p', 11))
         if (getBuyableAmount('e', 11) >= 0.1 && getBuyableAmount('e', 11) < 14) mult = mult.times((getBuyableAmount('e', 11) * 2.5) + 1)
         if (getBuyableAmount('e', 11) >= 14) mult = mult.times((getBuyableAmount('e', 11) * 2.5) + 1)
         if (getBuyableAmount('e', 12) >= 0.1 && getBuyableAmount('e', 12) < 99) mult = mult.times((getBuyableAmount('e', 12) ** 0.25) + 1)
@@ -754,7 +779,7 @@ addLayer("c", {
 addLayer("q", {
     name: "Quarks",
     symbol: "Q",
-    position: 1,
+    position: 2,
     startData() { return {
         unlocked: false,
         points: new Decimal(0),
@@ -1269,6 +1294,7 @@ addLayer("h", {
             if (hasUpgrade('ds', 12)) mult = mult.times(upgradeEffect('h', 12))
         if (getBuyableAmount('ds',11) >= 0.1 && getBuyableAmount('ds',11) < 22) mult = mult.times(2 ** getBuyableAmount('ds', 11))
         if (getBuyableAmount('ds',11) >= 22) mult = mult.times(4194304)
+        if (hasUpgrade('ds', 11)) mult = mult.times(1.02)
         if (hasChallenge('ds', 11)) mult = mult.times(player['ds'].points.add(1).pow(0.25))
         if (inChallenge('ds', 11)) mult = mult.times(0.001)
         if (inChallenge('ds', 12)) mult = mult.times(0.0000000001)
@@ -1951,19 +1977,19 @@ addLayer("a", {
             done() { return player["a"].points.gte(10) && player.a.total.gte(75) }
         },
         9: {
-            requirementDescription: "15 atoms &  100 total atoms",
+            requirementDescription: "20 atoms &  150 total atoms",
             effectDescription: "gain +9% of quark gain per second (total: 10%)",
-            done() { return player["a"].points.gte(15) && player.a.total.gte(100) }
-        },
-        10: {
-            requirementDescription: "20 atoms & 150 total atoms",
-            effectDescription: "you can buy upgrades that are not on<br>the other's paths",
             done() { return player["a"].points.gte(20) && player.a.total.gte(150) }
         },
+        10: {
+            requirementDescription: "25 atoms & 200 total atoms",
+            effectDescription: "you can buy upgrades that are not on<br>the other's paths",
+            done() { return player["a"].points.gte(25) && player.a.total.gte(200) }
+        },
         11: {
-            requirementDescription: "30 atoms & 225 total atoms",
+            requirementDescription: "50 atoms & 450 total atoms",
             effectDescription: "heep hex upgrades on row 4 resets",
-            done() { return player["a"].points.gte(30) && player.a.total.gte(225) }
+            done() { return player["a"].points.gte(50) && player.a.total.gte(450) }
         },
     },
     upgrades: {
@@ -2135,6 +2161,130 @@ addLayer("a", {
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
             unlocked() {
                 if (!hasUpgrade('a', 61) && !hasUpgrade('a', 71) && !hasUpgrade('a', 72) || hasMilestone('a', 10)) return true
+            },
+        },
+    },
+});
+
+addLayer("p", {
+    name: "Prayers",
+    symbol: "P",
+    position: 1,
+    startData() { return {
+        unlocked: false,
+        points: new Decimal(0),
+        power: new Decimal(0),
+        tickTime: new Decimal(0),
+        divinity: new Decimal(0),
+    }},
+    color: "#FA99FF",
+    requires: new Decimal("1e1000"),
+    resource: "prayers",
+    baseResource: "essence",
+    baseAmount() {return player['e'].points},
+    type: "normal",
+    exponent: 0.012,
+    gainMult() {
+        mult = new Decimal(1)
+        return mult
+    },
+    gainExp() {
+        return new Decimal(1)
+    },
+    row: 1,
+    hotkeys: [
+        {key: "p", description: "P: Reset for prayers", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
+    ],
+    layerShown(){return player.a.unlocked},
+    effect() {
+        let effBase = new Decimal(0)
+        let effBoost = new Decimal(0.01)
+        if (hasMilestone("p", 1)) effBoost = effBoost.times(2)
+        if (hasUpgrade("p", 13)) effBoost = effBoost.times(upgradeEffect("p", 13))
+        effFinal = effBase.add(effBoost * player['p'].points)
+        return (Math.round(effFinal * 100) /100)
+    },
+    effectDescription() {
+        return "which are generating " + tmp.p.effect + " divinity/sec"
+    },
+    doReset(resettingLayer) {
+        let keep = [];
+            player.p.power = new Decimal(0)
+            player.p.divinity = new Decimal(0)
+            if (resettingLayer == "h") layerDataReset("p", ["points", "best", "total", "milestones"])
+            else
+                if (resettingLayer == "sp") layerDataReset("p", ["points", "best", "total", "milestones"])
+                else
+                    if (layers[resettingLayer].row > this.row) layerDataReset("p", [])
+        },
+    update(diff) {
+        player.p.divinity = player.p.divinity - (format(0 - tmp.p.effect)) * diff
+    },
+    tabFormat: [
+        "main-display",
+        "prestige-button",
+        "resource-display",
+        ["display-text",
+            function() {return 'You have ' + formatWhole(player.p.best) + ' best prayers'},
+            {}],
+        ["display-text",
+            function() {return 'You have ' + formatWhole(player.p.total) + ' total prayers'},
+            {}],
+        "blank",
+        ["display-text",
+            function() {return 'You have ' + Math.round(player.p.divinity) + ' divinity, which boosts point generation by ' + (Math.round(((player.p.divinity + 1) ** 0.1) * 100) / 100) + 'x'},
+            {}],
+        "blank",
+        "milestones",
+        "upgrades",
+    ],
+    milestones: {
+        0: {
+            requirementDescription: "1 prayer",
+            effectDescription: "hex and subatomic particle resets only reset prayer<br>upgrades out of the things in the prayer layer",
+            done() { return player["p"].points.gte(1) }
+        },
+        1: {
+            requirementDescription: "25 prayers",
+            effectDescription: "prayers generate twice as much divinity",
+            done() { return player["p"].points.gte(25) }
+        },
+    },
+    upgrades: {
+        11: {
+            title: "Prayer Influence",
+            description: "multiplies essence gain based on the amount of prayers you have",
+            cost: new Decimal(1),
+            effect() {
+                return player["p"].points.add(1).pow(0.075)
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+        },
+        12: {
+            title: "Heretic Leniency",
+            description: "multiplies hex gain by 1.02",
+            cost: new Decimal(10),
+        },
+        13: {
+            title: "Essence of Divinity",
+            description: "multiplies divinity gain based on the amount of essence you have",
+            cost: new Decimal(25),
+            effect() {
+                return player["e"].points.add(1).pow(0.0001)
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+        },
+        21: {
+            fullDisplay() { return '<font size="2">Divine Prayers</font><br>multiplies prayer gain based on the amount of divinity you have<br>Currently: ' + format(upgradeEffect(this.layer, this.id)) + 'x<br><br>Cost: 100 divinity' },
+            canAfford() {
+                if (player.p.divinity >= 100) return true
+                else return false
+            },
+            pay() {
+                player.p.divinity = Math.round(player.p.divinity) - 100
+            },
+            effect() {
+                return ((player.p.divinity + 1) ** 0.05)
             },
         },
     },

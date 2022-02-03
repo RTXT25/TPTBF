@@ -38,7 +38,13 @@ let help_data = {
 	a: {
 		id: "a",
 		title: "Atoms",
-		text: "When you unlock Atoms, you will see two tabs. The second one is the most important. It contains the upgrade tree, which is essentially, a tree of upgrades. You will have to chose between different upgrades, and you should take into account what options that will give you for the next upgrade pick. Generally, for speed, the upgrades that multiply Atom gain are the best. However, they are not always the best choice. Experiment and find out which ones best suit you! Keep going until you get the 45 total Atoms milestone, and the you will unlock a new Demon Soul challenge. After that, attempt the challenge right after doing an Atom reset. DO NOT spend your atoms. The easiest way to beat the challenge is to just save some atoms, start the challenge, then buy the upgrade. After you complete it, grind more Demon Souls, Atom milestones, and Atom upgrades until you can unlock ##############(censored information until it is released).",
+		text: "When you unlock Atoms, you will see two tabs. The second one is the most important. It contains the upgrade tree, which is essentially, a tree of upgrades. You will have to chose between different upgrades, and you should take into account what options that will give you for the next upgrade pick. Generally, for speed, the upgrades that multiply Atom gain and Subatomic Particle gain are the best. However, they are not always the best choice. Experiment and find out which ones best suit you! Keep going until you get the 45 total Atoms milestone, and the you will unlock a new Demon Soul challenge. After that, attempt the challenge right after doing an Atom reset. DO NOT spend your atoms. The easiest way to beat the challenge is to just save some atoms, start the challenge, then buy the upgrade. After you complete it, grind more Demon Souls, Atom milestones, and Atom upgrades until you can unlock Prayers.",
 		unlocked() { if (hasAchievement("A", 81)) return true },
+	},
+	p: {
+		id: "p",
+		title: "Prayers",
+		text: "On this layer, you just need to build up resources and get more prayers and prayer upgrades. Keep in mind that resetting a layer higher than it resets all prayer upgrades. (However, Hex and Subatomic Particle resets do not reset any prayer things besides prayer upgrades).",
+		unlocked() { if (hasAchievement("A", 91)) return true },
 	},
 },

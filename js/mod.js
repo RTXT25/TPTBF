@@ -10,17 +10,23 @@ let modInfo = {
 }
 
 let VERSION = {
-	num: "1.3",
-	name: "Atomic Measure",
+	num: "1.4",
+	name: "Praise the Sky",
 }
 
 let changelog = `<h1>Changelog:</h1><br>
+	<br><h3>v1.4: Praise the Sky</h3><br>
+		- Added prayers.<br>
+		- Added two milestones to prayers.<br>
+		- Added four upgrades to prayers.<br>
+		- Added three achievements.<br>
+		- Balance changes.<br>
 	<br><h3>v1.3: Atomic Measure</h3><br>
 		- Added atoms.<br>
-		- Added eleven milestones to atoms.<br>
+		- Added twelve milestones to atoms.<br>
 		- Added fourteen upgrades to atoms.<br>
 		- Added one challenge to demon souls.<br>
-		- Added five achievements.<br>
+		- Added six achievements.<br>
 		- Balance changes.<br>
 	<br><h3>v1.2: Demon Gateway</h3><br>
 		- Added demonic gateway.<br>
@@ -131,6 +137,7 @@ function getPointGen() {
 		if (hasUpgrade('sp', 13)) mult = mult.times(1953125)
 	if (getBuyableAmount('sp', 12) >= 0.1 && getBuyableAmount('sp', 12) < 9) gain = gain.times(((getBuyableAmount('sp', 12) * 1) + 1) ** -1)
 	if (getBuyableAmount('sp', 12) >= 9) gain = gain.times(0.1)
+	gain = gain.times((player.p.divinity + 1) ** 0.1)
 	if (hasUpgrade('e', 11)) gain = gain.times(1.5)
 	if (!hasUpgrade('ds', 24)) gain = gain.times(Math.round(100 * (player.A.achievements.length * 0.1 + 1)) / 100)
 	if (hasUpgrade('ds', 24)) gain = gain.times(Math.round(100 * (player.A.achievements.length * 0.2)) / 100)
@@ -162,9 +169,8 @@ var backgroundStyle = {
 
 }
 
-// You can change this if you have things that can be messed up by long tick lengths
 function maxTickLength() {
-	return(3600) // Default is 1 hour which is just arbitrarily large
+	return(1)
 }
 
 // Use this if you need to undo inflation from an older version. If the version is older than the version that fixed the issue,
