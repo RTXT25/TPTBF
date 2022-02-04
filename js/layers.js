@@ -20,16 +20,16 @@ addLayer("A", {
             function() { if (hasUpgrade("ds", 21) && !hasUpgrade("ds", 24)) return 'and also multiplying essence gain by ' + (Math.round(100 * (player.A.achievements.length * 0.2)) / 100) + 'x' },
             { "color": "white", "font-size": "16px", "font-family": "Lucida Console" }],
         ["display-text",
-            function() { if (hasUpgrade('ds', 24)) return 'You have ' + player.A.achievements.length + ' achievements,<br>which are multiplying your point and essence gain by ' + (Math.round(100 * (player.A.achievements.length * 0.2)) / 100) + 'x' },
+            function() { if (hasUpgrade("ds", 21) && hasUpgrade('ds', 24)) return 'You have ' + player.A.achievements.length + ' achievements,<br>which are multiplying your point and essence gain by ' + (Math.round(100 * (player.A.achievements.length * 0.2)) / 100) + 'x' },
             { "color": "white", "font-size": "16px", "font-family": "Lucida Console" }],
         ["display-text",
-            function() { if (hasUpgrade("ds", 23) && !hasUpgrade("ds", 24) && !hasUpgrade("p", 31)) return 'addtionally, also multiplying core and quark gain by ' + (Math.round(100 * (player.A.achievements.length ** 2)) / 10000) + 'x' },
+            function() { if (hasUpgrade("ds", 21) && hasUpgrade("ds", 23) && !hasUpgrade("ds", 24) && !hasUpgrade("p", 31)) return 'addtionally, also multiplying core and quark gain by ' + (Math.round(100 * (player.A.achievements.length ** 2)) / 10000) + 'x' },
             { "color": "white", "font-size": "16px", "font-family": "Lucida Console" }],
         ["display-text",
-            function() { if (hasUpgrade("ds", 23) && hasUpgrade("ds", 24) && !hasUpgrade("p", 31)) return 'and also multiplying core and quark gain by ' + (Math.round(100 * (player.A.achievements.length ** 2)) / 10000) + 'x' },
+            function() { if (hasUpgrade("ds", 21) && hasUpgrade("ds", 23) && hasUpgrade("ds", 24) && !hasUpgrade("p", 31)) return 'and also multiplying core and quark gain by ' + (Math.round(100 * (player.A.achievements.length ** 2)) / 10000) + 'x' },
             { "color": "white", "font-size": "16px", "font-family": "Lucida Console" }],
         ["display-text",
-            function() { if (hasUpgrade("ds", 23) && hasUpgrade("ds", 24) && hasUpgrade("p", 31)) return 'and also multiplying core, prayer, and quark gain by ' + (Math.round(100 * (player.A.achievements.length ** 2)) / 10000) + 'x' },
+            function() { if (hasUpgrade("ds", 21) && hasUpgrade("ds", 23) && hasUpgrade("ds", 24) && hasUpgrade("p", 31)) return 'and also multiplying core, prayer, and quark gain by ' + (Math.round(100 * (player.A.achievements.length ** 2)) / 10000) + 'x' },
             { "color": "white", "font-size": "16px", "font-family": "Lucida Console" }],
         ["display-text",
             function() { if (hasUpgrade('a', 51)) return 'additionally, also multiplying subatomic particle gain by ' + (Math.round(100 * (player.A.achievements.length ** 1.25)) / 100) + 'x' },
@@ -574,7 +574,7 @@ addLayer("c", {
         if (hasUpgrade('h', 24)) mult = mult.times(3)
         if (getBuyableAmount('e', 12) >= 0.1 && getBuyableAmount('e', 12) < 99) mult = mult.times((getBuyableAmount('e', 12) * 1) + 1)
         if (getBuyableAmount('e', 12) >= 99) mult = mult.times(100)
-        if (hasUpgrade('ds', 23)) mult = mult.times(Math.round(100 * (player.A.achievements.length ** 2)) / 10000)
+        if (hasUpgrade('ds', 21) && hasUpgrade('ds', 23)) mult = mult.times(Math.round(100 * (player.A.achievements.length ** 2)) / 10000)
         if (inChallenge('ds', 11)) mult = mult.times(0.01)
         if (inChallenge('ds', 21)) mult = mult.times(0.000000000000001)
         return mult
@@ -823,7 +823,7 @@ addLayer("q", {
             if (hasUpgrade('sp', 11)) mult = mult.times(1953125)
         if (getBuyableAmount('sp', 21) >= 0.1 && getBuyableAmount('sp', 21) < 9) mult = mult.times(((getBuyableAmount('sp', 21) * 1) + 1) ** -1)
         if (getBuyableAmount('sp', 21) >= 9) mult = mult.times(0.1)
-        if (hasUpgrade('ds', 23)) mult = mult.times(Math.round(100 * (player.A.achievements.length ** 2)) / 10000)
+        if (hasUpgrade('ds', 21) && hasUpgrade('ds', 23)) mult = mult.times(Math.round(100 * (player.A.achievements.length ** 2)) / 10000)
         if (inChallenge('ds', 11)) mult = mult.times(0.1)
         if (inChallenge('ds', 22)) mult = mult.times(0.0000000000000000000000000000000000000001)
         return mult
@@ -1742,13 +1742,13 @@ addLayer("ds", {
         },
         23: {
             title: "Trophy of Glory",
-            description: "achievements also multiply core and quark gain",
+            description: "achievements also multiply core and quark gain if you have Hall of Fame",
             cost: new Decimal(2500000),
             unlocked() { return hasUpgrade("ds", 11) && hasUpgrade("ds", 12) && hasUpgrade("ds", 21) }
         },
         24: {
             title: "Buried History",
-            description: "achievements boosting point gain uses a better formula",
+            description: "achievements boosting point gain uses a better formula if you have Hall of Fame",
             cost: new Decimal(1.11e11),
             unlocked() { return hasUpgrade("ds", 11) && hasUpgrade("ds", 12) && hasUpgrade("ds", 23) }
         },
@@ -2205,8 +2205,9 @@ addLayer("p", {
     gainMult() {
         mult = new Decimal(1)
         if (hasUpgrade('p', 21)) mult = mult.times(upgradeEffect('p', 21))
-        if (hasUpgrade('p', 31)) mult = mult.times(Math.round(100 * (player.A.achievements.length ** 2)) / 10000)
-        if (hasUpgrade('p', 41)) mult = mult.times(Math.round(player.p.hynm))
+        if (hasUpgrade('p', 31) && hasUpgrade('ds', 21) && hasUpgrade('ds', 23) && hasUpgrade('ds', 24)) mult = mult.times(Math.round(100 * (player.A.achievements.length ** 2)) / 10000)
+        if (hasUpgrade('p', 41) && !hasUpgrade('p', 43)) mult = mult.times(Math.round((Math.round(player.p.hynm) + 1) ** 0.2))
+        if (hasUpgrade('p', 41) && hasUpgrade('p', 43)) mult = mult.times(((Math.round(player.p.hynm) + 1) ** 0.2) * (Math.round(player.p.hynm) + 1) ** 0.02)
         return mult
     },
     gainExp() {
@@ -2222,13 +2223,14 @@ addLayer("p", {
         let effBoost = new Decimal(0.01)
         if (hasMilestone('p', 1)) effBoost = effBoost.times(2)
         if (hasUpgrade('p', 13)) effBoost = effBoost.times(upgradeEffect('p', 13))
-        if (hasUpgrade('p', 32)) effBoost = effBoost.times((player.p.holiness + 1) ** 0.02)
+        if (hasUpgrade('p', 32)) effBoost = effBoost.times((player.p.holiness + 1) ** 0.025)
         if (hasUpgrade('p', 33)) effBoost = effBoost.times((player.p.divinity + 1) ** 0.025)
+        if (hasUpgrade('p', 42)) effBoost = effBoost.times((Math.round(player.p.hynm) + 1) ** 0.05)
         effFinal = effBase.add(effBoost * player['p'].points)
         return (Math.round(effFinal * 100) /100)
     },
     effectDescription() {
-        return "which are generating " + tmp.p.effect + " divinity/sec"
+        return "which are generating " + new Decimal(tmp.p.effect) + " divinity/sec"
     },
     doReset(resettingLayer) {
         let keep = [];
@@ -2241,13 +2243,15 @@ addLayer("p", {
             else
                 if (resettingLayer == "sp") layerDataReset("p", ["points", "best", "total", "milestones"]), player.p.holiness = new Decimal(0)
                 else
-                    if (layers[resettingLayer].row > this.row) layerDataReset("p", []), player.p.holiness = new Decimal(0)
+                    if (layers[resettingLayer].row > this.row) layerDataReset("p", [])
             if (hasUpgrade('p', 22) && !hasUpgrade('p', 23) && resettingLayer == "p") player.p.holiness = new Decimal(holyAdd + divineEq / 25)
             else
                 if (hasUpgrade('p', 22) && hasUpgrade('p', 23) && resettingLayer == "p") player.p.holiness = new Decimal(holyAdd + divineEq / 20)
                 else player.p.holiness = new Decimal(holyAdd)
-            if (hasUpgrade('p', 41) && resettingLayer == "p") player.p.hynm = new Decimal(hynmAdd + player.p.holiness / 1000)
+            if (hasUpgrade('p', 41) && resettingLayer == "p") player.p.hynm = new Decimal(hynmAdd + player.p.holiness / 215)
             else player.p.hynm = new Decimal(hynmAdd)
+            if (layers[resettingLayer].row > this.row) player.p.holiness = new Decimal(0)
+            if (layers[resettingLayer].row > this.row) player.p.hynm = new Decimal(0)
         },
     update(diff) {
         player.p.divinity = new Decimal(player.p.divinity - (0 - tmp.p.effect) * diff)
@@ -2270,7 +2274,10 @@ addLayer("p", {
             function() {if (hasUpgrade('p', 22)) return 'You have ' + new Decimal(Math.round(player.p.holiness * 100) / 100) + ' holiness, which boosts essence gain by ' + format((Math.round(((player.p.holiness + 1) ** 0.05) * 100) / 100) + 0.5) + 'x'},
             {}],
         ["display-text",
-            function() {if (hasUpgrade('p', 41)) return 'You have ' + new Decimal(Math.round(player.p.hynm)) + ' hynms, which boosts prayer gain by ' + format((Math.round(player.p.hynm) + 1) ** 0.2) + 'x'},
+            function() {if (hasUpgrade('p', 41) && !hasUpgrade('p', 43)) return 'You have ' + new Decimal(Math.round(player.p.hynm)) + ' hynms, which boosts prayer gain by ' + format((Math.round(player.p.hynm) + 1) ** 0.2) + 'x'},
+            {}],
+        ["display-text",
+            function() {if (hasUpgrade('p', 41) && hasUpgrade('p', 43)) return 'You have ' + new Decimal(Math.round(player.p.hynm)) + ' hynms, which boosts prayer gain by ' + format(((Math.round(player.p.hynm) + 1) ** 0.2) * (Math.round(player.p.hynm) + 1) ** 0.02) + 'x'},
             {}],
         "blank",
         "milestones",
@@ -2344,6 +2351,7 @@ addLayer("p", {
             pay() {
                 player.p.holiness = Math.round(player.p.holiness) - 25
             },
+            unlocked() { if (hasUpgrade('p', 22)) return true },
         },
         31: {
             fullDisplay() { return '<font size="2">Church Relics</font><br>achievements also multiply prayer gain if you have all subsequent achievement upgrades<br><br>Cost: 200 divinity,<br>50 holiness' },
@@ -2355,6 +2363,8 @@ addLayer("p", {
                 player.p.divinity = Math.round(player.p.divinity) - 200
                 player.p.holiness = Math.round(player.p.holiness) - 50
             },
+            unlocked() { if (hasUpgrade('p', 22)) return true },
+
         },
         32: {
             fullDisplay() { return '<font size="2">Divine Synergy</font><br>multiplies divinity gain based on the amount of holiness you have<br>Currently: ' + format(upgradeEffect(this.layer, this.id)) + 'x<br><br>Cost: 2,000 divinity' },
@@ -2366,28 +2376,60 @@ addLayer("p", {
                 player.p.divinity = Math.round(player.p.divinity) - 2000
             },
             effect() {
-                return ((player.p.holiness + 1) ** 0.02)
+                return ((player.p.holiness + 1) ** 0.025)
             },
+            unlocked() { if (hasUpgrade('p', 22)) return true },
         },
         33: {
             title: "Divine Recursion",
             description: "multiplies divinity gain based on the amount of divinity you have",
-            cost: new Decimal(2000),
+            cost: new Decimal(1500),
             effect() {
-                return ((player.p.divinity + 1) ** 0.025)
+                return ((player.p.divinity + 1) ** 0.05)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
         },
         41: {
-            fullDisplay() { return '<font size="2">Written Hynms</font><br>unlocks hynms<br><br>Cost: 10,000 divinity, 2,000 holiness' },
+            fullDisplay() { return '<font size="2">Written Hynms</font><br>unlocks hynms<br><br>Cost: 2,500 divinity,<br>500 holiness' },
             canAfford() {
-                if (player.p.divinity >= 10000 && player.p.holiness >= 2000) return true
+                if (player.p.divinity >= 2500 && player.p.holiness >= 500) return true
                 else return false
             },
             pay() {
-                player.p.divinity = Math.round(player.p.divinity) - 10000
-                player.p.holiness = Math.round(player.p.holiness) - 2000
+                player.p.divinity = Math.round(player.p.divinity) - 2500
+                player.p.holiness = Math.round(player.p.holiness) - 500
             },
+            unlocked() { if (hasUpgrade('p', 22)) return true },
+        },
+        42: {
+            fullDisplay() { return '<font size="2">Divine Hynms</font><br>multiplies divinity gain based on the amount of hynms you have<br>Currently: ' + format(upgradeEffect(this.layer, this.id)) + 'x<br><br>Cost: 1,000 holiness, 75 hynms' },
+            canAfford() {
+                if (player.p.holiness >= 1000 && player.p.hynm >= 75) return true
+                else return false
+            },
+            pay() {
+                player.p.holiness = Math.round(player.p.holiness) - 1000
+                player.p.hynm = Math.round(player.p.hynm) - 75
+            },
+            effect() {
+                return ((Math.round(player.p.hynm) + 1) ** 0.05)
+            },
+            unlocked() { if (hasUpgrade('p', 41)) return true },
+        },
+        43: {
+            fullDisplay() { return '<font size="2">Hynm Singing</font><br>multiplies the hynm effect based on amount of hynms you have<br>Currently: ' + format(upgradeEffect(this.layer, this.id)) + 'x<br><br>Cost: 5,000 holiness, 250 hynms' },
+            canAfford() {
+                if (player.p.holiness >= 5000 && player.p.hynm >= 250) return true
+                else return false
+            },
+            pay() {
+                player.p.holiness = Math.round(player.p.holiness) - 5000
+                player.p.hynm = Math.round(player.p.hynm) - 250
+            },
+            effect() {
+                return ((Math.round(player.p.hynm) + 1) ** 0.02)
+            },
+            unlocked() { if (hasUpgrade('p', 41)) return true },
         },
     },
 });

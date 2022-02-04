@@ -19,7 +19,7 @@ let changelog = `<h1>Changelog:</h1><br>
 		- Added prayers.<br>
 		- Added two milestones to prayers.<br>
 		- Added one milestone to atoms.<br>
-		- Added nine upgrades to prayers.<br>
+		- Added twelve upgrades to prayers.<br>
 		- Added four achievements.<br>
 		- Balance changes.<br>
 	<br><h3>v1.3: Atomic Measure</h3><br>
@@ -138,10 +138,11 @@ function getPointGen() {
 		if (hasUpgrade('sp', 13)) mult = mult.times(1953125)
 	if (getBuyableAmount('sp', 12) >= 0.1 && getBuyableAmount('sp', 12) < 9) gain = gain.times(((getBuyableAmount('sp', 12) * 1) + 1) ** -1)
 	if (getBuyableAmount('sp', 12) >= 9) gain = gain.times(0.1)
-	gain = gain.times((player.p.divinity + 1) ** 0.1)
+	if (hasMilestone('p', 1)) gain = gain.times((player.p.divinity + 1) ** 0.1)
 	if (hasUpgrade('e', 11)) gain = gain.times(1.5)
 	if (!hasUpgrade('ds', 24)) gain = gain.times(Math.round(100 * (player.A.achievements.length * 0.1 + 1)) / 100)
-	if (hasUpgrade('ds', 24)) gain = gain.times(Math.round(100 * (player.A.achievements.length * 0.2)) / 100)
+	if (!hasUpgrade('ds', 21) && hasUpgrade('ds', 24)) gain = gain.times(Math.round(100 * (player.A.achievements.length * 0.1 + 1)) / 100)
+	if (hasUpgrade('ds', 21) && hasUpgrade('ds', 24)) gain = gain.times(Math.round(100 * (player.A.achievements.length * 0.2)) / 100)
 	if (inChallenge('ds', 11)) gain = gain.times(0.0001)
 	if (inChallenge('ds', 12)) gain = gain.times(0.000001)
 	if (inChallenge('ds', 21)) gain = gain.times(0.0000000001)
