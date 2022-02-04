@@ -2193,7 +2193,7 @@ addLayer("p", {
         tickTime: new Decimal(0),
         divinity: new Decimal(0),
         holiness: new Decimal(0),
-        hynm: new Decimal(0),
+        hymn: new Decimal(0),
     }},
     color: "#FA99FF",
     requires: new Decimal("1e1000"),
@@ -2206,8 +2206,8 @@ addLayer("p", {
         mult = new Decimal(1)
         if (hasUpgrade('p', 21)) mult = mult.times(upgradeEffect('p', 21))
         if (hasUpgrade('p', 31) && hasUpgrade('ds', 21) && hasUpgrade('ds', 23) && hasUpgrade('ds', 24)) mult = mult.times(Math.round(100 * (player.A.achievements.length ** 2)) / 10000)
-        if (hasUpgrade('p', 41) && !hasUpgrade('p', 43)) mult = mult.times(Math.round((Math.round(player.p.hynm) + 1) ** 0.2))
-        if (hasUpgrade('p', 41) && hasUpgrade('p', 43)) mult = mult.times(((Math.round(player.p.hynm) + 1) ** 0.2) * (Math.round(player.p.hynm) + 1) ** 0.02)
+        if (hasUpgrade('p', 41) && !hasUpgrade('p', 43)) mult = mult.times(Math.round((Math.round(player.p.hymn) + 1) ** 0.2))
+        if (hasUpgrade('p', 41) && hasUpgrade('p', 43)) mult = mult.times(((Math.round(player.p.hymn) + 1) ** 0.2) * (Math.round(player.p.hymn) + 1) ** 0.1)
         return mult
     },
     gainExp() {
@@ -2221,12 +2221,14 @@ addLayer("p", {
     effect() {
         let effBase = new Decimal(0)
         let effBoost = new Decimal(0.01)
+        let effEx = new Decimal(1)
         if (hasMilestone('p', 1)) effBoost = effBoost.times(2)
         if (hasUpgrade('p', 13)) effBoost = effBoost.times(upgradeEffect('p', 13))
         if (hasUpgrade('p', 32)) effBoost = effBoost.times((player.p.holiness + 1) ** 0.025)
         if (hasUpgrade('p', 33)) effBoost = effBoost.times((player.p.divinity + 1) ** 0.025)
-        if (hasUpgrade('p', 42)) effBoost = effBoost.times((Math.round(player.p.hynm) + 1) ** 0.05)
-        effFinal = effBase.add(effBoost * player['p'].points)
+        if (hasUpgrade('p', 42)) effBoost = effBoost.times((Math.round(player.p.hymn) + 1) ** 0.05)
+        if (hasMilestone('p', 2)) effEx = new Decimal(2)
+        effFinal = effBase.add((effBoost * player['p'].points) ** effEx)
         return (Math.round(effFinal * 100) /100)
     },
     effectDescription() {
@@ -2236,7 +2238,7 @@ addLayer("p", {
         let keep = [];
         let divineEq = (Math.round(player.p.divinity * 100) / 100);
         let holyAdd = (Math.round(player.p.holiness * 100) / 100);
-        let hynmAdd = (Math.round(player.p.hynm));
+        let hymnAdd = (Math.round(player.p.hymn));
             player.p.divinity = new Decimal(0)
             player.p.power = new Decimal(0)
             if (resettingLayer == "h") layerDataReset("p", ["points", "best", "total", "milestones"]), player.p.holiness = new Decimal(0)
@@ -2248,10 +2250,10 @@ addLayer("p", {
             else
                 if (hasUpgrade('p', 22) && hasUpgrade('p', 23) && resettingLayer == "p") player.p.holiness = new Decimal(holyAdd + divineEq / 20)
                 else player.p.holiness = new Decimal(holyAdd)
-            if (hasUpgrade('p', 41) && resettingLayer == "p") player.p.hynm = new Decimal(hynmAdd + player.p.holiness / 215)
-            else player.p.hynm = new Decimal(hynmAdd)
+            if (hasUpgrade('p', 41) && resettingLayer == "p") player.p.hymn = new Decimal(hymnAdd + player.p.holiness / 215)
+            else player.p.hymn = new Decimal(hymnAdd)
             if (layers[resettingLayer].row > this.row) player.p.holiness = new Decimal(0)
-            if (layers[resettingLayer].row > this.row) player.p.hynm = new Decimal(0)
+            if (layers[resettingLayer].row > this.row) player.p.hymn = new Decimal(0)
         },
     update(diff) {
         player.p.divinity = new Decimal(player.p.divinity - (0 - tmp.p.effect) * diff)
@@ -2274,10 +2276,10 @@ addLayer("p", {
             function() {if (hasUpgrade('p', 22)) return 'You have ' + new Decimal(Math.round(player.p.holiness * 100) / 100) + ' holiness, which boosts essence gain by ' + format((Math.round(((player.p.holiness + 1) ** 0.05) * 100) / 100) + 0.5) + 'x'},
             {}],
         ["display-text",
-            function() {if (hasUpgrade('p', 41) && !hasUpgrade('p', 43)) return 'You have ' + new Decimal(Math.round(player.p.hynm)) + ' hynms, which boosts prayer gain by ' + format((Math.round(player.p.hynm) + 1) ** 0.2) + 'x'},
+            function() {if (hasUpgrade('p', 41) && !hasUpgrade('p', 43)) return 'You have ' + new Decimal(Math.round(player.p.hymn)) + ' hymns, which boosts prayer gain by ' + format((Math.round(player.p.hymn) + 1) ** 0.2) + 'x'},
             {}],
         ["display-text",
-            function() {if (hasUpgrade('p', 41) && hasUpgrade('p', 43)) return 'You have ' + new Decimal(Math.round(player.p.hynm)) + ' hynms, which boosts prayer gain by ' + format(((Math.round(player.p.hynm) + 1) ** 0.2) * (Math.round(player.p.hynm) + 1) ** 0.02) + 'x'},
+            function() {if (hasUpgrade('p', 41) && hasUpgrade('p', 43)) return 'You have ' + new Decimal(Math.round(player.p.hymn)) + ' hymns, which boosts prayer gain by ' + format(((Math.round(player.p.hymn) + 1) ** 0.2) * (Math.round(player.p.hymn) + 1) ** 0.1) + 'x'},
             {}],
         "blank",
         "milestones",
@@ -2293,6 +2295,11 @@ addLayer("p", {
             requirementDescription: "25 prayers",
             effectDescription: "prayers generate twice as much divinity",
             done() { return player["p"].points.gte(25) }
+        },
+        2: {
+            requirementDescription: "25,000 prayers",
+            effectDescription: "divinity gain is squared",
+            done() { return player["p"].points.gte(25000) }
         },
     },
     upgrades: {
@@ -2390,7 +2397,7 @@ addLayer("p", {
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
         },
         41: {
-            fullDisplay() { return '<font size="2">Written Hynms</font><br>unlocks hynms<br><br>Cost: 2,500 divinity,<br>500 holiness' },
+            fullDisplay() { return '<font size="2">Written hymns</font><br>unlocks hymns<br><br>Cost: 2,500 divinity,<br>500 holiness' },
             canAfford() {
                 if (player.p.divinity >= 2500 && player.p.holiness >= 500) return true
                 else return false
@@ -2402,32 +2409,32 @@ addLayer("p", {
             unlocked() { if (hasUpgrade('p', 22)) return true },
         },
         42: {
-            fullDisplay() { return '<font size="2">Divine Hynms</font><br>multiplies divinity gain based on the amount of hynms you have<br>Currently: ' + format(upgradeEffect(this.layer, this.id)) + 'x<br><br>Cost: 1,000 holiness, 75 hynms' },
+            fullDisplay() { return '<font size="2">Divine hymns</font><br>multiplies divinity gain based on the amount of hymns you have<br>Currently: ' + format(upgradeEffect(this.layer, this.id)) + 'x<br><br>Cost: 1,000 holiness, 75 hymns' },
             canAfford() {
-                if (player.p.holiness >= 1000 && player.p.hynm >= 75) return true
+                if (player.p.holiness >= 1000 && player.p.hymn >= 75) return true
                 else return false
             },
             pay() {
                 player.p.holiness = Math.round(player.p.holiness) - 1000
-                player.p.hynm = Math.round(player.p.hynm) - 75
+                player.p.hymn = Math.round(player.p.hymn) - 75
             },
             effect() {
-                return ((Math.round(player.p.hynm) + 1) ** 0.05)
+                return ((Math.round(player.p.hymn) + 1) ** 0.05)
             },
             unlocked() { if (hasUpgrade('p', 41)) return true },
         },
         43: {
-            fullDisplay() { return '<font size="2">Hynm Singing</font><br>multiplies the hynm effect based on amount of hynms you have<br>Currently: ' + format(upgradeEffect(this.layer, this.id)) + 'x<br><br>Cost: 5,000 holiness, 250 hynms' },
+            fullDisplay() { return '<font size="2">Hymn Singing</font><br>multiplies the hymn effect based on amount of hymns you have<br>Currently: ' + format(upgradeEffect(this.layer, this.id)) + 'x<br><br>Cost: 5,000 holiness, 250 hymns' },
             canAfford() {
-                if (player.p.holiness >= 5000 && player.p.hynm >= 250) return true
+                if (player.p.holiness >= 5000 && player.p.hymn >= 250) return true
                 else return false
             },
             pay() {
                 player.p.holiness = Math.round(player.p.holiness) - 5000
-                player.p.hynm = Math.round(player.p.hynm) - 250
+                player.p.hymn = Math.round(player.p.hymn) - 250
             },
             effect() {
-                return ((Math.round(player.p.hynm) + 1) ** 0.02)
+                return ((Math.round(player.p.hymn) + 1) ** 0.1)
             },
             unlocked() { if (hasUpgrade('p', 41)) return true },
         },
