@@ -19,7 +19,7 @@ let changelog = `<h1>Changelog:</h1><br>
 		- Added prayers.<br>
 		- Added two milestones to prayers.<br>
 		- Added one milestone to atoms.<br>
-		- Added seven upgrades to prayers.<br>
+		- Added nine upgrades to prayers.<br>
 		- Added four achievements.<br>
 		- Balance changes.<br>
 	<br><h3>v1.3: Atomic Measure</h3><br>

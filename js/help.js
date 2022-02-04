@@ -44,7 +44,7 @@ let help_data = {
 	p: {
 		id: "p",
 		title: "Prayers",
-		text: "On this layer, you just need to build up resources and get more prayers and prayer upgrades. Keep in mind that resetting a layer higher than it resets all prayer upgrades. (However, Hex and Subatomic Particle resets do not reset any prayer things besides prayer upgrades).",
+		text: "On this layer, you just need to build up resources and get more prayers and prayer upgrades. Keep in mind that resetting a layer higher than it resets all prayer upgrades. (However, Hex and Subatomic Particle resets do not reset any prayer things besides prayer upgrades). Keep in mind that prayer resets also reset divinity. Once you unlock holiness, make sure to build it up (it resets if the resetting layer is higher that prayers) so you can buy Holy Channeling and Church Relics. After that, your prayer gain will be greatly boosted, so you can build up some more resources. Just keep buyimg more upgrades, and eventually you will be able to unlock the next layer.",
 		unlocked() { if (hasAchievement("A", 91)) return true },
 	},
 },
