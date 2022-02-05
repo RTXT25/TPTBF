@@ -2226,7 +2226,7 @@ addLayer("p", {
         if (hasUpgrade('p', 13)) effBoost = effBoost.times(upgradeEffect('p', 13))
         if (hasUpgrade('p', 32)) effBoost = effBoost.times((player.p.holiness + 1) ** 0.025)
         if (hasUpgrade('p', 33)) effBoost = effBoost.times((player.p.divinity + 1) ** 0.025)
-        if (hasUpgrade('p', 42)) effBoost = effBoost.times((Math.round(player.p.hymn) + 1) ** 0.05)
+        if (hasUpgrade('p', 42)) effBoost = effBoost.times((Math.round(player.p.hymn) + 1) ** 0.075)
         if (hasMilestone('p', 2)) effEx = new Decimal(2)
         if (hasUpgrade('p', 51)) effBoost = effBoost.times((Math.round(player.p.hymn) + 1) ** 0.1)
         effFinal = effBase.add((effBoost * player['p'].points) ** effEx)
@@ -2298,9 +2298,9 @@ addLayer("p", {
             done() { return player["p"].points.gte(25) }
         },
         2: {
-            requirementDescription: "20,000 prayers",
+            requirementDescription: "15,000 prayers",
             effectDescription: "divinity gain is squared",
-            done() { return player["p"].points.gte(20000) }
+            done() { return player["p"].points.gte(15000) }
         },
     },
     upgrades: {
@@ -2362,26 +2362,26 @@ addLayer("p", {
             unlocked() { if (hasUpgrade('p', 22)) return true },
         },
         31: {
-            fullDisplay() { return '<font size="2">Church Relics</font><br>achievements also multiply prayer gain if you have all subsequent achievement upgrades<br><br>Cost: 200 divinity,<br>50 holiness' },
+            fullDisplay() { return '<font size="2">Church Relics</font><br>achievements also multiply prayer gain if you have all subsequent achievement upgrades<br><br>Cost: 200 divinity,<br>45 holiness' },
             canAfford() {
-                if (player.p.divinity >= 200 && player.p.holiness >= 50) return true
+                if (player.p.divinity >= 200 && player.p.holiness >= 45) return true
                 else return false
             },
             pay() {
                 player.p.divinity = Math.round(player.p.divinity) - 200
-                player.p.holiness = Math.round(player.p.holiness) - 50
+                player.p.holiness = Math.round(player.p.holiness) - 45
             },
             unlocked() { if (hasUpgrade('p', 22)) return true },
 
         },
         32: {
-            fullDisplay() { return '<font size="2">Divine Synergy</font><br>multiplies divinity gain based on the amount of holiness you have<br>Currently: ' + format(upgradeEffect(this.layer, this.id)) + 'x<br><br>Cost: 2,000 divinity,<br>50 holiness' },
+            fullDisplay() { return '<font size="2">Divine Synergy</font><br>multiplies divinity gain based on the amount of holiness you have<br>Currently: ' + format(upgradeEffect(this.layer, this.id)) + 'x<br><br>Cost: 1,500 divinity,<br>50 holiness' },
             canAfford() {
-                if (player.p.divinity >= 2000 && player.p.holiness >= 50) return true
+                if (player.p.divinity >= 1500 && player.p.holiness >= 50) return true
                 else return false
             },
             pay() {
-                player.p.divinity = Math.round(player.p.divinity) - 2000
+                player.p.divinity = Math.round(player.p.divinity) - 1500
                 player.p.holiness = Math.round(player.p.holiness) - 50
             },
             effect() {
@@ -2399,14 +2399,14 @@ addLayer("p", {
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
         },
         41: {
-            fullDisplay() { return '<font size="2">Written hymns</font><br>unlocks hymns<br><br>Cost: 2,500 divinity,<br>500 holiness' },
+            fullDisplay() { return '<font size="2">Written hymns</font><br>unlocks hymns<br><br>Cost: 2,500 divinity,<br>450 holiness' },
             canAfford() {
-                if (player.p.divinity >= 2500 && player.p.holiness >= 500) return true
+                if (player.p.divinity >= 2500 && player.p.holiness >= 450) return true
                 else return false
             },
             pay() {
                 player.p.divinity = Math.round(player.p.divinity) - 2500
-                player.p.holiness = Math.round(player.p.holiness) - 500
+                player.p.holiness = Math.round(player.p.holiness) - 450
             },
             unlocked() { if (hasUpgrade('p', 22)) return true },
         },
@@ -2421,7 +2421,7 @@ addLayer("p", {
                 player.p.hymn = Math.round(player.p.hymn) - 75
             },
             effect() {
-                return ((Math.round(player.p.hymn) + 1) ** 0.05)
+                return ((Math.round(player.p.hymn) + 1) ** 0.075)
             },
             unlocked() { if (hasUpgrade('p', 41)) return true },
         },
