@@ -2190,7 +2190,6 @@ addLayer("p", {
         unlocked: false,
         points: new Decimal(0),
         power: new Decimal(0),
-        tickTime: new Decimal(0),
         divinity: new Decimal(0),
         holiness: new Decimal(0),
         hymn: new Decimal(0),
@@ -2219,7 +2218,6 @@ addLayer("p", {
     ],
     layerShown(){return player.a.unlocked},
     effect() {
-        let effBase = new Decimal(0)
         let effBoost = new Decimal(0.01)
         let effEx = new Decimal(1)
         if (hasMilestone('p', 1)) effBoost = effBoost.times(2)
@@ -2229,17 +2227,18 @@ addLayer("p", {
         if (hasUpgrade('p', 42)) effBoost = effBoost.times((Math.round(player.p.hymn) + 1) ** 0.075)
         if (hasMilestone('p', 2)) effEx = new Decimal(2)
         if (hasUpgrade('p', 51)) effBoost = effBoost.times((Math.round(player.p.hymn) + 1) ** 0.1)
-        effFinal = effBase.add((effBoost * player['p'].points) ** effEx)
+        effFinal = new Decimal((effBoost * player['p'].points) ** effEx)
         return new Decimal(Math.round(effFinal * 100) /100)
     },
     effectDescription() {
-        return "which are generating " + new Decimal(tmp.p.effect) + " divinity/sec"
+        if (tmp.p.effect >= 1000000) return "which are generating " + new Decimal(tmp.p.effect) + " divinity/sec"
+        else return "which are generating " + new Decimal(Math.round(tmp.p.effect)) + " divinity/sec"
     },
     doReset(resettingLayer) {
         let keep = [];
-        let divineEq = (Math.round(player.p.divinity * 100) / 100);
-        let holyAdd = (Math.round(player.p.holiness * 100) / 100);
-        let hymnAdd = (Math.round(player.p.hymn));
+        let divineEq = new Decimal(Math.round(player.p.divinity * 100) / 100);
+        let holyAdd = new Decimal(Math.round(player.p.holiness * 100) / 100);
+        let hymnAdd = new Decimal(Math.round(player.p.hymn));
             player.p.divinity = new Decimal(0)
             player.p.power = new Decimal(0)
             if (resettingLayer == "h") layerDataReset("p", ["points", "best", "total", "milestones"]), player.p.holiness = new Decimal(0)
@@ -2257,7 +2256,7 @@ addLayer("p", {
             if (layers[resettingLayer].row > this.row) player.p.hymn = new Decimal(0)
         },
     update(diff) {
-        player.p.divinity = new Decimal(player.p.divinity - (0 - tmp.p.effect) * diff)
+        player.p.divinity = new Decimal(new Decimal(player.p.divinity) - (0 - tmp.p.effect) * diff)
     },
     tabFormat: [
         "main-display",
@@ -2271,16 +2270,16 @@ addLayer("p", {
             {}],
         "blank",
         ["display-text",
-            function() {return 'You have ' + new Decimal(Math.round(player.p.divinity * 100) / 100) + ' divinity, which boosts point generation by ' + format(Math.round(((player.p.divinity + 5) ** 0.1) * 100) / 100) + 'x'},
+            function() {return 'You have ' + new Decimal(Math.round(player.p.divinity * 100) / 100) + ' divinity, which boosts point generation by ' + new Decimal(Math.round(((player.p.divinity + 5) ** 0.1) * 100) / 100) + 'x'},
             {}],
         ["display-text",
-            function() {if (hasUpgrade('p', 22)) return 'You have ' + new Decimal(Math.round(player.p.holiness * 100) / 100) + ' holiness, which boosts essence gain by ' + format((Math.round(((player.p.holiness + 1) ** 0.05) * 100) / 100) + 0.5) + 'x'},
+            function() {if (hasUpgrade('p', 22)) return 'You have ' + new Decimal(Math.round(player.p.holiness * 100) / 100) + ' holiness, which boosts essence gain by ' + new Decimal((Math.round(((player.p.holiness + 1) ** 0.05) * 100) / 100) + 0.5) + 'x'},
             {}],
         ["display-text",
-            function() {if (hasUpgrade('p', 41) && !hasUpgrade('p', 43)) return 'You have ' + new Decimal(Math.round(player.p.hymn)) + ' hymns, which boosts prayer gain by ' + format((Math.round(player.p.hymn) + 1) ** 0.2) + 'x'},
+            function() {if (hasUpgrade('p', 41) && !hasUpgrade('p', 43)) return 'You have ' + new Decimal(Math.round(player.p.hymn)) + ' hymns, which boosts prayer gain by ' + new Decimal(formatWhole((Math.round(player.p.hymn) + 1) ** 0.2)) + 'x'},
             {}],
         ["display-text",
-            function() {if (hasUpgrade('p', 41) && hasUpgrade('p', 43)) return 'You have ' + new Decimal(Math.round(player.p.hymn)) + ' hymns, which boosts prayer gain by ' + format(((Math.round(player.p.hymn) + 1) ** 0.2) * (Math.round(player.p.hymn) + 1) ** 0.1) + 'x'},
+            function() {if (hasUpgrade('p', 41) && hasUpgrade('p', 43)) return 'You have ' + new Decimal(Math.round(player.p.hymn)) + ' hymns, which boosts prayer gain by ' + new Decimal(formatWhole(((Math.round(player.p.hymn) + 1) ** 0.2) * (Math.round(player.p.hymn) + 1) ** 0.1)) + 'x'},
             {}],
         "blank",
         "milestones",
@@ -2290,17 +2289,19 @@ addLayer("p", {
         0: {
             requirementDescription: "1 prayer",
             effectDescription: "hex and subatomic particle resets only reset prayer<br>upgrades out of the things in the prayer layer",
-            done() { return player["p"].points.gte(1) }
+            done() { return player["p"].points.gte(1) },
         },
         1: {
             requirementDescription: "25 prayers",
             effectDescription: "prayers generate twice as much divinity",
-            done() { return player["p"].points.gte(25) }
+            done() { return player["p"].points.gte(25) },
+            unlocked() { if (hasUpgrade('p', 22)) return true },
         },
         2: {
-            requirementDescription: "15,000 prayers",
+            requirementDescription: "15,000 prayers & 500 hymns",
             effectDescription: "divinity gain is squared",
-            done() { return player["p"].points.gte(15000) }
+            done() { return player["p"].points.gte(15000) && player.p.hymn >= 500},
+            unlocked() { if (hasUpgrade('p', 41)) return true },
         },
     },
     upgrades: {
@@ -2426,17 +2427,17 @@ addLayer("p", {
             unlocked() { if (hasUpgrade('p', 41)) return true },
         },
         43: {
-            fullDisplay() { return '<font size="2">Hymn Singing</font><br>multiplies the hymn effect based on amount of hymns you have<br>Currently: ' + format(upgradeEffect(this.layer, this.id)) + 'x<br><br>Cost: 25,000,000 holiness,<br>250,000 hymns' },
+            fullDisplay() { return '<font size="2">Hymn Singing</font><br>multiplies the hymn effect based on amount of hymns you have<br>Currently: ' + format(upgradeEffect(this.layer, this.id)) + 'x<br><br>Cost: 25,000,000 holiness,<br>500,000 hymns' },
             canAfford() {
-                if (player.p.holiness >= 25000000 && player.p.hymn >= 250000) return true
+                if (player.p.holiness >= 25000000 && player.p.hymn >= 500000) return true
                 else return false
             },
             pay() {
                 player.p.holiness = Math.round(player.p.holiness) - 25000000
-                player.p.hymn = Math.round(player.p.hymn) - 250000
+                player.p.hymn = Math.round(player.p.hymn) - 500000
             },
             effect() {
-                return ((Math.round(player.p.hymn) + 1) ** 0.1)
+                return ((Math.round(player.p.hymn) + 1) ** 0.075)
             },
             unlocked() { if (hasUpgrade('p', 41)) return true },
         },
