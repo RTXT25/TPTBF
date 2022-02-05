@@ -138,7 +138,7 @@ function getPointGen() {
 		if (hasUpgrade('sp', 13)) mult = mult.times(1953125)
 	if (getBuyableAmount('sp', 12) >= 0.1 && getBuyableAmount('sp', 12) < 9) gain = gain.times(((getBuyableAmount('sp', 12) * 1) + 1) ** -1)
 	if (getBuyableAmount('sp', 12) >= 9) gain = gain.times(0.1)
-	if (hasMilestone('p', 1)) gain = gain.times((player.p.divinity + 1) ** 0.1)
+	if (hasMilestone('p', 1)) gain = gain.times((player.p.divinity + 5) ** 0.1)
 	if (hasUpgrade('e', 11)) gain = gain.times(1.5)
 	if (!hasUpgrade('ds', 24)) gain = gain.times(Math.round(100 * (player.A.achievements.length * 0.1 + 1)) / 100)
 	if (!hasUpgrade('ds', 21) && hasUpgrade('ds', 24)) gain = gain.times(Math.round(100 * (player.A.achievements.length * 0.1 + 1)) / 100)

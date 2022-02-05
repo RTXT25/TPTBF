@@ -2270,7 +2270,7 @@ addLayer("p", {
             {}],
         "blank",
         ["display-text",
-            function() {return 'You have ' + new Decimal(Math.round(player.p.divinity * 100) / 100) + ' divinity, which boosts point generation by ' + format(Math.round(((player.p.divinity + 1) ** 0.1) * 100) / 100) + 'x'},
+            function() {return 'You have ' + new Decimal(Math.round(player.p.divinity * 100) / 100) + ' divinity, which boosts point generation by ' + format(Math.round(((player.p.divinity + 5) ** 0.1) * 100) / 100) + 'x'},
             {}],
         ["display-text",
             function() {if (hasUpgrade('p', 22)) return 'You have ' + new Decimal(Math.round(player.p.holiness * 100) / 100) + ' holiness, which boosts essence gain by ' + format((Math.round(((player.p.holiness + 1) ** 0.05) * 100) / 100) + 0.5) + 'x'},
