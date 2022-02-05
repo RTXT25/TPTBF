@@ -2228,8 +2228,9 @@ addLayer("p", {
         if (hasUpgrade('p', 33)) effBoost = effBoost.times((player.p.divinity + 1) ** 0.025)
         if (hasUpgrade('p', 42)) effBoost = effBoost.times((Math.round(player.p.hymn) + 1) ** 0.05)
         if (hasMilestone('p', 2)) effEx = new Decimal(2)
+        if (hasUpgrade('p', 51)) effBoost = effBoost.times((Math.round(player.p.hymn) + 1) ** 0.1)
         effFinal = effBase.add((effBoost * player['p'].points) ** effEx)
-        return (Math.round(effFinal * 100) /100)
+        return new Decimal(Math.round(effFinal * 100) /100)
     },
     effectDescription() {
         return "which are generating " + new Decimal(tmp.p.effect) + " divinity/sec"
@@ -2297,9 +2298,9 @@ addLayer("p", {
             done() { return player["p"].points.gte(25) }
         },
         2: {
-            requirementDescription: "25,000 prayers",
+            requirementDescription: "20,000 prayers",
             effectDescription: "divinity gain is squared",
-            done() { return player["p"].points.gte(25000) }
+            done() { return player["p"].points.gte(20000) }
         },
     },
     upgrades: {
@@ -2350,13 +2351,13 @@ addLayer("p", {
             },
         },
         23: {
-            fullDisplay() { return '<font size="2">Holy Channeling</font><br>increases efficiency of holiness conversion<br>0.04 --> 0.05<br><br>Cost: 25 holiness' },
+            fullDisplay() { return '<font size="2">Holy Channeling</font><br>increases efficiency of holiness conversion<br>0.04 --> 0.05<br><br>Cost: 20 holiness' },
             canAfford() {
-                if (player.p.holiness >= 25) return true
+                if (player.p.holiness >= 20) return true
                 else return false
             },
             pay() {
-                player.p.holiness = Math.round(player.p.holiness) - 25
+                player.p.holiness = Math.round(player.p.holiness) - 20
             },
             unlocked() { if (hasUpgrade('p', 22)) return true },
         },
@@ -2374,13 +2375,14 @@ addLayer("p", {
 
         },
         32: {
-            fullDisplay() { return '<font size="2">Divine Synergy</font><br>multiplies divinity gain based on the amount of holiness you have<br>Currently: ' + format(upgradeEffect(this.layer, this.id)) + 'x<br><br>Cost: 2,000 divinity' },
+            fullDisplay() { return '<font size="2">Divine Synergy</font><br>multiplies divinity gain based on the amount of holiness you have<br>Currently: ' + format(upgradeEffect(this.layer, this.id)) + 'x<br><br>Cost: 2,000 divinity,<br>50 holiness' },
             canAfford() {
-                if (player.p.divinity >= 2000) return true
+                if (player.p.divinity >= 2000 && player.p.holiness >= 50) return true
                 else return false
             },
             pay() {
                 player.p.divinity = Math.round(player.p.divinity) - 2000
+                player.p.holiness = Math.round(player.p.holiness) - 50
             },
             effect() {
                 return ((player.p.holiness + 1) ** 0.025)
@@ -2390,7 +2392,7 @@ addLayer("p", {
         33: {
             title: "Divine Recursion",
             description: "multiplies divinity gain based on the amount of divinity you have",
-            cost: new Decimal(1500),
+            cost: new Decimal(1750),
             effect() {
                 return ((player.p.divinity + 1) ** 0.05)
             },
@@ -2409,7 +2411,7 @@ addLayer("p", {
             unlocked() { if (hasUpgrade('p', 22)) return true },
         },
         42: {
-            fullDisplay() { return '<font size="2">Divine hymns</font><br>multiplies divinity gain based on the amount of hymns you have<br>Currently: ' + format(upgradeEffect(this.layer, this.id)) + 'x<br><br>Cost: 1,000 holiness, 75 hymns' },
+            fullDisplay() { return '<font size="2">Divine hymns</font><br>multiplies divinity gain based on the amount of hymns you have<br>Currently: ' + format(upgradeEffect(this.layer, this.id)) + 'x<br><br>Cost: 1,000 holiness,<br>75 hymns' },
             canAfford() {
                 if (player.p.holiness >= 1000 && player.p.hymn >= 75) return true
                 else return false
@@ -2424,14 +2426,28 @@ addLayer("p", {
             unlocked() { if (hasUpgrade('p', 41)) return true },
         },
         43: {
-            fullDisplay() { return '<font size="2">Hymn Singing</font><br>multiplies the hymn effect based on amount of hymns you have<br>Currently: ' + format(upgradeEffect(this.layer, this.id)) + 'x<br><br>Cost: 5,000 holiness, 250 hymns' },
+            fullDisplay() { return '<font size="2">Hymn Singing</font><br>multiplies the hymn effect based on amount of hymns you have<br>Currently: ' + format(upgradeEffect(this.layer, this.id)) + 'x<br><br>Cost: 25,000,000 holiness,<br>250,000 hymns' },
             canAfford() {
-                if (player.p.holiness >= 5000 && player.p.hymn >= 250) return true
+                if (player.p.holiness >= 25000000 && player.p.hymn >= 250000) return true
                 else return false
             },
             pay() {
-                player.p.holiness = Math.round(player.p.holiness) - 5000
-                player.p.hymn = Math.round(player.p.hymn) - 250
+                player.p.holiness = Math.round(player.p.holiness) - 25000000
+                player.p.hymn = Math.round(player.p.hymn) - 250000
+            },
+            effect() {
+                return ((Math.round(player.p.hymn) + 1) ** 0.1)
+            },
+            unlocked() { if (hasUpgrade('p', 41)) return true },
+        },
+        51: {
+            fullDisplay() { return '<font size="2">Divine Hymns</font><br>multiplies the divinity gain based on amount of hymns you have<br>Currently: ' + format(upgradeEffect(this.layer, this.id)) + 'x<br><br>Cost: 500,000,000 hymns' },
+            canAfford() {
+                if (player.p.hymn >= 500000000) return true
+                else return false
+            },
+            pay() {
+                player.p.hymn = Math.round(player.p.hymn) - 500000000
             },
             effect() {
                 return ((Math.round(player.p.hymn) + 1) ** 0.1)
