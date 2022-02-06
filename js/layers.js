@@ -2223,15 +2223,15 @@ addLayer("p", {
         if (hasMilestone('p', 1)) effBoost = effBoost.times(2)
         if (hasUpgrade('p', 13)) effBoost = effBoost.times(upgradeEffect('p', 13))
         if (hasUpgrade('p', 32)) effBoost = effBoost.times((player.p.holiness + 1) ** 0.025)
-        if (hasUpgrade('p', 33)) effBoost = effBoost.times((player.p.divinity + 1) ** 0.025)
-        if (hasUpgrade('p', 42)) effBoost = effBoost.times((Math.round(player.p.hymn) + 1) ** 0.075)
-        if (hasMilestone('p', 2)) effEx = new Decimal(2)
+        if (hasUpgrade('p', 33)) effBoost = effBoost.times((player.p.divinity + 1) ** 0.2)
+        if (hasUpgrade('p', 42)) effBoost = effBoost.times((Math.round(player.p.hymn) + 1) ** 0.1)
+        if (hasMilestone('p', 2)) effEx = new Decimal(1.5)
         effFinal = new Decimal((effBoost * player['p'].points) ** effEx)
-        return new Decimal(Math.round(effFinal * 100) /100)
+        return (Math.round(effFinal * 100) /100)
     },
     effectDescription() {
-        if (tmp.p.effect < 1000000) return "which are generating " + new Decimal(tmp.p.effect) + " divinity/sec"
-        else return "which are generating " + new Decimal(formatWhole(tmp.p.effect)) + " divinity/sec"
+        if (tmp.p.effect < new Decimal(1000000)) return "which are generating " + new Decimal(tmp.p.effect) + " divinity/sec"
+        else return "which are generating " + new Decimal(Math.round(tmp.p.effect)) + " divinity/sec"
     },
     doReset(resettingLayer) {
         let keep = [];
@@ -2255,7 +2255,7 @@ addLayer("p", {
             if (layers[resettingLayer].row > this.row) player.p.hymn = new Decimal(0)
         },
     update(diff) {
-        player.p.divinity = new Decimal(player.p.divinity - (0 - tmp.p.effect) * diff)
+        if (tmp.p.effect > new Decimal(0)) player.p.divinity = (player.p.divinity - (0 - tmp.p.effect) * diff)
     },
     tabFormat: [
         "main-display",
@@ -2269,16 +2269,16 @@ addLayer("p", {
             {}],
         "blank",
         ["display-text",
-            function() {if (player.p.divinity < 1000000) return 'You have ' + new Decimal(Math.round(player.p.divinity * 100) / 100) + ' divinity, which boosts point generation by ' + new Decimal(Math.round(((player.p.divinity + 5) ** 0.1) * 100) / 100) + 'x'},
+            function() {if (player.p.divinity < new Decimal(1000000)) return 'You have ' + new Decimal(Math.round(player.p.divinity * 100) / 100) + ' divinity, which boosts point generation by ' + new Decimal(Math.round(((player.p.divinity + 5) ** 0.1) * 100) / 100) + 'x'},
             {}],
         ["display-text",
-            function() {if (player.p.divinity >= 1000000) return 'You have ' + new Decimal(Math.round(player.p.divinity)) + ' divinity, which boosts point generation by ' + new Decimal(Math.round(((player.p.divinity + 5) ** 0.1) * 100) / 100) + 'x'},
+            function() {if (player.p.divinity >= new Decimal(1000000)) return 'You have ' + new Decimal(Math.round(player.p.divinity)) + ' divinity, which boosts point generation by ' + new Decimal(Math.round(((player.p.divinity + 5) ** 0.1) * 100) / 100) + 'x'},
             {}],
         ["display-text",
             function() {if (hasUpgrade('p', 22) && player.p.holiness < 1000000) return 'You have ' + new Decimal(Math.round(player.p.holiness * 100) / 100) + ' holiness, which boosts essence gain by ' + new Decimal((Math.round(((player.p.holiness + 1) ** 0.05) * 100) / 100) + 0.5) + 'x'},
             {}],
         ["display-text",
-            function() {if (hasUpgrade('p', 22) && player.p.holiness >= 1000000) return 'You have ' + new Decimal(Math.round(player.p.holiness * 100) / 100) + ' holiness, which boosts essence gain by ' + new Decimal((Math.round(((player.p.holiness + 1) ** 0.05) * 100) / 100) + 0.5) + 'x'},
+            function() {if (hasUpgrade('p', 22) && player.p.holiness >= 1000000) return 'You have ' + new Decimal(Math.round(player.p.holiness)) + ' holiness, which boosts essence gain by ' + new Decimal((Math.round(((player.p.holiness + 1) ** 0.05) * 100) / 100) + 0.5) + 'x'},
             {}],
         ["display-text",
             function() {if (hasUpgrade('p', 41) && !hasUpgrade('p', 43)) return 'You have ' + new Decimal(Math.round(player.p.hymn)) + ' hymns, which boosts prayer gain by ' + new Decimal(format((Math.round(player.p.hymn) + 1) ** 0.2)) + 'x'},
@@ -2300,12 +2300,11 @@ addLayer("p", {
             requirementDescription: "25 prayers",
             effectDescription: "prayers generate twice as much divinity",
             done() { return player["p"].points.gte(25) },
-            unlocked() { if (hasUpgrade('p', 22)) return true },
         },
         2: {
-            requirementDescription: "15,000 prayers & 500 hymns",
-            effectDescription: "divinity gain is squared",
-            done() { return player["p"].points.gte(15000) && player.p.hymn >= 500},
+            requirementDescription: "10,000 prayers & 750 hymns",
+            effectDescription: "divinity gain is raised to the power of 1.5",
+            done() { return player["p"].points.gte(10000) && player.p.hymn >= 750},
             unlocked() { if (hasUpgrade('p', 41)) return true },
         },
     },
@@ -2368,26 +2367,26 @@ addLayer("p", {
             unlocked() { if (hasUpgrade('p', 22)) return true },
         },
         31: {
-            fullDisplay() { return '<font size="2">Church Relics</font><br>achievements also multiply prayer gain if you have all subsequent achievement upgrades<br><br>Cost: 200 divinity,<br>45 holiness' },
+            fullDisplay() { return '<font size="2">Church Relics</font><br>achievements also multiply prayer gain if you have all subsequent achievement upgrades<br><br>Cost: 175 divinity,<br>45 holiness' },
             canAfford() {
-                if (player.p.divinity >= 200 && player.p.holiness >= 45) return true
+                if (player.p.divinity >= 175 && player.p.holiness >= 45) return true
                 else return false
             },
             pay() {
-                player.p.divinity = Math.round(player.p.divinity) - 200
+                player.p.divinity = Math.round(player.p.divinity) - 175
                 player.p.holiness = Math.round(player.p.holiness) - 45
             },
             unlocked() { if (hasUpgrade('p', 22)) return true },
 
         },
         32: {
-            fullDisplay() { return '<font size="2">Divine Synergy</font><br>multiplies divinity gain based on the amount of holiness you have<br>Currently: ' + format(upgradeEffect(this.layer, this.id)) + 'x<br><br>Cost: 1,500 divinity,<br>50 holiness' },
+            fullDisplay() { return '<font size="2">Divine Synergy</font><br>multiplies divinity gain based on the amount of holiness you have<br>Currently: ' + format(upgradeEffect(this.layer, this.id)) + 'x<br><br>Cost: 1,250 divinity,<br>50 holiness' },
             canAfford() {
-                if (player.p.divinity >= 1500 && player.p.holiness >= 50) return true
+                if (player.p.divinity >= 1250 && player.p.holiness >= 50) return true
                 else return false
             },
             pay() {
-                player.p.divinity = Math.round(player.p.divinity) - 1500
+                player.p.divinity = Math.round(player.p.divinity) - 1250
                 player.p.holiness = Math.round(player.p.holiness) - 50
             },
             effect() {
@@ -2400,7 +2399,7 @@ addLayer("p", {
             description: "multiplies divinity gain based on the amount of divinity you have",
             cost: new Decimal(1750),
             effect() {
-                return ((player.p.divinity + 1) ** 0.05)
+                return ((player.p.divinity + 1) ** 0.2)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
         },
@@ -2427,7 +2426,7 @@ addLayer("p", {
                 player.p.hymn = Math.round(player.p.hymn) - 75
             },
             effect() {
-                return ((Math.round(player.p.hymn) + 1) ** 0.075)
+                return ((Math.round(player.p.hymn) + 1) ** 0.1)
             },
             unlocked() { if (hasUpgrade('p', 41)) return true },
         },
