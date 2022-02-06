@@ -2230,14 +2230,14 @@ addLayer("p", {
         return new Decimal(Math.round(effFinal * 100) /100)
     },
     effectDescription() {
-        if (tmp.p.effect >= 1000000) return "which are generating " + new Decimal(tmp.p.effect) + " divinity/sec"
+        if (tmp.p.effect < 1000000) return "which are generating " + new Decimal(tmp.p.effect) + " divinity/sec"
         else return "which are generating " + new Decimal(formatWhole(tmp.p.effect)) + " divinity/sec"
     },
     doReset(resettingLayer) {
         let keep = [];
-        let divineEq = new Decimal(Math.round(player.p.divinity * 100) / 100);
-        let holyAdd = new Decimal(Math.round(player.p.holiness * 100) / 100);
-        let hymnAdd = new Decimal(Math.round(player.p.hymn));
+        let divineEq = (Math.round(player.p.divinity * 100) / 100);
+        let holyAdd = (Math.round(player.p.holiness * 100) / 100);
+        let hymnAdd = (Math.round(player.p.hymn));
             player.p.divinity = new Decimal(0)
             player.p.power = new Decimal(0)
             if (resettingLayer == "h") layerDataReset("p", ["points", "best", "total", "milestones"]), player.p.holiness = new Decimal(0)
@@ -2255,7 +2255,7 @@ addLayer("p", {
             if (layers[resettingLayer].row > this.row) player.p.hymn = new Decimal(0)
         },
     update(diff) {
-        player.p.divinity = new Decimal(new Decimal(player.p.divinity) - (0 - tmp.p.effect) * diff)
+        player.p.divinity = new Decimal(player.p.divinity - (0 - tmp.p.effect) * diff)
     },
     tabFormat: [
         "main-display",
@@ -2269,10 +2269,16 @@ addLayer("p", {
             {}],
         "blank",
         ["display-text",
-            function() {return 'You have ' + new Decimal(Math.round(player.p.divinity * 100) / 100) + ' divinity, which boosts point generation by ' + new Decimal(Math.round(((player.p.divinity + 5) ** 0.1) * 100) / 100) + 'x'},
+            function() {if (player.p.divinity < 1000000) return 'You have ' + new Decimal(Math.round(player.p.divinity * 100) / 100) + ' divinity, which boosts point generation by ' + new Decimal(Math.round(((player.p.divinity + 5) ** 0.1) * 100) / 100) + 'x'},
             {}],
         ["display-text",
-            function() {if (hasUpgrade('p', 22)) return 'You have ' + new Decimal(Math.round(player.p.holiness * 100) / 100) + ' holiness, which boosts essence gain by ' + new Decimal((Math.round(((player.p.holiness + 1) ** 0.05) * 100) / 100) + 0.5) + 'x'},
+            function() {if (player.p.divinity >= 1000000) return 'You have ' + new Decimal(Math.round(player.p.divinity)) + ' divinity, which boosts point generation by ' + new Decimal(Math.round(((player.p.divinity + 5) ** 0.1) * 100) / 100) + 'x'},
+            {}],
+        ["display-text",
+            function() {if (hasUpgrade('p', 22) && player.p.holiness < 1000000) return 'You have ' + new Decimal(Math.round(player.p.holiness * 100) / 100) + ' holiness, which boosts essence gain by ' + new Decimal((Math.round(((player.p.holiness + 1) ** 0.05) * 100) / 100) + 0.5) + 'x'},
+            {}],
+        ["display-text",
+            function() {if (hasUpgrade('p', 22) && player.p.holiness >= 1000000) return 'You have ' + new Decimal(Math.round(player.p.holiness * 100) / 100) + ' holiness, which boosts essence gain by ' + new Decimal((Math.round(((player.p.holiness + 1) ** 0.05) * 100) / 100) + 0.5) + 'x'},
             {}],
         ["display-text",
             function() {if (hasUpgrade('p', 41) && !hasUpgrade('p', 43)) return 'You have ' + new Decimal(Math.round(player.p.hymn)) + ' hymns, which boosts prayer gain by ' + new Decimal(format((Math.round(player.p.hymn) + 1) ** 0.2)) + 'x'},
