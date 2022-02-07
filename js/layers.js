@@ -57,7 +57,7 @@ addLayer("A", {
         },
         14: {
             name: "The Sharpest Point",
-            done() {return player.points >= (new Decimal("1e1000"))},
+            done() {return player.points >= (new Decimal(1e1000))},
             tooltip: "obtain 1e1,000 points.",
             unlocked() { if (hasAchievement("A", 13)) return true },
         },
@@ -87,7 +87,7 @@ addLayer("A", {
         },
         24: {
             name: "The Essence of the Universe",
-            done() {return player["e"].points >= (new Decimal("1e1000"))},
+            done() {return player["e"].points >= (new Decimal(1e1000))},
             tooltip: "obtain 1e1,000 essence.",
             unlocked() { if (hasAchievement("A", 23)) return true },
         },
@@ -2302,9 +2302,9 @@ addLayer("p", {
             done() { return player["p"].points.gte(25) },
         },
         2: {
-            requirementDescription: "10,000 prayers & 750 hymns",
+            requirementDescription: "12,500 prayers & 500 hymns",
             effectDescription: "divinity gain is raised to the power of 1.5",
-            done() { return player["p"].points.gte(10000) && player.p.hymn >= 750},
+            done() { return player["p"].points.gte(12500) && player.p.hymn >= 500},
             unlocked() { if (hasUpgrade('p', 41)) return true },
         },
     },
