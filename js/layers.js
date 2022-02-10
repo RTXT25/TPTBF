@@ -1659,7 +1659,10 @@ addLayer("ds", {
                 "challenges",
                 "blank",
             ],
-            unlocked() { if (hasUpgrade("ds", 22)) return true }
+            unlocked() {
+                if (hasUpgrade("ds", 22)) return true
+                else return false
+            },
         },
     },
     milestones: {
