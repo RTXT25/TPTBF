@@ -42,6 +42,7 @@ addLayer("A", {
             name: "The Point",
             done() {return player.points >= 1},
             tooltip: "obtain 1 point.",
+            image: "images/achievements/11.png",
         },
         12: {
             name: "Very Pointy",
@@ -55,6 +56,7 @@ addLayer("A", {
             done() {return player.points >= (10 ** 100)},
             tooltip: "obtain 1e100 points.",
             unlocked() { if (hasAchievement("A", 12)) return true },
+            image: "images/achievements/13.png",
         },
         14: {
             name: "The Sharpest Point",
