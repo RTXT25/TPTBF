@@ -79,7 +79,7 @@ addLayer("A", {
             image: "images/achievements/21.png",
         },
         22: {
-            name: "Shining Essence",
+            name: "Essence Cluster",
             done() {return player["e"].points.gte(new Decimal(1e10))},
             tooltip: "obtain 1e10 essence.",
             unlocked() { if (hasAchievement("A", 21)) return true },
@@ -226,7 +226,7 @@ addLayer("A", {
             unlocked() { if (hasAchievement("A", 63)) return true },
         },
         66: {
-            name: "Plain Old Curses",
+            name: "Same Old Tricks",
             done() {return getBuyableAmount("c", 11).eq(new Decimal(0)) && getBuyableAmount("c", 12).eq(new Decimal(0)) && player["sp"].points.eq(new Decimal(0)) && player["h"].points.gte(new Decimal(1e10))},
             tooltip: "obtain 1e10 hexes with no subatomic particles and core buyables.",
             unlocked() { if (hasAchievement("A", 62) && hasAchievement("A", 71)) return true },
@@ -280,7 +280,7 @@ addLayer("A", {
             unlocked() { if (hasAchievement("A", 83)) return true },
         },
         86: {
-            name: "No to Nuclear",
+            name: "For Science!",
             done() {return player["ds"].points.eq(new Decimal(0)) && player["a"].points.gte(new Decimal(10))},
             tooltip: "obtain 10 atoms with no demon souls.",
             unlocked() { if (hasAchievement("A", 82) && hasAchievement("A", 91)) return true },
