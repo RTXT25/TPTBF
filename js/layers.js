@@ -177,14 +177,14 @@ addLayer("A", {
         },
         54: {
             name: "That's no Particle no More",
-            done() {return player["sp"].points >= 5000},
-            tooltip: "obtain 5,000 subatomic particles.",
+            done() {return player["sp"].points >= 10000},
+            tooltip: "obtain 10,000 subatomic particles.",
             unlocked() { if (hasAchievement("A", 53)) return true },
         },
         55: {
             name: "The Universe in a Particle",
-            done() {return player["sp"].points >= 100000},
-            tooltip: "obtain 100,000 subatomic particles.",
+            done() {return player["sp"].points >= 1000000},
+            tooltip: "obtain 1,000,000 subatomic particles.",
             unlocked() { if (hasAchievement("A", 54)) return true },
         },
         56: {
