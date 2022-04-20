@@ -48,6 +48,7 @@ addLayer("A", {
             done() {return player.points >= (10 ** 10)},
             tooltip: "obtain 1e10 points.",
             unlocked() { if (hasAchievement("A", 11)) return true },
+            image: "images/achievements/12.png",
         },
         13: {
             name: "Now That's Really Pointy",
