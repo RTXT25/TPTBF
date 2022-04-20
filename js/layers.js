@@ -69,24 +69,28 @@ addLayer("A", {
             done() {return player["e"].points.eq(new Decimal(0)) && player.points.gte(new Decimal(1e10))},
             tooltip: "obtain 1e10 points with no essence.",
             unlocked() { if (hasAchievement("A", 12) && hasAchievement("A", 21)) return true },
+            image: "images/achievements/16.png",
         },
         21: {
             name: "Essence of Rat",
             done() {return player["e"].points.gte(new Decimal(1))},
             tooltip: "obtain 1 essence.",
             unlocked() { if (hasAchievement("A", 21)) return true },
+            image: "images/achievements/21.png",
         },
         22: {
             name: "Shining Essence",
             done() {return player["e"].points.gte(new Decimal(1e10))},
             tooltip: "obtain 1e10 essence.",
             unlocked() { if (hasAchievement("A", 21)) return true },
+            image: "images/achievements/22.png",
         },
         23: {
             name: "Gleaming, Golden Essence",
             done() {return player["e"].points.gte(new Decimal(1e100))},
             tooltip: "obtain 1e100 essence.",
             unlocked() { if (hasAchievement("A", 22)) return true },
+            image: "images/achievements/23.png",
         },
         24: {
             name: "The Essence of the Universe",
@@ -95,10 +99,11 @@ addLayer("A", {
             unlocked() { if (hasAchievement("A", 23)) return true },
         },
         26: {
-            name: "A Pointless Mechanic?",
+            name: "Empty Soul",
             done() {return getBuyableAmount("e", 11).eq(new Decimal(0)) && getBuyableAmount("e", 12).eq(new Decimal(0)) && player["e"].points .gte(new Decimal(1e10))},
             tooltip: "obtain 1e10 essence with no essence buyables.",
             unlocked() {if (hasAchievement("A", 22) && hasAchievement("A", 31)) return true },
+            image: "images/achievements/26.png",
         },
         31: {
             name: "Cracked Core",
