@@ -2011,19 +2011,19 @@ addLayer("a", {
             done() { return player["a"].points.gte(10) && player.a.total.gte(75) }
         },
         9: {
-            requirementDescription: "20 atoms &  150 total atoms",
+            requirementDescription: "25 atoms &  125 total atoms",
             effectDescription: "gain +9% of quark gain per second (total: 10%)",
-            done() { return player["a"].points.gte(20) && player.a.total.gte(150) }
+            done() { return player["a"].points.gte(25) && player.a.total.gte(125) }
         },
         10: {
-            requirementDescription: "25 atoms & 200 total atoms",
+            requirementDescription: "40 atoms & 175 total atoms",
             effectDescription: "you can buy upgrades that are not on<br>the other's paths",
-            done() { return player["a"].points.gte(25) && player.a.total.gte(200) }
+            done() { return player["a"].points.gte(40) && player.a.total.gte(175) }
         },
         11: {
-            requirementDescription: "50 atoms & 450 total atoms",
+            requirementDescription: "200 atoms & 500 total atoms",
             effectDescription: "keep hex upgrades on row 4 resets",
-            done() { return player["a"].points.gte(50) && player.a.total.gte(450) }
+            done() { return player["a"].points.gte(200) && player.a.total.gte(500) }
         },
         12: {
             requirementDescription: "1,000 atoms and 2,000 total atoms",
