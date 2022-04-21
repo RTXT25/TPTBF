@@ -384,27 +384,17 @@ addLayer("e", {
     },
     doReset(resettingLayer) {
         let keep = [];
-            if (hasMilestone("c", 0) && resettingLayer=="c") ceU = "upgrades"
-            else ceU = ""
-            if (hasMilestone("c", 2) && resettingLayer=="c") ceB = "buyables"
-            else ceB = ""
-            if (hasMilestone("q", 1) && resettingLayer=="q") qeU = "upgrades"
-            else qeU = ""
-            if (hasMilestone("q", 2) && resettingLayer=="q") qeB = "buyables"
-            else qeB = ""
-            if (hasMilestone("sp", 1) && resettingLayer=="sp") speU = "upgrades"
-            else speU = ""
-            if (hasMilestone("sp", 4) && resettingLayer=="sp") speB = "buyables"
-            else speB = ""
-            if (hasMilestone("h", 0) && resettingLayer=="h") heU = "upgrades"
-            else heU = ""
-            if (hasMilestone("h", 1) && resettingLayer=="h") heB = "buyables"
-            else heB = ""
-            if (hasMilestone("ds", 3)) ALLeU = "upgrades"
-            else ALLeU = ""
-            if (hasMilestone("ds", 4)) ALLeB = "buyables"
-            else ALLeB = ""
-            if (layers[resettingLayer].row > this.row) layerDataReset("e", [ceU, ceB, qeU, qeB, speU, speB, heU, heB, ALLeU, ALLeB])
+            if (hasMilestone("c", 0) && resettingLayer == "c") keep.push("upgrades");
+            if (hasMilestone("c", 2) && resettingLayer == "c") keep.push("buyables");
+            if (hasMilestone("q", 1) && resettingLayer == "q") keep.push("upgrades");
+            if (hasMilestone("q", 2) && resettingLayer == "q") keep.push("buyables");
+            if (hasMilestone("sp", 1) && resettingLayer == "sp") keep.push("upgrades");
+            if (hasMilestone("sp", 4) && resettingLayer == "sp") keep.push("buyables");
+            if (hasMilestone("h", 0) && resettingLayer == "h") keep.push("upgrades");
+            if (hasMilestone("h", 1) && resettingLayer == "h") keep.push("buyables");
+            if (hasMilestone("ds", 3)) keep.push("upgrades");
+            if (hasMilestone("ds", 4)) keep.push("buyables");
+            if (layers[resettingLayer].row > this.row) layerDataReset("e", keep);
         },
     tabFormat: [
         "main-display",
@@ -618,31 +608,19 @@ addLayer("c", {
     },
     doReset(resettingLayer) {
         let keep = [];
-            if (hasMilestone("h", 2) && resettingLayer=="h") hcU = "upgrades"
-            else hcU = ""
-            if (hasMilestone("h", 3) && resettingLayer=="h") hcB = "buyables"
-            else hcB = ""
-            if (hasMilestone("h", 4) && resettingLayer=="sp") spcU = "upgrades"
-            else spcU = ""
-            if (hasMilestone("h", 4) && resettingLayer=="sp") spcB = "buyables"
-            else spcB = ""
-            if (hasMilestone("h", 5) && resettingLayer=="h") hcM = "milestones"
-            else hcM = ""
-            if (hasMilestone("h", 5) && resettingLayer=="sp") spcM = "milestones"
-            else spcM = ""
-            if (hasMilestone("ds", 2) && resettingLayer=="ds") dscM = "milestones"
-            else dscM = ""
-            if (hasMilestone("ds", 5) && resettingLayer=="ds") dscU = "upgrades"
-            else dscU = ""
-            if (hasMilestone("ds", 6) && resettingLayer=="ds") dscB = "buyables"
-            else dscB = ""
-            if (hasMilestone("a", 1) && resettingLayer=="a") acB = "buyables"
-            else acB = ""
-            if (hasMilestone("a", 2) && resettingLayer=="a") acU = "upgrades"
-            else acU = ""
-            if (hasMilestone("a", 4) && resettingLayer=="a") acM = "milestones"
-            else acM = ""
-            if (layers[resettingLayer].row > this.row) layerDataReset("c", [hcU, hcB, spcU, spcB, hcM, spcM, dscM, dscU, dscB, acB, acU, acM])
+            if (hasMilestone("h", 2) && resettingLayer == "h") keep.push("upgrades");
+            if (hasMilestone("h", 3) && resettingLayer == "h") keep.push("buyables");
+            if (hasMilestone("h", 4) && resettingLayer == "sp") keep.push("upgrades");
+            if (hasMilestone("h", 4) && resettingLayer == "sp") keep.push("buyables");
+            if (hasMilestone("h", 5) && resettingLayer == "h") keep.push("milestones");
+            if (hasMilestone("h", 5) && resettingLayer == "sp") keep.push("milestones");
+            if (hasMilestone("ds", 2) && resettingLayer == "ds") keep.push("milestones");
+            if (hasMilestone("ds", 5) && resettingLayer == "ds") keep.push("upgrades");
+            if (hasMilestone("ds", 6) && resettingLayer == "ds") keep.push("buyables");
+            if (hasMilestone("a", 1) && resettingLayer == "a") keep.push("buyables");
+            if (hasMilestone("a", 2) && resettingLayer == "a") keep.push("upgrades");
+            if (hasMilestone("a", 4) && resettingLayer == "a") keep.push("milestones");
+            if (layers[resettingLayer].row > this.row) layerDataReset("c", keep);
         },
     tabFormat: [
         "main-display",
@@ -863,29 +841,18 @@ addLayer("q", {
     },
     doReset(resettingLayer) {
         let keep = [];
-            if (hasMilestone("sp", 3) && resettingLayer=="sp") spqM1 = "milestones"
-            else spqM1 = ""
-            if (hasMilestone("sp", 5) && resettingLayer=="sp") spqU1 = "upgrades"
-            else spqU1 = ""
-            if (hasMilestone("h", 5) && resettingLayer=="h") hqM = "milestones"
-            else hqM = ""
-            if (hasMilestone("h", 5) && resettingLayer=="sp") spqM2 = "milestones"
-            else spqM2 = ""
-            if (hasMilestone("h", 6) && resettingLayer=="sp") spqU2 = "upgrades"
-            else spqU2 = ""
-            if (hasMilestone("h", 7) && resettingLayer=="h") hqU = "upgrades"
-            else hqU = ""
-            if (hasMilestone("ds", 2) && resettingLayer=="ds") dsqM = "milestones"
-            else dsqM = ""
-            if (hasMilestone('ds', 7) && resettingLayer=="ds") dsqU = "upgrades"
-            else dsqU = ""
-            if (hasMilestone("a", 0) && resettingLayer=="a") aqB = "buyables"
-            else aqB = ""
-            if (hasMilestone("a", 1) && resettingLayer=="a") aqU = "upgrades"
-            else aqU = ""
-            if (hasMilestone("a", 5) && resettingLayer=="a") aqM = "milestones"
-            else aqM = ""
-            if (layers[resettingLayer].row > this.row) layerDataReset("q", [spqM1, spqU1, hqM, spqM2, spqU2, hqU, dsqM, dsqU, aqB, aqU, aqM])
+            if (hasMilestone("sp", 3) && resettingLayer == "sp") keep.push("milestones");
+            if (hasMilestone("sp", 5) && resettingLayer == "sp") keep.push("upgrades");
+            if (hasMilestone("h", 5) && resettingLayer == "h") keep.push("milestones");
+            if (hasMilestone("h", 5) && resettingLayer == "sp") keep.push("milestones");
+            if (hasMilestone("h", 6) && resettingLayer == "sp") keep.push("upgrades");
+            if (hasMilestone("h", 7) && resettingLayer == "h") keep.push("upgrades");
+            if (hasMilestone("ds", 2) && resettingLayer == "ds") keep.push("milestones");
+            if (hasMilestone('ds', 7) && resettingLayer == "ds") keep.push("upgrades");
+            if (hasMilestone("a", 0) && resettingLayer == "a") keep.push("buyables");
+            if (hasMilestone("a", 1) && resettingLayer == "a") keep.push("upgrades");
+            if (hasMilestone("a", 5) && resettingLayer == "a") keep.push("milestones");
+            if (layers[resettingLayer].row > this.row) layerDataReset("q", keep);
     },
     tabFormat: [
         "main-display",
@@ -1166,17 +1133,12 @@ addLayer("sp", {
     layerShown(){return player.q.unlocked},
     doReset(resettingLayer) {
         let keep = [];
-            if (hasMilestone("ds", 0) && resettingLayer=="ds") dsspB = "buyables"
-            else dsspB = ""
-            if (hasMilestone("ds", 1) && resettingLayer=="ds") dsspU = "upgrades"
-            else dsspU = ""
-            if (hasMilestone("a", 0) && resettingLayer=="a") aspB = "buyables"
-            else aspB = ""
-            if (hasMilestone("a", 3) && resettingLayer=="a") aspU = "upgrades"
-            else aspU = ""
-            if (hasMilestone("a", 13) && resettingLayer=="a") aspM = "milestones"
-            else aspM = ""
-            if (layers[resettingLayer].row > this.row) layerDataReset("sp", [dsspB, dsspU, aspB, aspU, aspM])
+            if (hasMilestone("ds", 0) && resettingLayer == "ds") keep.push("buyables");
+            if (hasMilestone("ds", 1) && resettingLayer == "ds") keep.push("upgrades");
+            if (hasMilestone("a", 0) && resettingLayer == "a") keep.push("buyables");
+            if (hasMilestone("a", 3) && resettingLayer == "a") keep.push("upgrades");
+            if (hasMilestone("a", 13) && resettingLayer == "a") keep.push("milestones");
+            if (layers[resettingLayer].row > this.row) layerDataReset("sp", keep);
         },
     tabFormat: [
         "main-display",
@@ -1343,15 +1305,10 @@ addLayer("h", {
     layerShown(){return player.sp.unlocked},
     doReset(resettingLayer) {
         let keep = [];
-            if (hasMilestone("ds", 8) && resettingLayer=="ds") dshM = "milestones"
-            else dshM = ""
-            if (hasMilestone("a", 6) && resettingLayer=="a") ahM = "milestones"
-            else ahM = ""
-            if (hasMilestone("a", 11) && resettingLayer=="a") ahU = "upgrades"
-            else ahU = ""
-            if (hasMilestone("a", 11) && resettingLayer=="ds") dshU = "upgrades"
-            else dshU = ""
-            if (layers[resettingLayer].row > this.row) layerDataReset("h", [dshM, ahM, ahU, dshU])
+            if (hasMilestone("ds", 8) && resettingLayer == "ds") keep.push("milestones");
+            if (hasMilestone("a", 6) && resettingLayer == "a") keep.push("milestones");
+            if (hasMilestone("a", 11) && (resettingLayer == "a" || resettingLayer == "ds")) keep.push("upgrades");
+            if (layers[resettingLayer].row > this.row) layerDataReset("h", keep);
         },
     tabFormat: [
         "main-display",
@@ -1644,7 +1601,7 @@ addLayer("ds", {
     layerShown(){return player.h.unlocked},
     doReset(resettingLayer) {
         let keep = [];
-            if (layers[resettingLayer].row > this.row) layerDataReset("ds", [])
+            if (layers[resettingLayer].row > this.row) layerDataReset("ds", keep);
         },
     tabFormat: {
         "Demonic Curses": {
@@ -1910,9 +1867,9 @@ addLayer("a", {
     layerShown(){return player.ds.unlocked},
     doReset(resettingLayer) {
         let keep = [];
-            if (resettingLayer == "ds" && !hasMilestone('a', 12)) layerDataReset("a", ["milestones", "points", "best", "total"])
-            if (resettingLayer == "a") layerDataReset("a", ["milestones", "points", "best", "total"])
-            if (layers[resettingLayer].row > this.row) layerDataReset("a", [])
+            if (layers[resettingLayer].row == this.row) keep.push("milestones", "points", "best", "total");
+            if (hasMilestone('a', 12) && resettingLayer == "ds") keep.push("upgrades");
+            if (layers[resettingLayer].row > this.row) layerDataReset("a", keep);
         },
     tabFormat: {
         "Atomic Progress": {
@@ -2271,21 +2228,21 @@ addLayer("p", {
         let divineEq = (Math.round(player.p.divinity * 100) / 100);
         let holyAdd = (Math.round(player.p.holiness * 100) / 100);
         let hymnAdd = (Math.round(player.p.hymn));
-            player.p.divinity = new Decimal(0)
-            player.p.power = new Decimal(0)
+            player.p.divinity = new Decimal(0);
+            player.p.power = new Decimal(0);
             if (resettingLayer == "h") layerDataReset("p", ["points", "best", "total", "milestones"]), player.p.holiness = new Decimal(0)
             else
                 if (resettingLayer == "sp") layerDataReset("p", ["points", "best", "total", "milestones"]), player.p.holiness = new Decimal(0)
                 else
-                    if (layers[resettingLayer].row > this.row) layerDataReset("p", [])
+                    if (layers[resettingLayer].row > this.row) layerDataReset("p", keep);
             if (hasUpgrade('p', 22) && !hasUpgrade('p', 23) && resettingLayer == "p") player.p.holiness = new Decimal(holyAdd + divineEq / 25)
             else
                 if (hasUpgrade('p', 22) && hasUpgrade('p', 23) && resettingLayer == "p") player.p.holiness = new Decimal(holyAdd + divineEq / 20)
-                else player.p.holiness = new Decimal(holyAdd)
+                else player.p.holiness = new Decimal(holyAdd);
             if (hasUpgrade('p', 41) && resettingLayer == "p") player.p.hymn = new Decimal(hymnAdd + player.p.holiness / 215)
-            else player.p.hymn = new Decimal(hymnAdd)
-            if (layers[resettingLayer].row > this.row) player.p.holiness = new Decimal(0)
-            if (layers[resettingLayer].row > this.row) player.p.hymn = new Decimal(0)
+            else player.p.hymn = new Decimal(hymnAdd);
+            if (layers[resettingLayer].row > this.row) player.p.holiness = new Decimal(0);
+            if (layers[resettingLayer].row > this.row) player.p.hymn = new Decimal(0);
         },
     update(diff) {
         if (tmp.p.effect > new Decimal(0)) player.p.divinity = (player.p.divinity - (0 - tmp.p.effect) * diff)
