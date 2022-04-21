@@ -11,7 +11,7 @@ addLayer("A", {
     tooltip() {return "Achievements"},
     tabFormat: [
         ["display-text",
-            function() { if (!hasUpgrade("ds", 24) && (player.A.achievements.length == 1)) return 'You have 1 achievement,<br>which is multiplying your point gain by 1.1x' },
+            function() { if (player.A.achievements.length == 1) return 'You have 1 achievement,<br>which is multiplying your point gain by 1.1x' },
             { "color": "white", "font-size": "16px", "font-family": "Lucida Console" }],
         ["display-text",
             function() { if (!hasUpgrade("ds", 24) && (player.A.achievements.length != 1)) return 'You have ' + player.A.achievements.length + ' achievements,<br>which are multiplying your point gain by ' + (Math.round(100 * (player.A.achievements.length * 0.1 + 1)) / 100) + 'x' },
@@ -175,7 +175,7 @@ addLayer("A", {
             image: "images/achievements/43.png",
         },
         44: {
-            name: "Quirky Random Purpetuation",
+            name: "Quirky Quarks",
             done() {return player["q"].points.gte(new Decimal("1e1000"))},
             tooltip: "obtain 1e1,000 quarks.",
             unlocked() { if (hasAchievement("A", 43)) return true },
@@ -1881,8 +1881,10 @@ addLayer("a", {
     layerShown(){return player.ds.unlocked},
     doReset(resettingLayer) {
         let keep = [];
-            if (layers[resettingLayer].row == this.row) keep.push("milestones", "points", "best", "total");
-            if (hasMilestone('a', 12) && resettingLayer == "ds") keep.push("upgrades");
+            if (layers[resettingLayer].row == this.row) {
+                keep.push("milestones", "points", "best", "total");
+                if (hasMilestone('a', 12)) keep.push("upgrades");
+            };
             if (layers[resettingLayer].row > this.row) layerDataReset("a", keep);
         },
     tabFormat: {
@@ -1920,7 +1922,7 @@ addLayer("a", {
                     function() {if (hasMilestone('a', 10)) return '<br>From the effect of the 11th atom milestone:<br>you can buy all atom upgrades.'},
                     {}],
                 ["display-text",
-                    function() {if (hasMilestone('a', 12)) return '<br>From the effect of the 13th atom milestone:<br>demon soul resets do not reset atom upgrades.'},
+                    function() {if (hasMilestone('a', 12)) return '<br>From the effect of the 13th atom milestone:<br>row 4 resets do not reset atom upgrades.'},
                     {}],
                 "blank",
                 ["upgrades", [1]],
@@ -1937,7 +1939,6 @@ addLayer("a", {
                 "blank",
                 ["upgrades", [7]],
             ],
-            unlocked() { if (hasUpgrade("ds", 22)) return true }
         },
     },
     milestones: {
@@ -1993,7 +1994,7 @@ addLayer("a", {
         },
         10: {
             requirementDescription: "40 atoms & 175 total atoms",
-            effectDescription: "you can buy upgrades that are not on<br>the other's paths",
+            effectDescription: "you can buy upgrades that are not on the other's paths",
             done() { return player["a"].points.gte(40) && player.a.total.gte(175) }
         },
         11: {
@@ -2003,13 +2004,13 @@ addLayer("a", {
         },
         12: {
             requirementDescription: "750 atoms and 1,000 total atoms",
-            effectDescription: "keep atom upgrades on demon soul resets",
+            effectDescription: "keep atom upgrades on row 4 resets",
             done() { return player["a"].points.gte(750) && player.a.total.gte(1000) }
         },
         13: {
-            requirementDescription: "900 atoms and 2,000 total atoms",
+            requirementDescription: "1,000 atoms and 1,500 total atoms",
             effectDescription: "keep subatomic particle milestones on atom resets",
-            done() { return player["a"].points.gte(900) && player.a.total.gte(2000) }
+            done() { return player["a"].points.gte(1000) && player.a.total.gte(1500) }
         },
     },
     upgrades: {
@@ -2193,7 +2194,6 @@ addLayer("p", {
     startData() { return {
         unlocked: false,
         points: new Decimal(0),
-        power: new Decimal(0),
         divinity: new Decimal(0),
         holiness: new Decimal(0),
         hymn: new Decimal(0),
@@ -2238,22 +2238,19 @@ addLayer("p", {
     },
     doReset(resettingLayer) {
         let keep = [];
-        let divineEq = (Math.round(player.p.divinity * 100) / 100);
-        let holyAdd = (Math.round(player.p.holiness * 100) / 100);
-            player.p.divinity = new Decimal(0);
-            player.p.power = new Decimal(0);
-            if (resettingLayer == "h") layerDataReset("p", ["points", "best", "total", "milestones"]), player.p.holiness = new Decimal(0)
-            else
-                if (resettingLayer == "sp") layerDataReset("p", ["points", "best", "total", "milestones"]), player.p.holiness = new Decimal(0)
-                else
-                    if (layers[resettingLayer].row > this.row) layerDataReset("p", keep);
-            if (hasUpgrade('p', 22) && !hasUpgrade('p', 23) && resettingLayer == "p") player.p.holiness = new Decimal(holyAdd + divineEq / 25)
-            else
-                if (hasUpgrade('p', 22) && hasUpgrade('p', 23) && resettingLayer == "p") player.p.holiness = new Decimal(holyAdd + divineEq / 20)
-                else player.p.holiness = new Decimal(holyAdd);
-            if (hasUpgrade('p', 41) && resettingLayer == "p") player.p.hymn = new Decimal(Math.round(player.p.hymn.add(player.p.holiness.div(215))));
-            if (layers[resettingLayer].row > this.row) player.p.holiness = new Decimal(0);
-            if (layers[resettingLayer].row > this.row) player.p.hymn = new Decimal(0);
+            if (resettingLayer == "h") keep.push("points", "best", "total", "milestones");
+            if (resettingLayer == "sp") keep.push("points", "best", "total", "milestones");
+            if (hasUpgrade('p', 22) && resettingLayer == "p") {
+                if (hasUpgrade('p', 23)) player.p.holiness = new Decimal(player.p.holiness.add(player.p.divinity.mul(0.06)))
+                else player.p.holiness = new Decimal(player.p.holiness.add(player.p.divinity.mul(0.04)));
+            };
+            if (hasUpgrade('p', 41) && resettingLayer == "p") player.p.hymn = new Decimal(Math.round(player.p.hymn.add(player.p.holiness.div(225))));
+            if (layers[resettingLayer].row >= this.row) player.p.divinity = new Decimal(0);
+            if (layers[resettingLayer].row > this.row) {
+                layerDataReset("p", keep);
+                if (!keep.includes("holiness")) player.p.holiness = new Decimal(0);
+                if (!keep.includes("hymn")) player.p.hymn = new Decimal(0);
+            };
         },
     update(diff) {
         if (tmp.p.effect.gt(new Decimal(0))) player.p.divinity = (player.p.divinity.add(tmp.p.effect.mul(diff)));
@@ -2329,36 +2326,36 @@ addLayer("p", {
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
         },
         21: {
-            fullDisplay() { return '<font size="2">Divine Prayers</font><br>multiplies prayer gain based on the amount of divinity you have<br>Currently: ' + format(upgradeEffect(this.layer, this.id)) + 'x<br><br>Cost: 25 divinity' },
+            fullDisplay() { return '<font size="2">Divine Prayers</font><br>multiplies prayer gain based on the amount of divinity you have<br>Currently: ' + format(upgradeEffect(this.layer, this.id)) + 'x<br><br>Cost: 20 divinity' },
             canAfford() {
-                if (player.p.divinity.gte(25)) return true
+                if (player.p.divinity.gte(20)) return true
                 else return false
             },
             pay() {
-                player.p.divinity = player.p.divinity.sub(25);
+                player.p.divinity = player.p.divinity.sub(20);
             },
             effect() {
                 return player.p.divinity.add(1).pow(0.01);
             },
         },
         22: {
-            fullDisplay() { return '<font size="2">Holy Light</font><br>unlocks holiness<br><br>Cost: 75 divinity' },
+            fullDisplay() { return '<font size="2">Holy Light</font><br>unlocks holiness<br><br>Cost: 50 divinity' },
             canAfford() {
-                if (player.p.divinity.gte(75)) return true
+                if (player.p.divinity.gte(50)) return true
                 else return false
             },
             pay() {
-                player.p.divinity = player.p.divinity.sub(75);
+                player.p.divinity = player.p.divinity.sub(50);
             },
         },
         23: {
-            fullDisplay() { return '<font size="2">Holy Channeling</font><br>increases efficiency of holiness conversion<br>0.04 --> 0.05<br><br>Cost: 20 holiness' },
+            fullDisplay() { return '<font size="2">Holy Channeling</font><br>increases efficiency of holiness conversion<br>0.04x --> 0.06x<br><br>Cost: 15 holiness' },
             canAfford() {
-                if (player.p.holiness.gte(20)) return true
+                if (player.p.holiness.gte(15)) return true
                 else return false
             },
             pay() {
-                player.p.holiness = player.p.holiness.sub(20);
+                player.p.holiness = player.p.holiness.sub(15);
             },
             unlocked() { if (hasUpgrade('p', 22)) return true },
         },
