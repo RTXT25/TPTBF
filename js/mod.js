@@ -1,5 +1,5 @@
 let modInfo = {
-	name: "The Primoridial Tree",
+	name: "The Primordial Tree",
 	id: "Yrahcaz7-ModTree-NewGame",
 	author: "Yrahcaz7",
 	pointsName: "points",
