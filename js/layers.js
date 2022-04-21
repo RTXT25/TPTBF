@@ -336,32 +336,32 @@ addLayer("e", {
     exponent: 0.5,
     gainMult() {
         mult = new Decimal(1)
-        if (hasUpgrade('e', 13)) mult = mult.times(upgradeEffect('e', 13))
-        if (hasUpgrade('e', 22)) mult = mult.times(upgradeEffect('e', 22))
-            if (hasUpgrade('e', 41)) mult = mult.times(upgradeEffect('e', 41))
-                if (hasUpgrade('e', 42)) mult = mult.times(upgradeEffect('e', 42))
-        if (hasUpgrade('c', 11)) mult = mult.times(upgradeEffect('c', 11))
-        if (hasUpgrade('q', 14)) mult = mult.times(upgradeEffect('q', 14))
-            if (hasUpgrade('q', 15)) mult = mult.times(upgradeEffect('q', 15))
-        if (hasUpgrade('q', 32)) mult = mult.times(upgradeEffect('q', 32))
-        if (hasUpgrade('a', 73)) mult = mult.times(upgradeEffect('a', 73))
-        if (hasUpgrade('p', 11)) mult = mult.times(upgradeEffect('p', 11))
-        if (getBuyableAmount('e', 11) >= 0.1 && getBuyableAmount('e', 11) < 14) mult = mult.times((getBuyableAmount('e', 11) * 2.5) + 1)
-        if (getBuyableAmount('e', 11) >= 14) mult = mult.times((getBuyableAmount('e', 11) * 2.5) + 1)
-        if (getBuyableAmount('e', 12) >= 0.1 && getBuyableAmount('e', 12) < 99) mult = mult.times((getBuyableAmount('e', 12) ** 0.25) + 1)
-        if (getBuyableAmount('e', 12) >= 99) mult = mult.times((getBuyableAmount('e', 12) ** 0.25) + 1)
-        if (getBuyableAmount('c', 12) >= 0.1 && getBuyableAmount('c', 12) < 49) mult = mult.times(2 ** getBuyableAmount('c', 12))
-        if (getBuyableAmount('c', 12) >= 49) mult = mult.times(2 ** 49)
-        if (getBuyableAmount('sp', 12) >= 0.1 && getBuyableAmount('sp', 12) < 9) mult = mult.times(5 ** getBuyableAmount('sp', 12))
-            if (hasUpgrade('sp', 12)) mult = mult.times(5 ** getBuyableAmount('sp', 12))
-        if (getBuyableAmount('sp', 12) >= 9) mult = mult.times(1953125)
-            if (hasUpgrade('sp', 12)) mult = mult.times(1953125)
-        if (getBuyableAmount('sp', 11) >= 0.1 && getBuyableAmount('sp', 11) < 9) mult = mult.times(((getBuyableAmount('sp', 11) * 1) + 1) ** -1)
-        if (getBuyableAmount('sp', 11) >= 9) mult = mult.times(0.1)
-        if (hasUpgrade('p', 22)) mult = mult.times(((player.p.holiness + 1) ** 0.05) + 0.5)
-        if (hasUpgrade('ds', 21)) mult = mult.times(Math.round(100 * (player.A.achievements.length * 0.2)) / 100)
-        if (inChallenge('ds', 21)) mult = mult.times(0.00000000000000000001)
-        return mult
+        if (hasUpgrade('e', 13)) mult = mult.times(upgradeEffect('e', 13));
+        if (hasUpgrade('e', 22)) mult = mult.times(upgradeEffect('e', 22));
+            if (hasUpgrade('e', 41)) mult = mult.times(upgradeEffect('e', 41));
+                if (hasUpgrade('e', 42)) mult = mult.times(upgradeEffect('e', 42));
+        if (hasUpgrade('c', 11)) mult = mult.times(upgradeEffect('c', 11));
+        if (hasUpgrade('q', 14)) mult = mult.times(upgradeEffect('q', 14));
+            if (hasUpgrade('q', 15)) mult = mult.times(upgradeEffect('q', 15));
+        if (hasUpgrade('q', 32)) mult = mult.times(upgradeEffect('q', 32));
+        if (hasUpgrade('a', 73)) mult = mult.times(upgradeEffect('a', 73));
+        if (hasUpgrade('p', 11)) mult = mult.times(upgradeEffect('p', 11));
+        if (getBuyableAmount('e', 11) >= 0.1 && getBuyableAmount('e', 11) < 14) mult = mult.times((getBuyableAmount('e', 11) * 2.5) + 1);
+        if (getBuyableAmount('e', 11) >= 14) mult = mult.times((getBuyableAmount('e', 11) * 2.5) + 1);
+        if (getBuyableAmount('e', 12) >= 0.1 && getBuyableAmount('e', 12) < 99) mult = mult.times((getBuyableAmount('e', 12) ** 0.25) + 1);
+        if (getBuyableAmount('e', 12) >= 99) mult = mult.times((getBuyableAmount('e', 12) ** 0.25) + 1);
+        if (getBuyableAmount('c', 12) >= 0.1 && getBuyableAmount('c', 12) < 49) mult = mult.times(2 ** getBuyableAmount('c', 12));
+        if (getBuyableAmount('c', 12) >= 49) mult = mult.times(2 ** 49);
+        if (getBuyableAmount('sp', 12) >= 0.1 && getBuyableAmount('sp', 12) < 9) mult = mult.times(5 ** getBuyableAmount('sp', 12));
+            if (hasUpgrade('sp', 12)) mult = mult.times(5 ** getBuyableAmount('sp', 12));
+        if (getBuyableAmount('sp', 12) >= 9) mult = mult.times(1953125);
+            if (hasUpgrade('sp', 12)) mult = mult.times(1953125);
+        if (getBuyableAmount('sp', 11) >= 0.1 && getBuyableAmount('sp', 11) < 9) mult = mult.times(((getBuyableAmount('sp', 11) * 1) + 1) ** -1);
+        if (getBuyableAmount('sp', 11) >= 9) mult = mult.times(0.1);
+        if (hasUpgrade('p', 22)) mult = mult.times(player.p.holiness.add(1).pow(0.05));
+        if (hasUpgrade('ds', 21)) mult = mult.times(Math.round(100 * (player.A.achievements.length * 0.2)) / 100);
+        if (inChallenge('ds', 21)) mult = mult.times(0.00000000000000000001);
+        return mult;
     },
     gainExp() {
         return new Decimal(1)
@@ -425,7 +425,7 @@ addLayer("e", {
             effect() {
                return player[this.layer].points.add(1).pow(0.5)
             },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             unlocked() { return hasUpgrade("e", 11) },
         },
         13: {
@@ -435,7 +435,7 @@ addLayer("e", {
             effect() { 
                 return player.points.add(1).pow(0.15)
             },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             unlocked() { return hasUpgrade("e", 12) },
         },
         21: {
@@ -445,7 +445,7 @@ addLayer("e", {
             effect() {
                return player.points.add(1).pow(0.075)
             },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             unlocked() { return hasUpgrade("e", 13) },
         },
         22: {
@@ -455,7 +455,7 @@ addLayer("e", {
             effect() {
                return player[this.layer].points.add(1).pow(0.11111111111)
             },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             unlocked() { return hasUpgrade("e", 21) },
         },
         23: {
@@ -465,7 +465,7 @@ addLayer("e", {
             effect() {
                return player.points.add(1).pow(0.25)
             },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             unlocked() { return hasUpgrade("e", 22) },
         },
         31: {
@@ -475,7 +475,7 @@ addLayer("e", {
             effect() {
                return player.points.add(1).pow(0.01)
             },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             unlocked() { return hasMilestone("q", 0) && hasUpgrade("e", 23) },
         },
         32: {
@@ -485,7 +485,7 @@ addLayer("e", {
             effect() {
                return player[this.layer].points.add(1).pow(0.001)
             },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             unlocked() { return hasMilestone("q", 0) && hasUpgrade("e", 31) },
         },
         33: {
@@ -495,7 +495,7 @@ addLayer("e", {
             effect() {
                return player[this.layer].points.add(1).pow(0.025)
             },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             unlocked() { return hasMilestone("q", 0) && hasUpgrade("e", 32) },
         },
         41: {
@@ -505,7 +505,7 @@ addLayer("e", {
             effect() {
                return player[this.layer].points.add(1).pow(0.001)
             },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             unlocked() { return hasMilestone("q", 0) && hasUpgrade("e", 33) },
         },
         42: {
@@ -515,7 +515,7 @@ addLayer("e", {
             effect() {
                return player[this.layer].points.add(1).pow(0.01)
             },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             unlocked() { return hasMilestone("q", 0) && hasUpgrade("e", 41) },
         },
     },
@@ -573,21 +573,21 @@ addLayer("c", {
     exponent: 0.3,
     gainMult() {
         mult = new Decimal(1)
-        if (hasUpgrade('e', 32)) mult = mult.times(upgradeEffect('e', 32))
-        if (hasUpgrade('c', 12)) mult = mult.times(upgradeEffect('c', 12))
-        if (hasUpgrade('q', 21)) mult = mult.times(upgradeEffect('q', 21))
-            if (hasUpgrade('q', 22)) mult = mult.times(upgradeEffect('q', 22))
-        if (hasUpgrade('q', 33)) mult = mult.times(upgradeEffect('q', 33))
-        if (hasUpgrade('h', 13)) mult = mult.times(upgradeEffect('h', 13))
-            if (hasUpgrade('h', 23)) mult = mult.times(upgradeEffect('h', 23))
-                if (hasUpgrade('h', 33)) mult = mult.times(upgradeEffect('h', 33))
-        if (hasUpgrade('h', 24)) mult = mult.times(3)
-        if (getBuyableAmount('e', 12) >= 0.1 && getBuyableAmount('e', 12) < 99) mult = mult.times((getBuyableAmount('e', 12) * 1) + 1)
-        if (getBuyableAmount('e', 12) >= 99) mult = mult.times(100)
-        if (hasUpgrade('ds', 21) && hasUpgrade('ds', 23)) mult = mult.times(Math.round(100 * (player.A.achievements.length ** 2)) / 10000)
-        if (inChallenge('ds', 11)) mult = mult.times(0.01)
-        if (inChallenge('ds', 21)) mult = mult.times(0.000000000000001)
-        return mult
+        if (hasUpgrade('e', 32)) mult = mult.times(upgradeEffect('e', 32));
+        if (hasUpgrade('c', 12)) mult = mult.times(upgradeEffect('c', 12));
+        if (hasUpgrade('q', 21)) mult = mult.times(upgradeEffect('q', 21));
+            if (hasUpgrade('q', 22)) mult = mult.times(upgradeEffect('q', 22));
+        if (hasUpgrade('q', 33)) mult = mult.times(upgradeEffect('q', 33));
+        if (hasUpgrade('h', 13)) mult = mult.times(upgradeEffect('h', 13));
+            if (hasUpgrade('h', 23)) mult = mult.times(upgradeEffect('h', 23));
+                if (hasUpgrade('h', 33)) mult = mult.times(upgradeEffect('h', 33));
+        if (hasUpgrade('h', 24)) mult = mult.times(3);
+        if (getBuyableAmount('e', 12) >= 0.1 && getBuyableAmount('e', 12) < 99) mult = mult.times((getBuyableAmount('e', 12) * 1) + 1);
+        if (getBuyableAmount('e', 12) >= 99) mult = mult.times(100);
+        if (hasUpgrade('ds', 21) && hasUpgrade('ds', 23)) mult = mult.times(Math.round(100 * (player.A.achievements.length ** 2)) / 10000);
+        if (inChallenge('ds', 11)) mult = mult.times(0.01);
+        if (inChallenge('ds', 21)) mult = mult.times(0.000000000000001);
+        return mult;
     },
     gainExp() {
         return new Decimal(1)
@@ -668,7 +668,7 @@ addLayer("c", {
             effect() {
                return player[this.layer].points.add(1).pow(0.2)
             },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             unlocked() { return hasMilestone("c", 1) },
         },
         12: {
@@ -678,7 +678,7 @@ addLayer("c", {
             effect() {
                return player.points.add(1).pow(0.01)
             },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             unlocked() { return hasUpgrade("c", 11) },
         },
         13: {
@@ -688,7 +688,7 @@ addLayer("c", {
             effect() {
                return player[this.layer].points.add(1).pow(0.1)
             },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             unlocked() { return hasUpgrade("c", 12) },
         },
         21: {
@@ -698,7 +698,7 @@ addLayer("c", {
             effect() {
                return player[this.layer].points.add(1).pow(0.005)
             },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             unlocked() { return (hasMilestone("h", 8)) && hasUpgrade("c", 13) },
         },
         22: {
@@ -708,7 +708,7 @@ addLayer("c", {
             effect() {
                return player[this.layer].points.add(1).pow(0.002)
             },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             unlocked() { return (hasMilestone("h", 8)) && hasUpgrade("c", 21) },
         },
         23: {
@@ -718,7 +718,7 @@ addLayer("c", {
             effect() {
                return player[this.layer].points.add(1).pow(0.01)
             },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             unlocked() { return (hasMilestone("h", 8)) && hasUpgrade("c", 22) },
         },
         31: {
@@ -728,7 +728,7 @@ addLayer("c", {
             effect() {
                return player[this.layer].points.add(1).pow(0.0025)
             },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             unlocked() { return (hasMilestone("h", 8)) && hasUpgrade("h", 53) && hasUpgrade("c", 23) },
         },
         32: {
@@ -738,7 +738,7 @@ addLayer("c", {
             effect() {
                return player[this.layer].points.add(1).pow(0.001)
             },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             unlocked() { return (hasMilestone("h", 8)) && hasUpgrade("h", 53) && hasUpgrade("c", 31) },
         },
         33: {
@@ -802,29 +802,29 @@ addLayer("q", {
     exponent: 0.1,
     gainMult() {
         mult = new Decimal(1)
-        if (hasUpgrade('c', 13)) mult = mult.times(upgradeEffect('c', 13))
-        if (hasUpgrade('q', 11)) mult = mult.times(upgradeEffect('q', 11))
-        if (hasUpgrade('q', 21)) mult = mult.times(upgradeEffect('q', 21))
-            if (hasUpgrade('q', 22)) mult = mult.times(upgradeEffect('q', 22))
-        if (hasUpgrade('q', 23)) mult = mult.times(upgradeEffect('q', 23))
-            if (hasUpgrade('q', 24)) mult = mult.times(upgradeEffect('q', 24))
-                if (hasUpgrade('q', 25)) mult = mult.times(upgradeEffect('q', 25))
-                    if (hasUpgrade('q', 31)) mult = mult.times(upgradeEffect('q', 31))
-        if (hasUpgrade('q', 42)) mult = mult.times(upgradeEffect('q', 42))
-            if (hasUpgrade('q', 44)) mult = mult.times(upgradeEffect('q', 44))
-        if (hasUpgrade('q', 45)) mult = mult.times(upgradeEffect('q', 45))
-        if (hasUpgrade('h', 34)) mult = mult.times(2)
-        if (hasUpgrade('a', 41)) mult = mult.times(upgradeEffect('a', 41))
-        if (getBuyableAmount('sp', 11) >= 0.1 && getBuyableAmount('sp', 11) < 9) mult = mult.times(5 ** getBuyableAmount('sp', 11))
-            if (hasUpgrade('sp', 11)) mult = mult.times(5 ** getBuyableAmount('sp', 11))
-        if (getBuyableAmount('sp', 11) >= 9) mult = mult.times(1953125)
-            if (hasUpgrade('sp', 11)) mult = mult.times(1953125)
-        if (getBuyableAmount('sp', 21) >= 0.1 && getBuyableAmount('sp', 21) < 9) mult = mult.times(((getBuyableAmount('sp', 21) * 1) + 1) ** -1)
-        if (getBuyableAmount('sp', 21) >= 9) mult = mult.times(0.1)
-        if (hasUpgrade('ds', 21) && hasUpgrade('ds', 23)) mult = mult.times(Math.round(100 * (player.A.achievements.length ** 2)) / 10000)
-        if (inChallenge('ds', 11)) mult = mult.times(0.1)
-        if (inChallenge('ds', 22)) mult = mult.times(0.0000000000000000000000000000000000000001)
-        return mult
+        if (hasUpgrade('c', 13)) mult = mult.times(upgradeEffect('c', 13));
+        if (hasUpgrade('q', 11)) mult = mult.times(upgradeEffect('q', 11));
+        if (hasUpgrade('q', 21)) mult = mult.times(upgradeEffect('q', 21));
+            if (hasUpgrade('q', 22)) mult = mult.times(upgradeEffect('q', 22));
+        if (hasUpgrade('q', 23)) mult = mult.times(upgradeEffect('q', 23));
+            if (hasUpgrade('q', 24)) mult = mult.times(upgradeEffect('q', 24));
+                if (hasUpgrade('q', 25)) mult = mult.times(upgradeEffect('q', 25));
+                    if (hasUpgrade('q', 31)) mult = mult.times(upgradeEffect('q', 31));
+        if (hasUpgrade('q', 42)) mult = mult.times(upgradeEffect('q', 42));
+            if (hasUpgrade('q', 44)) mult = mult.times(upgradeEffect('q', 44));
+        if (hasUpgrade('q', 45)) mult = mult.times(upgradeEffect('q', 45));
+        if (hasUpgrade('h', 34)) mult = mult.times(2);
+        if (hasUpgrade('a', 41)) mult = mult.times(upgradeEffect('a', 41));
+        if (getBuyableAmount('sp', 11) >= 0.1 && getBuyableAmount('sp', 11) < 9) mult = mult.times(5 ** getBuyableAmount('sp', 11));
+            if (hasUpgrade('sp', 11)) mult = mult.times(5 ** getBuyableAmount('sp', 11));
+        if (getBuyableAmount('sp', 11) >= 9) mult = mult.times(1953125);
+            if (hasUpgrade('sp', 11)) mult = mult.times(1953125);
+        if (getBuyableAmount('sp', 21) >= 0.1 && getBuyableAmount('sp', 21) < 9) mult = mult.times(((getBuyableAmount('sp', 21) * 1) + 1) ** -1);
+        if (getBuyableAmount('sp', 21) >= 9) mult = mult.times(0.1);
+        if (hasUpgrade('ds', 21) && hasUpgrade('ds', 23)) mult = mult.times(Math.round(100 * (player.A.achievements.length ** 2)) / 10000);
+        if (inChallenge('ds', 11)) mult = mult.times(0.1);
+        if (inChallenge('ds', 22)) mult = mult.times(0.0000000000000000000000000000000000000001);
+        return mult;
     },
     gainExp() {
         return new Decimal(1)
@@ -893,7 +893,7 @@ addLayer("q", {
             effect() {
                return player.points.add(1).pow(0.01)
             },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
         },
         12: {
             title: "Quark Power",
@@ -902,7 +902,7 @@ addLayer("q", {
             effect() {
                return player[this.layer].points.add(1).pow(0.09)
             },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             unlocked() { return hasUpgrade("q", 11) },
         },
         13: {
@@ -912,7 +912,7 @@ addLayer("q", {
             effect() {
                return player.points.add(1).pow(0.0025)
             },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             unlocked() { return hasUpgrade("q", 12) },
         },
         14: {
@@ -922,7 +922,7 @@ addLayer("q", {
             effect() {
                return player[this.layer].points.add(1).pow(0.2)
             },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             unlocked() { return hasUpgrade("q", 13) },
         },
         15: {
@@ -932,7 +932,7 @@ addLayer("q", {
             effect() {
                return player['c'].points.add(1).pow(0.02)
             },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             unlocked() { return hasUpgrade("q", 14) },
         },
         21: {
@@ -942,7 +942,7 @@ addLayer("q", {
             effect() {
                return player[this.layer].points.add(1).pow(0.05)
             },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             unlocked() { return hasUpgrade("q", 15) },
         },
         22: {
@@ -952,7 +952,7 @@ addLayer("q", {
             effect() {
                return player.points.add(1).pow(0.02)
             },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             unlocked() { return hasUpgrade("q", 21) },
         },
         23: {
@@ -962,7 +962,7 @@ addLayer("q", {
             effect() {
                return player[this.layer].points.add(1).pow(0.1)
             },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             unlocked() { return hasUpgrade("q", 22) },
         },
         24: {
@@ -972,7 +972,7 @@ addLayer("q", {
             effect() {
                return player[this.layer].points.add(1).pow(0.2)
             },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             unlocked() { return hasUpgrade("q", 23) },
         },
         25: {
@@ -982,7 +982,7 @@ addLayer("q", {
             effect() {
                return player[this.layer].points.add(1).pow(0.05)
             },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             unlocked() { return hasUpgrade("q", 24) },
         },
         31: {
@@ -992,7 +992,7 @@ addLayer("q", {
             effect() {
                return player[this.layer].points.add(1).pow(0.01)
             },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             unlocked() { return hasUpgrade("q", 25) },
         },
         32: {
@@ -1002,7 +1002,7 @@ addLayer("q", {
             effect() {
                return player[this.layer].points.add(1).pow(0.15)
             },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             unlocked() { return hasUpgrade("q", 31) },
         },
         33: {
@@ -1012,7 +1012,7 @@ addLayer("q", {
             effect() {
                return player[this.layer].points.add(1).pow(0.075)
             },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             unlocked() { return hasUpgrade("q", 32) },
         },
         34: {
@@ -1022,7 +1022,7 @@ addLayer("q", {
             effect() {
                return player[this.layer].points.add(1).pow(0.01)
             },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             unlocked() { return hasUpgrade("q", 33) },
         },
         35: {
@@ -1032,7 +1032,7 @@ addLayer("q", {
             effect() {
                return player[this.layer].points.add(1).pow(0.015)
             },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             unlocked() { return hasUpgrade("q", 34) },
         },
         41: {
@@ -1042,7 +1042,7 @@ addLayer("q", {
             effect() {
                return player[this.layer].points.add(1).pow(0.005)
             },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             unlocked() { return hasMilestone("sp", 2) && hasUpgrade("q", 35) },
         },
         42: {
@@ -1052,7 +1052,7 @@ addLayer("q", {
             effect() {
                return player["sp"].points.add(1).pow(0.5)
             },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             unlocked() { return hasMilestone("sp", 2) && hasUpgrade("q", 41) },
         },
         43: {
@@ -1062,7 +1062,7 @@ addLayer("q", {
             effect() {
                return player[this.layer].points.add(1).pow(0.01)
             },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             unlocked() { return hasMilestone("sp", 2) && hasUpgrade("q", 42) },
         },
         44: {
@@ -1072,7 +1072,7 @@ addLayer("q", {
             effect() {
                return player[this.layer].points.add(1).pow(0.005)
             },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             unlocked() { return hasMilestone("sp", 2) && hasUpgrade("q", 43) },
         },
         45: {
@@ -1082,7 +1082,7 @@ addLayer("q", {
             effect() {
                return player[this.layer].points.add(1).pow(0.125)
             },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             unlocked() { return hasMilestone("sp", 2) && hasUpgrade("q", 44) },
         },
     },
@@ -1114,17 +1114,17 @@ addLayer("sp", {
     },
     gainExp() {
         gain = new Decimal(1)
-        if (hasUpgrade('q', 43)) gain = gain.times(upgradeEffect('q', 43))
-        if (hasUpgrade('h', 63)) gain = gain.times(upgradeEffect('h', 63))
-        if (hasUpgrade('a', 22)) gain = gain.times(upgradeEffect('a', 22))
-        if (hasUpgrade('a', 31)) gain = gain.times(upgradeEffect('a', 31))
-        if (getBuyableAmount('ds',11) >= 0.1 && getBuyableAmount('ds',11) < 22) gain = gain.times((getBuyableAmount('ds', 11) * 5) + 1)
-        if (getBuyableAmount('ds',11) >= 22) gain = gain.times(111)
-        if (hasUpgrade('a', 51)) gain = gain.times(Math.round(100 * (player.A.achievements.length ** 2.5)) / 10000)
-        if (hasChallenge('ds', 21)) gain = gain.times(player['ds'].points.add(1).pow(0.2))
-        if (inChallenge('ds', 12)) gain = gain.times(player['q'].points ** -0.05)
-        if (inChallenge('ds', 22)) gain = gain.times(0.0000000000000000000000000000000000000001)
-        return gain
+        if (hasUpgrade('q', 43)) gain = gain.times(upgradeEffect('q', 43));
+        if (hasUpgrade('h', 63)) gain = gain.times(upgradeEffect('h', 63));
+        if (hasUpgrade('a', 22)) gain = gain.times(upgradeEffect('a', 22));
+        if (hasUpgrade('a', 31)) gain = gain.times(upgradeEffect('a', 31));
+        if (getBuyableAmount('ds', 11) >= 0.1 && getBuyableAmount('ds', 11) < 22) gain = gain.times((getBuyableAmount('ds', 11) * 5) + 1);
+        if (getBuyableAmount('ds', 11) >= 22) gain = gain.times(111);
+        if (hasUpgrade('a', 51)) gain = gain.times(Math.round(100 * (player.A.achievements.length ** 2.5)) / 10000);
+        if (hasChallenge('ds', 21)) gain = gain.times(player['ds'].points.add(1).pow(0.2));
+        if (inChallenge('ds', 12)) gain = gain.times(player['q'].points ** -0.05);
+        if (inChallenge('ds', 22)) gain = gain.times(0.0000000000000000000000000000000000000001);
+        return gain;
     },
     row: 2,
     hotkeys: [
@@ -1278,22 +1278,22 @@ addLayer("h", {
     exponent: 0.5,
     gainMult() {
         mult = new Decimal(1)
-        if (hasUpgrade('h', 12)) mult = mult.times(upgradeEffect('h', 12))
-            if (hasUpgrade('h', 22)) mult = mult.times(upgradeEffect('h', 22))
-                if (hasUpgrade('h', 32)) mult = mult.times(upgradeEffect('h', 32))
-                    if (hasUpgrade('h', 42)) mult = mult.times(upgradeEffect('h', 42))
-        if (hasUpgrade('h', 14)) mult = mult.times(4)
-        if (hasUpgrade('h', 62)) mult = mult.times(upgradeEffect('h', 62))
-        if (hasUpgrade('ds', 11)) mult = mult.times(upgradeEffect('h', 11))
-            if (hasUpgrade('ds', 12)) mult = mult.times(upgradeEffect('h', 12))
-        if (getBuyableAmount('ds',11) >= 0.1 && getBuyableAmount('ds',11) < 22) mult = mult.times(2 ** getBuyableAmount('ds', 11))
-        if (getBuyableAmount('ds',11) >= 22) mult = mult.times(4194304)
-        if (hasUpgrade('ds', 11)) mult = mult.times(1.02)
-        if (hasChallenge('ds', 11)) mult = mult.times(player['ds'].points.add(1).pow(0.25))
-        if (inChallenge('ds', 11)) mult = mult.times(0.001)
-        if (inChallenge('ds', 12)) mult = mult.times(0.0000000001)
-        if (inChallenge('ds', 21)) mult = mult.times(0.00001)
-        return mult
+        if (hasUpgrade('h', 12)) mult = mult.times(upgradeEffect('h', 12));
+            if (hasUpgrade('h', 22)) mult = mult.times(upgradeEffect('h', 22));
+                if (hasUpgrade('h', 32)) mult = mult.times(upgradeEffect('h', 32));
+                    if (hasUpgrade('h', 42)) mult = mult.times(upgradeEffect('h', 42));
+        if (hasUpgrade('h', 14)) mult = mult.times(4);
+        if (hasUpgrade('h', 62)) mult = mult.times(upgradeEffect('h', 62));
+        if (hasUpgrade('ds', 11)) mult = mult.times(upgradeEffect('h', 11));
+            if (hasUpgrade('ds', 12)) mult = mult.times(upgradeEffect('h', 12));
+        if (getBuyableAmount('ds', 11) >= 0.1 && getBuyableAmount('ds', 11) < 22) mult = mult.times(2 ** getBuyableAmount('ds', 11));
+        if (getBuyableAmount('ds', 11) >= 22) mult = mult.times(4194304);
+        if (hasUpgrade('ds', 11)) mult = mult.times(1.02);
+        if (hasChallenge('ds', 11)) mult = mult.times(player['ds'].points.add(1).pow(0.25));
+        if (inChallenge('ds', 11)) mult = mult.times(0.001);
+        if (inChallenge('ds', 12)) mult = mult.times(0.0000000001);
+        if (inChallenge('ds', 21)) mult = mult.times(0.00001);
+        return mult;
     },
     gainExp() {
         return new Decimal(1)
@@ -1379,7 +1379,7 @@ addLayer("h", {
             effect() {
                return player[this.layer].points.add(1).pow(0.005)
             },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
         },
         12: {
             title: "Stronger Hexes",
@@ -1388,7 +1388,7 @@ addLayer("h", {
             effect() {
                return player[this.layer].points.add(1).pow(0.1)
             },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
         },
         13: {
             title: "Hex Fusion",
@@ -1397,7 +1397,7 @@ addLayer("h", {
             effect() {
                return player[this.layer].points.add(1).pow(0.09)
             },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
         },
         14: {
             title: "Boost Hexes",
@@ -1411,7 +1411,7 @@ addLayer("h", {
             effect() {
                return player[this.layer].points.add(1).pow(0.025)
             },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             unlocked() { return hasUpgrade("h", 11) && hasUpgrade("h", 12) && hasUpgrade("h", 13) && hasUpgrade("h", 14) },
         },
         22: {
@@ -1421,7 +1421,7 @@ addLayer("h", {
             effect() {
                return player[this.layer].points.add(1).pow(0.05)
             },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             unlocked() { return hasUpgrade("h", 11) && hasUpgrade("h", 12) && hasUpgrade("h", 13) && hasUpgrade("h", 14) },
         },
         23: {
@@ -1431,7 +1431,7 @@ addLayer("h", {
             effect() {
                return player[this.layer].points.add(1).pow(0.15)
             },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             unlocked() { return hasUpgrade("h", 11) && hasUpgrade("h", 12) && hasUpgrade("h", 13) && hasUpgrade("h", 14) },
         },
         24: {
@@ -1447,7 +1447,7 @@ addLayer("h", {
             effect() {
                return player.points.add(1).pow(0.002)
             },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             unlocked() { return hasUpgrade("h", 21) && hasUpgrade("h", 22) && hasUpgrade("h", 23) && hasUpgrade("h", 24) },
         },
         32: {
@@ -1457,7 +1457,7 @@ addLayer("h", {
             effect() {
                return player[this.layer].points.add(1).pow(0.01)
             },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             unlocked() { return hasUpgrade("h", 21) && hasUpgrade("h", 22) && hasUpgrade("h", 23) && hasUpgrade("h", 24) },
         },
         33: {
@@ -1467,7 +1467,7 @@ addLayer("h", {
             effect() {
                return player[this.layer].points.add(1).pow(0.025)
             },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             unlocked() { return hasUpgrade("h", 21) && hasUpgrade("h", 22) && hasUpgrade("h", 23) && hasUpgrade("h", 24) },
         },
         34: {
@@ -1483,7 +1483,7 @@ addLayer("h", {
             effect() {
                return player.points.add(1).pow(0.0001)
             },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             unlocked() { return hasUpgrade("h", 31) && hasUpgrade("h", 32) && hasUpgrade("h", 33) && hasUpgrade("h", 34) },
         },
         42: {
@@ -1493,7 +1493,7 @@ addLayer("h", {
             effect() {
                return player[this.layer].points.add(1).pow(0.001)
             },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             unlocked() { return hasUpgrade("h", 31) && hasUpgrade("h", 32) && hasUpgrade("h", 33) && hasUpgrade("h", 34) },
         },
         43: {
@@ -1545,7 +1545,7 @@ addLayer("h", {
             effect() {
                return player['sp'].points.add(1).pow(2.5)
             },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             unlocked() { return hasUpgrade("h", 52) && hasUpgrade("h", 53) },
         },
         63: {
@@ -1555,7 +1555,7 @@ addLayer("h", {
             effect() {
                return player[this.layer].points.add(1).pow(0.02)
             },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             unlocked() { return hasUpgrade("h", 52) && hasUpgrade("h", 53) },
         },
         64: {
@@ -1584,12 +1584,12 @@ addLayer("ds", {
     exponent: 0.05,
     gainMult() {
         mult = new Decimal(1)
-        if (hasUpgrade('a', 11)) mult = mult.times(upgradeEffect('a', 11))
-        if (hasUpgrade('a', 42)) mult = mult.times(upgradeEffect('a', 42))
-        if (hasUpgrade('a', 71)) mult = mult.times(upgradeEffect('a', 71))
-        if (hasChallenge('ds', 11)) mult = mult.times(player['ds'].points.add(1).pow(0.25))
-        if (hasChallenge('ds', 12)) mult = mult.times(player['h'].points.add(1).pow(0.02))
-        return mult
+        if (hasUpgrade('a', 11)) mult = mult.times(upgradeEffect('a', 11));
+        if (hasUpgrade('a', 42)) mult = mult.times(upgradeEffect('a', 42));
+        if (hasUpgrade('a', 71)) mult = mult.times(upgradeEffect('a', 71));
+        if (hasChallenge('ds', 11)) mult = mult.times(player['ds'].points.add(1).pow(0.25));
+        if (hasChallenge('ds', 12)) mult = mult.times(player['h'].points.add(1).pow(0.02));
+        return mult;
     },
     gainExp() {
         return new Decimal(1)
@@ -1699,7 +1699,7 @@ addLayer("ds", {
             effect() {
                 return player["ds"].points.add(1).pow(0.1)
             },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
         },
         12: {
             title: "Hex Mania",
@@ -1708,7 +1708,7 @@ addLayer("ds", {
             effect() {
                 return player["ds"].points.add(1).pow(0.2)
             },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
         },
         21: {
             title: "Hall of Fame",
@@ -1851,14 +1851,14 @@ addLayer("a", {
     },
     gainExp() {
         gain = new Decimal(1)
-        if (hasUpgrade('a', 22)) gain = gain.times(upgradeEffect('a', 22))
-        if (hasUpgrade('a', 32)) gain = gain.times(upgradeEffect('a', 32))
-        if (hasUpgrade('a', 33)) gain = gain.times(upgradeEffect('a', 33))
-        if (hasUpgrade('a', 61)) gain = gain.times(upgradeEffect('a', 61))
-        if (hasUpgrade('a', 62)) gain = gain.times(upgradeEffect('a', 62))
-        if (hasUpgrade('a', 72)) gain = gain.times(upgradeEffect('a', 72))
-        if (hasChallenge('ds', 22)) gain = gain.times(1.5)
-        return gain
+        if (hasUpgrade('a', 22)) gain = gain.times(upgradeEffect('a', 22));
+        if (hasUpgrade('a', 32)) gain = gain.times(upgradeEffect('a', 32));
+        if (hasUpgrade('a', 33)) gain = gain.times(upgradeEffect('a', 33));
+        if (hasUpgrade('a', 61)) gain = gain.times(upgradeEffect('a', 61));
+        if (hasUpgrade('a', 62)) gain = gain.times(upgradeEffect('a', 62));
+        if (hasUpgrade('a', 72)) gain = gain.times(upgradeEffect('a', 72));
+        if (hasChallenge('ds', 22)) gain = gain.times(1.5);
+        return gain;
     },
     row: 3,
     hotkeys: [
@@ -2006,7 +2006,7 @@ addLayer("a", {
             effect() {
                 return player["a"].points.add(1).pow(0.5)
             },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             branches: [21, 22],
         },
         21: {
@@ -2016,7 +2016,7 @@ addLayer("a", {
             effect() {
                 return player.a.best.add(1).pow(1.25)
             },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             branches: [31, 32],
             unlocked() {
                 if (!hasUpgrade('a', 22) && !hasUpgrade('a', 33) || hasMilestone('a', 10)) return true
@@ -2029,7 +2029,7 @@ addLayer("a", {
             effect() {
                 return player["sp"].points.add(1).pow(0.02)
             },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             branches: [32, 33],
             unlocked() {
                 if (!hasUpgrade('a', 21) && !hasUpgrade('a', 31) || hasMilestone('a', 10)) return true
@@ -2042,7 +2042,7 @@ addLayer("a", {
             effect() {
                 return player.a.total.add(1).pow(1.05)
             },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             branches: [41],
             unlocked() {
                 if (!hasUpgrade('a', 22) && !hasUpgrade('a', 32) && !hasUpgrade('a', 33) && !hasUpgrade('a', 42) || hasMilestone('a', 10)) return true
@@ -2055,7 +2055,7 @@ addLayer("a", {
             effect() {
                 return player.a.total.add(1).pow(0.05)
             },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             branches: [41, 42],
             unlocked() {
                 if (!hasUpgrade('a', 31) && !hasUpgrade('a', 33) || hasMilestone('a', 10)) return true
@@ -2068,7 +2068,7 @@ addLayer("a", {
             effect() {
                 return player["sp"].points.add(1).pow(0.025)
             },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             branches: [42],
             unlocked() {
                 if (!hasUpgrade('a', 21) && !hasUpgrade('a', 31) && !hasUpgrade('a', 32) && !hasUpgrade('a', 41) || hasMilestone('a', 10)) return true
@@ -2081,7 +2081,7 @@ addLayer("a", {
             effect() {
                 return ((player.a.total - player["a"].points) ** 0.75)
             },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             branches: [51],
             unlocked() {
                 if (!hasUpgrade('a', 33) && !hasUpgrade('a', 42) || hasMilestone('a', 10)) return true
@@ -2094,7 +2094,7 @@ addLayer("a", {
             effect() {
                 return (((player.a.best * 1.5) - player["a"].points) ** 1.05)
             },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             branches: [51],
             unlocked() {
                 if (!hasUpgrade('a', 31) && !hasUpgrade('a', 41) || hasMilestone('a', 10)) return true
@@ -2114,7 +2114,7 @@ addLayer("a", {
             effect() {
                 return ((player.a.total - player.a.best) ** 0.2)
             },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             branches: [71, 72],
             unlocked() {
                 if (!hasUpgrade('a', 62) && !hasUpgrade('a', 73) || hasMilestone('a', 10)) return true
@@ -2127,7 +2127,7 @@ addLayer("a", {
             effect() {
                 return (((player.a.total * player["a"].points) ** 0.05) + 1)
             },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             branches: [72, 73],
             unlocked() {
                 if (!hasUpgrade('a', 61) && !hasUpgrade('a', 71) || hasMilestone('a', 10)) return true
@@ -2140,7 +2140,7 @@ addLayer("a", {
             effect() {
                 return ((player.a.best * player["a"].points * 2.5) ** 0.15)
             },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             unlocked() {
                 if (!hasUpgrade('a', 62) && !hasUpgrade('a', 72) && !hasUpgrade('a', 73) || hasMilestone('a', 10)) return true
             },
@@ -2152,7 +2152,7 @@ addLayer("a", {
             effect() {
                 return player.a.total.add(1).pow(0.1)
             },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             unlocked() {
                 if (!hasUpgrade('a', 71) && !hasUpgrade('a', 73) || hasMilestone('a', 10)) return true
             },
@@ -2164,7 +2164,7 @@ addLayer("a", {
             effect() {
                 return player["a"].points.add(1).pow(1.75)
             },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             unlocked() {
                 if (!hasUpgrade('a', 61) && !hasUpgrade('a', 71) && !hasUpgrade('a', 72) || hasMilestone('a', 10)) return true
             },
@@ -2193,11 +2193,11 @@ addLayer("p", {
     exponent: 0.012,
     gainMult() {
         mult = new Decimal(1)
-        if (hasUpgrade('p', 21)) mult = mult.times(upgradeEffect('p', 21))
-        if (hasUpgrade('p', 31) && hasUpgrade('ds', 21) && hasUpgrade('ds', 23) && hasUpgrade('ds', 24)) mult = mult.times(Math.round(100 * (player.A.achievements.length ** 2)) / 10000)
-        if (hasUpgrade('p', 41) && !hasUpgrade('p', 43)) mult = mult.times(Math.round((Math.round(player.p.hymn) + 1) ** 0.2))
-        if (hasUpgrade('p', 41) && hasUpgrade('p', 43)) mult = mult.times(((Math.round(player.p.hymn) + 1) ** 0.2) * (Math.round(player.p.hymn) + 1) ** 0.1)
-        return mult
+        if (hasUpgrade('p', 21)) mult = mult.times(upgradeEffect('p', 21));
+        if (hasUpgrade('p', 31) && hasUpgrade('ds', 21) && hasUpgrade('ds', 23) && hasUpgrade('ds', 24)) mult = mult.times(Math.round(100 * (player.A.achievements.length ** 2)) / 10000);
+        if (hasUpgrade('p', 41) && !hasUpgrade('p', 43)) mult = mult.times(player.p.hymn.add(1).pow(0.2));
+        if (hasUpgrade('p', 41) && hasUpgrade('p', 43)) mult = mult.times(player.p.hymn.add(1).pow(0.25));
+        return mult;
     },
     gainExp() {
         return new Decimal(1)
@@ -2208,26 +2208,23 @@ addLayer("p", {
     ],
     layerShown(){return player.a.unlocked},
     effect() {
-        let effBoost = new Decimal(0.01)
-        let effEx = new Decimal(1)
-        if (hasMilestone('p', 1)) effBoost = effBoost.times(2)
-        if (hasUpgrade('p', 13)) effBoost = effBoost.times(upgradeEffect('p', 13))
-        if (hasUpgrade('p', 32)) effBoost = effBoost.times((player.p.holiness + 1) ** 0.025)
-        if (hasUpgrade('p', 33)) effBoost = effBoost.times((player.p.divinity + 1) ** 0.2)
-        if (hasUpgrade('p', 42)) effBoost = effBoost.times((Math.round(player.p.hymn) + 1) ** 0.1)
-        if (hasMilestone('p', 2)) effEx = new Decimal(1.5)
-        effFinal = new Decimal((effBoost * player['p'].points) ** effEx)
-        return (Math.round(effFinal * 100) /100)
+        let effBoost = new Decimal(0.01);
+        let effEx = new Decimal(1);
+        if (hasMilestone('p', 1)) effBoost = effBoost.times(2);
+        if (hasUpgrade('p', 13)) effBoost = effBoost.times(upgradeEffect('p', 13));
+        if (hasUpgrade('p', 32)) effBoost = effBoost.times((player.p.holiness + 1) ** 0.025);
+        if (hasUpgrade('p', 33)) effBoost = effBoost.times((player.p.divinity + 1) ** 0.2);
+        if (hasUpgrade('p', 42)) effBoost = effBoost.times((Math.round(player.p.hymn) + 1) ** 0.1);
+        if (hasMilestone('p', 2)) effEx = new Decimal(1.5);
+        return new Decimal((effBoost.mul(player['p'].points)).pow(effEx));
     },
     effectDescription() {
-        if (tmp.p.effect < new Decimal(1000000)) return "which are generating " + new Decimal(tmp.p.effect) + " divinity/sec"
-        else return "which are generating " + new Decimal(Math.round(tmp.p.effect)) + " divinity/sec"
+        return "which are generating " + format(new Decimal(tmp.p.effect)) + " divinity/sec"
     },
     doReset(resettingLayer) {
         let keep = [];
         let divineEq = (Math.round(player.p.divinity * 100) / 100);
         let holyAdd = (Math.round(player.p.holiness * 100) / 100);
-        let hymnAdd = (Math.round(player.p.hymn));
             player.p.divinity = new Decimal(0);
             player.p.power = new Decimal(0);
             if (resettingLayer == "h") layerDataReset("p", ["points", "best", "total", "milestones"]), player.p.holiness = new Decimal(0)
@@ -2239,13 +2236,12 @@ addLayer("p", {
             else
                 if (hasUpgrade('p', 22) && hasUpgrade('p', 23) && resettingLayer == "p") player.p.holiness = new Decimal(holyAdd + divineEq / 20)
                 else player.p.holiness = new Decimal(holyAdd);
-            if (hasUpgrade('p', 41) && resettingLayer == "p") player.p.hymn = new Decimal(hymnAdd + player.p.holiness / 215)
-            else player.p.hymn = new Decimal(hymnAdd);
+            if (hasUpgrade('p', 41) && resettingLayer == "p") player.p.hymn = new Decimal(Math.round(player.p.hymn.add(player.p.holiness.div(215))));
             if (layers[resettingLayer].row > this.row) player.p.holiness = new Decimal(0);
             if (layers[resettingLayer].row > this.row) player.p.hymn = new Decimal(0);
         },
     update(diff) {
-        if (tmp.p.effect > new Decimal(0)) player.p.divinity = (player.p.divinity - (0 - tmp.p.effect) * diff)
+        if (tmp.p.effect.gt(new Decimal(0))) player.p.divinity = (player.p.divinity.add(tmp.p.effect.mul(diff)));
     },
     tabFormat: [
         "main-display",
@@ -2259,22 +2255,16 @@ addLayer("p", {
             {}],
         "blank",
         ["display-text",
-            function() {if (player.p.divinity < new Decimal(1000000)) return 'You have ' + new Decimal(Math.round(player.p.divinity * 100) / 100) + ' divinity, which boosts point generation by ' + new Decimal(Math.round(((player.p.divinity + 5) ** 0.1) * 100) / 100) + 'x'},
+            function() {return 'You have ' + format(player.p.divinity) + ' divinity, which boosts point generation by ' + format(player.p.divinity.add(1).pow(0.1)) + 'x'},
             {}],
         ["display-text",
-            function() {if (player.p.divinity >= new Decimal(1000000)) return 'You have ' + new Decimal(Math.round(player.p.divinity)) + ' divinity, which boosts point generation by ' + new Decimal(Math.round(((player.p.divinity + 5) ** 0.1) * 100) / 100) + 'x'},
+            function() {if (hasUpgrade('p', 22)) return 'You have ' + format(player.p.holiness) + ' holiness, which boosts essence gain by ' + format(player.p.holiness.add(1).pow(0.05)) + 'x'},
             {}],
         ["display-text",
-            function() {if (hasUpgrade('p', 22) && player.p.holiness < 1000000) return 'You have ' + new Decimal(Math.round(player.p.holiness * 100) / 100) + ' holiness, which boosts essence gain by ' + new Decimal((Math.round(((player.p.holiness + 1) ** 0.05) * 100) / 100) + 0.5) + 'x'},
+            function() {if (hasUpgrade('p', 41) && !hasUpgrade('p', 43)) return 'You have ' + format(player.p.hymn) + ' hymns, which boosts prayer gain by ' + format(player.p.hymn.add(1).pow(0.2)) + 'x'},
             {}],
         ["display-text",
-            function() {if (hasUpgrade('p', 22) && player.p.holiness >= 1000000) return 'You have ' + new Decimal(Math.round(player.p.holiness)) + ' holiness, which boosts essence gain by ' + new Decimal((Math.round(((player.p.holiness + 1) ** 0.05) * 100) / 100) + 0.5) + 'x'},
-            {}],
-        ["display-text",
-            function() {if (hasUpgrade('p', 41) && !hasUpgrade('p', 43)) return 'You have ' + new Decimal(Math.round(player.p.hymn)) + ' hymns, which boosts prayer gain by ' + new Decimal(format((Math.round(player.p.hymn) + 1) ** 0.2)) + 'x'},
-            {}],
-        ["display-text",
-            function() {if (hasUpgrade('p', 41) && hasUpgrade('p', 43)) return 'You have ' + new Decimal(Math.round(player.p.hymn)) + ' hymns, which boosts prayer gain by ' + new Decimal(format(((Math.round(player.p.hymn) + 1) ** 0.2) * (Math.round(player.p.hymn) + 1) ** 0.1)) + 'x'},
+            function() {if (hasUpgrade('p', 41) && hasUpgrade('p', 43)) return 'You have ' + format(player.p.hymn) + ' hymns, which boosts prayer gain by ' + format(player.p.hymn.add(1).pow(0.25)) + 'x'},
             {}],
         "blank",
         "milestones",
@@ -2304,9 +2294,9 @@ addLayer("p", {
             description: "multiplies essence gain based on the amount of prayers you have",
             cost: new Decimal(1),
             effect() {
-                return player["p"].points.add(1).pow(0.075)
+                return player["p"].points.add(1).pow(0.075);
             },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
         },
         12: {
             title: "Heretic Leniency",
@@ -2318,9 +2308,9 @@ addLayer("p", {
             description: "multiplies divinity gain based on the amount of essence you have",
             cost: new Decimal(25),
             effect() {
-                return player["e"].points.add(1).pow(0.0001)
+                return player["e"].points.add(1).pow(0.0001);
             },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
         },
         21: {
             fullDisplay() { return '<font size="2">Divine Prayers</font><br>multiplies prayer gain based on the amount of divinity you have<br>Currently: ' + format(upgradeEffect(this.layer, this.id)) + 'x<br><br>Cost: 25 divinity' },
@@ -2329,10 +2319,10 @@ addLayer("p", {
                 else return false
             },
             pay() {
-                player.p.divinity = Math.round(player.p.divinity) - 25
+                player.p.divinity = player.p.divinity.sub(25);
             },
             effect() {
-                return ((player.p.divinity + 1) ** 0.01)
+                return player.p.divinity.add(1).pow(0.01);
             },
         },
         22: {
@@ -2342,7 +2332,7 @@ addLayer("p", {
                 else return false
             },
             pay() {
-                player.p.divinity = Math.round(player.p.divinity) - 75
+                player.p.divinity = player.p.divinity.sub(75);
             },
         },
         23: {
@@ -2352,7 +2342,7 @@ addLayer("p", {
                 else return false
             },
             pay() {
-                player.p.holiness = Math.round(player.p.holiness) - 20
+                player.p.holiness = player.p.holiness.sub(20);
             },
             unlocked() { if (hasUpgrade('p', 22)) return true },
         },
@@ -2363,8 +2353,8 @@ addLayer("p", {
                 else return false
             },
             pay() {
-                player.p.divinity = Math.round(player.p.divinity) - 175
-                player.p.holiness = Math.round(player.p.holiness) - 45
+                player.p.divinity = player.p.divinity.sub(175);
+                player.p.holiness = player.p.holiness.sub(45);
             },
             unlocked() { if (hasUpgrade('p', 22)) return true },
 
@@ -2376,11 +2366,11 @@ addLayer("p", {
                 else return false
             },
             pay() {
-                player.p.divinity = Math.round(player.p.divinity) - 1250
-                player.p.holiness = Math.round(player.p.holiness) - 50
+                player.p.divinity = player.p.divinity.sub(1250);
+                player.p.holiness = player.p.holiness.sub(50);
             },
             effect() {
-                return ((player.p.holiness + 1) ** 0.025)
+                return player.p.holiness.add(1).pow(0.025);
             },
             unlocked() { if (hasUpgrade('p', 22)) return true },
         },
@@ -2389,9 +2379,9 @@ addLayer("p", {
             description: "multiplies divinity gain based on the amount of divinity you have",
             cost: new Decimal(1750),
             effect() {
-                return ((player.p.divinity + 1) ** 0.2)
+                return player.p.divinity.add(1).pow(0.2);
             },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
         },
         41: {
             fullDisplay() { return '<font size="2">Written hymns</font><br>unlocks hymns<br><br>Cost: 2,500 divinity,<br>450 holiness' },
@@ -2400,8 +2390,8 @@ addLayer("p", {
                 else return false
             },
             pay() {
-                player.p.divinity = Math.round(player.p.divinity) - 2500
-                player.p.holiness = Math.round(player.p.holiness) - 450
+                player.p.divinity = player.p.divinity.sub(2500);
+                player.p.holiness = player.p.holiness.sub(450);
             },
             unlocked() { if (hasUpgrade('p', 22)) return true },
         },
@@ -2412,26 +2402,23 @@ addLayer("p", {
                 else return false
             },
             pay() {
-                player.p.holiness = Math.round(player.p.holiness) - 1000
-                player.p.hymn = Math.round(player.p.hymn) - 75
+                player.p.holiness = player.p.holiness.sub(1000);
+                player.p.hymn = player.p.hymn.sub(75);
             },
             effect() {
-                return ((Math.round(player.p.hymn) + 1) ** 0.1)
+                return player.p.hymn.add(1).pow(0.1);
             },
             unlocked() { if (hasUpgrade('p', 41)) return true },
         },
         43: {
-            fullDisplay() { return '<font size="2">Hymn Singing</font><br>multiplies the hymn effect based on amount of hymns you have<br>Currently: ' + format(upgradeEffect(this.layer, this.id)) + 'x<br><br>Cost: 25,000,000 holiness,<br>500,000 hymns' },
+            fullDisplay() { return '<font size="2">Hymn Singing</font><br>increases hymn effect exponent<br>0.2 --> 0.25<br><br>Cost: 25,000,000 holiness,<br>500,000 hymns' },
             canAfford() {
                 if (player.p.holiness >= 25000000 && player.p.hymn >= 500000) return true
                 else return false
             },
             pay() {
-                player.p.holiness = Math.round(player.p.holiness) - 25000000
-                player.p.hymn = Math.round(player.p.hymn) - 500000
-            },
-            effect() {
-                return ((Math.round(player.p.hymn) + 1) ** 0.075)
+                player.p.holiness = player.p.holiness.sub(25000000);
+                player.p.hymn = player.p.hymn.sub(500000);
             },
             unlocked() { if (hasUpgrade('p', 41)) return true },
         },

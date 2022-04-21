@@ -5,16 +5,20 @@ let modInfo = {
 	pointsName: "points",
 	modFiles: ["layers.js", "tree.js"],
 
-	initialStartPoints: new Decimal (0),
+	initialStartPoints: new Decimal(0),
 	offlineLimit: 1, // In hours
 }
 
 let VERSION = {
-	num: "1.4",
-	name: "Praise the Sky",
+	num: "1.5",
+	name: "Creativity Rules",
 }
 
 let changelog = `<h1>Changelog:</h1><br>
+	<br><h3>v1.5: Creativity Rules</h3><br>
+		- Added 20 achievement images.<br>
+		- Added one milestone to atoms.<br>
+		- Balance changes.<br>
 	<br><h3>v1.4: Praise the Sky</h3><br>
 		- Added prayers.<br>
 		- Added three milestones to prayers.<br>
@@ -115,38 +119,38 @@ function getPointGen() {
 		return new Decimal(0)
 
 	let gain = new Decimal(1)
-	if (hasUpgrade('e', 12)) gain = gain.times(upgradeEffect('e', 12))
-		if (hasUpgrade('e', 33)) gain = gain.times(upgradeEffect('e', 33))
-	if (hasUpgrade('e', 21)) gain = gain.times(upgradeEffect('e', 21))
-		if (hasUpgrade('e', 23)) gain = gain.times(upgradeEffect('e', 23))
-			if (hasUpgrade('e', 31)) gain = gain.times(upgradeEffect('e', 31))
-	if (hasUpgrade('e', 32) && getBuyableAmount('e', 12) >= 0.1) gain = gain.times(upgradeEffect('e', 32))
-	if (hasUpgrade('q', 12)) gain = gain.times(upgradeEffect('q', 12))
-		if (hasUpgrade('q', 13)) gain = gain.times(upgradeEffect('q', 13))
-	if (hasUpgrade('q', 34)) gain = gain.times(upgradeEffect('q', 34))
-		if (hasUpgrade('q', 35)) gain = gain.times(upgradeEffect('q', 35))
-			if (hasUpgrade('q', 41)) gain = gain.times(upgradeEffect('q', 41))
-	if (hasUpgrade('h', 11)) gain = gain.times(upgradeEffect('h', 11))
-		if (hasUpgrade('h', 21)) gain = gain.times(upgradeEffect('h', 21))
-			if (hasUpgrade('h', 31)) gain = gain.times(upgradeEffect('h', 31))
-				if (hasUpgrade('h', 41)) gain = gain.times(upgradeEffect('h', 41))
-	if (getBuyableAmount('c', 11) >= 0.1 && getBuyableAmount('c', 11) < 99) gain = gain.times(5 * getBuyableAmount('c', 11) + 1)
-	if (getBuyableAmount('c', 11) >= 99) gain = gain.times(496)
-	if (getBuyableAmount('sp', 21) >= 0.1 && getBuyableAmount('sp', 12) < 9) gain = gain.times(5 ** getBuyableAmount('sp', 21))
-		if (hasUpgrade('sp', 13)) gain = gain.times(5 ** getBuyableAmount('sp', 21))
-	if (getBuyableAmount('sp', 21) >= 9) mult = mult.times(1953125)
-		if (hasUpgrade('sp', 13)) mult = mult.times(1953125)
-	if (getBuyableAmount('sp', 12) >= 0.1 && getBuyableAmount('sp', 12) < 9) gain = gain.times(((getBuyableAmount('sp', 12) * 1) + 1) ** -1)
-	if (getBuyableAmount('sp', 12) >= 9) gain = gain.times(0.1)
-	if (hasMilestone('p', 1)) gain = gain.times((player.p.divinity + 5) ** 0.1)
-	if (hasUpgrade('e', 11)) gain = gain.times(1.5)
-	if (!hasUpgrade('ds', 24)) gain = gain.times(Math.round(100 * (player.A.achievements.length * 0.1 + 1)) / 100)
-	if (!hasUpgrade('ds', 21) && hasUpgrade('ds', 24)) gain = gain.times(Math.round(100 * (player.A.achievements.length * 0.1 + 1)) / 100)
-	if (hasUpgrade('ds', 21) && hasUpgrade('ds', 24)) gain = gain.times(Math.round(100 * (player.A.achievements.length * 0.2)) / 100)
-	if (inChallenge('ds', 11)) gain = gain.times(0.0001)
-	if (inChallenge('ds', 12)) gain = gain.times(0.000001)
-	if (inChallenge('ds', 21)) gain = gain.times(0.0000000001)
-	if (inChallenge('ds', 22)) gain = gain.times(0.0000000001)
+	if (hasUpgrade('e', 12)) gain = gain.times(upgradeEffect('e', 12));
+		if (hasUpgrade('e', 33)) gain = gain.times(upgradeEffect('e', 33));
+	if (hasUpgrade('e', 21)) gain = gain.times(upgradeEffect('e', 21));
+		if (hasUpgrade('e', 23)) gain = gain.times(upgradeEffect('e', 23));
+			if (hasUpgrade('e', 31)) gain = gain.times(upgradeEffect('e', 31));
+	if (hasUpgrade('e', 32) && getBuyableAmount('e', 12) >= 0.1) gain = gain.times(upgradeEffect('e', 32));
+	if (hasUpgrade('q', 12)) gain = gain.times(upgradeEffect('q', 12));
+		if (hasUpgrade('q', 13)) gain = gain.times(upgradeEffect('q', 13));
+	if (hasUpgrade('q', 34)) gain = gain.times(upgradeEffect('q', 34));
+		if (hasUpgrade('q', 35)) gain = gain.times(upgradeEffect('q', 35));
+			if (hasUpgrade('q', 41)) gain = gain.times(upgradeEffect('q', 41));
+	if (hasUpgrade('h', 11)) gain = gain.times(upgradeEffect('h', 11));
+		if (hasUpgrade('h', 21)) gain = gain.times(upgradeEffect('h', 21));
+			if (hasUpgrade('h', 31)) gain = gain.times(upgradeEffect('h', 31));
+				if (hasUpgrade('h', 41)) gain = gain.times(upgradeEffect('h', 41));
+	if (getBuyableAmount('c', 11) >= 0.1 && getBuyableAmount('c', 11) < 99) gain = gain.times(5 * getBuyableAmount('c', 11) + 1);
+	if (getBuyableAmount('c', 11) >= 99) gain = gain.times(496);
+	if (getBuyableAmount('sp', 21) >= 0.1 && getBuyableAmount('sp', 12) < 9) gain = gain.times(5 ** getBuyableAmount('sp', 21));
+		if (hasUpgrade('sp', 13)) gain = gain.times(5 ** getBuyableAmount('sp', 21));
+	if (getBuyableAmount('sp', 21) >= 9) mult = mult.times(1953125);
+		if (hasUpgrade('sp', 13)) mult = mult.times(1953125);
+	if (getBuyableAmount('sp', 12) >= 0.1 && getBuyableAmount('sp', 12) < 9) gain = gain.times(((getBuyableAmount('sp', 12) * 1) + 1) ** -1);
+	if (getBuyableAmount('sp', 12) >= 9) gain = gain.times(0.1);
+	if (hasMilestone('p', 1)) gain = gain.times(player.p.divinity.add(1).pow(0.1));
+	if (hasUpgrade('e', 11)) gain = gain.times(1.5);
+	if (!hasUpgrade('ds', 24)) gain = gain.times(Math.round(100 * (player.A.achievements.length * 0.1 + 1)) / 100);
+	if (!hasUpgrade('ds', 21) && hasUpgrade('ds', 24)) gain = gain.times(Math.round(100 * (player.A.achievements.length * 0.1 + 1)) / 100);
+	if (hasUpgrade('ds', 21) && hasUpgrade('ds', 24)) gain = gain.times(Math.round(100 * (player.A.achievements.length * 0.2)) / 100);
+	if (inChallenge('ds', 11)) gain = gain.times(0.0001);
+	if (inChallenge('ds', 12)) gain = gain.times(0.000001);
+	if (inChallenge('ds', 21)) gain = gain.times(0.0000000001);
+	if (inChallenge('ds', 22)) gain = gain.times(0.0000000001);
 	return gain
 }
 
