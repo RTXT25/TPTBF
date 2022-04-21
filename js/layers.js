@@ -178,24 +178,28 @@ addLayer("A", {
             done() {return player["sp"].points.gte(new Decimal(1))},
             tooltip: "obtain 1 subatomic particle.",
             unlocked() { if (hasAchievement("A", 51)) return true },
+            image: "images/achievements/51.png",
         },
         52: {
             name: "Variant Particles",
             done() {return player["sp"].points.gte(new Decimal(10))},
             tooltip: "obtain 10 subatomic particles.",
             unlocked() { if (hasAchievement("A", 51)) return true },
+            image: "images/achievements/52.png",
         },
         53: {
             name: "Periodic Particles",
             done() {return player["sp"].points.gte(new Decimal(100))},
             tooltip: "obtain 100 subatomic particles.",
             unlocked() { if (hasAchievement("A", 52)) return true },
+            image: "images/achievements/53.png",
         },
         54: {
             name: "That's no Particle no More",
             done() {return player["sp"].points.gte(new Decimal(10000))},
             tooltip: "obtain 10,000 subatomic particles.",
             unlocked() { if (hasAchievement("A", 53)) return true },
+            image: "images/achievements/54.png",
         },
         55: {
             name: "The Universe in a Particle",
