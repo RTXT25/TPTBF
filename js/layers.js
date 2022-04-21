@@ -2290,9 +2290,9 @@ addLayer("p", {
             done() { return player["p"].points.gte(1) },
         },
         1: {
-            requirementDescription: "25 prayers",
+            requirementDescription: "20 prayers",
             effectDescription: "prayers generate twice as much divinity",
-            done() { return player["p"].points.gte(25) },
+            done() { return player["p"].points.gte(20) },
         },
         2: {
             requirementDescription: "5,000 prayers & 500 hymns",
