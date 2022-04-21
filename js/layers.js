@@ -203,8 +203,8 @@ addLayer("A", {
         },
         55: {
             name: "The Universe in a Particle",
-            done() {return player["sp"].points.gte(new Decimal(1000000))},
-            tooltip: "obtain 1,000,000 subatomic particles.",
+            done() {return player["sp"].points.gte(new Decimal(10000000))},
+            tooltip: "obtain 10,000,000 subatomic particles.",
             unlocked() { if (hasAchievement("A", 54)) return true },
         },
         56: {
@@ -281,14 +281,14 @@ addLayer("A", {
         },
         83: {
             name: "Masses of Atoms",
-            done() {return player["a"].points.gte(new Decimal(100))},
-            tooltip: "obtain 100 atoms.",
+            done() {return player["a"].points.gte(new Decimal(1000))},
+            tooltip: "obtain 1,000 atoms.",
             unlocked() { if (hasAchievement("A", 82)) return true },
         },
         84: {
             name: "Atom Grams (as seen on TV!)",
-            done() {return player["a"].points.gte(new Decimal(1000))},
-            tooltip: "obtain 1,000 atoms.",
+            done() {return player["a"].points.gte(new Decimal(10000))},
+            tooltip: "obtain 10,000 atoms.",
             unlocked() { if (hasAchievement("A", 83)) return true },
         },
         86: {
