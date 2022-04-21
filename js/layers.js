@@ -110,18 +110,21 @@ addLayer("A", {
             done() {return player["c"].points.gte(new Decimal(1))},
             tooltip: "obtain 1 core.",
             unlocked() { if (hasAchievement("A", 31)) return true },
+            image: "images/achievements/31.png",
         },
         32: {
             name: "Mountainous Core",
             done() {return player["c"].points.gte(new Decimal(1e10))},
             tooltip: "obtain 1e10 cores.",
             unlocked() { if (hasAchievement("A", 31)) return true },
+            image: "images/achievements/32.png",
         },
         33: {
             name: "Core of the Earth",
             done() {return player["c"].points.gte(new Decimal(1e100))},
             tooltip: "obtain 1e100 cores.",
             unlocked() { if (hasAchievement("A", 32)) return true },
+            image: "images/achievements/33.png",
         },
         34: {
             name: "Core of the Sun",
@@ -134,12 +137,14 @@ addLayer("A", {
             done() {return getBuyableAmount("c", 11).eq(new Decimal(0)) && getBuyableAmount("c", 12).eq(new Decimal(0)) && player["q"].points.eq(new Decimal(0)) && player["c"].points.gte(new Decimal(1e10))},
             tooltip: "obtain 1e10 cores with no core buyables and quarks.",
             unlocked() { if (hasAchievement("A", 32) && hasAchievement("A", 41)) return true },
+            image: "images/achievements/36.png",
         },
         41: {
             name: "The Smallest Quark",
             done() {return player["q"].points.gte(new Decimal(1))},
             tooltip: "obtain 1 quark.",
             unlocked() { if (hasAchievement("A", 41)) return true },
+            image: "images/achievements/41.png",
         },
         42: {
             name: "Quark Field",
