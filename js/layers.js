@@ -97,6 +97,7 @@ addLayer("A", {
             done() {return player["e"].points.gte(new Decimal("1e1000"))},
             tooltip: "obtain 1e1,000 essence.",
             unlocked() { if (hasAchievement("A", 23)) return true },
+            image: "images/achievements/24.png",
         },
         25: {
             name: "Essence of all Essence",
