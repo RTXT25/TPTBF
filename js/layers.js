@@ -1174,7 +1174,9 @@ addLayer("sp", {
             else aspB = ""
             if (hasMilestone("a", 3) && resettingLayer=="a") aspU = "upgrades"
             else aspU = ""
-            if (layers[resettingLayer].row > this.row) layerDataReset("sp", [dsspB, dsspU, aspB, aspU])
+            if (hasMilestone("a", 13) && resettingLayer=="a") aspM = "milestones"
+            else aspM = ""
+            if (layers[resettingLayer].row > this.row) layerDataReset("sp", [dsspB, dsspU, aspB, aspU, aspM])
         },
     tabFormat: [
         "main-display",
@@ -2029,6 +2031,11 @@ addLayer("a", {
             requirementDescription: "750 atoms and 1,000 total atoms",
             effectDescription: "keep atom upgrades on demon soul resets",
             done() { return player["a"].points.gte(750) && player.a.total.gte(1000) }
+        },
+        13: {
+            requirementDescription: "1,000 atoms and 2,000 total atoms",
+            effectDescription: "keep subatomic particle milestones on atom resets",
+            done() { return player["a"].points.gte(1000) && player.a.total.gte(2000) }
         },
     },
     upgrades: {
