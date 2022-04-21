@@ -60,7 +60,7 @@ addLayer("A", {
         },
         14: {
             name: "The Sharpest Point",
-            done() {return player.points.gte(new Decimal(1e1000))},
+            done() {return player.points.gte(new Decimal("1e1000"))},
             tooltip: "obtain 1e1,000 points.",
             unlocked() { if (hasAchievement("A", 13)) return true },
         },
@@ -93,9 +93,15 @@ addLayer("A", {
             image: "images/achievements/23.png",
         },
         24: {
-            name: "The Essence of the Universe",
-            done() {return player["e"].points.gte(new Decimal(1e1000))},
+            name: "Essence of the Universe",
+            done() {return player["e"].points.gte(new Decimal("1e1000"))},
             tooltip: "obtain 1e1,000 essence.",
+            unlocked() { if (hasAchievement("A", 23)) return true },
+        },
+        25: {
+            name: "Essence of all Essence",
+            done() {return player["e"].points.gte(new Decimal("1e10000"))},
+            tooltip: "obtain 1e10,000 essence.",
             unlocked() { if (hasAchievement("A", 23)) return true },
         },
         26: {
@@ -128,7 +134,7 @@ addLayer("A", {
         },
         34: {
             name: "Core of the Sun",
-            done() {return player["c"].points.gte(new Decimal(1e1000))},
+            done() {return player["c"].points.gte(new Decimal("1e1000"))},
             tooltip: "obtain 1e1,000 cores.",
             unlocked() { if (hasAchievement("A", 33)) return true },
         },
@@ -162,7 +168,7 @@ addLayer("A", {
         },
         44: {
             name: "Quirky Random Purpetuation",
-            done() {return player["q"].points.gte(new Decimal(1e1000))},
+            done() {return player["q"].points.gte(new Decimal("1e1000"))},
             tooltip: "obtain 1e1,000 quarks.",
             unlocked() { if (hasAchievement("A", 43)) return true },
         },
@@ -233,7 +239,7 @@ addLayer("A", {
         },
         64: {
             name: "The Advent (of the universe ending)",
-            done() {return player["h"].points.gte(new Decimal(1e1000))},
+            done() {return player["h"].points.gte(new Decimal("1e1000"))},
             tooltip: "obtain 1e1,000 hexes.",
             unlocked() { if (hasAchievement("A", 63)) return true },
         },
@@ -2183,6 +2189,7 @@ addLayer("p", {
         divinity: new Decimal(0),
         holiness: new Decimal(0),
         hymn: new Decimal(0),
+        hymnEff: new Decimal(0),
     }},
     color: "#FA99FF",
     requires: new Decimal("1e1000"),
@@ -2242,6 +2249,10 @@ addLayer("p", {
         },
     update(diff) {
         if (tmp.p.effect.gt(new Decimal(0))) player.p.divinity = (player.p.divinity.add(tmp.p.effect.mul(diff)));
+        if (hasUpgrade('p', 41)) {
+            if (hasUpgrade('p', 43)) player.p.hymnEff = player.p.hymn.add(1).pow(0.3)
+            else player.p.hymnEff = player.p.hymn.add(1).pow(0.2)
+        };
     },
     tabFormat: [
         "main-display",
@@ -2261,10 +2272,7 @@ addLayer("p", {
             function() {if (hasUpgrade('p', 22)) return 'You have ' + format(player.p.holiness) + ' holiness, which boosts essence gain by ' + format(player.p.holiness.add(1).pow(0.05)) + 'x'},
             {}],
         ["display-text",
-            function() {if (hasUpgrade('p', 41) && !hasUpgrade('p', 43)) return 'You have ' + format(player.p.hymn) + ' hymns, which boosts prayer gain by ' + format(player.p.hymn.add(1).pow(0.2)) + 'x'},
-            {}],
-        ["display-text",
-            function() {if (hasUpgrade('p', 41) && hasUpgrade('p', 43)) return 'You have ' + format(player.p.hymn) + ' hymns, which boosts prayer gain by ' + format(player.p.hymn.add(1).pow(0.25)) + 'x'},
+            function() {if (hasUpgrade('p', 41)) return 'You have ' + formatWhole(player.p.hymn) + ' hymns, which boosts prayer gain by ' + format(player.p.hymnEff) + 'x'},
             {}],
         "blank",
         "milestones",
@@ -2282,9 +2290,9 @@ addLayer("p", {
             done() { return player["p"].points.gte(25) },
         },
         2: {
-            requirementDescription: "12,500 prayers & 500 hymns",
+            requirementDescription: "5,000 prayers & 500 hymns",
             effectDescription: "divinity gain is raised to the power of 1.5",
-            done() { return player["p"].points.gte(12500) && player.p.hymn >= 500},
+            done() { return player["p"].points.gte(5000) && player.p.hymn.gte(500)},
             unlocked() { if (hasUpgrade('p', 41)) return true },
         },
     },
@@ -2315,7 +2323,7 @@ addLayer("p", {
         21: {
             fullDisplay() { return '<font size="2">Divine Prayers</font><br>multiplies prayer gain based on the amount of divinity you have<br>Currently: ' + format(upgradeEffect(this.layer, this.id)) + 'x<br><br>Cost: 25 divinity' },
             canAfford() {
-                if (player.p.divinity >= 25) return true
+                if (player.p.divinity.gte(25)) return true
                 else return false
             },
             pay() {
@@ -2328,7 +2336,7 @@ addLayer("p", {
         22: {
             fullDisplay() { return '<font size="2">Holy Light</font><br>unlocks holiness<br><br>Cost: 75 divinity' },
             canAfford() {
-                if (player.p.divinity >= 75) return true
+                if (player.p.divinity.gte(75)) return true
                 else return false
             },
             pay() {
@@ -2338,7 +2346,7 @@ addLayer("p", {
         23: {
             fullDisplay() { return '<font size="2">Holy Channeling</font><br>increases efficiency of holiness conversion<br>0.04 --> 0.05<br><br>Cost: 20 holiness' },
             canAfford() {
-                if (player.p.holiness >= 20) return true
+                if (player.p.holiness.gte(20)) return true
                 else return false
             },
             pay() {
@@ -2349,7 +2357,7 @@ addLayer("p", {
         31: {
             fullDisplay() { return '<font size="2">Church Relics</font><br>achievements also multiply prayer gain if you have all subsequent achievement upgrades<br><br>Cost: 175 divinity,<br>45 holiness' },
             canAfford() {
-                if (player.p.divinity >= 175 && player.p.holiness >= 45) return true
+                if (player.p.divinity.gte(175) && player.p.holiness.gte(45)) return true
                 else return false
             },
             pay() {
@@ -2360,13 +2368,13 @@ addLayer("p", {
 
         },
         32: {
-            fullDisplay() { return '<font size="2">Divine Synergy</font><br>multiplies divinity gain based on the amount of holiness you have<br>Currently: ' + format(upgradeEffect(this.layer, this.id)) + 'x<br><br>Cost: 1,250 divinity,<br>50 holiness' },
+            fullDisplay() { return '<font size="2">Divine Synergy</font><br>multiplies divinity gain based on the amount of holiness you have<br>Currently: ' + format(upgradeEffect(this.layer, this.id)) + 'x<br><br>Cost: 750 divinity,<br>50 holiness' },
             canAfford() {
-                if (player.p.divinity >= 1250 && player.p.holiness >= 50) return true
+                if (player.p.divinity.gte(750) && player.p.holiness.gte(50)) return true
                 else return false
             },
             pay() {
-                player.p.divinity = player.p.divinity.sub(1250);
+                player.p.divinity = player.p.divinity.sub(750);
                 player.p.holiness = player.p.holiness.sub(50);
             },
             effect() {
@@ -2377,20 +2385,20 @@ addLayer("p", {
         33: {
             title: "Divine Recursion",
             description: "multiplies divinity gain based on the amount of divinity you have",
-            cost: new Decimal(1750),
+            cost: new Decimal(1000),
             effect() {
                 return player.p.divinity.add(1).pow(0.2);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
         },
         41: {
-            fullDisplay() { return '<font size="2">Written hymns</font><br>unlocks hymns<br><br>Cost: 2,500 divinity,<br>450 holiness' },
+            fullDisplay() { return '<font size="2">Written hymns</font><br>unlocks hymns<br><br>Cost: 2,000 divinity,<br>450 holiness' },
             canAfford() {
-                if (player.p.divinity >= 2500 && player.p.holiness >= 450) return true
+                if (player.p.divinity.gte(2000) && player.p.holiness.gte(450)) return true
                 else return false
             },
             pay() {
-                player.p.divinity = player.p.divinity.sub(2500);
+                player.p.divinity = player.p.divinity.sub(2000);
                 player.p.holiness = player.p.holiness.sub(450);
             },
             unlocked() { if (hasUpgrade('p', 22)) return true },
@@ -2398,7 +2406,7 @@ addLayer("p", {
         42: {
             fullDisplay() { return '<font size="2">Divine hymns</font><br>multiplies divinity gain based on the amount of hymns you have<br>Currently: ' + format(upgradeEffect(this.layer, this.id)) + 'x<br><br>Cost: 1,000 holiness,<br>75 hymns' },
             canAfford() {
-                if (player.p.holiness >= 1000 && player.p.hymn >= 75) return true
+                if (player.p.holiness.gte(1000) && player.p.hymn.gte(75)) return true
                 else return false
             },
             pay() {
@@ -2411,9 +2419,9 @@ addLayer("p", {
             unlocked() { if (hasUpgrade('p', 41)) return true },
         },
         43: {
-            fullDisplay() { return '<font size="2">Hymn Singing</font><br>increases hymn effect exponent<br>0.2 --> 0.25<br><br>Cost: 25,000,000 holiness,<br>500,000 hymns' },
+            fullDisplay() { return '<font size="2">Hymn Singing</font><br>increases hymn effect exponent<br>0.2 --> 0.3<br><br>Cost: 25,000,000 holiness,<br>500,000 hymns' },
             canAfford() {
-                if (player.p.holiness >= 25000000 && player.p.hymn >= 500000) return true
+                if (player.p.holiness.gte(25000000) && player.p.hymn.gte(500000)) return true
                 else return false
             },
             pay() {
