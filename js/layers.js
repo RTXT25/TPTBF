@@ -2026,9 +2026,9 @@ addLayer("a", {
             done() { return player["a"].points.gte(200) && player.a.total.gte(500) }
         },
         12: {
-            requirementDescription: "1,000 atoms and 2,000 total atoms",
+            requirementDescription: "750 atoms and 1,000 total atoms",
             effectDescription: "keep atom upgrades on demon soul resets",
-            done() { return player["a"].points.gte(1000) && player.a.total.gte(2000) }
+            done() { return player["a"].points.gte(750) && player.a.total.gte(1000) }
         },
     },
     upgrades: {
