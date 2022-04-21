@@ -151,12 +151,14 @@ addLayer("A", {
             done() {return player["q"].points .gte(new Decimal(1e10))},
             tooltip: "obtain 1e10 quarks.",
             unlocked() { if (hasAchievement("A", 41)) return true },
+            image: "images/achievements/42.png",
         },
         43: {
             name: "Oh, the Quark of it all",
             done() {return player["q"].points.gte(new Decimal(1e100))},
             tooltip: "obtain 1e100 quarks.",
             unlocked() { if (hasAchievement("A", 42)) return true },
+            image: "images/achievements/43.png",
         },
         44: {
             name: "Quirky Random Purpetuation",
@@ -169,6 +171,7 @@ addLayer("A", {
             done() {return player["c"].points.eq(new Decimal(0)) && player["q"].points.gte(new Decimal(1e10))},
             tooltip: "obtain 1e10 quarks with no cores.",
             unlocked() { if (hasAchievement("A", 42) && hasAchievement("A", 51)) return true },
+            image: "images/achievements/46.png",
         },
         51: {
             name: "Submarine, Subatomic",
