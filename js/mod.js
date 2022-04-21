@@ -16,7 +16,7 @@ let VERSION = {
 
 let changelog = `<h1>Changelog:</h1><br>
 	<br><h3>v1.5: Creativity Rules</h3><br>
-		- Added 20 achievement images.<br>
+		- Added 21 achievement images.<br>
 		- Added one milestone to atoms.<br>
 		- Balance changes.<br>
 	<br><h3>v1.4: Praise the Sky</h3><br>
