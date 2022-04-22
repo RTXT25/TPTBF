@@ -232,18 +232,21 @@ addLayer("A", {
             done() {return player["h"].points.gte(new Decimal(1))},
             tooltip: "obtain 1 hex.",
             unlocked() { if (hasAchievement("A", 61)) return true },
+            image: "images/achievements/61.png",
         },
         62: {
             name: "Cursed into Oblivion",
             done() {return player["h"].points.gte(new Decimal(1e10))},
             tooltip: "obtain 1e10 hexes.",
             unlocked() { if (hasAchievement("A", 61)) return true },
+            image: "images/achievements/62.png",
         },
         63: {
             name: "The Prophecy of Doom",
             done() {return player["h"].points.gte(new Decimal(1e100))},
             tooltip: "obtain 1e100 hexes.",
             unlocked() { if (hasAchievement("A", 62)) return true },
+            image: "images/achievements/63.png",
         },
         64: {
             name: "The Advent (of the universe ending)",
