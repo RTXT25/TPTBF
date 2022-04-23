@@ -265,12 +265,14 @@ addLayer("A", {
             done() {return player["ds"].points.gte(new Decimal(1))},
             tooltip: "obtain 1 demon soul.",
             unlocked() { if (hasAchievement("A", 71)) return true },
+            image: "images/achievements/71.png",
         },
         72: {
             name: "Demonic Ruin",
             done() {return player["ds"].points.gte(new Decimal(1e10))},
             tooltip: "obtain 1e10 demon souls.",
             unlocked() { if (hasAchievement("A", 71)) return true },
+            image: "images/achievements/72.png",
         },
         73: {
             name: "Demonic Origin",
