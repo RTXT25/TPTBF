@@ -354,7 +354,7 @@ addLayer("e", {
     type: "normal",
     exponent: 0.5,
     gainMult() {
-        mult = new Decimal(1)
+        mult = new Decimal(1);
         if (hasUpgrade('e', 13)) mult = mult.mul(upgradeEffect('e', 13));
         if (hasUpgrade('e', 22)) mult = mult.mul(upgradeEffect('e', 22));
             if (hasUpgrade('e', 41)) mult = mult.mul(upgradeEffect('e', 41));
@@ -365,25 +365,19 @@ addLayer("e", {
         if (hasUpgrade('q', 32)) mult = mult.mul(upgradeEffect('q', 32));
         if (hasUpgrade('a', 73)) mult = mult.mul(upgradeEffect('a', 73));
         if (hasUpgrade('p', 11)) mult = mult.mul(upgradeEffect('p', 11));
-        if (getBuyableAmount('e', 11) >= 0.1 && getBuyableAmount('e', 11) < 14) mult = mult.mul((getBuyableAmount('e', 11) * 2.5) + 1);
-        if (getBuyableAmount('e', 11) >= 14) mult = mult.mul((getBuyableAmount('e', 11) * 2.5) + 1);
-        if (getBuyableAmount('e', 12) >= 0.1 && getBuyableAmount('e', 12) < 99) mult = mult.mul((getBuyableAmount('e', 12) ** 0.25) + 1);
-        if (getBuyableAmount('e', 12) >= 99) mult = mult.mul((getBuyableAmount('e', 12) ** 0.25) + 1);
-        if (getBuyableAmount('c', 12) >= 0.1 && getBuyableAmount('c', 12) < 49) mult = mult.mul(2 ** getBuyableAmount('c', 12));
-        if (getBuyableAmount('c', 12) >= 49) mult = mult.mul(2 ** 49);
-        if (getBuyableAmount('sp', 12) >= 0.1 && getBuyableAmount('sp', 12) < 9) mult = mult.mul(5 ** getBuyableAmount('sp', 12));
+        if (getBuyableAmount('e', 11).gt(0)) mult = mult.mul(getBuyableAmount('e', 11).mul(2.5).add(1));
+        if (getBuyableAmount('e', 12).gt(0)) mult = mult.mul(getBuyableAmount('e', 12).mul(0.25).add(1));
+        if (getBuyableAmount('c', 12).gt(0)) mult = mult.mul(2 ** getBuyableAmount('c', 12));
+        if (getBuyableAmount('sp', 12).gt(0)) mult = mult.mul(5 ** getBuyableAmount('sp', 12));
             if (hasUpgrade('sp', 12)) mult = mult.mul(5 ** getBuyableAmount('sp', 12));
-        if (getBuyableAmount('sp', 12) >= 9) mult = mult.mul(1953125);
-            if (hasUpgrade('sp', 12)) mult = mult.mul(1953125);
-        if (getBuyableAmount('sp', 11) >= 0.1 && getBuyableAmount('sp', 11) < 9) mult = mult.mul(((getBuyableAmount('sp', 11) * 1) + 1) ** -1);
-        if (getBuyableAmount('sp', 11) >= 9) mult = mult.mul(0.1);
+        if (getBuyableAmount('sp', 11).gt(0)) mult = mult.mul(getBuyableAmount('sp', 11).add(1).pow(-1));
         if (hasUpgrade('p', 22)) mult = mult.mul(player.p.holiness.add(1).pow(0.05));
-        if (hasUpgrade('ds', 21)) mult = mult.mul(Math.round(100 * (player.A.achievements.length * 0.2)) / 100);
+        if (hasUpgrade('ds', 21)) mult = mult.mul(player.A.achievements.length * 0.2);
         if (inChallenge('ds', 21)) mult = mult.mul(0.00000000000000000001);
         return mult;
     },
     gainExp() {
-        return new Decimal(1)
+        return new Decimal(1);
     },
     row: 0,
     hotkeys: [
@@ -591,7 +585,7 @@ addLayer("c", {
     type: "normal",
     exponent: 0.3,
     gainMult() {
-        mult = new Decimal(1)
+        mult = new Decimal(1);
         if (hasUpgrade('e', 32)) mult = mult.mul(upgradeEffect('e', 32));
         if (hasUpgrade('c', 12)) mult = mult.mul(upgradeEffect('c', 12));
         if (hasUpgrade('q', 21)) mult = mult.mul(upgradeEffect('q', 21));
@@ -601,15 +595,14 @@ addLayer("c", {
             if (hasUpgrade('h', 23)) mult = mult.mul(upgradeEffect('h', 23));
                 if (hasUpgrade('h', 33)) mult = mult.mul(upgradeEffect('h', 33));
         if (hasUpgrade('h', 24)) mult = mult.mul(3);
-        if (getBuyableAmount('e', 12) >= 0.1 && getBuyableAmount('e', 12) < 99) mult = mult.mul((getBuyableAmount('e', 12) * 1) + 1);
-        if (getBuyableAmount('e', 12) >= 99) mult = mult.mul(100);
-        if (hasUpgrade('ds', 21) && hasUpgrade('ds', 23)) mult = mult.mul(Math.round(100 * (player.A.achievements.length ** 2)) / 10000);
+        if (getBuyableAmount('e', 12).gt(0)) mult = mult.mul(getBuyableAmount('e', 12).add(1));
+        if (hasUpgrade('ds', 21) && hasUpgrade('ds', 23)) mult = mult.mul((player.A.achievements.length ** 2) / 100);
         if (inChallenge('ds', 11)) mult = mult.mul(0.01);
         if (inChallenge('ds', 21)) mult = mult.mul(0.000000000000001);
         return mult;
     },
     gainExp() {
-        return new Decimal(1)
+        return new Decimal(1);
     },
     row: 1,
     hotkeys: [
@@ -820,7 +813,7 @@ addLayer("q", {
     type: "normal",
     exponent: 0.1,
     gainMult() {
-        mult = new Decimal(1)
+        mult = new Decimal(1);
         if (hasUpgrade('c', 13)) mult = mult.mul(upgradeEffect('c', 13));
         if (hasUpgrade('q', 11)) mult = mult.mul(upgradeEffect('q', 11));
         if (hasUpgrade('q', 21)) mult = mult.mul(upgradeEffect('q', 21));
@@ -834,19 +827,16 @@ addLayer("q", {
         if (hasUpgrade('q', 45)) mult = mult.mul(upgradeEffect('q', 45));
         if (hasUpgrade('h', 34)) mult = mult.mul(2);
         if (hasUpgrade('a', 41)) mult = mult.mul(upgradeEffect('a', 41));
-        if (getBuyableAmount('sp', 11) >= 0.1 && getBuyableAmount('sp', 11) < 9) mult = mult.mul(5 ** getBuyableAmount('sp', 11));
+        if (getBuyableAmount('sp', 11).gt(0)) mult = mult.mul(5 ** getBuyableAmount('sp', 11));
             if (hasUpgrade('sp', 11)) mult = mult.mul(5 ** getBuyableAmount('sp', 11));
-        if (getBuyableAmount('sp', 11) >= 9) mult = mult.mul(1953125);
-            if (hasUpgrade('sp', 11)) mult = mult.mul(1953125);
-        if (getBuyableAmount('sp', 21) >= 0.1 && getBuyableAmount('sp', 21) < 9) mult = mult.mul(((getBuyableAmount('sp', 21) * 1) + 1) ** -1);
-        if (getBuyableAmount('sp', 21) >= 9) mult = mult.mul(0.1);
-        if (hasUpgrade('ds', 21) && hasUpgrade('ds', 23)) mult = mult.mul(Math.round(100 * (player.A.achievements.length ** 2)) / 10000);
+        if (getBuyableAmount('sp', 21).gt(0)) mult = mult.mul(getBuyableAmount('sp', 21).add(1).pow(-1));
+        if (hasUpgrade('ds', 21) && hasUpgrade('ds', 23)) mult = mult.mul((player.A.achievements.length ** 2) / 100);
         if (inChallenge('ds', 11)) mult = mult.mul(0.1);
         if (inChallenge('ds', 22)) mult = mult.mul(0.0000000000000000000000000000000000000001);
         return mult;
     },
     gainExp() {
-        return new Decimal(1)
+        return new Decimal(1);
     },
     row: 1,
     hotkeys: [
@@ -1124,24 +1114,23 @@ addLayer("sp", {
     type: "static",
     exponent: 4.25,
     canBuyMax() {
-        if (hasMilestone("sp", 0)) return true
-        else return false
+        if (hasMilestone("sp", 0)) return true;
+        else return false;
     },
     gainMult() {
-        mult = new Decimal(1)
-        return mult
+        mult = new Decimal(1);
+        return mult;
     },
     gainExp() {
-        gain = new Decimal(1)
+        gain = new Decimal(1);
         if (hasUpgrade('q', 43)) gain = gain.mul(upgradeEffect('q', 43));
         if (hasUpgrade('h', 63)) gain = gain.mul(upgradeEffect('h', 63));
         if (hasUpgrade('a', 22)) gain = gain.mul(upgradeEffect('a', 22));
         if (hasUpgrade('a', 31)) gain = gain.mul(upgradeEffect('a', 31));
-        if (getBuyableAmount('ds', 11) >= 0.1 && getBuyableAmount('ds', 11) < 22) gain = gain.mul((getBuyableAmount('ds', 11) * 5) + 1);
-        if (getBuyableAmount('ds', 11) >= 22) gain = gain.mul(111);
-        if (hasUpgrade('a', 51)) gain = gain.mul(Math.round(100 * (player.A.achievements.length ** 2.5)) / 10000);
+        if (getBuyableAmount('ds', 11).gt(0)) gain = gain.mul((getBuyableAmount('ds', 11) * 5) + 1);
+        if (hasUpgrade('a', 51)) gain = gain.mul((player.A.achievements.length ** 2.5) / 100);
         if (hasChallenge('ds', 21)) gain = gain.mul(player['ds'].points.add(1).pow(0.2));
-        if (inChallenge('ds', 12)) gain = gain.mul(player['q'].points ** -0.05);
+        if (inChallenge('ds', 12)) gain = gain.mul(player['q'].points.pow(-0.05));
         if (inChallenge('ds', 22)) gain = gain.mul(0.0000000000000000000000000000000000000001);
         return gain;
     },
@@ -1296,7 +1285,7 @@ addLayer("h", {
     type: "normal",
     exponent: 0.5,
     gainMult() {
-        mult = new Decimal(1)
+        mult = new Decimal(1);
         if (hasUpgrade('h', 12)) mult = mult.mul(upgradeEffect('h', 12));
             if (hasUpgrade('h', 22)) mult = mult.mul(upgradeEffect('h', 22));
                 if (hasUpgrade('h', 32)) mult = mult.mul(upgradeEffect('h', 32));
@@ -1305,9 +1294,8 @@ addLayer("h", {
         if (hasUpgrade('h', 62)) mult = mult.mul(upgradeEffect('h', 62));
         if (hasUpgrade('ds', 11)) mult = mult.mul(upgradeEffect('h', 11));
             if (hasUpgrade('ds', 12)) mult = mult.mul(upgradeEffect('h', 12));
-        if (getBuyableAmount('ds', 11) >= 0.1 && getBuyableAmount('ds', 11) < 22) mult = mult.mul(2 ** getBuyableAmount('ds', 11));
-        if (getBuyableAmount('ds', 11) >= 22) mult = mult.mul(4194304);
-        if (hasUpgrade('ds', 11)) mult = mult.mul(1.02);
+        if (getBuyableAmount('ds', 11).gt(0)) mult = mult.mul(2 ** getBuyableAmount('ds', 11));
+        if (hasUpgrade('p', 12)) mult = mult.mul(1.02);
         if (hasChallenge('ds', 11)) mult = mult.mul(player['ds'].points.add(1).pow(0.25));
         if (inChallenge('ds', 11)) mult = mult.mul(0.001);
         if (inChallenge('ds', 12)) mult = mult.mul(0.0000000001);
@@ -1315,7 +1303,7 @@ addLayer("h", {
         return mult;
     },
     gainExp() {
-        return new Decimal(1)
+        return new Decimal(1);
     },
     row: 2,
     hotkeys: [
@@ -1602,7 +1590,7 @@ addLayer("ds", {
     type: "normal",
     exponent: 0.05,
     gainMult() {
-        mult = new Decimal(1)
+        mult = new Decimal(1);
         if (hasUpgrade('a', 11)) mult = mult.mul(upgradeEffect('a', 11));
         if (hasUpgrade('a', 42)) mult = mult.mul(upgradeEffect('a', 42));
         if (hasUpgrade('a', 71)) mult = mult.mul(upgradeEffect('a', 71));
@@ -1611,7 +1599,7 @@ addLayer("ds", {
         return mult;
     },
     gainExp() {
-        return new Decimal(1)
+        return new Decimal(1);
     },
     row: 3,
     hotkeys: [
@@ -1865,11 +1853,11 @@ addLayer("a", {
     exponent: 1,
     canBuyMax() { return true },
     gainMult() {
-        mult = new Decimal(1)
-        return mult
+        mult = new Decimal(1);
+        return mult;
     },
     gainExp() {
-        gain = new Decimal(1)
+        gain = new Decimal(1);
         if (hasUpgrade('a', 22)) gain = gain.mul(upgradeEffect('a', 22));
         if (hasUpgrade('a', 32)) gain = gain.mul(upgradeEffect('a', 32));
         if (hasUpgrade('a', 33)) gain = gain.mul(upgradeEffect('a', 33));
@@ -2212,15 +2200,15 @@ addLayer("p", {
     type: "normal",
     exponent: 0.012,
     gainMult() {
-        mult = new Decimal(1)
+        mult = new Decimal(1);
         if (hasUpgrade('p', 21)) mult = mult.mul(upgradeEffect('p', 21));
-        if (hasUpgrade('p', 31) && hasUpgrade('ds', 21) && hasUpgrade('ds', 23) && hasUpgrade('ds', 24)) mult = mult.mul(Math.round(100 * (player.A.achievements.length ** 2)) / 10000);
+        if (hasUpgrade('ds', 21) && hasUpgrade('ds', 23) && hasUpgrade('ds', 24) && hasUpgrade('p', 31)) mult = mult.mul((player.A.achievements.length ** 2) / 100);
         if (hasUpgrade('p', 41) && !hasUpgrade('p', 43)) mult = mult.mul(player.p.hymn.add(1).pow(0.2));
         if (hasUpgrade('p', 41) && hasUpgrade('p', 43)) mult = mult.mul(player.p.hymn.add(1).pow(0.25));
         return mult;
     },
     gainExp() {
-        return new Decimal(1)
+        return new Decimal(1);
     },
     row: 1,
     hotkeys: [
