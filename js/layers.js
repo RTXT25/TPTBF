@@ -1790,7 +1790,7 @@ addLayer("ds", {
                 doReset(resettingLayer)
             },
             rewardDescription: "multiplies hex and demon soul gain based on the amount of demon<br>souls you have",
-            rewardDisplay() { return (Math.round(100 * player['ds'].points.add(1).pow(0.25)) / 100) + 'x' },
+            rewardDisplay() { return format(player['ds'].points.add(1).pow(0.25)) + 'x' },
         },
         12: {
             name: "Hellfire",
@@ -1808,7 +1808,7 @@ addLayer("ds", {
                 else return false
             },
             rewardDescription: "multiply demon soul gain based on the amount of hexes you have",
-            rewardDisplay() { return (Math.round(100 * player['h'].points.add(1).pow(0.02)) / 100) + 'x' },
+            rewardDisplay() { return format(player['h'].points.add(1).pow(0.02)) + 'x' },
         },
         21: {
             name: "Opposite Polarity",
@@ -1826,7 +1826,7 @@ addLayer("ds", {
                 else return false
             },
             rewardDescription: "multiply subatomic particle<br>gain based on the amount of demon<br>souls you have",
-            rewardDisplay() { return (Math.round(100 * player['ds'].points.add(1).pow(0.2)) / 100) + 'x' },
+            rewardDisplay() { return format(player['ds'].points.add(1).pow(0.2)) + 'x' },
         },
         22: {
             name: "Dreaded Science",
@@ -2249,7 +2249,9 @@ addLayer("p", {
                 if (hasUpgrade('p', 23)) player.p.holiness = new Decimal(player.p.holiness.add(player.p.divinity.mul(0.06)))
                 else player.p.holiness = new Decimal(player.p.holiness.add(player.p.divinity.mul(0.04)));
             };
-            if (hasUpgrade('p', 41) && resettingLayer == "p") player.p.hymn = new Decimal(Math.round(player.p.hymn.add(player.p.holiness.div(225))));
+            console.log("1: " + player.p.hymn);
+            if (hasUpgrade('p', 41) && resettingLayer == "p") player.p.hymn = player.p.hymn.add(player.p.holiness.div(225)).round();
+            console.log("2: " + player.p.hymn);
             if (layers[resettingLayer].row >= this.row) player.p.divinity = new Decimal(0);
             if (layers[resettingLayer].row > this.row) {
                 layerDataReset("p", keep);
@@ -2260,7 +2262,7 @@ addLayer("p", {
     update(diff) {
         if (tmp.p.effect.gt(new Decimal(0))) player.p.divinity = (player.p.divinity.add(tmp.p.effect.mul(diff)));
         if (hasUpgrade('p', 41)) {
-            if (hasUpgrade('p', 43)) player.p.hymnEff = player.p.hymn.add(1).pow(0.3)
+            if (hasUpgrade('p', 43)) player.p.hymnEff = player.p.hymn.add(1).pow(0.25)
             else player.p.hymnEff = player.p.hymn.add(1).pow(0.2)
         };
     },
@@ -2429,7 +2431,7 @@ addLayer("p", {
             unlocked() { if (hasUpgrade('p', 41)) return true },
         },
         43: {
-            fullDisplay() { return '<font size="2">Hymn Singing</font><br>increases hymn effect exponent<br>0.2 --> 0.3<br><br>Cost: 25,000,000 holiness,<br>500,000 hymns' },
+            fullDisplay() { return '<font size="2">Hymn Singing</font><br>increases hymn effect exponent<br>0.2 --> 0.25<br><br>Cost: 25,000,000 holiness,<br>500,000 hymns' },
             canAfford() {
                 if (player.p.holiness.gte(25000000) && player.p.hymn.gte(500000)) return true
                 else return false
