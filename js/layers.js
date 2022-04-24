@@ -440,6 +440,7 @@ addLayer("e", {
             title: "Faster Points",
             description: "multiplies point gain by 1.5",
             cost: new Decimal(1),
+            style: {'height':'120px'},
         },
         12: {
             title: "Essence Influence",
@@ -449,6 +450,7 @@ addLayer("e", {
                return player[this.layer].points.add(1).pow(0.5);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
+            style: {'height':'120px'},
             unlocked() { return hasUpgrade("e", 11) },
         },
         13: {
@@ -459,6 +461,7 @@ addLayer("e", {
                 return player.points.add(1).pow(0.15);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
+            style: {'height':'120px'},
             unlocked() { return hasUpgrade("e", 12) },
         },
         21: {
@@ -469,6 +472,7 @@ addLayer("e", {
                return player.points.add(1).pow(0.075);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
+            style: {'height':'120px'},
             unlocked() { return hasUpgrade("e", 13) },
         },
         22: {
@@ -479,6 +483,7 @@ addLayer("e", {
                return player[this.layer].points.add(1).pow(0.11111111111);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
+            style: {'height':'120px'},
             unlocked() { return hasUpgrade("e", 21) },
         },
         23: {
@@ -489,6 +494,7 @@ addLayer("e", {
                return player.points.add(1).pow(0.25);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
+            style: {'height':'120px'},
             unlocked() { return hasUpgrade("e", 22) },
         },
         31: {
@@ -499,6 +505,7 @@ addLayer("e", {
                return player.points.add(1).pow(0.01);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
+            style: {'height':'120px'},
             unlocked() { return hasMilestone("q", 0) && hasUpgrade("e", 23) },
         },
         32: {
@@ -509,6 +516,7 @@ addLayer("e", {
                return player[this.layer].points.add(1).pow(0.001);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
+            style: {'height':'120px'},
             unlocked() { return hasMilestone("q", 0) && hasUpgrade("e", 31) },
         },
         33: {
@@ -519,6 +527,7 @@ addLayer("e", {
                return player[this.layer].points.add(1).pow(0.025);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
+            style: {'height':'120px'},
             unlocked() { return hasMilestone("q", 0) && hasUpgrade("e", 32) },
         },
         41: {
@@ -529,6 +538,7 @@ addLayer("e", {
                return player[this.layer].points.add(1).pow(0.001);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
+            style: {'height':'120px'},
             unlocked() { return hasMilestone("q", 0) && hasUpgrade("e", 33) },
         },
         42: {
@@ -539,6 +549,7 @@ addLayer("e", {
                return player[this.layer].points.add(1).pow(0.01);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
+            style: {'height':'120px'},
             unlocked() { return hasMilestone("q", 0) && hasUpgrade("e", 41) },
         },
     },
@@ -568,7 +579,7 @@ addLayer("e", {
             display() {
                 return "multiplies core gain (and essence gain at a reduced rate) based on the amount of this upgrade bought.\nCurrently: " + format(getBuyableAmount('e', 12).add(1)) + "x\nand " + format(getBuyableAmount('e', 12).pow(0.25).add(1)) + "x\n\nCost: " + formatWhole(this.cost()) + " essence\n\nBought: " + formatWhole(getBuyableAmount('e', 12));
             },
-            unlocked() { if (player.e.total.gte(85194)) return true },
+            unlocked() { if (player.e.total.gte(85194) || getBuyableAmount('e', 12).gt(0)) return true },
         },
     },
 });
@@ -691,6 +702,7 @@ addLayer("c", {
                return player[this.layer].points.add(1).pow(0.2);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
+            style: {'height':'120px'},
             unlocked() { return hasMilestone("c", 1) },
         },
         12: {
@@ -701,6 +713,7 @@ addLayer("c", {
                return player.points.add(1).pow(0.01);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
+            style: {'height':'120px'},
             unlocked() { return hasUpgrade("c", 11) },
         },
         13: {
@@ -711,6 +724,7 @@ addLayer("c", {
                return player[this.layer].points.add(1).pow(0.1);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
+            style: {'height':'120px'},
             unlocked() { return hasUpgrade("c", 12) },
         },
         21: {
@@ -721,6 +735,7 @@ addLayer("c", {
                return player[this.layer].points.add(1).pow(0.005);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
+            style: {'height':'120px'},
             unlocked() { return (hasMilestone("h", 8)) && hasUpgrade("c", 13) },
         },
         22: {
@@ -731,6 +746,7 @@ addLayer("c", {
                return player[this.layer].points.add(1).pow(0.002);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
+            style: {'height':'120px'},
             unlocked() { return (hasMilestone("h", 8)) && hasUpgrade("c", 21) },
         },
         23: {
@@ -741,6 +757,7 @@ addLayer("c", {
                return player[this.layer].points.add(1).pow(0.01);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
+            style: {'height':'120px'},
             unlocked() { return (hasMilestone("h", 8)) && hasUpgrade("c", 22) },
         },
         31: {
@@ -751,6 +768,7 @@ addLayer("c", {
                return player[this.layer].points.add(1).pow(0.0025);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
+            style: {'height':'120px'},
             unlocked() { return (hasMilestone("h", 8)) && hasUpgrade("h", 53) && hasUpgrade("c", 23) },
         },
         32: {
@@ -761,12 +779,14 @@ addLayer("c", {
                return player[this.layer].points.add(1).pow(0.001);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
+            style: {'height':'120px'},
             unlocked() { return (hasMilestone("h", 8)) && hasUpgrade("h", 53) && hasUpgrade("c", 31) },
         },
         33: {
             title: "Core Liberation",
             description: "if you own <b>Core Production Line</b> and all subsequent upgrades, gain +25% of your core gain per second",
             cost: new Decimal(1e80),
+            style: {'height':'120px'},
             unlocked() { return (hasMilestone("h", 8)) && hasUpgrade("h", 53) && hasUpgrade("c", 32) },
         },
     },
@@ -913,6 +933,7 @@ addLayer("q", {
                return player.points.add(1).pow(0.01);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
+            style: {'height':'120px'},
         },
         12: {
             title: "Quark Power",
@@ -922,6 +943,7 @@ addLayer("q", {
                return player[this.layer].points.add(1).pow(0.09);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
+            style: {'height':'120px'},
             unlocked() { return hasUpgrade("q", 11) },
         },
         13: {
@@ -932,6 +954,7 @@ addLayer("q", {
                return player.points.add(1).pow(0.0025);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
+            style: {'height':'120px'},
             unlocked() { return hasUpgrade("q", 12) },
         },
         14: {
@@ -942,6 +965,7 @@ addLayer("q", {
                return player[this.layer].points.add(1).pow(0.2);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
+            style: {'height':'120px'},
             unlocked() { return hasUpgrade("q", 13) },
         },
         15: {
@@ -952,6 +976,7 @@ addLayer("q", {
                return player['c'].points.add(1).pow(0.02);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
+            style: {'height':'120px'},
             unlocked() { return hasUpgrade("q", 14) },
         },
         21: {
@@ -962,6 +987,7 @@ addLayer("q", {
                return player[this.layer].points.add(1).pow(0.05);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
+            style: {'height':'120px'},
             unlocked() { return hasUpgrade("q", 15) },
         },
         22: {
@@ -972,6 +998,7 @@ addLayer("q", {
                return player.points.add(1).pow(0.02);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
+            style: {'height':'120px'},
             unlocked() { return hasUpgrade("q", 21) },
         },
         23: {
@@ -982,6 +1009,7 @@ addLayer("q", {
                return player[this.layer].points.add(1).pow(0.1);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
+            style: {'height':'120px'},
             unlocked() { return hasUpgrade("q", 22) },
         },
         24: {
@@ -992,6 +1020,7 @@ addLayer("q", {
                return player[this.layer].points.add(1).pow(0.2);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
+            style: {'height':'120px'},
             unlocked() { return hasUpgrade("q", 23) },
         },
         25: {
@@ -1002,6 +1031,7 @@ addLayer("q", {
                return player[this.layer].points.add(1).pow(0.05);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
+            style: {'height':'120px'},
             unlocked() { return hasUpgrade("q", 24) },
         },
         31: {
@@ -1012,6 +1042,7 @@ addLayer("q", {
                return player[this.layer].points.add(1).pow(0.01);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
+            style: {'height':'120px'},
             unlocked() { return hasUpgrade("q", 25) },
         },
         32: {
@@ -1022,6 +1053,7 @@ addLayer("q", {
                return player[this.layer].points.add(1).pow(0.15);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
+            style: {'height':'120px'},
             unlocked() { return hasUpgrade("q", 31) },
         },
         33: {
@@ -1032,6 +1064,7 @@ addLayer("q", {
                return player[this.layer].points.add(1).pow(0.075);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
+            style: {'height':'120px'},
             unlocked() { return hasUpgrade("q", 32) },
         },
         34: {
@@ -1042,6 +1075,7 @@ addLayer("q", {
                return player[this.layer].points.add(1).pow(0.01);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
+            style: {'height':'120px'},
             unlocked() { return hasUpgrade("q", 33) },
         },
         35: {
@@ -1052,6 +1086,7 @@ addLayer("q", {
                return player[this.layer].points.add(1).pow(0.015);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
+            style: {'height':'120px'},
             unlocked() { return hasUpgrade("q", 34) },
         },
         41: {
@@ -1062,6 +1097,7 @@ addLayer("q", {
                return player[this.layer].points.add(1).pow(0.005);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
+            style: {'height':'120px'},
             unlocked() { return hasMilestone("sp", 2) && hasUpgrade("q", 35) },
         },
         42: {
@@ -1072,6 +1108,7 @@ addLayer("q", {
                return player["sp"].points.add(1).pow(0.5);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
+            style: {'height':'120px'},
             unlocked() { return hasMilestone("sp", 2) && hasUpgrade("q", 41) },
         },
         43: {
@@ -1082,6 +1119,7 @@ addLayer("q", {
                return player[this.layer].points.add(1).pow(0.01);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
+            style: {'height':'120px'},
             unlocked() { return hasMilestone("sp", 2) && hasUpgrade("q", 42) },
         },
         44: {
@@ -1092,6 +1130,7 @@ addLayer("q", {
                return player[this.layer].points.add(1).pow(0.005);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
+            style: {'height':'120px'},
             unlocked() { return hasMilestone("sp", 2) && hasUpgrade("q", 43) },
         },
         45: {
@@ -1102,6 +1141,7 @@ addLayer("q", {
                return player[this.layer].points.add(1).pow(0.125);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
+            style: {'height':'120px'},
             unlocked() { return hasMilestone("sp", 2) && hasUpgrade("q", 44) },
         },
     },
@@ -1211,18 +1251,21 @@ addLayer("sp", {
             title: "Positrons",
             description: "multiplies the base buff effect of <b>Protons</b> by 2",
             cost: new Decimal(6),
+            style: {'height':'120px'},
             unlocked() { return (hasMilestone("h", 8)) && hasUpgrade("h", 53) },
         },
         12: {
             title: "Beta Particles",
             description: "multiplies the base buff effect of <b>Neutrons</b> by 2",
             cost: new Decimal(6),
+            style: {'height':'120px'},
             unlocked() { return (hasMilestone("h", 8)) && hasUpgrade("h", 53) },
         },
         13: {
             title: "Gamma Particles",
             description: "multiplies the base buff effect of <b>Electrons</b> by 2",
             cost: new Decimal(6),
+            style: {'height':'120px'},
             unlocked() { return (hasMilestone("h", 8)) && hasUpgrade("h", 53) },
         },
     },
@@ -1391,6 +1434,7 @@ addLayer("h", {
                return player[this.layer].points.add(1).pow(0.005);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
+            style: {'height':'120px'},
         },
         12: {
             title: "Stronger Hexes",
@@ -1400,6 +1444,7 @@ addLayer("h", {
                return player[this.layer].points.add(1).pow(0.1);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
+            style: {'height':'120px'},
         },
         13: {
             title: "Hex Fusion",
@@ -1409,11 +1454,13 @@ addLayer("h", {
                return player[this.layer].points.add(1).pow(0.09);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
+            style: {'height':'120px'},
         },
         14: {
             title: "Boost Hexes",
             description: "Hex gain is quadrupled",
             cost: new Decimal(25),
+            style: {'height':'120px'},
         },
         21: {
             title: "Numerical Hexes",
@@ -1423,6 +1470,7 @@ addLayer("h", {
                return player[this.layer].points.add(1).pow(0.025);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
+            style: {'height':'120px'},
             unlocked() { return hasUpgrade("h", 11) && hasUpgrade("h", 12) && hasUpgrade("h", 13) && hasUpgrade("h", 14) },
         },
         22: {
@@ -1433,6 +1481,7 @@ addLayer("h", {
                return player[this.layer].points.add(1).pow(0.05);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
+            style: {'height':'120px'},
             unlocked() { return hasUpgrade("h", 11) && hasUpgrade("h", 12) && hasUpgrade("h", 13) && hasUpgrade("h", 14) },
         },
         23: {
@@ -1443,12 +1492,14 @@ addLayer("h", {
                return player[this.layer].points.add(1).pow(0.15);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
+            style: {'height':'120px'},
             unlocked() { return hasUpgrade("h", 11) && hasUpgrade("h", 12) && hasUpgrade("h", 13) && hasUpgrade("h", 14) },
         },
         24: {
             title: "Boost Cores",
             description: "Core gain is tripled",
             cost: new Decimal(25000),
+            style: {'height':'120px'},
             unlocked() { return hasUpgrade("h", 11) && hasUpgrade("h", 12) && hasUpgrade("h", 13) && hasUpgrade("h", 14) },
         },
         31: {
@@ -1459,6 +1510,7 @@ addLayer("h", {
                return player.points.add(1).pow(0.002);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
+            style: {'height':'120px'},
             unlocked() { return hasUpgrade("h", 21) && hasUpgrade("h", 22) && hasUpgrade("h", 23) && hasUpgrade("h", 24) },
         },
         32: {
@@ -1469,6 +1521,7 @@ addLayer("h", {
                return player[this.layer].points.add(1).pow(0.01);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
+            style: {'height':'120px'},
             unlocked() { return hasUpgrade("h", 21) && hasUpgrade("h", 22) && hasUpgrade("h", 23) && hasUpgrade("h", 24) },
         },
         33: {
@@ -1479,12 +1532,14 @@ addLayer("h", {
                return player[this.layer].points.add(1).pow(0.025);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
+            style: {'height':'120px'},
             unlocked() { return hasUpgrade("h", 21) && hasUpgrade("h", 22) && hasUpgrade("h", 23) && hasUpgrade("h", 24) },
         },
         34: {
             title: "Boost Quarks",
             description: "Quark gain is doubled",
             cost: new Decimal(2500000),
+            style: {'height':'120px'},
             unlocked() { return hasUpgrade("h", 21) && hasUpgrade("h", 22) && hasUpgrade("h", 23) && hasUpgrade("h", 24) },
         },
         41: {
@@ -1495,6 +1550,7 @@ addLayer("h", {
                return player.points.add(1).pow(0.0001);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
+            style: {'height':'120px'},
             unlocked() { return hasUpgrade("h", 31) && hasUpgrade("h", 32) && hasUpgrade("h", 33) && hasUpgrade("h", 34) },
         },
         42: {
@@ -1505,48 +1561,56 @@ addLayer("h", {
                return player[this.layer].points.add(1).pow(0.001);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
+            style: {'height':'120px'},
             unlocked() { return hasUpgrade("h", 31) && hasUpgrade("h", 32) && hasUpgrade("h", 33) && hasUpgrade("h", 34) },
         },
         43: {
             title: "Core Continuation",
             description: "Gain 1% of core gain per second",
             cost: new Decimal(45000000),
+            style: {'height':'120px'},
             unlocked() { return hasUpgrade("h", 31) && hasUpgrade("h", 32) && hasUpgrade("h", 33) && hasUpgrade("h", 34) },
         },
         44: {
             title: "Rapid Cores",
             description: "Increase the effect of <b>Core Continuation</b> by 9% (total: 10%)",
             cost: new Decimal(75000000),
+            style: {'height':'120px'},
             unlocked() { return hasUpgrade("h", 31) && hasUpgrade("h", 32) && hasUpgrade("h", 33) && hasUpgrade("h", 34) },
         },
         51: {
             title: "Faster Essence",
             description: "Increase essence gain per second by 25% if you have the 4th core milestone (total: 75%)",
             cost: new Decimal(9e90),
+            style: {'height':'120px'},
             unlocked() { return hasUpgrade("ds", 11) && hasUpgrade("h", 41) && hasUpgrade("h", 42) && hasUpgrade("h", 43) && hasUpgrade("h", 44) },
         },
         52: {
             title: "Core Production Line",
             description: "Increase the effect of <b>Rapid Cores</b> by 15% (total: 25%)",
             cost: new Decimal(250000000),
+            style: {'height':'120px'},
             unlocked() { return hasUpgrade("h", 41) && hasUpgrade("h", 42) && hasUpgrade("h", 43) && hasUpgrade("h", 44) },
         },
         53: {
             title: "Sub Core Particle Fusion",
             description: "you can explore 3 new core upgrades and 3 new subatomic particle upgrades",
             cost: new Decimal(7.5e9),
+            style: {'height':'120px'},
             unlocked() { return hasUpgrade("h", 41) && hasUpgrade("h", 42) && hasUpgrade("h", 43) && hasUpgrade("h", 44) },
         },
         54: {
             title: "Fastest Essence",
             description: "Increase the effect of <b>Faster Essence</b> by 25% (total: 100%)",
             cost: new Decimal(9.5e95),
+            style: {'height':'120px'},
             unlocked() { return hasUpgrade("ds", 11) && hasUpgrade("h", 41) && hasUpgrade("h", 42) && hasUpgrade("h", 43) && hasUpgrade("h", 44) },
         },
         61: {
             title: "Essence Overdrive",
             description: "Increase the effect of <b>Fastest Essence</b> by 25% (total: 125%)",
             cost: new Decimal(1e100),
+            style: {'height':'120px'},
             unlocked() { return hasUpgrade("ds", 12) && hasUpgrade("h", 51) && hasUpgrade("h", 52) && hasUpgrade("h", 53) && hasUpgrade("h", 54) },
         },
         62: {
@@ -1557,6 +1621,7 @@ addLayer("h", {
                return player['sp'].points.add(1).pow(2.5);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
+            style: {'height':'120px'},
             unlocked() { return hasUpgrade("h", 52) && hasUpgrade("h", 53) },
         },
         63: {
@@ -1567,12 +1632,14 @@ addLayer("h", {
                return player[this.layer].points.add(1).pow(0.02);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
+            style: {'height':'120px'},
             unlocked() { return hasUpgrade("h", 52) && hasUpgrade("h", 53) },
         },
         64: {
             title: "Potential Essence Potential",
             description: "Increase the effect of <b>Essence Overdrive</b> by 25% (total: 150%)",
             cost: new Decimal(1.11e111),
+            style: {'height':'120px'},
             unlocked() { return hasUpgrade("ds", 12) && hasUpgrade("h", 51) && hasUpgrade("h", 52) && hasUpgrade("h", 53) && hasUpgrade("h", 54) },
         },
     },
@@ -1707,6 +1774,7 @@ addLayer("ds", {
             title: "Mad Hexes",
             description: "you can explore 2 further hex upgrades, and hex gain is multiplied based on the amount of demon souls you have",
             cost: new Decimal(10),
+            style: {'height':'140px'},
             effect() {
                 return player["ds"].points.add(1).pow(0.1)
             },
@@ -1716,6 +1784,7 @@ addLayer("ds", {
             title: "Hex Mania",
             description: "you can explore 2 further hex upgrades, and the effect of <b>Mad Hexes</b> is multiplied based on the amount of demon souls you have",
             cost: new Decimal(75),
+            style: {'height':'140px'},
             effect() {
                 return player["ds"].points.add(1).pow(0.2)
             },
@@ -1725,24 +1794,28 @@ addLayer("ds", {
             title: "Hall of Fame",
             description: "achievements also multiply essence gain",
             cost: new Decimal(5000),
+            style: {'height':'120px'},
             unlocked() { return hasUpgrade("ds", 11) && hasUpgrade("ds", 12) }
         },
         22: {
             title: "Demonic Key",
             description: "unlocks the <b>Demon Gateway</b>",
             cost: new Decimal(100000),
+            style: {'height':'120px'},
             unlocked() { return hasUpgrade("ds", 11) && hasUpgrade("ds", 12) }
         },
         23: {
             title: "Trophy of Glory",
             description: "achievements also multiply core and quark gain if you own <b>Hall of Fame</b>",
             cost: new Decimal(2500000),
+            style: {'height':'120px'},
             unlocked() { return hasUpgrade("ds", 11) && hasUpgrade("ds", 12) && hasUpgrade("ds", 21) }
         },
         24: {
             title: "Buried History",
             description: "achievements boosting point gain uses a better formula if you own <b>Hall of Fame</b>",
             cost: new Decimal(1.11e11),
+            style: {'height':'120px'},
             unlocked() { return hasUpgrade("ds", 11) && hasUpgrade("ds", 12) && hasUpgrade("ds", 23) }
         },
     },
@@ -2015,6 +2088,7 @@ addLayer("a", {
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             branches: [21, 22],
+            style: {'height':'120px'},
         },
         21: {
             title: "Decaying Atoms",
@@ -2025,6 +2099,7 @@ addLayer("a", {
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             branches: [31, 32],
+            style: {'height':'120px'},
             unlocked() {
                 if (!hasUpgrade('a', 22) && !hasUpgrade('a', 33) || hasMilestone('a', 10)) return true;
             },
@@ -2038,6 +2113,7 @@ addLayer("a", {
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             branches: [32, 33],
+            style: {'height':'120px'},
             unlocked() {
                 if (!hasUpgrade('a', 21) && !hasUpgrade('a', 31) || hasMilestone('a', 10)) return true;
             },
@@ -2051,6 +2127,7 @@ addLayer("a", {
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             branches: [41],
+            style: {'height':'120px'},
             unlocked() {
                 if (!hasUpgrade('a', 22) && !hasUpgrade('a', 32) && !hasUpgrade('a', 33) && !hasUpgrade('a', 42) || hasMilestone('a', 10)) return true;
             },
@@ -2064,6 +2141,7 @@ addLayer("a", {
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             branches: [41, 42],
+            style: {'height':'120px'},
             unlocked() {
                 if (!hasUpgrade('a', 31) && !hasUpgrade('a', 33) || hasMilestone('a', 10)) return true;
             },
@@ -2077,6 +2155,7 @@ addLayer("a", {
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             branches: [42],
+            style: {'height':'120px'},
             unlocked() {
                 if (!hasUpgrade('a', 21) && !hasUpgrade('a', 31) && !hasUpgrade('a', 32) && !hasUpgrade('a', 41) || hasMilestone('a', 10)) return true;
             },
@@ -2090,6 +2169,7 @@ addLayer("a", {
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             branches: [51],
+            style: {'height':'120px'},
             unlocked() {
                 if (!hasUpgrade('a', 33) && !hasUpgrade('a', 42) || hasMilestone('a', 10)) return true;
             },
@@ -2103,6 +2183,7 @@ addLayer("a", {
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             branches: [51],
+            style: {'height':'120px'},
             unlocked() {
                 if (!hasUpgrade('a', 31) && !hasUpgrade('a', 41) || hasMilestone('a', 10)) return true;
             },
@@ -2112,6 +2193,7 @@ addLayer("a", {
             description: "multiplies subatomic particle gain based on your number of acievements",
             cost: new Decimal(3),
             branches: [61, 62],
+            style: {'height':'120px'},
             unlocked() { return true },
         },
         61: {
@@ -2123,6 +2205,7 @@ addLayer("a", {
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             branches: [71, 72],
+            style: {'height':'120px'},
             unlocked() {
                 if (!hasUpgrade('a', 62) && !hasUpgrade('a', 73) || hasMilestone('a', 10)) return true;
             },
@@ -2136,6 +2219,7 @@ addLayer("a", {
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             branches: [72, 73],
+            style: {'height':'120px'},
             unlocked() {
                 if (!hasUpgrade('a', 61) && !hasUpgrade('a', 71) || hasMilestone('a', 10)) return true;
             },
@@ -2148,6 +2232,7 @@ addLayer("a", {
                 return ((player.a.best * player["a"].points * 2.5) ** 0.15);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
+            style: {'height':'120px'},
             unlocked() {
                 if (!hasUpgrade('a', 62) && !hasUpgrade('a', 72) && !hasUpgrade('a', 73) || hasMilestone('a', 10)) return true;
             },
@@ -2160,6 +2245,7 @@ addLayer("a", {
                 return player.a.total.add(1).pow(0.1);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
+            style: {'height':'120px'},
             unlocked() {
                 if (!hasUpgrade('a', 71) && !hasUpgrade('a', 73) || hasMilestone('a', 10)) return true;
             },
@@ -2172,6 +2258,7 @@ addLayer("a", {
                 return player["a"].points.add(1).pow(1.75);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
+            style: {'height':'120px'},
             unlocked() {
                 if (!hasUpgrade('a', 61) && !hasUpgrade('a', 71) && !hasUpgrade('a', 72) || hasMilestone('a', 10)) return true;
             },
@@ -2307,11 +2394,13 @@ addLayer("p", {
                 return player["p"].points.add(1).pow(0.075);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
+            style: {'height':'120px'},
         },
         12: {
             title: "Heretic Leniency",
             description: "multiplies hex gain by 1.02",
             cost: new Decimal(10),
+            style: {'height':'120px'},
         },
         13: {
             title: "Essence of Divinity",
@@ -2321,6 +2410,7 @@ addLayer("p", {
                 return player["e"].points.add(1).pow(0.0001);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
+            style: {'height':'120px'},
         },
         21: {
             fullDisplay() { return '<font size="2">Divine Prayers</font><br>multiplies prayer gain based on the amount of divinity you have<br>Currently: ' + format(upgradeEffect(this.layer, this.id)) + 'x<br><br>Cost: 20 divinity' },
@@ -2334,6 +2424,7 @@ addLayer("p", {
             effect() {
                 return player.p.divinity.add(1).pow(0.01);
             },
+            style: {'height':'120px'},
         },
         22: {
             fullDisplay() { return '<font size="2">Holy Light</font><br>unlocks holiness<br><br>Cost: 45 divinity' },
@@ -2344,6 +2435,7 @@ addLayer("p", {
             pay() {
                 player.p.divinity = player.p.divinity.sub(45);
             },
+            style: {'height':'120px'},
         },
         23: {
             fullDisplay() { return '<font size="2">Holy Channeling</font><br>increases efficiency of holiness conversion<br>0.04x --> 0.06x<br><br>Cost: 15 holiness' },
@@ -2354,6 +2446,7 @@ addLayer("p", {
             pay() {
                 player.p.holiness = player.p.holiness.sub(15);
             },
+            style: {'height':'120px'},
             unlocked() { if (hasUpgrade('p', 22)) return true },
         },
         31: {
@@ -2366,6 +2459,7 @@ addLayer("p", {
                 player.p.divinity = player.p.divinity.sub(175);
                 player.p.holiness = player.p.holiness.sub(45);
             },
+            style: {'height':'120px'},
             unlocked() { if (hasUpgrade('p', 22)) return true },
 
         },
@@ -2382,6 +2476,7 @@ addLayer("p", {
             effect() {
                 return player.p.holiness.add(1).pow(0.025);
             },
+            style: {'height':'120px'},
             unlocked() { if (hasUpgrade('p', 22)) return true },
         },
         33: {
@@ -2392,6 +2487,7 @@ addLayer("p", {
                 return player.p.divinity.add(1).pow(0.2);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
+            style: {'height':'120px'},
         },
         41: {
             fullDisplay() { return '<font size="2">Written hymns</font><br>unlocks hymns<br><br>Cost: 2,000 divinity,<br>450 holiness' },
@@ -2403,6 +2499,7 @@ addLayer("p", {
                 player.p.divinity = player.p.divinity.sub(2000);
                 player.p.holiness = player.p.holiness.sub(450);
             },
+            style: {'height':'120px'},
             unlocked() { if (hasUpgrade('p', 22)) return true },
         },
         42: {
@@ -2418,6 +2515,7 @@ addLayer("p", {
             effect() {
                 return player.p.hymn.add(1).pow(0.1);
             },
+            style: {'height':'120px'},
             unlocked() { if (hasUpgrade('p', 41)) return true },
         },
         43: {
@@ -2430,6 +2528,7 @@ addLayer("p", {
                 player.p.holiness = player.p.holiness.sub(2500000);
                 player.p.hymn = player.p.hymn.sub(50000);
             },
+            style: {'height':'120px'},
             unlocked() { if (hasUpgrade('p', 41)) return true },
         },
         51: {
@@ -2441,6 +2540,7 @@ addLayer("p", {
             pay() {
                 player.p.hymn = player.p.hymn.sub(1000000);
             },
+            style: {'height':'120px'},
             unlocked() { if (hasUpgrade('p', 41)) return true },
         },
         52: {
@@ -2452,6 +2552,7 @@ addLayer("p", {
             pay() {
                 player.p.hymn = player.p.hymn.sub(10000000);
             },
+            style: {'height':'120px'},
             unlocked() { if (hasUpgrade('p', 41)) return true },
         },
         53: {
@@ -2463,6 +2564,7 @@ addLayer("p", {
             pay() {
                 player.p.hymn = player.p.hymn.sub(100000000);
             },
+            style: {'height':'120px'},
             unlocked() { if (hasUpgrade('p', 41)) return true },
         },
     },
