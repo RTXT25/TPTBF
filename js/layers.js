@@ -483,7 +483,7 @@ addLayer("e", {
         },
         23: {
             title: "Recurring Recursion",
-            description: "boosts the effect of Point Recursion based on the amount of points you have",
+            description: "boosts the effect of <b>Point Recursion</b> based on the amount of points you have",
             cost: new Decimal(3500),
             effect() {
                return player.points.add(1).pow(0.25);
@@ -493,7 +493,7 @@ addLayer("e", {
         },
         31: {
             title: "Infinite Recursion",
-            description: "boosts the effect of Recurring Recursion based on the amount of points you have",
+            description: "boosts the effect of <b>Recurring Recursion</b> based on the amount of points you have",
             cost: new Decimal(1.11e11),
             effect() {
                return player.points.add(1).pow(0.01);
@@ -503,7 +503,7 @@ addLayer("e", {
         },
         32: {
             title: "Brilliance",
-            description: "some of the effect of Radiant Essence is applied to point gain (based on essence)",
+            description: "some of the effect of <b>Radiant Essence</b> is applied to point gain (based on essence)",
             cost: new Decimal(3.33e33),
             effect() {
                return player[this.layer].points.add(1).pow(0.001);
@@ -513,7 +513,7 @@ addLayer("e", {
         },
         33: {
             title: "Essence Network",
-            description: "boosts the effect of Essence Influence based on the amount of essence you have",
+            description: "boosts the effect of <b>Essence Influence</b> based on the amount of essence you have",
             cost: new Decimal(5.55e55),
             effect() {
                return player[this.layer].points.add(1).pow(0.025);
@@ -523,7 +523,7 @@ addLayer("e", {
         },
         41: {
             title: "Essence Recursion",
-            description: "boosts the effect of Essence of Essence based on the amount of essence you have",
+            description: "boosts the effect of <b>Essence of Essence</b> based on the amount of essence you have",
             cost: new Decimal(7.77e77),
             effect() {
                return player[this.layer].points.add(1).pow(0.001);
@@ -533,7 +533,7 @@ addLayer("e", {
         },
         42: {
             title: "Essences to Infinity",
-            description: "boosts the effect of Essence Recursion based on the amount of essence you have",
+            description: "boosts the effect of <b>Essence Recursion</b> based on the amount of essence you have",
             cost: new Decimal(9.99e99),
             effect() {
                return player[this.layer].points.add(1).pow(0.01);
