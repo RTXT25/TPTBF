@@ -391,11 +391,19 @@ addLayer("e", {
     ],
     layerShown(){return true},
     passiveGeneration() {
-        if (hasMilestone("c", 3) && hasUpgrade("h", 51) && hasUpgrade("h", 52) && hasUpgrade("h", 61) && hasUpgrade("h", 64)) return 1.5;
-        else if (hasMilestone("c", 3) && hasUpgrade("h", 51) && hasUpgrade("h", 54) && hasUpgrade("h", 61)) return 1.25;
-            else if (hasMilestone("c", 3) && hasUpgrade("h", 51) && hasUpgrade("h", 54)) return 1;
-                else if (hasMilestone("c", 3) && hasUpgrade("h", 51)) return 0.75;
-                    else if (hasMilestone("c", 3)) return 0.5;
+        let gen = 0;
+        if (hasMilestone("c", 3)) {
+            gen += 0.5;
+            if (hasUpgrade("h", 51)) {
+                gen += 0.25;
+                if (hasUpgrade("h", 54)) {
+                    gen += 0.25;
+                    if (hasUpgrade("h", 61)) {
+                        gen += 0.25;
+                        if (hasUpgrade("h", 64)) {
+                            gen += 0.25;
+        }}}}};
+        return gen;
     },
     doReset(resettingLayer) {
         let keep = [];
@@ -608,10 +616,17 @@ addLayer("c", {
     ],
     layerShown(){return true},
     passiveGeneration() {
-        if (hasUpgrade("h", 43) && hasUpgrade("h", 44) && hasUpgrade("h", 52) && hasUpgrade("c", 33)) return 0.5;
-        else if (hasUpgrade("h", 43) && hasUpgrade("h", 44) && hasUpgrade("h", 52)) return 0.25;
-            else if (hasUpgrade("h", 43) && hasUpgrade("h", 44)) return 0.1;
-                else if (hasUpgrade("h", 43)) return 0.01;
+        let gen = 0;
+        if (hasUpgrade("h", 43)) {
+            gen += 0.01;
+            if (hasUpgrade("h", 44)) {
+                gen += 0.09;
+                if (hasUpgrade("h", 52)) {
+                    gen += 0.15;
+                    if (hasUpgrade("c", 33)) {
+                        gen += 0.25;
+        }}}};
+        return gen;
     },
     doReset(resettingLayer) {
         let keep = [];
@@ -835,8 +850,13 @@ addLayer("q", {
     ],
     layerShown(){return player.c.unlocked},
     passiveGeneration() {
-        if (hasMilestone("a", 8) && hasMilestone("a", 9)) return 0.1;
-        else if (hasMilestone("a", 8)) return 0.01;
+        gen = 0;
+        if (hasMilestone("a", 8)) {
+            gen += 0.01;
+            if (hasMilestone("a", 9)) {
+                gen += 0.09;
+        }};
+        return gen;
     },
     doReset(resettingLayer) {
         let keep = [];
