@@ -14,11 +14,6 @@ var activeFunctions = [
 	"getUnlocked", "getStyle", "getCanClick", "getTitle", "getDisplay"
 ]
 
-var noCall = doNotCallTheseFunctionsEveryTick
-for (item in noCall) {
-	activeFunctions.push(noCall[item])
-}
-
 // Add the names of classes to traverse
 var traversableClasses = []
 
