@@ -2216,7 +2216,10 @@ addLayer("p", {
                 if (hasUpgrade('p', 23)) player.p.holiness = new Decimal(player.p.holiness.add(player.p.divinity.mul(0.06)))
                 else player.p.holiness = new Decimal(player.p.holiness.add(player.p.divinity.mul(0.04)));
             };
-            if (hasUpgrade('p', 41) && resettingLayer == "p") player.p.hymn = player.p.hymn.add(player.p.holiness.div(250).floor()).round();
+            if (hasUpgrade('p', 41) && resettingLayer == "p") {
+                if (hasUpgrade('p', 51)) player.p.hymn = player.p.hymn.add(player.p.holiness.div(200).floor());
+                else player.p.hymn = player.p.hymn.add(player.p.holiness.div(250).floor());
+            };
             if (layers[resettingLayer].row >= this.row) player.p.divinity = new Decimal(0);
             if (layers[resettingLayer].row > this.row) {
                 layerDataReset("p", keep);
@@ -2227,7 +2230,9 @@ addLayer("p", {
     update(diff) {
         if (tmp.p.effect.gt(new Decimal(0))) player.p.divinity = (player.p.divinity.add(tmp.p.effect.mul(diff)));
         if (hasUpgrade('p', 41)) {
-            if (hasUpgrade('p', 43)) player.p.hymnEff = player.p.hymn.add(1).pow(0.2);
+            if (hasUpgrade('p', 43) && hasUpgrade('p', 52) && hasUpgrade('p', 53)) player.p.hymnEff = player.p.hymn.add(1).pow(0.25);
+            else if (hasUpgrade('p', 43) && hasUpgrade('p', 52)) player.p.hymnEff = player.p.hymn.add(1).pow(0.225);
+            else if (hasUpgrade('p', 43)) player.p.hymnEff = player.p.hymn.add(1).pow(0.2);
             else player.p.hymnEff = player.p.hymn.add(1).pow(0.15);
         };
     },
@@ -2267,9 +2272,9 @@ addLayer("p", {
             done() { return player["p"].points.gte(20) },
         },
         2: {
-            requirementDescription: "5,000 prayers & 500 hymns",
+            requirementDescription: "2,500 prayers & 250 hymns",
             effectDescription: "divinity gain is raised to the power of 1.5",
-            done() { return player["p"].points.gte(5000) && player.p.hymn.gte(500)},
+            done() { return player["p"].points.gte(2500) && player.p.hymn.gte(250)},
             unlocked() { if (hasUpgrade('p', 41)) return true },
         },
     },
@@ -2396,14 +2401,47 @@ addLayer("p", {
             unlocked() { if (hasUpgrade('p', 41)) return true },
         },
         43: {
-            fullDisplay() { return '<font size="2">Hymn Singing</font><br>increases hymn effect exponent<br>0.15 --> 0.2<br><br>Cost: 25,000,000 holiness,<br>500,000 hymns' },
+            fullDisplay() { return '<font size="2">Hymn Singing</font><br>increases hymn effect exponent<br>0.15 --> 0.2<br><br>Cost: 2,500,000 holiness,<br>50,000 hymns' },
             canAfford() {
-                if (player.p.holiness.gte(25000000) && player.p.hymn.gte(500000)) return true;
+                if (player.p.holiness.gte(2500000) && player.p.hymn.gte(50000)) return true;
                 else return false;
             },
             pay() {
-                player.p.holiness = player.p.holiness.sub(25000000);
-                player.p.hymn = player.p.hymn.sub(500000);
+                player.p.holiness = player.p.holiness.sub(2500000);
+                player.p.hymn = player.p.hymn.sub(50000);
+            },
+            unlocked() { if (hasUpgrade('p', 41)) return true },
+        },
+        51: {
+            fullDisplay() { return '<font size="2">Shorter Hymns</font><br>decreases hymn requirement<br>250 --> 200<br><br>Cost: 1,000,000 hymns' },
+            canAfford() {
+                if (player.p.hymn.gte(1000000)) return true;
+                else return false;
+            },
+            pay() {
+                player.p.hymn = player.p.hymn.sub(1000000);
+            },
+            unlocked() { if (hasUpgrade('p', 41)) return true },
+        },
+        52: {
+            fullDisplay() { return '<font size="2">Stronger Hymns</font><br>increases hymn effect exponent if you have <b>Hymn Singing</b><br>0.2 --> 0.225<br><br>Cost: 10,000,000 hymns' },
+            canAfford() {
+                if (player.p.hymn.gte(10000000)) return true;
+                else return false;
+            },
+            pay() {
+                player.p.hymn = player.p.hymn.sub(10000000);
+            },
+            unlocked() { if (hasUpgrade('p', 41)) return true },
+        },
+        53: {
+            fullDisplay() { return '<font size="2">Strongest Hymns</font><br>increases hymn effect exponent if you have all subsequent upgrades<br>0.225 --> 0.25<br><br>Cost: 100,000,000 hymns' },
+            canAfford() {
+                if (player.p.hymn.gte(100000000)) return true;
+                else return false;
+            },
+            pay() {
+                player.p.hymn = player.p.hymn.sub(100000000);
             },
             unlocked() { if (hasUpgrade('p', 41)) return true },
         },
