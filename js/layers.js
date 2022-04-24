@@ -700,7 +700,7 @@ addLayer("c", {
         },
         21: {
             title: "Quarky Core",
-            description: "multiplies the effect of The Quarks' Core based on the amount of cores you have",
+            description: "multiplies the effect of <b>The Quarks' Core</b> based on the amount of cores you have",
             cost: new Decimal(1e69),
             effect() {
                return player[this.layer].points.add(1).pow(0.005);
@@ -710,7 +710,7 @@ addLayer("c", {
         },
         22: {
             title: "Quirky Core",
-            description: "multiplies the effect of Quarky Core based on the amount of cores you have",
+            description: "multiplies the effect of <b>Quarky Core</b> based on the amount of cores you have",
             cost: new Decimal(1e71),
             effect() {
                return player[this.layer].points.add(1).pow(0.002);
@@ -730,7 +730,7 @@ addLayer("c", {
         },
         31: {
             title: "Ultra Core",
-            description: "multiplies the effect of Super Core based on the amount of cores you have",
+            description: "multiplies the effect of <b>Super Core</b> based on the amount of cores you have",
             cost: new Decimal(1e75),
             effect() {
                return player[this.layer].points.add(1).pow(0.0025);
@@ -740,7 +740,7 @@ addLayer("c", {
         },
         32: {
             title: "Hexed Core",
-            description: "multiplies the effect of Ultra Core based on the amount of hexes you have",
+            description: "multiplies the effect of <b>Ultra Core</b> based on the amount of hexes you have",
             cost: new Decimal(1e77),
             effect() {
                return player[this.layer].points.add(1).pow(0.001);
@@ -750,7 +750,7 @@ addLayer("c", {
         },
         33: {
             title: "Core Liberation",
-            description: "if you own Core Production Line and all subsequent upgrades, gain +25% of your core gain per second",
+            description: "if you own <b>Core Production Line</b> and all subsequent upgrades, gain +25% of your core gain per second",
             cost: new Decimal(1e80),
             unlocked() { return (hasMilestone("h", 8)) && hasUpgrade("h", 53) && hasUpgrade("c", 32) },
         },
@@ -906,7 +906,7 @@ addLayer("q", {
         },
         13: {
             title: "Super Quarks",
-            description: "multiplies the effect of Quark Power based on the amount of points you have",
+            description: "multiplies the effect of <b>Quark Power</b> based on the amount of points you have",
             cost: new Decimal(25),
             effect() {
                return player.points.add(1).pow(0.0025);
@@ -916,7 +916,7 @@ addLayer("q", {
         },
         14: {
             title: "Essence of Quarks",
-            description: "Quark Power also affects essence gain at a reduced rate (super quarks does not affect this)",
+            description: "<b>Quark Power</b> also affects essence gain at a reduced rate (<b>Super Quarks</b> does not affect this)",
             cost: new Decimal(100),
             effect() {
                return player[this.layer].points.add(1).pow(0.2);
@@ -926,7 +926,7 @@ addLayer("q", {
         },
         15: {
             title: "Quark Fusion",
-            description: "multiplies the effect of Essence of Quarks based on the amount of cores you have",
+            description: "multiplies the effect of <b>Essence of Quarks</b> based on the amount of cores you have",
             cost: new Decimal(750),
             effect() {
                return player['c'].points.add(1).pow(0.02);
@@ -946,7 +946,7 @@ addLayer("q", {
         },
         22: {
             title: "Very Quirky",
-            description: "multiplies the effect of Quirky Quarks based on the amount of points you have",
+            description: "multiplies the effect of <b>Quirky Quarks</b> based on the amount of points you have",
             cost: new Decimal(7500),
             effect() {
                return player.points.add(1).pow(0.02);
@@ -956,7 +956,7 @@ addLayer("q", {
         },
         23: {
             title: "Quark Extreme",
-            description: "Quark Power also affects quark gain at a reduced rate (super quarks does not affect this)",
+            description: "<b>Quark Power</b> also affects quark gain at a reduced rate (<b>Super Quarks</b> does not affect this)",
             cost: new Decimal(25000),
             effect() {
                return player[this.layer].points.add(1).pow(0.1);
@@ -966,7 +966,7 @@ addLayer("q", {
         },
         24: {
             title: "Recurring Quarks",
-            description: "multiplies the effect of Quark Extreme based on the amount of quarks you have",
+            description: "multiplies the effect of <b>Quark Extreme</b> based on the amount of quarks you have",
             cost: new Decimal(100000),
             effect() {
                return player[this.layer].points.add(1).pow(0.2);
@@ -976,7 +976,7 @@ addLayer("q", {
         },
         25: {
             title: "Recurring More",
-            description: "multiplies the effect of Recurring Quarks based on the amount of quarks you have",
+            description: "multiplies the effect of <b>Recurring Quarks</b> based on the amount of quarks you have",
             cost: new Decimal(1500000),
             effect() {
                return player[this.layer].points.add(1).pow(0.05);
@@ -986,7 +986,7 @@ addLayer("q", {
         },
         31: {
             title: "Infinite Recur",
-            description: "multiplies the effect of Recurring More based on the amount of quarks you have",
+            description: "multiplies the effect of <b>Recurring More</b> based on the amount of quarks you have",
             cost: new Decimal(50000000),
             effect() {
                return player[this.layer].points.add(1).pow(0.01);
@@ -1026,7 +1026,7 @@ addLayer("q", {
         },
         35: {
             title: "Quark Counting",
-            description: "multiplies the effect of The Quark Count based on the amount of quarks you have",
+            description: "multiplies the effect of <b>The Quark Count</b> based on the amount of quarks you have",
             cost: new Decimal(1e13),
             effect() {
                return player[this.layer].points.add(1).pow(0.015);
@@ -1036,7 +1036,7 @@ addLayer("q", {
         },
         41: {
             title: "Ticking Quarks",
-            description: "multiplies the effect of Quark Counting based on the amount of quarks you have",
+            description: "multiplies the effect of <b>Quark Counting</b> based on the amount of quarks you have",
             cost: new Decimal(1e14),
             effect() {
                return player[this.layer].points.add(1).pow(0.005);
@@ -1066,7 +1066,7 @@ addLayer("q", {
         },
         44: {
             title: "Particle Quarks",
-            description: "multiplies the effect of Subatomic Quarks based on the amount of quarks you have",
+            description: "multiplies the effect of <b>Subatomic Quarks</b> based on the amount of quarks you have",
             cost: new Decimal(1e20),
             effect() {
                return player[this.layer].points.add(1).pow(0.005);
@@ -1189,19 +1189,19 @@ addLayer("sp", {
     upgrades: {
         11: {
             title: "Positrons",
-            description: "multiplies the base buff effect of Protons by 2",
+            description: "multiplies the base buff effect of <b>Protons</b> by 2",
             cost: new Decimal(6),
             unlocked() { return (hasMilestone("h", 8)) && hasUpgrade("h", 53) },
         },
         12: {
             title: "Beta Particles",
-            description: "multiplies the base buff effect of Neutrons by 2",
+            description: "multiplies the base buff effect of <b>Neutrons</b> by 2",
             cost: new Decimal(6),
             unlocked() { return (hasMilestone("h", 8)) && hasUpgrade("h", 53) },
         },
         13: {
             title: "Gamma Particles",
-            description: "multiplies the base buff effect of Neutrons by 2",
+            description: "multiplies the base buff effect of <b>Electrons</b> by 2",
             cost: new Decimal(6),
             unlocked() { return (hasMilestone("h", 8)) && hasUpgrade("h", 53) },
         },
@@ -1397,7 +1397,7 @@ addLayer("h", {
         },
         21: {
             title: "Numerical Hexes",
-            description: "multiplies the effect of Hex Leak based on the amount of hexes you have",
+            description: "multiplies the effect of <b>Hex Leak</b> based on the amount of hexes you have",
             cost: new Decimal(1000),
             effect() {
                return player[this.layer].points.add(1).pow(0.025);
@@ -1407,7 +1407,7 @@ addLayer("h", {
         },
         22: {
             title: "Super Strong Hexes",
-            description: "multiplies the effect of Stronger Hexes based on the amount of hexes you have",
+            description: "multiplies the effect of <b>Stronger Hexes</b> based on the amount of hexes you have",
             cost: new Decimal(5000),
             effect() {
                return player[this.layer].points.add(1).pow(0.05);
@@ -1417,7 +1417,7 @@ addLayer("h", {
         },
         23: {
             title: "Hex Fission",
-            description: "multiplies the effect of Hex Fusion based on the amount of hexes you have",
+            description: "multiplies the effect of <b>Hex Fusion</b> based on the amount of hexes you have",
             cost: new Decimal(10000),
             effect() {
                return player[this.layer].points.add(1).pow(0.15);
@@ -1433,7 +1433,7 @@ addLayer("h", {
         },
         31: {
             title: "Hex Numerals",
-            description: "multiplies the effect of Numerical Hexes based on the amount of points you have",
+            description: "multiplies the effect of <b>Numerical Hexes</b> based on the amount of points you have",
             cost: new Decimal(100000),
             effect() {
                return player.points.add(1).pow(0.002);
@@ -1443,7 +1443,7 @@ addLayer("h", {
         },
         32: {
             title: "Extreme Hexes",
-            description: "multiplies the effect of Super Strong Hexes based on the amount of hexes you have",
+            description: "multiplies the effect of <b>Super Strong Hexes</b> based on the amount of hexes you have",
             cost: new Decimal(500000),
             effect() {
                return player[this.layer].points.add(1).pow(0.01);
@@ -1453,7 +1453,7 @@ addLayer("h", {
         },
         33: {
             title: "Core of Hexes",
-            description: "multiplies the effect of Hex Fission based on the amount of cores you have",
+            description: "multiplies the effect of <b>Hex Fission</b> based on the amount of cores you have",
             cost: new Decimal(1000000),
             effect() {
                return player[this.layer].points.add(1).pow(0.025);
@@ -1469,7 +1469,7 @@ addLayer("h", {
         },
         41: {
             title: "Numero Hex",
-            description: "multiplies the effect of Hex Numerals based on the amount of hexes you have",
+            description: "multiplies the effect of <b>Hex Numerals</b> based on the amount of hexes you have",
             cost: new Decimal(7500000),
             effect() {
                return player.points.add(1).pow(0.0001);
@@ -1479,7 +1479,7 @@ addLayer("h", {
         },
         42: {
             title: "Ultra Hexes",
-            description: "multiplies the effect of Extreme Hexes based on the amount of hexes you have",
+            description: "multiplies the effect of <b>Extreme Hexes</b> based on the amount of hexes you have",
             cost: new Decimal(15000000),
             effect() {
                return player[this.layer].points.add(1).pow(0.001);
@@ -1495,19 +1495,19 @@ addLayer("h", {
         },
         44: {
             title: "Rapid Cores",
-            description: "Increase the effect of Core Continuation by 9% (total: 10%)",
+            description: "Increase the effect of <b>Core Continuation</b> by 9% (total: 10%)",
             cost: new Decimal(75000000),
             unlocked() { return hasUpgrade("h", 31) && hasUpgrade("h", 32) && hasUpgrade("h", 33) && hasUpgrade("h", 34) },
         },
         51: {
             title: "Faster Essence",
-            description: "Increase essence gain per second by 25% (total: 75%)",
+            description: "Increase essence gain per second by 25% if you have the 4th core milestone (total: 75%)",
             cost: new Decimal(9e90),
             unlocked() { return hasUpgrade("ds", 11) && hasUpgrade("h", 41) && hasUpgrade("h", 42) && hasUpgrade("h", 43) && hasUpgrade("h", 44) },
         },
         52: {
             title: "Core Production Line",
-            description: "Increase the effect of Rapid Cores by 15% (total: 25%)",
+            description: "Increase the effect of <b>Rapid Cores</b> by 15% (total: 25%)",
             cost: new Decimal(250000000),
             unlocked() { return hasUpgrade("h", 41) && hasUpgrade("h", 42) && hasUpgrade("h", 43) && hasUpgrade("h", 44) },
         },
@@ -1519,13 +1519,13 @@ addLayer("h", {
         },
         54: {
             title: "Fastest Essence",
-            description: "Increase the effect of Faster Essence by 25% (total: 100%)",
+            description: "Increase the effect of <b>Faster Essence</b> by 25% (total: 100%)",
             cost: new Decimal(9.5e95),
             unlocked() { return hasUpgrade("ds", 11) && hasUpgrade("h", 41) && hasUpgrade("h", 42) && hasUpgrade("h", 43) && hasUpgrade("h", 44) },
         },
         61: {
             title: "Essence Overdrive",
-            description: "Increase the effect of Fastest Essence by 25% (total: 125%)",
+            description: "Increase the effect of <b>Fastest Essence</b> by 25% (total: 125%)",
             cost: new Decimal(1e100),
             unlocked() { return hasUpgrade("ds", 12) && hasUpgrade("h", 51) && hasUpgrade("h", 52) && hasUpgrade("h", 53) && hasUpgrade("h", 54) },
         },
@@ -1551,7 +1551,7 @@ addLayer("h", {
         },
         64: {
             title: "Potential Essence Potential",
-            description: "Increase the effect of Essence Overdrive by 25% (total: 150%)",
+            description: "Increase the effect of <b>Essence Overdrive</b> by 25% (total: 150%)",
             cost: new Decimal(1.11e111),
             unlocked() { return hasUpgrade("ds", 12) && hasUpgrade("h", 51) && hasUpgrade("h", 52) && hasUpgrade("h", 53) && hasUpgrade("h", 54) },
         },
@@ -1694,7 +1694,7 @@ addLayer("ds", {
         },
         12: {
             title: "Hex Mania",
-            description: "you can explore 2 further hex upgrades, and the effect of Mad Hexes is multiplied based on the amount of demon souls you have",
+            description: "you can explore 2 further hex upgrades, and the effect of <b>Mad Hexes</b> is multiplied based on the amount of demon souls you have",
             cost: new Decimal(75),
             effect() {
                 return player["ds"].points.add(1).pow(0.2)
@@ -1709,19 +1709,19 @@ addLayer("ds", {
         },
         22: {
             title: "Demonic Key",
-            description: "unlocks the Demon Gateway",
+            description: "unlocks the <b>Demon Gateway</b>",
             cost: new Decimal(100000),
             unlocked() { return hasUpgrade("ds", 11) && hasUpgrade("ds", 12) }
         },
         23: {
             title: "Trophy of Glory",
-            description: "achievements also multiply core and quark gain if you have Hall of Fame",
+            description: "achievements also multiply core and quark gain if you own <b>Hall of Fame</b>",
             cost: new Decimal(2500000),
             unlocked() { return hasUpgrade("ds", 11) && hasUpgrade("ds", 12) && hasUpgrade("ds", 21) }
         },
         24: {
             title: "Buried History",
-            description: "achievements boosting point gain uses a better formula if you have Hall of Fame",
+            description: "achievements boosting point gain uses a better formula if you own <b>Hall of Fame</b>",
             cost: new Decimal(1.11e11),
             unlocked() { return hasUpgrade("ds", 11) && hasUpgrade("ds", 12) && hasUpgrade("ds", 23) }
         },
