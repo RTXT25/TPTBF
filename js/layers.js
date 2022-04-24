@@ -2216,7 +2216,7 @@ addLayer("p", {
                 if (hasUpgrade('p', 23)) player.p.holiness = new Decimal(player.p.holiness.add(player.p.divinity.mul(0.06)))
                 else player.p.holiness = new Decimal(player.p.holiness.add(player.p.divinity.mul(0.04)));
             };
-            if (hasUpgrade('p', 41) && resettingLayer == "p") player.p.hymn = player.p.hymn.add(player.p.holiness.div(250)).round();
+            if (hasUpgrade('p', 41) && resettingLayer == "p") player.p.hymn = player.p.hymn.add(player.p.holiness.div(250).floor()).round();
             if (layers[resettingLayer].row >= this.row) player.p.divinity = new Decimal(0);
             if (layers[resettingLayer].row > this.row) {
                 layerDataReset("p", keep);
