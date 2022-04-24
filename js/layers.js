@@ -40,7 +40,7 @@ addLayer("A", {
     achievements: {
         11: {
             name: "The Point",
-            done() {return player.points.gte(new Decimal(1))},
+            done() {return player.points.gte(1)},
             tooltip: "obtain 1 point.",
             image() { if (hasAchievement("A", 11)) return "images/achievements/11.png" },
         },
@@ -80,7 +80,7 @@ addLayer("A", {
         },
         21: {
             name: "Essence of Rat",
-            done() {return player["e"].points.gte(new Decimal(1))},
+            done() {return player["e"].points.gte(1)},
             tooltip: "obtain 1 essence.",
             unlocked() { if (hasAchievement("A", 21)) return true },
             image() { if (hasAchievement("A", 21)) return "images/achievements/21.png" },
@@ -155,7 +155,7 @@ addLayer("A", {
         },
         41: {
             name: "The Smallest Quark",
-            done() {return player["q"].points.gte(new Decimal(1))},
+            done() {return player["q"].points.gte(1)},
             tooltip: "obtain 1 quark.",
             unlocked() { if (hasAchievement("A", 41)) return true },
             image() { if (hasAchievement("A", 41)) return "images/achievements/41.png" },
@@ -182,54 +182,54 @@ addLayer("A", {
         },
         46: {
             name: "The Outside",
-            done() {return player["c"].points.eq(new Decimal(0)) && player["q"].points.gte(new Decimal(1e10))},
+            done() {return player["c"].points.eq(0) && player["q"].points.gte(new Decimal(1e10))},
             tooltip: "obtain 1e10 quarks with no cores.",
             unlocked() { if (hasAchievement("A", 42) && hasAchievement("A", 51)) return true },
             image() { if (hasAchievement("A", 46)) return "images/achievements/46.png" },
         },
         51: {
             name: "Submarine, Subatomic",
-            done() {return player["sp"].points.gte(new Decimal(1))},
+            done() {return player["sp"].points.gte(1)},
             tooltip: "obtain 1 subatomic particle.",
             unlocked() { if (hasAchievement("A", 51)) return true },
             image() { if (hasAchievement("A", 51)) return "images/achievements/51.png" },
         },
         52: {
             name: "Variant Particles",
-            done() {return player["sp"].points.gte(new Decimal(10))},
+            done() {return player["sp"].points.gte(10)},
             tooltip: "obtain 10 subatomic particles.",
             unlocked() { if (hasAchievement("A", 51)) return true },
             image() { if (hasAchievement("A", 52)) return "images/achievements/52.png" },
         },
         53: {
             name: "Periodic Particles",
-            done() {return player["sp"].points.gte(new Decimal(100))},
+            done() {return player["sp"].points.gte(100)},
             tooltip: "obtain 100 subatomic particles.",
             unlocked() { if (hasAchievement("A", 52)) return true },
             image() { if (hasAchievement("A", 53)) return "images/achievements/53.png" },
         },
         54: {
             name: "That's no Particle no More",
-            done() {return player["sp"].points.gte(new Decimal(10000))},
+            done() {return player["sp"].points.gte(10000)},
             tooltip: "obtain 10,000 subatomic particles.",
             unlocked() { if (hasAchievement("A", 53)) return true },
             image() { if (hasAchievement("A", 54)) return "images/achievements/54.png" },
         },
         55: {
             name: "The Universe in a Particle",
-            done() {return player["sp"].points.gte(new Decimal(10000000))},
+            done() {return player["sp"].points.gte(10000000)},
             tooltip: "obtain 10,000,000 subatomic particles.",
             unlocked() { if (hasAchievement("A", 54)) return true },
         },
         56: {
             name: "Hollow Particles",
-            done() {return getBuyableAmount("sp", 11).eq(new Decimal(0)) && getBuyableAmount("sp", 12).eq(new Decimal(0)) && getBuyableAmount("sp", 21).eq(new Decimal(0)) && player["h"].points.eq(new Decimal(0)) && player["sp"].points.gte(new Decimal(10))},
+            done() {return getBuyableAmount("sp", 11).eq(0) && getBuyableAmount("sp", 12).eq(0) && getBuyableAmount("sp", 21).eq(0) && player["h"].points.eq(0) && player["sp"].points.gte(10)},
             tooltip: "obtain 10 subatomic particles with no subatomic particle buyables and hexes.",
             unlocked() { if (hasAchievement("A", 52) && hasAchievement("A", 61)) return true },
         },
         61: {
             name: "The Hex Game",
-            done() {return player["h"].points.gte(new Decimal(1))},
+            done() {return player["h"].points.gte(1)},
             tooltip: "obtain 1 hex.",
             unlocked() { if (hasAchievement("A", 61)) return true },
             image() { if (hasAchievement("A", 61)) return "images/achievements/61.png" },
@@ -256,13 +256,13 @@ addLayer("A", {
         },
         66: {
             name: "Same Old Tricks",
-            done() {return getBuyableAmount("c", 11).eq(new Decimal(0)) && getBuyableAmount("c", 12).eq(new Decimal(0)) && player["sp"].points.eq(new Decimal(0)) && player["h"].points.gte(new Decimal(1e10))},
+            done() {return getBuyableAmount("c", 11).eq(0) && getBuyableAmount("c", 12).eq(0) && player["sp"].points.eq(0) && player["h"].points.gte(new Decimal(1e10))},
             tooltip: "obtain 1e10 hexes with no subatomic particles and core buyables.",
             unlocked() { if (hasAchievement("A", 62) && hasAchievement("A", 71)) return true },
         },
         71: {
             name: "Demon Spirits",
-            done() {return player["ds"].points.gte(new Decimal(1))},
+            done() {return player["ds"].points.gte(1)},
             tooltip: "obtain 1 demon soul.",
             unlocked() { if (hasAchievement("A", 71)) return true },
             image() { if (hasAchievement("A", 71)) return "images/achievements/71.png" },
@@ -282,13 +282,13 @@ addLayer("A", {
         },
         76: {
             name: "Occult Uprising",
-            done() {return getBuyableAmount("ds", 11).eq(new Decimal(0)) && player["a"].points.eq(new Decimal(0)) && player["ds"].points.gte(new Decimal(1e10))},
+            done() {return getBuyableAmount("ds", 11).eq(0) && player["a"].points.eq(0) && player["ds"].points.gte(new Decimal(1e10))},
             tooltip: "obtain 1e10 demon souls with no demon soul buyables and atoms.",
             unlocked() { if (hasAchievement("A", 72) && hasAchievement("A", 81)) return true },
         },
         81: {
             name: "Atomic Mass",
-            done() {return player["a"].points.gte(new Decimal(1))},
+            done() {return player["a"].points.gte(1)},
             tooltip: "obtain 1 atom.",
             unlocked() { if (hasAchievement("A", 81)) return true },
         },
@@ -312,27 +312,33 @@ addLayer("A", {
         },
         86: {
             name: "For Science!",
-            done() {return player["ds"].points.eq(new Decimal(0)) && player["a"].points.gte(new Decimal(10))},
+            done() {return player["ds"].points.eq(0) && player["a"].points.gte(new Decimal(10))},
             tooltip: "obtain 10 atoms with no demon souls.",
             unlocked() { if (hasAchievement("A", 82) && hasAchievement("A", 91)) return true },
         },
         91: {
             name: "Praise the Lord",
-            done() {return player["p"].points.gte(new Decimal(1))},
+            done() {return player["p"].points.gte(1)},
             tooltip: "obtain 1 prayer.",
             unlocked() { if (hasAchievement("A", 91)) return true },
         },
         92: {
             name: "Prayers all around",
-            done() {return player["p"].points.gte(new Decimal(1000))},
+            done() {return player["p"].points.gte(1000)},
             tooltip: "obtain 1,000 prayers.",
             unlocked() { if (hasAchievement("A", 91)) return true },
         },
         93: {
             name: "Church Prayer Circle",
-            done() {return player["p"].points.gte(new Decimal(1000000))},
+            done() {return player["p"].points.gte(1000000)},
             tooltip: "obtain 1,000,000 prayers.",
             unlocked() { if (hasAchievement("A", 92)) return true },
+        },
+        94: {
+            name: "Global Prayers",
+            done() {return player["p"].points.gte(new Decimal(1e10))},
+            tooltip: "obtain 1e10 prayers.",
+            unlocked() { if (hasAchievement("A", 93)) return true },
         },
     },
 });
@@ -385,15 +391,11 @@ addLayer("e", {
     ],
     layerShown(){return true},
     passiveGeneration() {
-        if (hasMilestone("c", 3) && hasUpgrade("h", 51) && hasUpgrade("h", 52) && hasUpgrade("h", 61) && hasUpgrade("h", 64)) return 1.5
-        else
-            if (hasMilestone("c", 3) && hasUpgrade("h", 51) && hasUpgrade("h", 54) && hasUpgrade("h", 61)) return 1.25
-            else
-                if (hasMilestone("c", 3) && hasUpgrade("h", 51) && hasUpgrade("h", 54)) return 1
-                else
-                    if (hasMilestone("c", 3) && hasUpgrade("h", 51)) return 0.75
-                    else
-                        if (hasMilestone("c", 3)) return 0.5
+        if (hasMilestone("c", 3) && hasUpgrade("h", 51) && hasUpgrade("h", 52) && hasUpgrade("h", 61) && hasUpgrade("h", 64)) return 1.5;
+        else if (hasMilestone("c", 3) && hasUpgrade("h", 51) && hasUpgrade("h", 54) && hasUpgrade("h", 61)) return 1.25;
+            else if (hasMilestone("c", 3) && hasUpgrade("h", 51) && hasUpgrade("h", 54)) return 1;
+                else if (hasMilestone("c", 3) && hasUpgrade("h", 51)) return 0.75;
+                    else if (hasMilestone("c", 3)) return 0.5;
     },
     doReset(resettingLayer) {
         let keep = [];
@@ -436,7 +438,7 @@ addLayer("e", {
             description: "multiplies point gain based on the amount of essence you have",
             cost: new Decimal(2),
             effect() {
-               return player[this.layer].points.add(1).pow(0.5)
+               return player[this.layer].points.add(1).pow(0.5);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             unlocked() { return hasUpgrade("e", 11) },
@@ -446,7 +448,7 @@ addLayer("e", {
             description: "multiplies essence gain based on the amount of points you have",
             cost: new Decimal(5),
             effect() { 
-                return player.points.add(1).pow(0.15)
+                return player.points.add(1).pow(0.15);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             unlocked() { return hasUpgrade("e", 12) },
@@ -456,7 +458,7 @@ addLayer("e", {
             description: "multiplies point gain based on the amount of points you have",
             cost: new Decimal(500),
             effect() {
-               return player.points.add(1).pow(0.075)
+               return player.points.add(1).pow(0.075);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             unlocked() { return hasUpgrade("e", 13) },
@@ -466,7 +468,7 @@ addLayer("e", {
             description: "multiplies essence gain based on the amount of essence you have",
             cost: new Decimal(1250),
             effect() {
-               return player[this.layer].points.add(1).pow(0.11111111111)
+               return player[this.layer].points.add(1).pow(0.11111111111);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             unlocked() { return hasUpgrade("e", 21) },
@@ -476,7 +478,7 @@ addLayer("e", {
             description: "boosts the effect of Point Recursion based on the amount of points you have",
             cost: new Decimal(3500),
             effect() {
-               return player.points.add(1).pow(0.25)
+               return player.points.add(1).pow(0.25);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             unlocked() { return hasUpgrade("e", 22) },
@@ -486,7 +488,7 @@ addLayer("e", {
             description: "boosts the effect of Recurring Recursion based on the amount of points you have",
             cost: new Decimal(1.11e11),
             effect() {
-               return player.points.add(1).pow(0.01)
+               return player.points.add(1).pow(0.01);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             unlocked() { return hasMilestone("q", 0) && hasUpgrade("e", 23) },
@@ -496,7 +498,7 @@ addLayer("e", {
             description: "some of the effect of Radiant Essence is applied to point gain (based on essence)",
             cost: new Decimal(3.33e33),
             effect() {
-               return player[this.layer].points.add(1).pow(0.001)
+               return player[this.layer].points.add(1).pow(0.001);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             unlocked() { return hasMilestone("q", 0) && hasUpgrade("e", 31) },
@@ -506,7 +508,7 @@ addLayer("e", {
             description: "boosts the effect of Essence Influence based on the amount of essence you have",
             cost: new Decimal(5.55e55),
             effect() {
-               return player[this.layer].points.add(1).pow(0.025)
+               return player[this.layer].points.add(1).pow(0.025);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             unlocked() { return hasMilestone("q", 0) && hasUpgrade("e", 32) },
@@ -516,7 +518,7 @@ addLayer("e", {
             description: "boosts the effect of Essence of Essence based on the amount of essence you have",
             cost: new Decimal(7.77e77),
             effect() {
-               return player[this.layer].points.add(1).pow(0.001)
+               return player[this.layer].points.add(1).pow(0.001);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             unlocked() { return hasMilestone("q", 0) && hasUpgrade("e", 33) },
@@ -526,7 +528,7 @@ addLayer("e", {
             description: "boosts the effect of Essence Recursion based on the amount of essence you have",
             cost: new Decimal(9.99e99),
             effect() {
-               return player[this.layer].points.add(1).pow(0.01)
+               return player[this.layer].points.add(1).pow(0.01);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             unlocked() { return hasMilestone("q", 0) && hasUpgrade("e", 41) },
@@ -534,35 +536,31 @@ addLayer("e", {
     },
     buyables: {
         11: {
-            cost(x) { return new Decimal(1).mul(x) },
+            cost() { return new Decimal(12 ** getBuyableAmount('e', 11)).add(20) },
             title: "Purer Essence",
-            canAfford() { return player[this.layer].points.gte(this.cost((12 ** getBuyableAmount('e', 11)) + 20))},
+            canAfford() { return player[this.layer].points.gte(this.cost())},
             purchaseLimit: new Decimal(14),
             buy() {
-                player[this.layer].points = player[this.layer].points.sub(this.cost((12 ** getBuyableAmount('e', 11)) + 20))
-                setBuyableAmount('e', 11, getBuyableAmount('e', 11).add(1))
+                player[this.layer].points = player[this.layer].points.sub(this.cost());
+                setBuyableAmount('e', 11, getBuyableAmount('e', 11).add(1));
             },
             display() {
-                if (getBuyableAmount('e', 11) < 14)
-                    return "multiplies essence gain based on the amount of this upgrade bought.\nCurrently: " + ((getBuyableAmount('e', 11) * 2.5) + 1) + "x\n\nCost: " + new Decimal((12 ** getBuyableAmount('e', 11)) + 20) + " essence\n\nBought: " + getBuyableAmount('e', 11)
-                else
-                    return "multiplies essence gain based on the amount of this upgrade bought.\nCurrently: 36x\n\nCost: 1283918464548884 essence\n\nBought: 14"
+                if (getBuyableAmount('e', 11).eq(0)) return "multiplies essence gain based on the amount of this upgrade bought.\nCurrently: 1.00x\n\nCost: 21 essence\n\nBought: 0";
+                else return "multiplies essence gain based on the amount of this upgrade bought.\nCurrently: " + format(getBuyableAmount('e', 11).mul(2.5).add(1)) + "x\n\nCost: " + formatWhole(this.cost()) + " essence\n\nBought: " + formatWhole(getBuyableAmount('e', 11));
             },
         },
         12: {
-            cost(x) { return new Decimal(1).mul(x) },
+            cost() { return (new Decimal(44 ** getBuyableAmount('e', 12))).mul(10).add(85184) },
             title: "Radiant Essence",
-            canAfford() { return player[this.layer].points.gte(this.cost(10 * (44 ** getBuyableAmount('e', 12)) + 85184))},
+            canAfford() { return player[this.layer].points.gte(this.cost())},
             purchaseLimit: new Decimal(99),
             buy() {
-                player[this.layer].points = player[this.layer].points.sub(this.cost(10 * (44 ** getBuyableAmount('e', 12)) + 85184))
-                setBuyableAmount('e', 12, getBuyableAmount('e', 12).add(1))
+                player[this.layer].points = player[this.layer].points.sub(this.cost());
+                setBuyableAmount('e', 12, getBuyableAmount('e', 12).add(1));
             },
             display() {
-                if (getBuyableAmount('e', 12) < 99)
-                    return "multiplies core gain (and essence gain at a reduced rate) based on the amount of this upgrade bought.\nCurrently: " + ((getBuyableAmount('e', 12) * 1) + 1) + "x\nand " + (Math.round(((getBuyableAmount('e', 12) ** 0.25) + 1) * 100) / 100) + "x\n\nCost: " + (10 * (44 ** getBuyableAmount('e', 12)) + 85184) + " essence\n\nBought: " + getBuyableAmount('e', 12)
-                else
-                    return "multiplies core gain (and essence gain at a reduced rate) based on the amount of this upgrade bought.\nCurrently: 100x\nand 4.15x\n\nCost: 5.032861418646627e163 essence\n\nBought: 99"
+                if (getBuyableAmount('e', 12).eq(0)) return ;
+                else return "multiplies core gain (and essence gain at a reduced rate) based on the amount of this upgrade bought.\nCurrently: " + format(getBuyableAmount('e', 12).add(1)) + "x\nand " + format(getBuyableAmount('e', 12).pow(0.25).add(1)) + "x\n\nCost: " + formatWhole(this.cost()) + " essence\n\nBought: " + formatWhole(getBuyableAmount('e', 12));
             },
         },
     },
@@ -610,13 +608,10 @@ addLayer("c", {
     ],
     layerShown(){return true},
     passiveGeneration() {
-        if (hasUpgrade("h", 43) && hasUpgrade("h", 44) && hasUpgrade("h", 52) && hasUpgrade("c", 33)) return 0.5
-        else
-            if (hasUpgrade("h", 43) && hasUpgrade("h", 44) && hasUpgrade("h", 52)) return 0.25
-            else
-                if (hasUpgrade("h", 43) && hasUpgrade("h", 44)) return 0.1
-                else
-                    if (hasUpgrade("h", 43)) return 0.01
+        if (hasUpgrade("h", 43) && hasUpgrade("h", 44) && hasUpgrade("h", 52) && hasUpgrade("c", 33)) return 0.5;
+        else if (hasUpgrade("h", 43) && hasUpgrade("h", 44) && hasUpgrade("h", 52)) return 0.25;
+            else if (hasUpgrade("h", 43) && hasUpgrade("h", 44)) return 0.1;
+                else if (hasUpgrade("h", 43)) return 0.01;
     },
     doReset(resettingLayer) {
         let keep = [];
@@ -669,7 +664,7 @@ addLayer("c", {
         3: {
             requirementDescription: "1e64 cores",
             effectDescription: "gain 50% of essence gain per second",
-            done() { return player[this.layer].points.gte( new Decimal(1e64) ) }
+            done() { return player[this.layer].points.gte(new Decimal(1e64)) }
         },
     },
     upgrades: {
@@ -678,7 +673,7 @@ addLayer("c", {
             description: "multiplies essence gain based on the amount of cores you have",
             cost: new Decimal(25),
             effect() {
-               return player[this.layer].points.add(1).pow(0.2)
+               return player[this.layer].points.add(1).pow(0.2);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             unlocked() { return hasMilestone("c", 1) },
@@ -688,7 +683,7 @@ addLayer("c", {
             description: "multiplies core gain based on the amount of points you have",
             cost: new Decimal(100),
             effect() {
-               return player.points.add(1).pow(0.01)
+               return player.points.add(1).pow(0.01);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             unlocked() { return hasUpgrade("c", 11) },
@@ -698,7 +693,7 @@ addLayer("c", {
             description: "multiplies quark gain based on the amount of cores you have",
             cost: new Decimal(750),
             effect() {
-               return player[this.layer].points.add(1).pow(0.1)
+               return player[this.layer].points.add(1).pow(0.1);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             unlocked() { return hasUpgrade("c", 12) },
@@ -708,7 +703,7 @@ addLayer("c", {
             description: "multiplies the effect of The Quarks' Core based on the amount of cores you have",
             cost: new Decimal(1e69),
             effect() {
-               return player[this.layer].points.add(1).pow(0.005)
+               return player[this.layer].points.add(1).pow(0.005);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             unlocked() { return (hasMilestone("h", 8)) && hasUpgrade("c", 13) },
@@ -718,7 +713,7 @@ addLayer("c", {
             description: "multiplies the effect of Quarky Core based on the amount of cores you have",
             cost: new Decimal(1e71),
             effect() {
-               return player[this.layer].points.add(1).pow(0.002)
+               return player[this.layer].points.add(1).pow(0.002);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             unlocked() { return (hasMilestone("h", 8)) && hasUpgrade("c", 21) },
@@ -728,7 +723,7 @@ addLayer("c", {
             description: "multiplies core gain based on the amount of cores you have",
             cost: new Decimal(1e73),
             effect() {
-               return player[this.layer].points.add(1).pow(0.01)
+               return player[this.layer].points.add(1).pow(0.01);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             unlocked() { return (hasMilestone("h", 8)) && hasUpgrade("c", 22) },
@@ -738,7 +733,7 @@ addLayer("c", {
             description: "multiplies the effect of Super Core based on the amount of cores you have",
             cost: new Decimal(1e75),
             effect() {
-               return player[this.layer].points.add(1).pow(0.0025)
+               return player[this.layer].points.add(1).pow(0.0025);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             unlocked() { return (hasMilestone("h", 8)) && hasUpgrade("h", 53) && hasUpgrade("c", 23) },
@@ -748,7 +743,7 @@ addLayer("c", {
             description: "multiplies the effect of Ultra Core based on the amount of hexes you have",
             cost: new Decimal(1e77),
             effect() {
-               return player[this.layer].points.add(1).pow(0.001)
+               return player[this.layer].points.add(1).pow(0.001);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             unlocked() { return (hasMilestone("h", 8)) && hasUpgrade("h", 53) && hasUpgrade("c", 31) },
@@ -762,35 +757,31 @@ addLayer("c", {
     },
     buyables: {
         11: {
-            cost(x) { return new Decimal(1).mul(x) },
+            cost() { return getBuyableAmount('c', 11).mul(2).add(1) },
             title: "Empowered Points",
-            canAfford() { return player[this.layer].points.gte(this.cost((getBuyableAmount('c', 11) * 2) + 1))},
+            canAfford() { return player[this.layer].points.gte(this.cost())},
             purchaseLimit: new Decimal(99),
             buy() {
-                player[this.layer].points = player[this.layer].points.sub(this.cost((getBuyableAmount('c', 11) * 2) + 1))
-                setBuyableAmount('c', 11, getBuyableAmount('c', 11).add(1))
+                player[this.layer].points = player[this.layer].points.sub(this.cost());
+                setBuyableAmount('c', 11, getBuyableAmount('c', 11).add(1));
             },
             display() {
-                if (getBuyableAmount('c', 11) < 99)
-                    return "multiplies point gain based on the amount of this upgrade bought.\nCurrently: " + (5 * getBuyableAmount('c', 11) + 1) + "x\n\nCost: " + new Decimal((getBuyableAmount('c', 11) * 2) + 1) + " cores\n\nBought: " + getBuyableAmount('c', 11)
-                else
-                    return "multiplies point gain based on the amount of this upgrade bought.\nCurrently: 496x\n\nCost: 199 cores\n\nBought: 99"
+                if (getBuyableAmount('c', 11).eq(0)) return "multiplies point gain based on the amount of this upgrade bought.\nCurrently: 1.00x\n\nCost: 1 core\n\nBought: 0";
+                else return "multiplies point gain based on the amount of this upgrade bought.\nCurrently: " + format(5 * getBuyableAmount('c', 11) + 1) + "x\n\nCost: " + formatWhole(this.cost()) + " cores\n\nBought: " + formatWhole(getBuyableAmount('c', 11));
             },
         },
         12: {
-            cost(x) { return new Decimal(1).mul(x) },
+            cost() { return new Decimal(6 ** getBuyableAmount('c', 12)) },
             title: "Empowered Essence",
-            canAfford() { return player[this.layer].points.gte(this.cost(6 ** getBuyableAmount('c', 12)))},
+            canAfford() { return player[this.layer].points.gte(this.cost())},
             purchaseLimit: new Decimal(49),
             buy() {
-                player[this.layer].points = player[this.layer].points.sub(this.cost(6 ** getBuyableAmount('c', 12)))
-                setBuyableAmount('c', 12, getBuyableAmount('c', 12).add(1))
+                player[this.layer].points = player[this.layer].points.sub(this.cost());
+                setBuyableAmount('c', 12, getBuyableAmount('c', 12).add(1));
             },
             display() {
-                if (getBuyableAmount('c', 12) < 49)
-                    return "multiplies essence gain based on the amount of this upgrade bought.\nCurrently: " + (2 ** getBuyableAmount('c', 12)) + "x\n\nCost: " + new Decimal(6 ** getBuyableAmount('c', 12)) + " cores\n\nBought: " + getBuyableAmount('c', 12)
-                else
-                    return "multiplies essence gain based on the amount of this upgrade bought.\nCurrently: 562949953421312x\n\nCost: 1.3471354624412633e38 cores\n\nBought: 49"
+                if (getBuyableAmount('c', 12).eq(0)) return "multiplies essence gain based on the amount of this upgrade bought.\nCurrently: 1.00x\n\nCost: 1 core\n\nBought: 0";
+                else return "multiplies essence gain based on the amount of this upgrade bought.\nCurrently: " + format(2 ** getBuyableAmount('c', 12)) + "x\n\nCost: " + formatWhole(this.cost()) + " cores\n\nBought: " + formatWhole(getBuyableAmount('c', 12));
             },
         },
     },
@@ -844,9 +835,8 @@ addLayer("q", {
     ],
     layerShown(){return player.c.unlocked},
     passiveGeneration() {
-        if (hasMilestone("a", 8) && hasMilestone("a", 9)) return 0.1
-        else
-            if (hasMilestone("a", 8)) return 0.01
+        if (hasMilestone("a", 8) && hasMilestone("a", 9)) return 0.1;
+        else if (hasMilestone("a", 8)) return 0.01;
     },
     doReset(resettingLayer) {
         let keep = [];
@@ -900,7 +890,7 @@ addLayer("q", {
             description: "multiplies quark gain based on the amount of points you have",
             cost: new Decimal(1),
             effect() {
-               return player.points.add(1).pow(0.01)
+               return player.points.add(1).pow(0.01);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
         },
@@ -909,7 +899,7 @@ addLayer("q", {
             description: "multiplies point gain based on the amount of quarks you have",
             cost: new Decimal(2),
             effect() {
-               return player[this.layer].points.add(1).pow(0.09)
+               return player[this.layer].points.add(1).pow(0.09);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             unlocked() { return hasUpgrade("q", 11) },
@@ -919,7 +909,7 @@ addLayer("q", {
             description: "multiplies the effect of Quark Power based on the amount of points you have",
             cost: new Decimal(25),
             effect() {
-               return player.points.add(1).pow(0.0025)
+               return player.points.add(1).pow(0.0025);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             unlocked() { return hasUpgrade("q", 12) },
@@ -929,7 +919,7 @@ addLayer("q", {
             description: "Quark Power also affects essence gain at a reduced rate (super quarks does not affect this)",
             cost: new Decimal(100),
             effect() {
-               return player[this.layer].points.add(1).pow(0.2)
+               return player[this.layer].points.add(1).pow(0.2);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             unlocked() { return hasUpgrade("q", 13) },
@@ -939,7 +929,7 @@ addLayer("q", {
             description: "multiplies the effect of Essence of Quarks based on the amount of cores you have",
             cost: new Decimal(750),
             effect() {
-               return player['c'].points.add(1).pow(0.02)
+               return player['c'].points.add(1).pow(0.02);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             unlocked() { return hasUpgrade("q", 14) },
@@ -949,7 +939,7 @@ addLayer("q", {
             description: "multiplies core gain and quark gain based on the amount of quarks you have",
             cost: new Decimal(2500),
             effect() {
-               return player[this.layer].points.add(1).pow(0.05)
+               return player[this.layer].points.add(1).pow(0.05);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             unlocked() { return hasUpgrade("q", 15) },
@@ -959,7 +949,7 @@ addLayer("q", {
             description: "multiplies the effect of Quirky Quarks based on the amount of points you have",
             cost: new Decimal(7500),
             effect() {
-               return player.points.add(1).pow(0.02)
+               return player.points.add(1).pow(0.02);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             unlocked() { return hasUpgrade("q", 21) },
@@ -969,7 +959,7 @@ addLayer("q", {
             description: "Quark Power also affects quark gain at a reduced rate (super quarks does not affect this)",
             cost: new Decimal(25000),
             effect() {
-               return player[this.layer].points.add(1).pow(0.1)
+               return player[this.layer].points.add(1).pow(0.1);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             unlocked() { return hasUpgrade("q", 22) },
@@ -979,7 +969,7 @@ addLayer("q", {
             description: "multiplies the effect of Quark Extreme based on the amount of quarks you have",
             cost: new Decimal(100000),
             effect() {
-               return player[this.layer].points.add(1).pow(0.2)
+               return player[this.layer].points.add(1).pow(0.2);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             unlocked() { return hasUpgrade("q", 23) },
@@ -989,7 +979,7 @@ addLayer("q", {
             description: "multiplies the effect of Recurring Quarks based on the amount of quarks you have",
             cost: new Decimal(1500000),
             effect() {
-               return player[this.layer].points.add(1).pow(0.05)
+               return player[this.layer].points.add(1).pow(0.05);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             unlocked() { return hasUpgrade("q", 24) },
@@ -999,7 +989,7 @@ addLayer("q", {
             description: "multiplies the effect of Recurring More based on the amount of quarks you have",
             cost: new Decimal(50000000),
             effect() {
-               return player[this.layer].points.add(1).pow(0.01)
+               return player[this.layer].points.add(1).pow(0.01);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             unlocked() { return hasUpgrade("q", 25) },
@@ -1009,7 +999,7 @@ addLayer("q", {
             description: "multiplies essence gain based on the amount of quarks you have",
             cost: new Decimal(1e9),
             effect() {
-               return player[this.layer].points.add(1).pow(0.15)
+               return player[this.layer].points.add(1).pow(0.15);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             unlocked() { return hasUpgrade("q", 31) },
@@ -1019,7 +1009,7 @@ addLayer("q", {
             description: "multiplies core gain based on the amount of quarks you have",
             cost: new Decimal(1e10),
             effect() {
-               return player[this.layer].points.add(1).pow(0.075)
+               return player[this.layer].points.add(1).pow(0.075);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             unlocked() { return hasUpgrade("q", 32) },
@@ -1029,7 +1019,7 @@ addLayer("q", {
             description: "multiplies point gain based on the amount of quarks you have",
             cost: new Decimal(2.5e11),
             effect() {
-               return player[this.layer].points.add(1).pow(0.01)
+               return player[this.layer].points.add(1).pow(0.01);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             unlocked() { return hasUpgrade("q", 33) },
@@ -1039,7 +1029,7 @@ addLayer("q", {
             description: "multiplies the effect of The Quark Count based on the amount of quarks you have",
             cost: new Decimal(1e13),
             effect() {
-               return player[this.layer].points.add(1).pow(0.015)
+               return player[this.layer].points.add(1).pow(0.015);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             unlocked() { return hasUpgrade("q", 34) },
@@ -1049,7 +1039,7 @@ addLayer("q", {
             description: "multiplies the effect of Quark Counting based on the amount of quarks you have",
             cost: new Decimal(1e14),
             effect() {
-               return player[this.layer].points.add(1).pow(0.005)
+               return player[this.layer].points.add(1).pow(0.005);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             unlocked() { return hasMilestone("sp", 2) && hasUpgrade("q", 35) },
@@ -1059,7 +1049,7 @@ addLayer("q", {
             description: "multiplies quark gain based on the amount of subatomic particles you have",
             cost: new Decimal(1e16),
             effect() {
-               return player["sp"].points.add(1).pow(0.5)
+               return player["sp"].points.add(1).pow(0.5);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             unlocked() { return hasMilestone("sp", 2) && hasUpgrade("q", 41) },
@@ -1069,7 +1059,7 @@ addLayer("q", {
             description: "multiplies subatomic particle gain based on the amount of quarks you have",
             cost: new Decimal(1e18),
             effect() {
-               return player[this.layer].points.add(1).pow(0.01)
+               return player[this.layer].points.add(1).pow(0.01);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             unlocked() { return hasMilestone("sp", 2) && hasUpgrade("q", 42) },
@@ -1079,7 +1069,7 @@ addLayer("q", {
             description: "multiplies the effect of Subatomic Quarks based on the amount of quarks you have",
             cost: new Decimal(1e20),
             effect() {
-               return player[this.layer].points.add(1).pow(0.005)
+               return player[this.layer].points.add(1).pow(0.005);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             unlocked() { return hasMilestone("sp", 2) && hasUpgrade("q", 43) },
@@ -1089,7 +1079,7 @@ addLayer("q", {
             description: "multiplies quark gain based on the amount of quarks you have",
             cost: new Decimal(1e22),
             effect() {
-               return player[this.layer].points.add(1).pow(0.125)
+               return player[this.layer].points.add(1).pow(0.125);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             unlocked() { return hasMilestone("sp", 2) && hasUpgrade("q", 44) },
@@ -1218,51 +1208,45 @@ addLayer("sp", {
     },
     buyables: {
         11: {
-            cost(x) { return new Decimal(1).mul(x) },
+            cost() { return getBuyableAmount('sp', 11).add(1) },
             title: "Protons",
-            canAfford() { return player[this.layer].points.gte(this.cost((getBuyableAmount('sp', 11) * 1) + 1))},
+            canAfford() { return player[this.layer].points.gte(this.cost())},
             purchaseLimit: new Decimal(9),
             buy() {
-                player[this.layer].points = player[this.layer].points.sub(this.cost((getBuyableAmount('sp', 11) * 1) + 1))
-                setBuyableAmount('sp', 11, getBuyableAmount('sp', 11).add(1))
+                player[this.layer].points = player[this.layer].points.sub(this.cost());
+                setBuyableAmount('sp', 11, getBuyableAmount('sp', 11).add(1));
             },
             display() {
-                if (getBuyableAmount('sp', 11) < 9)
-                    return "multiplies quark gain (but also decreases essence gain at a reduced rate) based on the amount of this upgrade bought.\nCurrently: " + (5 ** getBuyableAmount('sp', 11)) + "x\nand " + (((getBuyableAmount('sp', 11) * 1) + 1) ** -1) + "x\n\nCost: " + new Decimal((getBuyableAmount('sp', 11) * 1) + 1) + " subatomic particles\n\nBought: " + getBuyableAmount('sp', 11)
-                else
-                    return "multiplies quark gain (but also decreases essence gain at a reduced rate) based on the amount of this upgrade bought.\nCurrently: 1953125x\nand 0.1x\n\nCost: 10 subatomic particles\n\nBought: 9"
+                if (getBuyableAmount('sp', 21).eq(0)) return "multiplies quark gain (but also decreases essence gain at a reduced rate) based on the amount of this upgrade bought.\nCurrently: 1.00x\nand 1.00x\n\nCost: 1 subatomic particle\n\nBought: 0";
+                else return "multiplies quark gain (but also decreases essence gain at a reduced rate) based on the amount of this upgrade bought.\nCurrently: " + format(5 ** getBuyableAmount('sp', 11)) + "x\nand " + format(getBuyableAmount('sp', 11).add(1) ** -1) + "x\n\nCost: " + formatWhole(this.cost()) + " subatomic particles\n\nBought: " + formatWhole(getBuyableAmount('sp', 11));
             },
         },
         12: {
-            cost(x) { return new Decimal(1).mul(x) },
+            cost() { return getBuyableAmount('sp', 12).add(1) },
             title: "Neutrons",
-            canAfford() { return player[this.layer].points.gte(this.cost((getBuyableAmount('sp', 12) * 1) + 1))},
+            canAfford() { return player[this.layer].points.gte(this.cost())},
             purchaseLimit: new Decimal(9),
             buy() {
-                player[this.layer].points = player[this.layer].points.sub(this.cost((getBuyableAmount('sp', 12) * 1) + 1))
-                setBuyableAmount('sp', 12, getBuyableAmount('sp', 12).add(1))
+                player[this.layer].points = player[this.layer].points.sub(this.cost());
+                setBuyableAmount('sp', 12, getBuyableAmount('sp', 12).add(1));
             },
             display() {
-                if (getBuyableAmount('sp', 12) < 9)
-                    return "multiplies essence gain (but also decreases point gain at a reduced rate) based on the amount of this upgrade bought.\nCurrently: " + (5 ** getBuyableAmount('sp', 12)) + "x\nand " + (((getBuyableAmount('sp', 12) * 1) + 1) ** -1) + "x\n\nCost: " + new Decimal((getBuyableAmount('sp', 12) * 1) + 1) + " subatomic particles\n\nBought: " + getBuyableAmount('sp', 12)
-                else
-                    return "multiplies essence gain (but also decreases point gain at a reduced rate) based on the amount of this upgrade bought.\nCurrently: 1953125x\nand 0.1x\n\nCost: 10 subatomic particles\n\nBought: 9"
+                if (getBuyableAmount('sp', 21).eq(0)) return "multiplies essence gain (but also decreases point gain at a reduced rate) based on the amount of this upgrade bought.\nCurrently: 1.00x\nand 1.00x\n\nCost: 1 subatomic particle\n\nBought: 0";
+                else return "multiplies essence gain (but also decreases point gain at a reduced rate) based on the amount of this upgrade bought.\nCurrently: " + format(5 ** getBuyableAmount('sp', 12)) + "x\nand " + format(getBuyableAmount('sp', 12).add(1) ** -1) + "x\n\nCost: " +formatWhole(this.cost()) + " subatomic particles\n\nBought: " + formatWhole(getBuyableAmount('sp', 12));
             },
         },
         21: {
-            cost(x) { return new Decimal(1).mul(x) },
+            cost() { return getBuyableAmount('sp', 21).add(1) },
             title: "Electrons",
-            canAfford() { return player[this.layer].points.gte(this.cost((getBuyableAmount('sp', 21) * 1) + 1))},
+            canAfford() { return player[this.layer].points.gte(this.cost())},
             purchaseLimit: new Decimal(9),
             buy() {
-                player[this.layer].points = player[this.layer].points.sub(this.cost((getBuyableAmount('sp', 21) * 1) + 1))
-                setBuyableAmount('sp', 21, getBuyableAmount('sp', 21).add(1))
+                player[this.layer].points = player[this.layer].points.sub(this.cost());
+                setBuyableAmount('sp', 21, getBuyableAmount('sp', 21).add(1));
             },
             display() {
-                if (getBuyableAmount('sp', 21) < 9)
-                    return "multiplies point gain (but also decreases quark gain at a reduced rate) based on the amount of this upgrade bought.\nCurrently: " + (5 ** getBuyableAmount('sp', 21)) + "x\nand " + (((getBuyableAmount('sp', 21) * 1) + 1) ** -1) + "x\n\nCost: " + new Decimal((getBuyableAmount('sp', 21) * 1) + 1) + " subatomic particles\n\nBought: " + getBuyableAmount('sp', 21)
-                else
-                    return "multiplies point gain (but also decreases quark gain at a reduced rate) based on the amount of this upgrade bought.\nCurrently: 1953125x\nand 0.1x\n\nCost: 10 subatomic particles\n\nBought: 9"
+                if (getBuyableAmount('sp', 21).eq(0)) return "multiplies point gain (but also decreases quark gain at a reduced rate) based on the amount of this upgrade bought.\nCurrently: 1.00x\nand 1.00x\n\nCost: 1 subatomic particle\n\nBought: 0";
+                else return "multiplies point gain (but also decreases quark gain at a reduced rate) based on the amount of this upgrade bought.\nCurrently: " + format(5 ** getBuyableAmount('sp', 21)) + "x\nand " + format(getBuyableAmount('sp', 21).add(1) ** -1) + "x\n\nCost: " + formatWhole(this.cost()) + " subatomic particles\n\nBought: " + formatWhole(getBuyableAmount('sp', 21));
             },
         },
     },
@@ -1384,7 +1368,7 @@ addLayer("h", {
             description: "multiplies point gain based on the amount of hexes you have",
             cost: new Decimal(1),
             effect() {
-               return player[this.layer].points.add(1).pow(0.005)
+               return player[this.layer].points.add(1).pow(0.005);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
         },
@@ -1393,7 +1377,7 @@ addLayer("h", {
             description: "multiplies hex gain based on the amount of hexes you have",
             cost: new Decimal(5),
             effect() {
-               return player[this.layer].points.add(1).pow(0.1)
+               return player[this.layer].points.add(1).pow(0.1);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
         },
@@ -1402,7 +1386,7 @@ addLayer("h", {
             description: "multiplies core gain based on the amount of hexes you have",
             cost: new Decimal(10),
             effect() {
-               return player[this.layer].points.add(1).pow(0.09)
+               return player[this.layer].points.add(1).pow(0.09);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
         },
@@ -1416,7 +1400,7 @@ addLayer("h", {
             description: "multiplies the effect of Hex Leak based on the amount of hexes you have",
             cost: new Decimal(1000),
             effect() {
-               return player[this.layer].points.add(1).pow(0.025)
+               return player[this.layer].points.add(1).pow(0.025);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             unlocked() { return hasUpgrade("h", 11) && hasUpgrade("h", 12) && hasUpgrade("h", 13) && hasUpgrade("h", 14) },
@@ -1426,7 +1410,7 @@ addLayer("h", {
             description: "multiplies the effect of Stronger Hexes based on the amount of hexes you have",
             cost: new Decimal(5000),
             effect() {
-               return player[this.layer].points.add(1).pow(0.05)
+               return player[this.layer].points.add(1).pow(0.05);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             unlocked() { return hasUpgrade("h", 11) && hasUpgrade("h", 12) && hasUpgrade("h", 13) && hasUpgrade("h", 14) },
@@ -1436,7 +1420,7 @@ addLayer("h", {
             description: "multiplies the effect of Hex Fusion based on the amount of hexes you have",
             cost: new Decimal(10000),
             effect() {
-               return player[this.layer].points.add(1).pow(0.15)
+               return player[this.layer].points.add(1).pow(0.15);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             unlocked() { return hasUpgrade("h", 11) && hasUpgrade("h", 12) && hasUpgrade("h", 13) && hasUpgrade("h", 14) },
@@ -1452,7 +1436,7 @@ addLayer("h", {
             description: "multiplies the effect of Numerical Hexes based on the amount of points you have",
             cost: new Decimal(100000),
             effect() {
-               return player.points.add(1).pow(0.002)
+               return player.points.add(1).pow(0.002);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             unlocked() { return hasUpgrade("h", 21) && hasUpgrade("h", 22) && hasUpgrade("h", 23) && hasUpgrade("h", 24) },
@@ -1462,7 +1446,7 @@ addLayer("h", {
             description: "multiplies the effect of Super Strong Hexes based on the amount of hexes you have",
             cost: new Decimal(500000),
             effect() {
-               return player[this.layer].points.add(1).pow(0.01)
+               return player[this.layer].points.add(1).pow(0.01);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             unlocked() { return hasUpgrade("h", 21) && hasUpgrade("h", 22) && hasUpgrade("h", 23) && hasUpgrade("h", 24) },
@@ -1472,7 +1456,7 @@ addLayer("h", {
             description: "multiplies the effect of Hex Fission based on the amount of cores you have",
             cost: new Decimal(1000000),
             effect() {
-               return player[this.layer].points.add(1).pow(0.025)
+               return player[this.layer].points.add(1).pow(0.025);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             unlocked() { return hasUpgrade("h", 21) && hasUpgrade("h", 22) && hasUpgrade("h", 23) && hasUpgrade("h", 24) },
@@ -1488,7 +1472,7 @@ addLayer("h", {
             description: "multiplies the effect of Hex Numerals based on the amount of hexes you have",
             cost: new Decimal(7500000),
             effect() {
-               return player.points.add(1).pow(0.0001)
+               return player.points.add(1).pow(0.0001);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             unlocked() { return hasUpgrade("h", 31) && hasUpgrade("h", 32) && hasUpgrade("h", 33) && hasUpgrade("h", 34) },
@@ -1498,7 +1482,7 @@ addLayer("h", {
             description: "multiplies the effect of Extreme Hexes based on the amount of hexes you have",
             cost: new Decimal(15000000),
             effect() {
-               return player[this.layer].points.add(1).pow(0.001)
+               return player[this.layer].points.add(1).pow(0.001);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             unlocked() { return hasUpgrade("h", 31) && hasUpgrade("h", 32) && hasUpgrade("h", 33) && hasUpgrade("h", 34) },
@@ -1550,7 +1534,7 @@ addLayer("h", {
             description: "multiply hex gain based on the amount of subatomic particles you have",
             cost: new Decimal(1e50),
             effect() {
-               return player['sp'].points.add(1).pow(2.5)
+               return player['sp'].points.add(1).pow(2.5);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             unlocked() { return hasUpgrade("h", 52) && hasUpgrade("h", 53) },
@@ -1560,7 +1544,7 @@ addLayer("h", {
             description: "multiply subatomic particle gain based on the amount of hexes you have",
             cost: new Decimal(6.66e66),
             effect() {
-               return player[this.layer].points.add(1).pow(0.02)
+               return player[this.layer].points.add(1).pow(0.02);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             unlocked() { return hasUpgrade("h", 52) && hasUpgrade("h", 53) },
@@ -1646,8 +1630,8 @@ addLayer("ds", {
                 "blank",
             ],
             unlocked() {
-                if (hasUpgrade("ds", 22)) return true
-                else return false
+                if (hasUpgrade("ds", 22)) return true;
+                else return false;
             },
         },
     },
@@ -1744,24 +1728,19 @@ addLayer("ds", {
     },
     buyables: {
         11: {
-            cost(x) { return new Decimal(1).mul(x) },
+            cost() { return new Decimal(2 ** getBuyableAmount('ds', 11)).add(1) },
             title: "Demonic Energy",
             canAfford() { 
-                return player["ds"].points.gte(this.cost((2 ** getBuyableAmount('ds', 11)) + 1))
+                return player["ds"].points.gte(this.cost());
             },
             purchaseLimit: new Decimal(22),
             buy() {
-                player["ds"].points = player["ds"].points.sub(this.cost(2 ** getBuyableAmount('ds', 11)))
-                setBuyableAmount('ds', 11, getBuyableAmount('ds', 11).add(1))
+                player["ds"].points = player["ds"].points.sub(this.cost());
+                setBuyableAmount('ds', 11, getBuyableAmount('ds', 11).add(1));
             },
             display() {
-                if (getBuyableAmount('ds', 11) < 1)
-                    return "multiplies hex gain (and also subatomic particle gain at a reduced rate) based on the amount of this upgrade bought.\nCurrently: " + (2 ** getBuyableAmount('ds', 11)) + "x\nand " + ((getBuyableAmount('ds', 11) * 5) + 1) + "x\n\nCost: 1 demon soul\n\nBought: 0"
-                else
-                    if (getBuyableAmount('ds', 11) < 22)
-                        return "multiplies hex gain (and also subatomic particle gain at a reduced rate) based on the amount of this upgrade bought.\nCurrently: " + (2 ** getBuyableAmount('ds', 11)) + "x\nand " + ((getBuyableAmount('ds', 11) * 5) + 1) + "x\n\nCost: " + new Decimal((2 ** getBuyableAmount('ds', 11))) + " demon souls\n\nBought: " + getBuyableAmount('ds', 11)
-                    else
-                        return "multiplies hex gain (and also subatomic particle gain at a reduced rate) based on the amount of this upgrade bought.\nCurrently: 4194304x\nand 111x\n\nCost: 4194304 demon souls\n\nBought: 22"
+                if (getBuyableAmount('ds', 11).eq(0)) return "multiplies hex gain (and also subatomic particle gain at a reduced rate) based on the amount of this upgrade bought.\nCurrently: 1.00x\nand 1.00x\n\nCost: 1 demon soul\n\nBought: 0";
+                else return "multiplies hex gain (and also subatomic particle gain at a reduced rate) based on the amount of this upgrade bought.\nCurrently: " + format(2 ** getBuyableAmount('ds', 11)) + "x\nand " + format(getBuyableAmount('ds', 11).mul(5).add(1)) + "x\n\nCost: " + formatWhole(this.cost()) + " demon souls\n\nBought: " + formatWhole(getBuyableAmount('ds', 11));
             },
         },
     },
@@ -1771,11 +1750,11 @@ addLayer("ds", {
             challengeDescription: " - Forces a Demon Soul reset<br> - Quark gain is divided by 100,000<br> - Point gain is divided by 10,000<br> - Hex gain is divided by 1,000<br> - Core gain is divided by 100<br> - Quark gain is divided by 10",
             goalDescription: "the most expensive hex upgrade",
             canComplete() {
-                if (hasUpgrade('h', 64)) return true
-                else return false
+                if (hasUpgrade('h', 64)) return true;
+                else return false;
             },
             onEnter() {
-                doReset(resettingLayer)
+                doReset("ds");
             },
             rewardDescription: "multiplies hex and demon soul gain based on the amount of demon<br>souls you have",
             rewardDisplay() { return format(player['ds'].points.add(1).pow(0.25)) + 'x' },
@@ -1785,15 +1764,15 @@ addLayer("ds", {
             challengeDescription: " - Forces a Demon Soul reset<br> - Point gain is divided by 1,000,000<br> - Hex gain is divided by 1e10<br> - Subatomic Particle gain is divided by the number of Quarks you have",
             goalDescription: "the second to last hex upgrade",
             canComplete() {
-                if (hasUpgrade('h', 63)) return true
-                else return false
+                if (hasUpgrade('h', 63)) return true;
+                else return false;
             },
             onEnter() {
-                doReset(resettingLayer)
+                doReset("ds");
             },
             unlocked() {
-                if (hasChallenge('ds', 11)) return true
-                else return false
+                if (hasChallenge('ds', 11)) return true;
+                else return false;
             },
             rewardDescription: "multiply demon soul gain based on the amount of hexes you have",
             rewardDisplay() { return format(player['h'].points.add(1).pow(0.02)) + 'x' },
@@ -1803,15 +1782,15 @@ addLayer("ds", {
             challengeDescription: " - Forces a Demon Soul reset<br> - Hex gain is divided by 100,000<br> - Point gain is divided by 1e10<br> - Core gain is divided by 1e15<br> - Essence gain is divided by 1e20",
             goalDescription: "Sub Core Particle Fusion",
             canComplete() {
-                if (hasUpgrade('h', 53)) return true
-                else return false
+                if (hasUpgrade('h', 53)) return true;
+                else return false;
             },
             onEnter() {
-                doReset(resettingLayer)
+                doReset("ds");
             },
             unlocked() {
-                if (hasChallenge('ds', 12)) return true
-                else return false
+                if (hasChallenge('ds', 12)) return true;
+                else return false;
             },
             rewardDescription: "multiply subatomic particle<br>gain based on the amount of demon<br>souls you have",
             rewardDisplay() { return format(player['ds'].points.add(1).pow(0.2)) + 'x' },
@@ -1821,15 +1800,15 @@ addLayer("ds", {
             challengeDescription: " - Forces a Demon Soul reset<br> - Point gain is divided by 1e10<br> - Quark and Subatomic Particle gain is divided by 1e40",
             goalDescription: "Famed Atom's Donations",
             canComplete() {
-                if (hasUpgrade('a', 51)) return true
-                else return false
+                if (hasUpgrade('a', 51)) return true;
+                else return false;
             },
             onEnter() {
-                doReset(resettingLayer)
+                doReset("ds");
             },
             unlocked() {
-                if (hasMilestone('a', 7)) return true
-                else return false
+                if (hasMilestone('a', 7)) return true;
+                else return false;
             },
             rewardDescription: "multiply atom gain by 1.5",
         },
@@ -2012,7 +1991,7 @@ addLayer("a", {
             description: "multiplies demon soul gain based on the amount of atoms you have",
             cost: new Decimal(1),
             effect() {
-                return player["a"].points.add(1).pow(0.5)
+                return player["a"].points.add(1).pow(0.5);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             branches: [21, 22],
@@ -2022,12 +2001,12 @@ addLayer("a", {
             description: "multiplies subatomic particle gain based on your best atoms",
             cost: new Decimal(1),
             effect() {
-                return player.a.best.add(1).pow(1.25)
+                return player.a.best.add(1).pow(1.25);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             branches: [31, 32],
             unlocked() {
-                if (!hasUpgrade('a', 22) && !hasUpgrade('a', 33) || hasMilestone('a', 10)) return true
+                if (!hasUpgrade('a', 22) && !hasUpgrade('a', 33) || hasMilestone('a', 10)) return true;
             },
         },
         22: {
@@ -2035,12 +2014,12 @@ addLayer("a", {
             description: "multiplies atom gain based on the amount of subatomic particles you have",
             cost: new Decimal(1),
             effect() {
-                return player["sp"].points.add(1).pow(0.02)
+                return player["sp"].points.add(1).pow(0.02);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             branches: [32, 33],
             unlocked() {
-                if (!hasUpgrade('a', 21) && !hasUpgrade('a', 31) || hasMilestone('a', 10)) return true
+                if (!hasUpgrade('a', 21) && !hasUpgrade('a', 31) || hasMilestone('a', 10)) return true;
             },
         },
         31: {
@@ -2048,12 +2027,12 @@ addLayer("a", {
             description: "multiplies subatomic particle gain based on your total atoms",
             cost: new Decimal(2),
             effect() {
-                return player.a.total.add(1).pow(1.05)
+                return player.a.total.add(1).pow(1.05);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             branches: [41],
             unlocked() {
-                if (!hasUpgrade('a', 22) && !hasUpgrade('a', 32) && !hasUpgrade('a', 33) && !hasUpgrade('a', 42) || hasMilestone('a', 10)) return true
+                if (!hasUpgrade('a', 22) && !hasUpgrade('a', 32) && !hasUpgrade('a', 33) && !hasUpgrade('a', 42) || hasMilestone('a', 10)) return true;
             },
         },
         32: {
@@ -2061,12 +2040,12 @@ addLayer("a", {
             description: "multiplies atom gain based on your total atoms",
             cost: new Decimal(2),
             effect() {
-                return player.a.total.add(1).pow(0.05)
+                return player.a.total.add(1).pow(0.05);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             branches: [41, 42],
             unlocked() {
-                if (!hasUpgrade('a', 31) && !hasUpgrade('a', 33) || hasMilestone('a', 10)) return true
+                if (!hasUpgrade('a', 31) && !hasUpgrade('a', 33) || hasMilestone('a', 10)) return true;
             },
         },
         33: {
@@ -2074,12 +2053,12 @@ addLayer("a", {
             description: "multiplies atom gain based on the amount of subatomic particles you have",
             cost: new Decimal(2),
             effect() {
-                return player["sp"].points.add(1).pow(0.025)
+                return player["sp"].points.add(1).pow(0.025);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             branches: [42],
             unlocked() {
-                if (!hasUpgrade('a', 21) && !hasUpgrade('a', 31) && !hasUpgrade('a', 32) && !hasUpgrade('a', 41) || hasMilestone('a', 10)) return true
+                if (!hasUpgrade('a', 21) && !hasUpgrade('a', 31) && !hasUpgrade('a', 32) && !hasUpgrade('a', 41) || hasMilestone('a', 10)) return true;
             },
         },
         41: {
@@ -2087,12 +2066,12 @@ addLayer("a", {
             description: "multiplies quark gain based on your total atoms minus your current atoms",
             cost: new Decimal(2),
             effect() {
-                return ((player.a.total - player["a"].points) ** 0.75)
+                return ((player.a.total - player["a"].points) ** 0.75);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             branches: [51],
             unlocked() {
-                if (!hasUpgrade('a', 33) && !hasUpgrade('a', 42) || hasMilestone('a', 10)) return true
+                if (!hasUpgrade('a', 33) && !hasUpgrade('a', 42) || hasMilestone('a', 10)) return true;
             },
         },
         42: {
@@ -2100,12 +2079,12 @@ addLayer("a", {
             description: "multiplies demon soul gain based on your best atoms minus your current atoms",
             cost: new Decimal(2),
             effect() {
-                return (((player.a.best * 1.5) - player["a"].points) ** 1.05)
+                return (((player.a.best * 1.5) - player["a"].points) ** 1.05);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             branches: [51],
             unlocked() {
-                if (!hasUpgrade('a', 31) && !hasUpgrade('a', 41) || hasMilestone('a', 10)) return true
+                if (!hasUpgrade('a', 31) && !hasUpgrade('a', 41) || hasMilestone('a', 10)) return true;
             },
         },
         51: {
@@ -2120,12 +2099,12 @@ addLayer("a", {
             description: "multiplies atom gain based on your total atoms minus your best atoms",
             cost: new Decimal(3),
             effect() {
-                return ((player.a.total - player.a.best) ** 0.2)
+                return ((player.a.total - player.a.best) ** 0.2);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             branches: [71, 72],
             unlocked() {
-                if (!hasUpgrade('a', 62) && !hasUpgrade('a', 73) || hasMilestone('a', 10)) return true
+                if (!hasUpgrade('a', 62) && !hasUpgrade('a', 73) || hasMilestone('a', 10)) return true;
             },
         },
         62: {
@@ -2133,12 +2112,12 @@ addLayer("a", {
             description: "multiplies atom gain based on your total atoms times your current atoms",
             cost: new Decimal(3),
             effect() {
-                return (((player.a.total * player["a"].points) ** 0.05) + 1)
+                return (((player.a.total * player["a"].points) ** 0.05) + 1);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             branches: [72, 73],
             unlocked() {
-                if (!hasUpgrade('a', 61) && !hasUpgrade('a', 71) || hasMilestone('a', 10)) return true
+                if (!hasUpgrade('a', 61) && !hasUpgrade('a', 71) || hasMilestone('a', 10)) return true;
             },
         },
         71: {
@@ -2146,11 +2125,11 @@ addLayer("a", {
             description: "multiplies demon soul gain based on your best atoms times your current atoms",
             cost: new Decimal(4),
             effect() {
-                return ((player.a.best * player["a"].points * 2.5) ** 0.15)
+                return ((player.a.best * player["a"].points * 2.5) ** 0.15);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             unlocked() {
-                if (!hasUpgrade('a', 62) && !hasUpgrade('a', 72) && !hasUpgrade('a', 73) || hasMilestone('a', 10)) return true
+                if (!hasUpgrade('a', 62) && !hasUpgrade('a', 72) && !hasUpgrade('a', 73) || hasMilestone('a', 10)) return true;
             },
         },
         72: {
@@ -2158,11 +2137,11 @@ addLayer("a", {
             description: "multiplies atom gain based on your total atoms",
             cost: new Decimal(4),
             effect() {
-                return player.a.total.add(1).pow(0.1)
+                return player.a.total.add(1).pow(0.1);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             unlocked() {
-                if (!hasUpgrade('a', 71) && !hasUpgrade('a', 73) || hasMilestone('a', 10)) return true
+                if (!hasUpgrade('a', 71) && !hasUpgrade('a', 73) || hasMilestone('a', 10)) return true;
             },
         },
         73: {
@@ -2170,11 +2149,11 @@ addLayer("a", {
             description: "multiplies essence gain based on the amount of atoms you have",
             cost: new Decimal(4),
             effect() {
-                return player["a"].points.add(1).pow(1.75)
+                return player["a"].points.add(1).pow(1.75);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             unlocked() {
-                if (!hasUpgrade('a', 61) && !hasUpgrade('a', 71) && !hasUpgrade('a', 72) || hasMilestone('a', 10)) return true
+                if (!hasUpgrade('a', 61) && !hasUpgrade('a', 71) && !hasUpgrade('a', 72) || hasMilestone('a', 10)) return true;
             },
         },
     },
@@ -2203,8 +2182,7 @@ addLayer("p", {
         mult = new Decimal(1);
         if (hasUpgrade('p', 21)) mult = mult.mul(upgradeEffect('p', 21));
         if (hasUpgrade('ds', 21) && hasUpgrade('ds', 23) && hasUpgrade('ds', 24) && hasUpgrade('p', 31)) mult = mult.mul((player.A.achievements.length ** 2) / 100);
-        if (hasUpgrade('p', 41) && !hasUpgrade('p', 43)) mult = mult.mul(player.p.hymn.add(1).pow(0.2));
-        if (hasUpgrade('p', 41) && hasUpgrade('p', 43)) mult = mult.mul(player.p.hymn.add(1).pow(0.25));
+        if (hasUpgrade('p', 41)) mult = mult.mul(player.p.hymnEff);
         return mult;
     },
     gainExp() {
@@ -2220,14 +2198,15 @@ addLayer("p", {
         let effEx = new Decimal(1);
         if (hasMilestone('p', 1)) effBoost = effBoost.mul(2);
         if (hasUpgrade('p', 13)) effBoost = effBoost.mul(upgradeEffect('p', 13));
-        if (hasUpgrade('p', 32)) effBoost = effBoost.mul(player.p.holiness.add(1).pow(0.025));
-        if (hasUpgrade('p', 33)) effBoost = effBoost.mul(player.p.divinity.add(1).pow(0.2));
-        if (hasUpgrade('p', 42)) effBoost = effBoost.mul(player.p.hymnEff);
+        if (hasUpgrade('p', 32)) effBoost = effBoost.mul(upgradeEffect('p', 32));
+        if (hasUpgrade('p', 33)) effBoost = effBoost.mul(upgradeEffect('p', 33));
+        if (hasUpgrade('p', 42)) effBoost = effBoost.mul(upgradeEffect('p', 42));
         if (hasMilestone('p', 2)) effEx = new Decimal(1.5);
         return new Decimal((effBoost.mul(player['p'].points)).pow(effEx));
     },
     effectDescription() {
-        return "which are generating " + tmp.p.effect.mul(100).round().div(100) + " divinity/sec"
+        if (tmp.p.effect.lt(0.1)) return "which are generating " + tmp.p.effect.mul(100).round().div(100) + " divinity/sec";
+        else return "which are generating " + format(tmp.p.effect) + " divinity/sec";
     },
     doReset(resettingLayer) {
         let keep = [];
@@ -2237,9 +2216,7 @@ addLayer("p", {
                 if (hasUpgrade('p', 23)) player.p.holiness = new Decimal(player.p.holiness.add(player.p.divinity.mul(0.06)))
                 else player.p.holiness = new Decimal(player.p.holiness.add(player.p.divinity.mul(0.04)));
             };
-            console.log("1: " + player.p.hymn);
-            if (hasUpgrade('p', 41) && resettingLayer == "p") player.p.hymn = player.p.hymn.add(player.p.holiness.div(225)).round();
-            console.log("2: " + player.p.hymn);
+            if (hasUpgrade('p', 41) && resettingLayer == "p") player.p.hymn = player.p.hymn.add(player.p.holiness.div(250)).round();
             if (layers[resettingLayer].row >= this.row) player.p.divinity = new Decimal(0);
             if (layers[resettingLayer].row > this.row) {
                 layerDataReset("p", keep);
@@ -2250,8 +2227,8 @@ addLayer("p", {
     update(diff) {
         if (tmp.p.effect.gt(new Decimal(0))) player.p.divinity = (player.p.divinity.add(tmp.p.effect.mul(diff)));
         if (hasUpgrade('p', 41)) {
-            if (hasUpgrade('p', 43)) player.p.hymnEff = player.p.hymn.add(1).pow(0.25)
-            else player.p.hymnEff = player.p.hymn.add(1).pow(0.2)
+            if (hasUpgrade('p', 43)) player.p.hymnEff = player.p.hymn.add(1).pow(0.2);
+            else player.p.hymnEff = player.p.hymn.add(1).pow(0.15);
         };
     },
     tabFormat: [
@@ -2323,8 +2300,8 @@ addLayer("p", {
         21: {
             fullDisplay() { return '<font size="2">Divine Prayers</font><br>multiplies prayer gain based on the amount of divinity you have<br>Currently: ' + format(upgradeEffect(this.layer, this.id)) + 'x<br><br>Cost: 20 divinity' },
             canAfford() {
-                if (player.p.divinity.gte(20)) return true
-                else return false
+                if (player.p.divinity.gte(20)) return true;
+                else return false;
             },
             pay() {
                 player.p.divinity = player.p.divinity.sub(20);
@@ -2334,20 +2311,20 @@ addLayer("p", {
             },
         },
         22: {
-            fullDisplay() { return '<font size="2">Holy Light</font><br>unlocks holiness<br><br>Cost: 50 divinity' },
+            fullDisplay() { return '<font size="2">Holy Light</font><br>unlocks holiness<br><br>Cost: 45 divinity' },
             canAfford() {
-                if (player.p.divinity.gte(50)) return true
-                else return false
+                if (player.p.divinity.gte(45)) return true;
+                else return false;
             },
             pay() {
-                player.p.divinity = player.p.divinity.sub(50);
+                player.p.divinity = player.p.divinity.sub(45);
             },
         },
         23: {
             fullDisplay() { return '<font size="2">Holy Channeling</font><br>increases efficiency of holiness conversion<br>0.04x --> 0.06x<br><br>Cost: 15 holiness' },
             canAfford() {
-                if (player.p.holiness.gte(15)) return true
-                else return false
+                if (player.p.holiness.gte(15)) return true;
+                else return false;
             },
             pay() {
                 player.p.holiness = player.p.holiness.sub(15);
@@ -2357,8 +2334,8 @@ addLayer("p", {
         31: {
             fullDisplay() { return '<font size="2">Church Relics</font><br>achievements also multiply prayer gain if you have all subsequent achievement upgrades<br><br>Cost: 175 divinity,<br>45 holiness' },
             canAfford() {
-                if (player.p.divinity.gte(175) && player.p.holiness.gte(45)) return true
-                else return false
+                if (player.p.divinity.gte(175) && player.p.holiness.gte(45)) return true;
+                else return false;
             },
             pay() {
                 player.p.divinity = player.p.divinity.sub(175);
@@ -2370,8 +2347,8 @@ addLayer("p", {
         32: {
             fullDisplay() { return '<font size="2">Divine Synergy</font><br>multiplies divinity gain based on the amount of holiness you have<br>Currently: ' + format(upgradeEffect(this.layer, this.id)) + 'x<br><br>Cost: 750 divinity,<br>50 holiness' },
             canAfford() {
-                if (player.p.divinity.gte(750) && player.p.holiness.gte(50)) return true
-                else return false
+                if (player.p.divinity.gte(750) && player.p.holiness.gte(50)) return true;
+                else return false;
             },
             pay() {
                 player.p.divinity = player.p.divinity.sub(750);
@@ -2394,8 +2371,8 @@ addLayer("p", {
         41: {
             fullDisplay() { return '<font size="2">Written hymns</font><br>unlocks hymns<br><br>Cost: 2,000 divinity,<br>450 holiness' },
             canAfford() {
-                if (player.p.divinity.gte(2000) && player.p.holiness.gte(450)) return true
-                else return false
+                if (player.p.divinity.gte(2000) && player.p.holiness.gte(450)) return true;
+                else return false;
             },
             pay() {
                 player.p.divinity = player.p.divinity.sub(2000);
@@ -2406,8 +2383,8 @@ addLayer("p", {
         42: {
             fullDisplay() { return '<font size="2">Divine hymns</font><br>multiplies divinity gain based on the amount of hymns you have<br>Currently: ' + format(upgradeEffect(this.layer, this.id)) + 'x<br><br>Cost: 1,000 holiness,<br>75 hymns' },
             canAfford() {
-                if (player.p.holiness.gte(1000) && player.p.hymn.gte(75)) return true
-                else return false
+                if (player.p.holiness.gte(1000) && player.p.hymn.gte(75)) return true;
+                else return false;
             },
             pay() {
                 player.p.holiness = player.p.holiness.sub(1000);
@@ -2419,10 +2396,10 @@ addLayer("p", {
             unlocked() { if (hasUpgrade('p', 41)) return true },
         },
         43: {
-            fullDisplay() { return '<font size="2">Hymn Singing</font><br>increases hymn effect exponent<br>0.2 --> 0.25<br><br>Cost: 25,000,000 holiness,<br>500,000 hymns' },
+            fullDisplay() { return '<font size="2">Hymn Singing</font><br>increases hymn effect exponent<br>0.15 --> 0.2<br><br>Cost: 25,000,000 holiness,<br>500,000 hymns' },
             canAfford() {
-                if (player.p.holiness.gte(25000000) && player.p.hymn.gte(500000)) return true
-                else return false
+                if (player.p.holiness.gte(25000000) && player.p.hymn.gte(500000)) return true;
+                else return false;
             },
             pay() {
                 player.p.holiness = player.p.holiness.sub(25000000);
