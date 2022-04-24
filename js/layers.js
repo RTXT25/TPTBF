@@ -2227,7 +2227,7 @@ addLayer("p", {
         return new Decimal((effBoost.mul(player['p'].points)).pow(effEx));
     },
     effectDescription() {
-        return "which are generating " + format(new Decimal(tmp.p.effect)) + " divinity/sec"
+        return "which are generating " + tmp.p.effect.mul(100).round().div(100) + " divinity/sec"
     },
     doReset(resettingLayer) {
         let keep = [];
