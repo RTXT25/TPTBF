@@ -553,12 +553,11 @@ addLayer("e", {
                 setBuyableAmount('e', 11, getBuyableAmount('e', 11).add(1));
             },
             display() {
-                if (getBuyableAmount('e', 11).eq(0)) return "multiplies essence gain based on the amount of this upgrade bought.\nCurrently: 1.00x\n\nCost: 21 essence\n\nBought: 0";
-                else return "multiplies essence gain based on the amount of this upgrade bought.\nCurrently: " + format(getBuyableAmount('e', 11).mul(2.5).add(1)) + "x\n\nCost: " + formatWhole(this.cost()) + " essence\n\nBought: " + formatWhole(getBuyableAmount('e', 11));
+                return "multiplies essence gain based on the amount of this upgrade bought.\nCurrently: " + format(getBuyableAmount('e', 11).mul(2.5).add(1)) + "x\n\nCost: " + formatWhole(this.cost()) + " essence\n\nBought: " + formatWhole(getBuyableAmount('e', 11));
             },
         },
         12: {
-            cost() { return (new Decimal(44 ** getBuyableAmount('e', 12))).mul(10).add(85184) },
+            cost() { return new Decimal(44 ** getBuyableAmount('e', 12)).mul(10).add(85184) },
             title: "Radiant Essence",
             canAfford() { return player[this.layer].points.gte(this.cost())},
             purchaseLimit: new Decimal(99),
@@ -567,9 +566,9 @@ addLayer("e", {
                 setBuyableAmount('e', 12, getBuyableAmount('e', 12).add(1));
             },
             display() {
-                if (getBuyableAmount('e', 12).eq(0)) return ;
-                else return "multiplies core gain (and essence gain at a reduced rate) based on the amount of this upgrade bought.\nCurrently: " + format(getBuyableAmount('e', 12).add(1)) + "x\nand " + format(getBuyableAmount('e', 12).pow(0.25).add(1)) + "x\n\nCost: " + formatWhole(this.cost()) + " essence\n\nBought: " + formatWhole(getBuyableAmount('e', 12));
+                return "multiplies core gain (and essence gain at a reduced rate) based on the amount of this upgrade bought.\nCurrently: " + format(getBuyableAmount('e', 12).add(1)) + "x\nand " + format(getBuyableAmount('e', 12).pow(0.25).add(1)) + "x\n\nCost: " + formatWhole(this.cost()) + " essence\n\nBought: " + formatWhole(getBuyableAmount('e', 12));
             },
+            unlocked() { if (player.e.total.gte(85194)) return true },
         },
     },
 });
@@ -664,22 +663,23 @@ addLayer("c", {
         0: {
             requirementDescription: "10 cores",
             effectDescription: "keep essence upgrades on core resets",
-            done() { return player[this.layer].points.gte(10) }
+            done() { return player[this.layer].points.gte(10) },
         },
         1: {
             requirementDescription: "25 cores",
             effectDescription: "unlock core upgrades",
-            done() { return player[this.layer].points.gte(25) }
+            done() { return player[this.layer].points.gte(25) },
         },
         2: {
             requirementDescription: "500 cores",
             effectDescription: "keep essence buyables on core resets",
-            done() { return player[this.layer].points.gte(500) }
+            done() { return player[this.layer].points.gte(500) },
         },
         3: {
             requirementDescription: "1e64 cores",
             effectDescription: "gain 50% of essence gain per second",
-            done() { return player[this.layer].points.gte(new Decimal(1e64)) }
+            done() { return player[this.layer].points.gte(new Decimal(1e64)) },
+            unlocked() { if (player.c.points.gte(new Decimal(1e60))) return true },
         },
     },
     upgrades: {
