@@ -334,12 +334,6 @@ addLayer("A", {
             tooltip: "obtain 1e100 prayers.",
             unlocked() { if (hasAchievement("A", 92)) return true },
         },
-        94: {
-            name: "Global Prayers",
-            done() {return player["p"].points.gte(new Decimal("1e1000"))},
-            tooltip: "obtain 1e1,000 prayers.",
-            unlocked() { if (hasAchievement("A", 93)) return true },
-        },
     },
 });
 
