@@ -10,13 +10,18 @@ let modInfo = {
 };
 
 let VERSION = {
-	num: "1.5",
-	name: "Creativity Rules",
+	num: "1.6",
+	name: "Inner Sanctum",
 };
 
 let changelog = `<h1>Changelog:</h1><br>
+	<br><h3>v1.6: Inner Sanctum</h3><br>
+		- Added sanctums.<br>
+		- Changed 'best' and 'total' format.<br>
+		- Balance changes.<br>
 	<br><h3>v1.5: Creativity Rules</h3><br>
 		- Added 27 achievement images.<br>
+		- Added 2 achievements.<br>
 		- Added one milestone to atoms.<br>
 		- Added six upgrades to prayers.<br>
 		- Finally fixed the buyable format bug.<br>
