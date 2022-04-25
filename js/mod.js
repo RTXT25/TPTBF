@@ -17,6 +17,8 @@ let VERSION = {
 let changelog = `<h1>Changelog:</h1><br>
 	<br><h3>v1.6: Inner Sanctum</h3><br>
 		- Added sanctums.<br>
+		- Added four milestones to sanctums.<br>
+		- Added one buyable to sanctums.<br>
 		- Changed 'best' and 'total' format.<br>
 		- Balance changes.<br>
 	<br><h3>v1.5: Creativity Rules</h3><br>
@@ -75,8 +77,8 @@ let changelog = `<h1>Changelog:</h1><br>
 		- Balance changes.<br>
 	<br><h3>v0.6: Subatomic Layer</h3><br>
 		- Added subatomic particles.<br>
-		- Added three buyables to subatomic particles.<br>
 		- Added five milestones to subatomic particles.<br>
+		- Added three buyables to subatomic particles.<br>
 		- Added five upgrades to quarks.<br>
 		- Added two achievements.<br>
 		- Balance changes.<br>
