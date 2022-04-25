@@ -1150,7 +1150,7 @@ addLayer("q", {
 addLayer("sp", {
     name: "Subatomic Particles", 
     symbol: "SP",
-    position: 1,
+    position: 2,
     startData() { return {
         unlocked: false,
         points: new Decimal(0),
@@ -1186,7 +1186,7 @@ addLayer("sp", {
     },
     row: 2,
     hotkeys: [
-        {key: "s", description: "S: Reset for subatomic particles", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
+        {key: "S", description: "Shift-S: Reset for subatomic particles", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
     layerShown(){return player.q.unlocked},
     doReset(resettingLayer) {
@@ -1280,7 +1280,7 @@ addLayer("sp", {
                 setBuyableAmount('sp', 11, getBuyableAmount('sp', 11).add(1));
             },
             display() {
-                if (getBuyableAmount('sp', 21).eq(0)) return "multiplies quark gain (but also decreases essence gain at a reduced rate) based on the amount of this upgrade bought.\nCurrently: 1.00x\nand 1.00x\n\nCost: 1 subatomic particle\n\nBought: 0";
+                if (getBuyableAmount('sp', 11).eq(0)) return "multiplies quark gain (but also decreases essence gain at a reduced rate) based on the amount of this upgrade bought.\nCurrently: 1.00x\nand 1.00x\n\nCost: 1 subatomic particle\n\nBought: 0";
                 else return "multiplies quark gain (but also decreases essence gain at a reduced rate) based on the amount of this upgrade bought.\nCurrently: " + format(5 ** getBuyableAmount('sp', 11)) + "x\nand " + format(getBuyableAmount('sp', 11).add(1) ** -1) + "x\n\nCost: " + formatWhole(this.cost()) + " subatomic particles\n\nBought: " + formatWhole(getBuyableAmount('sp', 11));
             },
         },
@@ -1294,7 +1294,7 @@ addLayer("sp", {
                 setBuyableAmount('sp', 12, getBuyableAmount('sp', 12).add(1));
             },
             display() {
-                if (getBuyableAmount('sp', 21).eq(0)) return "multiplies essence gain (but also decreases point gain at a reduced rate) based on the amount of this upgrade bought.\nCurrently: 1.00x\nand 1.00x\n\nCost: 1 subatomic particle\n\nBought: 0";
+                if (getBuyableAmount('sp', 12).eq(0)) return "multiplies essence gain (but also decreases point gain at a reduced rate) based on the amount of this upgrade bought.\nCurrently: 1.00x\nand 1.00x\n\nCost: 1 subatomic particle\n\nBought: 0";
                 else return "multiplies essence gain (but also decreases point gain at a reduced rate) based on the amount of this upgrade bought.\nCurrently: " + format(5 ** getBuyableAmount('sp', 12)) + "x\nand " + format(getBuyableAmount('sp', 12).add(1) ** -1) + "x\n\nCost: " +formatWhole(this.cost()) + " subatomic particles\n\nBought: " + formatWhole(getBuyableAmount('sp', 12));
             },
         },
@@ -2279,6 +2279,7 @@ addLayer("p", {
         hymnEff: new Decimal(0),
     }},
     color: "#FA99FF",
+    branches: ["s"],
     requires: new Decimal("1e1000"),
     resource: "prayers",
     baseResource: "essence",
@@ -2583,7 +2584,7 @@ addLayer("p", {
                 player.p.hymn = player.p.hymn.sub(new Decimal(1e9));
             },
             effect() {
-                return player.p.hymn.add(1).pow(0.01);
+                return player.p.hymn.add(1).pow(0.02);
             },
             style: {'height':'120px'},
             unlocked() { if (hasUpgrade('p', 41)) return true },
@@ -2613,10 +2614,83 @@ addLayer("p", {
                 player.p.hymn = player.p.hymn.sub(new Decimal(1e15));
             },
             effect() {
-                return player.e.points.add(1).pow(0.002);
+                return player.e.points.add(1).pow(0.0015);
             },
             style: {'height':'120px'},
             unlocked() { if (hasUpgrade('p', 41)) return true },
+        },
+    },
+});
+
+addLayer("s", {
+    name: "Sanctums", 
+    symbol: "S",
+    position: 1,
+    startData() { return {
+        unlocked: false,
+        points: new Decimal(0),
+        best: new Decimal(0),
+        total: new Decimal(0),
+    }},
+    color: "#88FF00",
+    requires: new Decimal(1e15),
+    resource: "sanctums",
+    baseResource: "prayers",
+    baseAmount() {return player['p'].points},
+    type: "static",
+    exponent: 5,
+    canBuyMax() {
+        if (hasMilestone("s", 0)) return true;
+        else return false;
+    },
+    gainMult() {
+        mult = new Decimal(1);
+        return mult;
+    },
+    gainExp() {
+        gain = new Decimal(1);
+        return gain;
+    },
+    row: 2,
+    hotkeys: [
+        {key: "s", description: "S: Reset for sanctums", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
+    ],
+    layerShown(){return player.p.unlocked},
+    doReset(resettingLayer) {
+        let keep = [];
+            if (layers[resettingLayer].row > this.row) layerDataReset("s", keep);
+        },
+    tabFormat: [
+        "main-display",
+        "prestige-button",
+        "resource-display",
+        "blank",
+        "milestones",
+        "buyables",
+        "blank",
+        "upgrades",
+    ],
+    milestones: {
+        0: {
+            requirementDescription: "1 sanctum",
+            effectDescription: "you can buy max sanctums",
+            done() { return player[this.layer].points.gte(1) }
+        },
+    },
+    buyables: {
+        11: {
+            cost() { return getBuyableAmount('s', 11).add(1) },
+            title: "Holy Sanctums",
+            canAfford() { return player[this.layer].points.gte(this.cost())},
+            purchaseLimit: new Decimal(99),
+            buy() {
+                player[this.layer].points = player[this.layer].points.sub(this.cost());
+                setBuyableAmount('s', 11, getBuyableAmount('s', 11).add(1));
+            },
+            display() {
+                if (getBuyableAmount('s', 11).eq(0)) return "multiplies holiness gain (but also decreases divinity gain at a reduced rate) based on the amount of this upgrade bought.\nCurrently: 1.00x\nand 1.00x\n\nCost: 1 sanctum\n\nBought: 0";
+                else return "multiplies holiness gain (but also decreases divinity gain at a reduced rate) based on the amount of this upgrade bought.\nCurrently: " + format(getBuyableAmount('s', 11).mul(2).add(1)) + "x\nand " + format(getBuyableAmount('s', 11).mul(0.5).add(1)) + "x\n\nCost: " + formatWhole(this.cost()) + " sanctums\n\nBought: " + formatWhole(getBuyableAmount('s', 11));
+            },
         },
     },
 });
