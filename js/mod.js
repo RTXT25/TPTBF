@@ -1,6 +1,6 @@
 let modInfo = {
 	name: "The Primordial Tree",
-	id: "Yrahcaz7-ModTree-NewGame",
+	id: "Yrahcaz7-ModTree-ThePrimordialTree",
 	author: "Yrahcaz7",
 	pointsName: "points",
 	modFiles: ["layers.js", "tree.js"],
@@ -19,6 +19,7 @@ let changelog = `<h1>Changelog:</h1><br>
 		- Added sanctums.<br>
 		- Added four milestones to sanctums.<br>
 		- Added one buyable to sanctums.<br>
+		- Added two researchable upgrades to prayers.<br>
 		- Changed 'best' and 'total' format.<br>
 		- Balance changes.<br>
 	<br><h3>v1.5: Creativity Rules</h3><br>
