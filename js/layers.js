@@ -1999,14 +1999,12 @@ addLayer("a", {
                 "resource-display",
                 "blank",
                 ["display-text",
-                    function() {return 'When you buy one of these upgrades, you cannot buy<br>any upgrades that are not on its path. When you<br>do a row 4 reset, all atom upgrades will be reset.'},
-                    {}],
-                ["display-text",
-                    function() {if (hasMilestone('a', 10)) return '<br>From the effect of the 11th atom milestone:<br>you can buy all atom upgrades.'},
-                    {}],
-                ["display-text",
-                    function() {if (hasMilestone('a', 12)) return '<br>From the effect of the 13th atom milestone:<br>row 4 resets do not reset atom upgrades.'},
-                    {}],
+                    function() {
+                        text = 'When you buy one of these upgrades, you cannot buy<br>any upgrades that are not on its path. When you<br>do a row 4 reset, all atom upgrades will be reset.';
+                        if (hasMilestone('a', 10)) text += '<br><br>From the effect of the 11th atom milestone:<br>you can buy all atom upgrades.';
+                        if (hasMilestone('a', 12)) text += '<br><br>From the effect of the 13th atom milestone:<br>row 4 resets do not reset atom upgrades.';
+                        return text;
+                    }],
                 "blank",
                 ["upgrades", [1]],
                 "blank",
@@ -2100,7 +2098,7 @@ addLayer("a", {
         11: {
             title: "The Demon of the Atom",
             description: "multiplies demon soul gain based on the amount of atoms you have",
-            cost: new Decimal(1),
+            cost: 1,
             effect() {
                 return player.a.points.add(1).pow(0.5);
             },
@@ -2111,7 +2109,7 @@ addLayer("a", {
         21: {
             title: "Decaying Atoms",
             description: "multiplies subatomic particle gain based on your best atoms",
-            cost: new Decimal(1),
+            cost: 1,
             effect() {
                 return player.a.best.add(1).pow(1.25);
             },
@@ -2125,7 +2123,7 @@ addLayer("a", {
         22: {
             title: "Atom Construction",
             description: "multiplies atom gain based on the amount of subatomic particles you have",
-            cost: new Decimal(1),
+            cost: 1,
             effect() {
                 return player.sp.points.add(1).pow(0.02);
             },
@@ -2139,7 +2137,7 @@ addLayer("a", {
         31: {
             title: "Decayed Atoms",
             description: "multiplies subatomic particle gain based on your total atoms",
-            cost: new Decimal(2),
+            cost: 2,
             effect() {
                 return player.a.total.add(1).pow(1.05);
             },
@@ -2153,7 +2151,7 @@ addLayer("a", {
         32: {
             title: "Atomic Recursion",
             description: "multiplies atom gain based on your total atoms",
-            cost: new Decimal(2),
+            cost: 2,
             effect() {
                 return player.a.total.add(1).pow(0.05);
             },
@@ -2167,7 +2165,7 @@ addLayer("a", {
         33: {
             title: "Atom Production",
             description: "multiplies atom gain based on the amount of subatomic particles you have",
-            cost: new Decimal(2),
+            cost: 2,
             effect() {
                 return player.sp.points.add(1).pow(0.025);
             },
@@ -2181,7 +2179,7 @@ addLayer("a", {
         41: {
             title: "Atom Revenants",
             description: "multiplies quark gain based on your total atoms minus your current atoms",
-            cost: new Decimal(2),
+            cost: 2,
             effect() {
                 return ((player.a.total - player.a.points) ** 0.75);
             },
@@ -2195,7 +2193,7 @@ addLayer("a", {
         42: {
             title: "The Fallen",
             description: "multiplies demon soul gain based on your best atoms minus your current atoms",
-            cost: new Decimal(2),
+            cost: 2,
             effect() {
                 return (((player.a.best * 1.5) - player.a.points) ** 1.05);
             },
@@ -2209,7 +2207,7 @@ addLayer("a", {
         51: {
             title: "Famed Atoms' Donations",
             description: "multiplies subatomic particle gain based on your number of acievements",
-            cost: new Decimal(3),
+            cost: 3,
             branches: [61, 62],
             style: {'height':'120px'},
             unlocked() { return true },
@@ -2217,7 +2215,7 @@ addLayer("a", {
         61: {
             title: "Unpeaked",
             description: "multiplies atom gain based on your total atoms minus your best atoms",
-            cost: new Decimal(3),
+            cost: 3,
             effect() {
                 return ((player.a.total - player.a.best) ** 0.2);
             },
@@ -2231,7 +2229,7 @@ addLayer("a", {
         62: {
             title: "Higher Peak",
             description: "multiplies atom gain based on your total atoms times your current atoms",
-            cost: new Decimal(3),
+            cost: 3,
             effect() {
                 return (((player.a.total * player.a.points) ** 0.05) + 1);
             },
@@ -2245,7 +2243,7 @@ addLayer("a", {
         71: {
             title: "Demons Inside",
             description: "multiplies demon soul gain based on your best atoms times your current atoms",
-            cost: new Decimal(4),
+            cost: 4,
             effect() {
                 return ((player.a.best * player.a.points * 2.5) ** 0.15);
             },
@@ -2258,7 +2256,7 @@ addLayer("a", {
         72: {
             title: "Recurred, Recurring",
             description: "multiplies atom gain based on your total atoms",
-            cost: new Decimal(4),
+            cost: 4,
             effect() {
                 return player.a.total.add(1).pow(0.1);
             },
@@ -2271,7 +2269,7 @@ addLayer("a", {
         73: {
             title: "Atomic Essence",
             description: "multiplies essence gain based on the amount of atoms you have",
-            cost: new Decimal(4),
+            cost: 4,
             effect() {
                 return player.a.points.add(1).pow(1.75);
             },
@@ -2380,14 +2378,12 @@ addLayer("p", {
         "resource-display",
         "blank",
         ["display-text",
-            function() {return 'You have ' + format(player.p.divinity) + ' divinity, which boosts point generation by ' + format(player.p.divinity.add(1).pow(0.1)) + 'x'},
-            {}],
-        ["display-text",
-            function() {if (hasUpgrade('p', 22)) return 'You have ' + format(player.p.holiness) + ' holiness, which boosts essence gain by ' + format(player.p.holiness.add(1).pow(0.055)) + 'x'},
-            {}],
-        ["display-text",
-            function() {if (hasUpgrade('p', 41)) return 'You have ' + formatWhole(player.p.hymn) + ' hymns, which boosts prayer gain by ' + format(player.p.hymnEff) + 'x'},
-            {}],
+            function() {
+                text = 'You have ' + format(player.p.divinity) + ' divinity, which boosts point generation by ' + format(player.p.divinity.add(1).pow(0.1)) + 'x';
+                if (hasUpgrade('p', 22)) text += '<br>You have ' + format(player.p.holiness) + ' holiness, which boosts essence gain by ' + format(player.p.holiness.add(1).pow(0.055)) + 'x';
+                if (hasUpgrade('p', 41)) text += '<br>You have ' + formatWhole(player.p.hymn) + ' hymns, which boosts prayer gain by ' + format(player.p.hymnEff) + 'x';
+                return text;
+            }],
         "blank",
         "milestones",
         "upgrades",
@@ -2414,7 +2410,7 @@ addLayer("p", {
         11: {
             title: "Prayer Influence",
             description: "multiplies essence gain based on the amount of prayers you have",
-            cost: new Decimal(1),
+            cost: 1,
             effect() {
                 return player.p.points.add(1).pow(0.075);
             },
@@ -2424,13 +2420,13 @@ addLayer("p", {
         12: {
             title: "Heretic Leniency",
             description: "multiplies hex gain by 1.02",
-            cost: new Decimal(10),
+            cost: 10,
             style: {'height':'120px'},
         },
         13: {
             title: "Essence of Divinity",
             description: "multiplies divinity gain based on the amount of essence you have",
-            cost: new Decimal(25),
+            cost: 25,
             effect() {
                 return player.e.points.add(1).pow(0.0001);
             },
@@ -2636,11 +2632,11 @@ addLayer("p", {
         61: {
             fullDisplay() { return '<h3>Holy Hymns</h3><br>multiplies holiness gain based on the amount of hymns you have<br>Currently: ' + format(upgradeEffect(this.layer, this.id)) + 'x<br><br>Cost: 1e9 hymns' },
             canAfford() {
-                if (player.p.hymn.gte(new Decimal(1e9))) return true;
+                if (player.p.hymn.gte(1e9)) return true;
                 else return false;
             },
             pay() {
-                player.p.hymn = player.p.hymn.sub(new Decimal(1e9));
+                player.p.hymn = player.p.hymn.sub(1e9);
             },
             effect() {
                 return player.p.hymn.add(1).pow(0.02);
@@ -2651,11 +2647,11 @@ addLayer("p", {
         62: {
             fullDisplay() { return '<h3>Hymn Deconstruction</h3><br>multiplies prayer gain based on the amount of hymns you have<br>Currently: ' + format(upgradeEffect(this.layer, this.id)) + 'x<br><br>Cost: 1e11 hymns' },
             canAfford() {
-                if (player.p.hymn.gte(new Decimal(1e11))) return true;
+                if (player.p.hymn.gte(1e11)) return true;
                 else return false;
             },
             pay() {
-                player.p.hymn = player.p.hymn.sub(new Decimal(1e11));
+                player.p.hymn = player.p.hymn.sub(1e11);
             },
             effect() {
                 return player.p.hymn.add(1).log(5);
@@ -2666,11 +2662,11 @@ addLayer("p", {
         63: {
             fullDisplay() { return '<h3>Hymn Resolve</h3><br>multiplies the effect of <b>Hymn Deconstruction</b> based on the amount of essence you have<br>Currently: ' + format(upgradeEffect(this.layer, this.id)) + 'x<br><br>Cost: 1e15 hymns' },
             canAfford() {
-                if (player.p.hymn.gte(new Decimal(1e15))) return true;
+                if (player.p.hymn.gte(1e15)) return true;
                 else return false;
             },
             pay() {
-                player.p.hymn = player.p.hymn.sub(new Decimal(1e15));
+                player.p.hymn = player.p.hymn.sub(1e15);
             },
             effect() {
                 return player.e.points.add(1).pow(0.0015);
