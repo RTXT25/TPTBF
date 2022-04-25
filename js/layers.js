@@ -2675,6 +2675,7 @@ addLayer("s", {
     effect() {
         effBase = new Decimal(2);
         effBoost = new Decimal(1);
+        if (player.s.points.gt(0)) effBoost = effBoost.mul(10);
         return new Decimal(effBase.pow(player.s.points).mul(effBoost));
     },
     effectDescription() {
