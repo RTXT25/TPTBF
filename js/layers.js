@@ -386,7 +386,8 @@ addLayer("e", {
             if (hasUpgrade('sp', 12)) mult = mult.mul(5 ** getBuyableAmount('sp', 12));
         if (getBuyableAmount('sp', 11).gt(0)) mult = mult.mul(getBuyableAmount('sp', 11).add(1).pow(-1));
         if (getBuyableAmount('s', 11).gt(0)) mult = mult.mul(getBuyableAmount('s', 11).mul(1.1).add(1));
-        if (hasUpgrade('p', 22)) mult = mult.mul(player.p.holiness.add(1).pow(0.05));
+        if (hasUpgrade('p', 22)) mult = mult.mul(player.p.holiness.add(1).pow(0.055));
+        if (player.s.points.gt(0)) mult = mult.mul(tmp.s.effect);
         if (hasUpgrade('ds', 21)) mult = mult.mul(player.A.achievements.length * 0.2);
         if (inChallenge('ds', 21)) mult = mult.mul(0.00000000000000000001);
         return mult;
@@ -604,7 +605,7 @@ addLayer("c", {
     requires: new Decimal(10000),
     resource: "cores",
     baseResource: "essence",
-    baseAmount() {return player['e'].points},
+    baseAmount() {return player.e.points},
     type: "normal",
     exponent: 0.3,
     gainMult() {
@@ -862,7 +863,7 @@ addLayer("q", {
     requires: new Decimal(1e9),
     resource: "quarks",
     baseResource: "essence",
-    baseAmount() {return player['e'].points},
+    baseAmount() {return player.e.points},
     type: "normal",
     exponent: 0.1,
     gainMult() {
@@ -1018,7 +1019,7 @@ addLayer("q", {
             description: "multiplies the effect of <b>Essence of Quarks</b> based on the amount of cores you have",
             cost: new Decimal(750),
             effect() {
-               return player['c'].points.add(1).pow(0.02);
+               return player.c.points.add(1).pow(0.02);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             style: {'height':'120px'},
@@ -1207,7 +1208,7 @@ addLayer("sp", {
     requires: new Decimal(1e15),
     resource: "subatomic particles",
     baseResource: "quarks",
-    baseAmount() {return player['q'].points},
+    baseAmount() {return player.q.points},
     type: "static",
     exponent: 4.25,
     canBuyMax() {
@@ -1226,8 +1227,8 @@ addLayer("sp", {
         if (hasUpgrade('a', 31)) gain = gain.mul(upgradeEffect('a', 31));
         if (getBuyableAmount('ds', 11).gt(0)) gain = gain.mul((getBuyableAmount('ds', 11) * 5) + 1);
         if (hasUpgrade('a', 51)) gain = gain.mul((player.A.achievements.length ** 2.5) / 100);
-        if (hasChallenge('ds', 21)) gain = gain.mul(player['ds'].points.add(1).pow(0.2));
-        if (inChallenge('ds', 12)) gain = gain.mul(player['q'].points.pow(-0.05));
+        if (hasChallenge('ds', 21)) gain = gain.mul(player.ds.points.add(1).pow(0.2));
+        if (inChallenge('ds', 12)) gain = gain.mul(player.q.points.pow(-0.05));
         if (inChallenge('ds', 22)) gain = gain.mul(0.0000000000000000000000000000000000000001);
         return gain;
     },
@@ -1371,7 +1372,7 @@ addLayer("h", {
     requires: new Decimal(1e60),
     resource: "hexes",
     baseResource: "cores",
-    baseAmount() {return player['c'].points},
+    baseAmount() {return player.c.points},
     type: "normal",
     exponent: 0.5,
     gainMult() {
@@ -1386,7 +1387,7 @@ addLayer("h", {
             if (hasUpgrade('ds', 12)) mult = mult.mul(upgradeEffect('h', 12));
         if (getBuyableAmount('ds', 11).gt(0)) mult = mult.mul(2 ** getBuyableAmount('ds', 11));
         if (hasUpgrade('p', 12)) mult = mult.mul(1.02);
-        if (hasChallenge('ds', 11)) mult = mult.mul(player['ds'].points.add(1).pow(0.25));
+        if (hasChallenge('ds', 11)) mult = mult.mul(player.ds.points.add(1).pow(0.25));
         if (inChallenge('ds', 11)) mult = mult.mul(0.001);
         if (inChallenge('ds', 12)) mult = mult.mul(0.0000000001);
         if (inChallenge('ds', 21)) mult = mult.mul(0.00001);
@@ -1655,7 +1656,7 @@ addLayer("h", {
             description: "multiply hex gain based on the amount of subatomic particles you have",
             cost: new Decimal(1e50),
             effect() {
-               return player['sp'].points.add(1).pow(2.5);
+               return player.sp.points.add(1).pow(2.5);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             style: {'height':'120px'},
@@ -1696,7 +1697,7 @@ addLayer("ds", {
     requires: new Decimal(1e60),
     resource: "demon souls",
     baseResource: "hexes",
-    baseAmount() {return player['h'].points},
+    baseAmount() {return player.h.points},
     type: "normal",
     exponent: 0.05,
     gainMult() {
@@ -1704,8 +1705,8 @@ addLayer("ds", {
         if (hasUpgrade('a', 11)) mult = mult.mul(upgradeEffect('a', 11));
         if (hasUpgrade('a', 42)) mult = mult.mul(upgradeEffect('a', 42));
         if (hasUpgrade('a', 71)) mult = mult.mul(upgradeEffect('a', 71));
-        if (hasChallenge('ds', 11)) mult = mult.mul(player['ds'].points.add(1).pow(0.25));
-        if (hasChallenge('ds', 12)) mult = mult.mul(player['h'].points.add(1).pow(0.02));
+        if (hasChallenge('ds', 11)) mult = mult.mul(player.ds.points.add(1).pow(0.25));
+        if (hasChallenge('ds', 12)) mult = mult.mul(player.h.points.add(1).pow(0.02));
         return mult;
     },
     gainExp() {
@@ -1877,7 +1878,7 @@ addLayer("ds", {
                 doReset("ds");
             },
             rewardDescription: "multiplies hex and demon soul gain based on the amount of demon<br>souls you have",
-            rewardDisplay() { return format(player['ds'].points.add(1).pow(0.25)) + 'x' },
+            rewardDisplay() { return format(player.ds.points.add(1).pow(0.25)) + 'x' },
         },
         12: {
             name: "Hellfire",
@@ -1895,7 +1896,7 @@ addLayer("ds", {
                 else return false;
             },
             rewardDescription: "multiply demon soul gain based on the amount of hexes you have",
-            rewardDisplay() { return format(player['h'].points.add(1).pow(0.02)) + 'x' },
+            rewardDisplay() { return format(player.h.points.add(1).pow(0.02)) + 'x' },
         },
         21: {
             name: "Opposite Polarity",
@@ -1913,7 +1914,7 @@ addLayer("ds", {
                 else return false;
             },
             rewardDescription: "multiply subatomic particle<br>gain based on the amount of demon<br>souls you have",
-            rewardDisplay() { return format(player['ds'].points.add(1).pow(0.2)) + 'x' },
+            rewardDisplay() { return format(player.ds.points.add(1).pow(0.2)) + 'x' },
         },
         22: {
             name: "Dreaded Science",
@@ -1949,7 +1950,7 @@ addLayer("a", {
     requires: new Decimal(1000),
     resource: "atoms",
     baseResource: "subatomic particles",
-    baseAmount() {return player['sp'].points},
+    baseAmount() {return player.sp.points},
     type: "static",
     exponent: 1,
     canBuyMax() { return true },
@@ -2302,7 +2303,7 @@ addLayer("p", {
     requires: new Decimal("1e1000"),
     resource: "prayers",
     baseResource: "essence",
-    baseAmount() {return player['e'].points},
+    baseAmount() {return player.e.points},
     type: "normal",
     exponent: 0.012,
     gainMult() {
@@ -2334,7 +2335,7 @@ addLayer("p", {
         if (hasUpgrade('p', 42)) effBoost = effBoost.mul(upgradeEffect('p', 42));
         if (getBuyableAmount('s', 11).gt(0)) effBoost = effBoost.mul(getBuyableAmount('s', 11).mul(-0.01).add(1));
         if (hasMilestone('p', 2)) effEx = new Decimal(1.5);
-        return new Decimal((effBoost.mul(player['p'].points)).pow(effEx));
+        return new Decimal((effBoost.mul(player.p.points)).pow(effEx));
     },
     effectDescription() {
         if (tmp.p.effect.lt(0.1)) return "which are generating " + tmp.p.effect.mul(100).round().div(100) + " divinity/sec";
@@ -2380,7 +2381,7 @@ addLayer("p", {
             function() {return 'You have ' + format(player.p.divinity) + ' divinity, which boosts point generation by ' + format(player.p.divinity.add(1).pow(0.1)) + 'x'},
             {}],
         ["display-text",
-            function() {if (hasUpgrade('p', 22)) return 'You have ' + format(player.p.holiness) + ' holiness, which boosts essence gain by ' + format(player.p.holiness.add(1).pow(0.05)) + 'x'},
+            function() {if (hasUpgrade('p', 22)) return 'You have ' + format(player.p.holiness) + ' holiness, which boosts essence gain by ' + format(player.p.holiness.add(1).pow(0.055)) + 'x'},
             {}],
         ["display-text",
             function() {if (hasUpgrade('p', 41)) return 'You have ' + formatWhole(player.p.hymn) + ' hymns, which boosts prayer gain by ' + format(player.p.hymnEff) + 'x'},
@@ -2541,13 +2542,13 @@ addLayer("p", {
             unlocked() { if (hasUpgrade('p', 41)) return true },
         },
         43: {
-            fullDisplay() { return '<font size="2">Hymn Singing</font><br>increases hymn effect exponent<br>0.15 --> 0.2<br><br>Cost: 2,500,000 holiness,<br>50,000 hymns' },
+            fullDisplay() { return '<font size="2">Hymn Singing</font><br>increases hymn effect exponent<br>0.15 --> 0.2<br><br>Cost: 1,000,000 holiness,<br>50,000 hymns' },
             canAfford() {
-                if (player.p.holiness.gte(2500000) && player.p.hymn.gte(50000)) return true;
+                if (player.p.holiness.gte(1000000) && player.p.hymn.gte(50000)) return true;
                 else return false;
             },
             pay() {
-                player.p.holiness = player.p.holiness.sub(2500000);
+                player.p.holiness = player.p.holiness.sub(1000000);
                 player.p.hymn = player.p.hymn.sub(50000);
             },
             style: {'height':'120px'},
@@ -2651,7 +2652,7 @@ addLayer("s", {
     requires: new Decimal(1e15),
     resource: "sanctums",
     baseResource: "prayers",
-    baseAmount() {return player['p'].points},
+    baseAmount() {return player.p.points},
     type: "static",
     exponent: 5,
     canBuyMax() {
@@ -2671,6 +2672,14 @@ addLayer("s", {
         {key: "s", description: "S: Reset for sanctums", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
     layerShown(){return player.p.unlocked},
+    effect() {
+        effBase = new Decimal(2);
+        effBoost = new Decimal(1);
+        return new Decimal(effBase.pow(player.s.points).mul(effBoost));
+    },
+    effectDescription() {
+        return "which multiplies essence gain by " + format(tmp.s.effect) + "x";
+    },
     doReset(resettingLayer) {
         let keep = [];
             if (layers[resettingLayer].row > this.row) layerDataReset("s", keep);
@@ -2703,7 +2712,7 @@ addLayer("s", {
             done() { return player[this.layer].points.gte(3) },
             toggles: [["c", "auto_buyables"]],
         },
-        2: {
+        3: {
             requirementDescription: "4 sanctums",
             effectDescription: "you can autobuy quark upgrades",
             done() { return player[this.layer].points.gte(4) },
@@ -2712,7 +2721,7 @@ addLayer("s", {
     },
     buyables: {
         11: {
-            cost() { return getBuyableAmount('s', 11).add(0.5).floor() },
+            cost() { return getBuyableAmount('s', 11).mul(0.5).add(2).floor() },
             title: "Holy Sanctums",
             canAfford() { return player[this.layer].points.gte(this.cost()) },
             purchaseLimit: new Decimal(98),
@@ -2721,10 +2730,9 @@ addLayer("s", {
                 setBuyableAmount('s', 11, getBuyableAmount('s', 11).add(1));
             },
             display() {
-                if (getBuyableAmount('s', 11).eq(0)) return "multiplies essence and holiness gain (but also decreases divinity gain at a reduced rate) based on the amount of this upgrade bought.\nCurrently: 1.00x\nand 1.00x\n\nCost: 1 sanctum\n\nBought: 0";
-                else if (getBuyableAmount('s', 11).eq(1)) return "multiplies essence and holiness gain (but also decreases divinity gain at a reduced rate) based on the amount of this upgrade bought.\nCurrently: 1.50x\nand 0.99x\n\nCost: 1 sanctum\n\nBought: 1";
-                else return "multiplies essence and holiness gain (but also decreases divinity gain at a reduced rate) based on the amount of this upgrade bought.\nCurrently: " + format(getBuyableAmount('s', 11).mul(0.5).add(1)) + "x\nand " + format(getBuyableAmount('s', 11).mul(-0.01).add(1)) + "x\n\nCost: " + formatWhole(this.cost()) + " sanctums\n\nBought: " + formatWhole(getBuyableAmount('s', 11));
+                return "multiplies essence and holiness gain (but also decreases divinity gain at a reduced rate) based on the amount of this upgrade bought.\nCurrently: " + format(getBuyableAmount('s', 11).mul(0.5).add(1)) + "x\nand " + format(getBuyableAmount('s', 11).mul(-0.01).add(1)) + "x\n\nCost: " + formatWhole(this.cost()) + " sanctums\n\nBought: " + formatWhole(getBuyableAmount('s', 11));
             },
+            unlocked() { if (player.s.total.gte(2) || getBuyableAmount('s', 11).gt(0)) return true },
         },
     },
 });
