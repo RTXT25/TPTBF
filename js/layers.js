@@ -2504,7 +2504,7 @@ addLayer("p", {
         33: {
             title: "Divine Recursion",
             description: "multiplies divinity gain based on the amount of divinity you have",
-            cost: new Decimal(1000),
+            cost: new Decimal(750),
             effect() {
                 return player.p.divinity.add(1).pow(0.2);
             },
