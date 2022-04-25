@@ -377,6 +377,7 @@ addLayer("e", {
         if (getBuyableAmount('sp', 12).gt(0)) mult = mult.mul(5 ** getBuyableAmount('sp', 12));
             if (hasUpgrade('sp', 12)) mult = mult.mul(5 ** getBuyableAmount('sp', 12));
         if (getBuyableAmount('sp', 11).gt(0)) mult = mult.mul(getBuyableAmount('sp', 11).add(1).pow(-1));
+        if (getBuyableAmount('s', 11).gt(0)) mult = mult.mul(getBuyableAmount('s', 11).mul(1.1).add(1));
         if (hasUpgrade('p', 22)) mult = mult.mul(player.p.holiness.add(1).pow(0.05));
         if (hasUpgrade('ds', 21)) mult = mult.mul(player.A.achievements.length * 0.2);
         if (inChallenge('ds', 21)) mult = mult.mul(0.00000000000000000001);
@@ -557,7 +558,7 @@ addLayer("e", {
         11: {
             cost() { return new Decimal(12 ** getBuyableAmount('e', 11)).add(20) },
             title: "Purer Essence",
-            canAfford() { return player[this.layer].points.gte(this.cost())},
+            canAfford() { return player[this.layer].points.gte(this.cost()) },
             purchaseLimit: new Decimal(14),
             buy() {
                 player[this.layer].points = player[this.layer].points.sub(this.cost());
@@ -570,7 +571,7 @@ addLayer("e", {
         12: {
             cost() { return new Decimal(44 ** getBuyableAmount('e', 12)).mul(10).add(85184) },
             title: "Radiant Essence",
-            canAfford() { return player[this.layer].points.gte(this.cost())},
+            canAfford() { return player[this.layer].points.gte(this.cost()) },
             purchaseLimit: new Decimal(99),
             buy() {
                 player[this.layer].points = player[this.layer].points.sub(this.cost());
@@ -794,7 +795,7 @@ addLayer("c", {
         11: {
             cost() { return getBuyableAmount('c', 11).mul(2).add(1) },
             title: "Empowered Points",
-            canAfford() { return player[this.layer].points.gte(this.cost())},
+            canAfford() { return player[this.layer].points.gte(this.cost()) },
             purchaseLimit: new Decimal(99),
             buy() {
                 player[this.layer].points = player[this.layer].points.sub(this.cost());
@@ -808,7 +809,7 @@ addLayer("c", {
         12: {
             cost() { return new Decimal(6 ** getBuyableAmount('c', 12)) },
             title: "Empowered Essence",
-            canAfford() { return player[this.layer].points.gte(this.cost())},
+            canAfford() { return player[this.layer].points.gte(this.cost()) },
             purchaseLimit: new Decimal(49),
             buy() {
                 player[this.layer].points = player[this.layer].points.sub(this.cost());
@@ -1273,7 +1274,7 @@ addLayer("sp", {
         11: {
             cost() { return getBuyableAmount('sp', 11).add(1) },
             title: "Protons",
-            canAfford() { return player[this.layer].points.gte(this.cost())},
+            canAfford() { return player[this.layer].points.gte(this.cost()) },
             purchaseLimit: new Decimal(9),
             buy() {
                 player[this.layer].points = player[this.layer].points.sub(this.cost());
@@ -1287,7 +1288,7 @@ addLayer("sp", {
         12: {
             cost() { return getBuyableAmount('sp', 12).add(1) },
             title: "Neutrons",
-            canAfford() { return player[this.layer].points.gte(this.cost())},
+            canAfford() { return player[this.layer].points.gte(this.cost()) },
             purchaseLimit: new Decimal(9),
             buy() {
                 player[this.layer].points = player[this.layer].points.sub(this.cost());
@@ -1301,7 +1302,7 @@ addLayer("sp", {
         21: {
             cost() { return getBuyableAmount('sp', 21).add(1) },
             title: "Electrons",
-            canAfford() { return player[this.layer].points.gte(this.cost())},
+            canAfford() { return player[this.layer].points.gte(this.cost()) },
             purchaseLimit: new Decimal(9),
             buy() {
                 player[this.layer].points = player[this.layer].points.sub(this.cost());
@@ -2313,6 +2314,7 @@ addLayer("p", {
         if (hasUpgrade('p', 32)) effBoost = effBoost.mul(upgradeEffect('p', 32));
         if (hasUpgrade('p', 33)) effBoost = effBoost.mul(upgradeEffect('p', 33));
         if (hasUpgrade('p', 42)) effBoost = effBoost.mul(upgradeEffect('p', 42));
+        if (getBuyableAmount('s', 11).gt(0)) effBoost = effBoost.mul(getBuyableAmount('s', 11).mul(-0.01).add(1));
         if (hasMilestone('p', 2)) effEx = new Decimal(1.5);
         return new Decimal((effBoost.mul(player['p'].points)).pow(effEx));
     },
@@ -2327,6 +2329,7 @@ addLayer("p", {
             if (hasUpgrade('p', 22) && resettingLayer == "p") {
                 mult = new Decimal(1);
                 if (hasUpgrade('p', 61)) mult = mult.mul(upgradeEffect('p', 61));
+                if (getBuyableAmount('s', 11).gt(0)) mult = mult.mul(getBuyableAmount('s', 11).mul(1.1).add(1));
                 if (hasUpgrade('p', 23)) player.p.holiness = new Decimal(player.p.holiness.add(player.p.divinity.mul(0.06).mul(mult)));
                 else player.p.holiness = new Decimal(player.p.holiness.add(player.p.divinity.mul(0.04).mul(mult)));
             };
@@ -2342,7 +2345,7 @@ addLayer("p", {
             };
         },
     update(diff) {
-        if (tmp.p.effect.gt(new Decimal(0))) player.p.divinity = (player.p.divinity.add(tmp.p.effect.mul(diff)));
+        if (tmp.p.effect.gt(0)) player.p.divinity = (player.p.divinity.add(tmp.p.effect.mul(diff)));
         if (hasUpgrade('p', 41)) {
             if (hasUpgrade('p', 43) && hasUpgrade('p', 52) && hasUpgrade('p', 53)) player.p.hymnEff = player.p.hymn.add(1).pow(0.25);
             else if (hasUpgrade('p', 43) && hasUpgrade('p', 52)) player.p.hymnEff = player.p.hymn.add(1).pow(0.225);
@@ -2632,7 +2635,7 @@ addLayer("s", {
         best: new Decimal(0),
         total: new Decimal(0),
     }},
-    color: "#88FF00",
+    color: "#AAFF00",
     requires: new Decimal(1e15),
     resource: "sanctums",
     baseResource: "prayers",
@@ -2679,17 +2682,18 @@ addLayer("s", {
     },
     buyables: {
         11: {
-            cost() { return getBuyableAmount('s', 11).add(1) },
+            cost() { return getBuyableAmount('s', 11).add(0.5).floor() },
             title: "Holy Sanctums",
-            canAfford() { return player[this.layer].points.gte(this.cost())},
+            canAfford() { return player[this.layer].points.gte(this.cost()) },
             purchaseLimit: new Decimal(99),
             buy() {
                 player[this.layer].points = player[this.layer].points.sub(this.cost());
                 setBuyableAmount('s', 11, getBuyableAmount('s', 11).add(1));
             },
             display() {
-                if (getBuyableAmount('s', 11).eq(0)) return "multiplies holiness gain (but also decreases divinity gain at a reduced rate) based on the amount of this upgrade bought.\nCurrently: 1.00x\nand 1.00x\n\nCost: 1 sanctum\n\nBought: 0";
-                else return "multiplies holiness gain (but also decreases divinity gain at a reduced rate) based on the amount of this upgrade bought.\nCurrently: " + format(getBuyableAmount('s', 11).mul(2).add(1)) + "x\nand " + format(getBuyableAmount('s', 11).mul(0.5).add(1)) + "x\n\nCost: " + formatWhole(this.cost()) + " sanctums\n\nBought: " + formatWhole(getBuyableAmount('s', 11));
+                if (getBuyableAmount('s', 11).eq(0)) return "multiplies essence and holiness gain (but also decreases divinity gain at a reduced rate) based on the amount of this upgrade bought.\nCurrently: 1.00x\nand 1.00x\n\nCost: 1 sanctum\n\nBought: 0";
+                else if (getBuyableAmount('s', 11).eq(1)) return "multiplies essence and holiness gain (but also decreases divinity gain at a reduced rate) based on the amount of this upgrade bought.\nCurrently: 1.50x\nand 0.99x\n\nCost: 1 sanctum\n\nBought: 1";
+                else return "multiplies essence and holiness gain (but also decreases divinity gain at a reduced rate) based on the amount of this upgrade bought.\nCurrently: " + format(getBuyableAmount('s', 11).mul(0.5).add(1)) + "x\nand " + format(getBuyableAmount('s', 11).mul(-0.01).add(1)) + "x\n\nCost: " + formatWhole(this.cost()) + " sanctums\n\nBought: " + formatWhole(getBuyableAmount('s', 11));
             },
         },
     },
