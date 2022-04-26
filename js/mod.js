@@ -19,20 +19,21 @@ let changelog = `<h1>Changelog:</h1><br>
 		- Added sanctums.<br>
 		- Added six milestones to sanctums.<br>
 		- Added six researchable upgrades to prayers.<br>
+		- Added one achievement.<br>
 		- Changed 'best' and 'total' format.<br>
 		- Balance changes.<br>
 	<br><h3>v1.5: Creativity Rules</h3><br>
-		- Added 27 achievement images.<br>
-		- Added 2 achievements.<br>
 		- Added one milestone to atoms.<br>
 		- Added six upgrades to prayers.<br>
+		- Added two achievements.<br>
+		- Added twenty-seven achievement images.<br>
 		- Finally fixed the buyable format bug.<br>
 		- Balance changes.<br>
 	<br><h3>v1.4: Praise the Sky</h3><br>
 		- Added prayers.<br>
 		- Added three milestones to prayers.<br>
-		- Added one milestone to atoms.<br>
 		- Added twelve upgrades to prayers.<br>
+		- Added one milestone to atoms.<br>
 		- Added four achievements.<br>
 		- Balance changes.<br>
 	<br><h3>v1.3: Atomic Measure</h3><br>
@@ -54,8 +55,8 @@ let changelog = `<h1>Changelog:</h1><br>
 		- Added demon souls.<br>
 		- Added seven milestones to demon souls.<br>
 		- Added two upgrades to demon souls.<br>
-		- Added four upgrades to hexes.<br>
 		- Added one buyable to demon souls.<br>
+		- Added four upgrades to hexes.<br>
 		- Added seven achievements.<br>
 		- Renamed most achievements.<br>
 		- Achievements now boost point gain.<br>
@@ -106,7 +107,7 @@ let changelog = `<h1>Changelog:</h1><br>
 		- Added six upgrades.<br>
 		- Added a buyable.`
 
-let winText = `If this is showing, it is a bug, because finishing the game is impossible right now as it is still unfinished.`
+let winText = `<h3>You won the game!</h3><br>However, it isn't the end yet...<br>Wait for more updates for further content.`
 
 // If you add new functions anywhere inside of a layer, and those functions have an effect when called, add them here.
 // (The ones here are examples, all official functions are already taken care of)
@@ -159,11 +160,12 @@ function addedPlayerData() { return {
 
 // Display extra things at the top of the page
 var displayThings = [
+	"Current endgame: 1.00e2,000 points",
 ]
 
 // Determines when the game "ends"
 function isEndgame() {
-	return player.points.gte(new Decimal("e280000000"))
+	return player.points.gte(new Decimal("1e2000"))
 };
 
 // Less important things beyond this point!
