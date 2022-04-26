@@ -669,7 +669,7 @@ addLayer("c", {
         };
     },
     doReset(resettingLayer) {
-        let keep = [];
+        let keep = ["auto_upgrades", "auto_buyables"];
             if (hasMilestone("h", 2) && resettingLayer == "h") keep.push("upgrades");
             if (hasMilestone("h", 3) && resettingLayer == "h") keep.push("buyables");
             if (hasMilestone("h", 4) && resettingLayer == "sp") keep.push("upgrades");
@@ -930,7 +930,7 @@ addLayer("q", {
         };
     },
     doReset(resettingLayer) {
-        let keep = [];
+        let keep = ["auto_upgrades"];
             if (hasMilestone("sp", 3) && resettingLayer == "sp") keep.push("milestones");
             if (hasMilestone("sp", 5) && resettingLayer == "sp") keep.push("upgrades");
             if (hasMilestone("h", 5) && resettingLayer == "h") keep.push("milestones");
@@ -2384,7 +2384,7 @@ addLayer("p", {
         else return "which are generating " + format(tmp.p.effect) + " divinity/sec";
     },
     doReset(resettingLayer) {
-        let keep = [];
+        let keep = ["auto_upgrades", "smart_auto_upgrades"];
             if (resettingLayer == "h") keep.push("points", "best", "total", "milestones");
             if (resettingLayer == "sp") keep.push("points", "best", "total", "milestones");
             if (hasUpgrade('p', 22) && resettingLayer == "p") {
