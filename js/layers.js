@@ -385,7 +385,6 @@ addLayer("e", {
         if (getBuyableAmount('sp', 12).gt(0)) mult = mult.mul(5 ** getBuyableAmount('sp', 12));
             if (hasUpgrade('sp', 12)) mult = mult.mul(5 ** getBuyableAmount('sp', 12));
         if (getBuyableAmount('sp', 11).gt(0)) mult = mult.mul(getBuyableAmount('sp', 11).add(1).pow(-1));
-        if (getBuyableAmount('s', 11).gt(0)) mult = mult.mul(getBuyableAmount('s', 11).mul(1.1).add(1));
         if (hasUpgrade('p', 22)) mult = mult.mul(player.p.holiness.add(1).pow(0.055));
         if (player.s.points.gt(0)) mult = mult.mul(tmp.s.effect);
         if (hasUpgrade('ds', 21)) mult = mult.mul(player.A.achievements.length * 0.2);
@@ -2319,6 +2318,11 @@ addLayer("p", {
     gainExp() {
         return new Decimal(1);
     },
+    softcap: new Decimal(1e100),
+    softcapPower() {
+        if (hasUpgrade('p', 65)) return new Decimal(0.5);
+        else return new Decimal(0);
+    },
     row: 1,
     hotkeys: [
         {key: "p", description: "P: Reset for prayers", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
@@ -2332,7 +2336,6 @@ addLayer("p", {
         if (hasUpgrade('p', 32)) effBoost = effBoost.mul(upgradeEffect('p', 32));
         if (hasUpgrade('p', 33)) effBoost = effBoost.mul(upgradeEffect('p', 33));
         if (hasUpgrade('p', 42)) effBoost = effBoost.mul(upgradeEffect('p', 42));
-        if (getBuyableAmount('s', 11).gt(0)) effBoost = effBoost.mul(getBuyableAmount('s', 11).mul(-0.01).add(1));
         if (hasMilestone('p', 2)) effEx = new Decimal(1.5);
         return new Decimal((effBoost.mul(player.p.points)).pow(effEx));
     },
@@ -2347,7 +2350,6 @@ addLayer("p", {
             if (hasUpgrade('p', 22) && resettingLayer == "p") {
                 mult = new Decimal(1);
                 if (hasUpgrade('p', 61)) mult = mult.mul(upgradeEffect('p', 61));
-                if (getBuyableAmount('s', 11).gt(0)) mult = mult.mul(getBuyableAmount('s', 11).mul(1.1).add(1));
                 if (hasUpgrade('p', 23) && hasUpgrade('p', 25)) player.p.holiness = new Decimal(player.p.holiness.add(player.p.divinity.mul(0.08).mul(mult)));
                 if (hasUpgrade('p', 23)) player.p.holiness = new Decimal(player.p.holiness.add(player.p.divinity.mul(0.06).mul(mult)));
                 else player.p.holiness = new Decimal(player.p.holiness.add(player.p.divinity.mul(0.04).mul(mult)));
@@ -2782,7 +2784,7 @@ addLayer("s", {
     baseResource: "prayers",
     baseAmount() {return player.p.points},
     type: "static",
-    exponent: 7.5,
+    exponent: 5,
     canBuyMax() {
         if (hasMilestone("s", 0)) return true;
         else return false;
@@ -2803,7 +2805,6 @@ addLayer("s", {
     effect() {
         effBase = new Decimal(2);
         effBoost = new Decimal(1);
-        if (player.s.points.gt(0)) effBoost = effBoost.mul(10);
         return new Decimal(effBase.pow(player.s.points).mul(effBoost));
     },
     effectDescription() {
@@ -2846,22 +2847,6 @@ addLayer("s", {
             effectDescription: "you can autobuy quark upgrades",
             done() { return player[this.layer].points.gte(4) },
             toggles: [["q", "auto_upgrades"]],
-        },
-    },
-    buyables: {
-        11: {
-            cost() { return getBuyableAmount('s', 11).mul(0.5).add(2).floor() },
-            title: "Holy Sanctums",
-            canAfford() { return player[this.layer].points.gte(this.cost()) },
-            purchaseLimit: new Decimal(98),
-            buy() {
-                player[this.layer].points = player[this.layer].points.sub(this.cost());
-                setBuyableAmount('s', 11, getBuyableAmount('s', 11).add(1));
-            },
-            display() {
-                return "multiplies essence and holiness gain (but also decreases divinity gain at a reduced rate) based on the amount of this upgrade bought.\nCurrently: " + format(getBuyableAmount('s', 11).mul(0.5).add(1)) + "x\nand " + format(getBuyableAmount('s', 11).mul(-0.01).add(1)) + "x\n\nCost: " + formatWhole(this.cost()) + " sanctums\n\nBought: " + formatWhole(getBuyableAmount('s', 11));
-            },
-            unlocked() { if (player.s.total.gte(2) || getBuyableAmount('s', 11).gt(0)) return true },
         },
     },
 });
