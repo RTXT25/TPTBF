@@ -669,7 +669,7 @@ addLayer("c", {
         };
     },
     doReset(resettingLayer) {
-        let keep = ["auto_upgrades", "auto_buyables"];
+        let keep = [];
             if (hasMilestone("h", 2) && resettingLayer == "h") keep.push("upgrades");
             if (hasMilestone("h", 3) && resettingLayer == "h") keep.push("buyables");
             if (hasMilestone("h", 4) && resettingLayer == "sp") keep.push("upgrades");
@@ -682,6 +682,8 @@ addLayer("c", {
             if (hasMilestone("a", 1) && resettingLayer == "a") keep.push("buyables");
             if (hasMilestone("a", 2) && resettingLayer == "a") keep.push("upgrades");
             if (hasMilestone("a", 4) && resettingLayer == "a") keep.push("milestones");
+            if (hasMilestone("s", 1)) keep.push("auto_upgrades");
+            if (hasMilestone("s", 2)) keep.push("auto_buyables");
             if (layers[resettingLayer].row > this.row) layerDataReset("c", keep);
         },
     tabFormat: [
@@ -930,7 +932,7 @@ addLayer("q", {
         };
     },
     doReset(resettingLayer) {
-        let keep = ["auto_upgrades"];
+        let keep = [];
             if (hasMilestone("sp", 3) && resettingLayer == "sp") keep.push("milestones");
             if (hasMilestone("sp", 5) && resettingLayer == "sp") keep.push("upgrades");
             if (hasMilestone("h", 5) && resettingLayer == "h") keep.push("milestones");
@@ -942,6 +944,7 @@ addLayer("q", {
             if (hasMilestone("a", 0) && resettingLayer == "a") keep.push("buyables");
             if (hasMilestone("a", 1) && resettingLayer == "a") keep.push("upgrades");
             if (hasMilestone("a", 5) && resettingLayer == "a") keep.push("milestones");
+            if (hasMilestone("s", 3)) keep.push("auto_upgrades");
             if (layers[resettingLayer].row > this.row) layerDataReset("q", keep);
     },
     tabFormat: [
@@ -2384,9 +2387,11 @@ addLayer("p", {
         else return "which are generating " + format(tmp.p.effect) + " divinity/sec";
     },
     doReset(resettingLayer) {
-        let keep = ["auto_upgrades", "smart_auto_upgrades"];
+        let keep = [];
             if (resettingLayer == "h") keep.push("points", "best", "total", "milestones");
             if (resettingLayer == "sp") keep.push("points", "best", "total", "milestones");
+            if (hasMilestone("s", 4)) keep.push("auto_upgrades");
+            if (hasMilestone("s", 5)) keep.push("smart_auto_upgrades");
             if (hasUpgrade('p', 22) && resettingLayer == "p") {
                 mult = new Decimal(1);
                 if (hasUpgrade('p', 61)) mult = mult.mul(upgradeEffect('p', 61));
