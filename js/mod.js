@@ -18,8 +18,7 @@ let changelog = `<h1>Changelog:</h1><br>
 	<br><h3>v1.6: Inner Sanctum</h3><br>
 		- Added sanctums.<br>
 		- Added four milestones to sanctums.<br>
-		- Added one buyable to sanctums.<br>
-		- Added two researchable upgrades to prayers.<br>
+		- Added six researchable upgrades to prayers.<br>
 		- Changed 'best' and 'total' format.<br>
 		- Balance changes.<br>
 	<br><h3>v1.5: Creativity Rules</h3><br>
