@@ -442,15 +442,15 @@ addLayer("e", {
         11: {
             title: "Faster Points",
             description: "multiplies point gain by 1.5",
-            cost: new Decimal(1),
+            cost: 1,
             style: {'height':'120px'},
         },
         12: {
             title: "Essence Influence",
             description: "multiplies point gain based on the amount of essence you have",
-            cost: new Decimal(2),
+            cost: 2,
             effect() {
-               return player[this.layer].points.add(1).pow(0.5);
+                return player.e.points.add(1).pow(0.5);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             style: {'height':'120px'},
@@ -459,7 +459,7 @@ addLayer("e", {
         13: {
             title: "Influenced Essence",
             description: "multiplies essence gain based on the amount of points you have",
-            cost: new Decimal(5),
+            cost: 5,
             effect() { 
                 return player.points.add(1).pow(0.15);
             },
@@ -470,9 +470,9 @@ addLayer("e", {
         21: {
             title: "Point Recursion",
             description: "multiplies point gain based on the amount of points you have",
-            cost: new Decimal(500),
+            cost: 500,
             effect() {
-               return player.points.add(1).pow(0.075);
+                return player.points.add(1).pow(0.075);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             style: {'height':'120px'},
@@ -481,9 +481,9 @@ addLayer("e", {
         22: {
             title: "Essence of Essence",
             description: "multiplies essence gain based on the amount of essence you have",
-            cost: new Decimal(1250),
+            cost: 1250,
             effect() {
-               return player[this.layer].points.add(1).pow(0.11111111111);
+                return player.e.points.add(1).pow(0.11111111111);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             style: {'height':'120px'},
@@ -492,9 +492,9 @@ addLayer("e", {
         23: {
             title: "Recurring Recursion",
             description: "boosts the effect of <b>Point Recursion</b> based on the amount of points you have",
-            cost: new Decimal(3500),
+            cost: 3500,
             effect() {
-               return player.points.add(1).pow(0.25);
+                return player.points.add(1).pow(0.25);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             style: {'height':'120px'},
@@ -503,9 +503,9 @@ addLayer("e", {
         31: {
             title: "Infinite Recursion",
             description: "boosts the effect of <b>Recurring Recursion</b> based on the amount of points you have",
-            cost: new Decimal(1.11e11),
+            cost: 1.11e11,
             effect() {
-               return player.points.add(1).pow(0.01);
+                return player.points.add(1).pow(0.01);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             style: {'height':'120px'},
@@ -514,9 +514,9 @@ addLayer("e", {
         32: {
             title: "Brilliance",
             description: "some of the effect of <b>Radiant Essence</b> is applied to point gain (based on essence)",
-            cost: new Decimal(3.33e33),
+            cost: 3.33e33,
             effect() {
-               return player[this.layer].points.add(1).pow(0.001);
+                return player.e.points.add(1).pow(0.001);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             style: {'height':'120px'},
@@ -525,9 +525,9 @@ addLayer("e", {
         33: {
             title: "Essence Network",
             description: "boosts the effect of <b>Essence Influence</b> based on the amount of essence you have",
-            cost: new Decimal(5.55e55),
+            cost: 5.55e55,
             effect() {
-               return player[this.layer].points.add(1).pow(0.025);
+                return player.e.points.add(1).pow(0.025);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             style: {'height':'120px'},
@@ -536,9 +536,9 @@ addLayer("e", {
         41: {
             title: "Essence Recursion",
             description: "boosts the effect of <b>Essence of Essence</b> based on the amount of essence you have",
-            cost: new Decimal(7.77e77),
+            cost: 7.77e77,
             effect() {
-               return player[this.layer].points.add(1).pow(0.001);
+                return player.e.points.add(1).pow(0.001);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             style: {'height':'120px'},
@@ -547,9 +547,9 @@ addLayer("e", {
         42: {
             title: "Essences to Infinity",
             description: "boosts the effect of <b>Essence Recursion</b> based on the amount of essence you have",
-            cost: new Decimal(9.99e99),
+            cost: 9.99e99,
             effect() {
-               return player[this.layer].points.add(1).pow(0.01);
+                return player.e.points.add(1).pow(0.01);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             style: {'height':'120px'},
@@ -560,10 +560,10 @@ addLayer("e", {
         11: {
             cost() { return new Decimal(12 ** getBuyableAmount('e', 11)).add(20) },
             title: "Purer Essence",
-            canAfford() { return player[this.layer].points.gte(this.cost()) },
-            purchaseLimit: new Decimal(14),
+            canAfford() { return player.e.points.gte(this.cost()) },
+            purchaseLimit: 14,
             buy() {
-                player[this.layer].points = player[this.layer].points.sub(this.cost());
+                player.e.points = player.e.points.sub(this.cost());
                 setBuyableAmount('e', 11, getBuyableAmount('e', 11).add(1));
             },
             display() {
@@ -573,10 +573,10 @@ addLayer("e", {
         12: {
             cost() { return new Decimal(44 ** getBuyableAmount('e', 12)).mul(10).add(85184) },
             title: "Radiant Essence",
-            canAfford() { return player[this.layer].points.gte(this.cost()) },
-            purchaseLimit: new Decimal(99),
+            canAfford() { return player.e.points.gte(this.cost()) },
+            purchaseLimit: 99,
             buy() {
-                player[this.layer].points = player[this.layer].points.sub(this.cost());
+                player.e.points = player.e.points.sub(this.cost());
                 setBuyableAmount('e', 12, getBuyableAmount('e', 12).add(1));
             },
             display() {
@@ -698,32 +698,32 @@ addLayer("c", {
         0: {
             requirementDescription: "10 cores",
             effectDescription: "keep essence upgrades on core resets",
-            done() { return player[this.layer].points.gte(10) },
+            done() { return player.c.points.gte(10) },
         },
         1: {
             requirementDescription: "25 cores",
             effectDescription: "unlock core upgrades",
-            done() { return player[this.layer].points.gte(25) },
+            done() { return player.c.points.gte(25) },
         },
         2: {
             requirementDescription: "500 cores",
             effectDescription: "keep essence buyables on core resets",
-            done() { return player[this.layer].points.gte(500) },
+            done() { return player.c.points.gte(500) },
         },
         3: {
             requirementDescription: "1e64 cores",
             effectDescription: "gain 50% of essence gain per second",
-            done() { return player[this.layer].points.gte(new Decimal(1e64)) },
-            unlocked() { if (player.c.points.gte(new Decimal(1e60))) return true },
+            done() { return player.c.points.gte(1e64) },
+            unlocked() { if (player.c.points.gte(1e60)) return true },
         },
     },
     upgrades: {
         11: {
             title: "Heat Emission",
             description: "multiplies essence gain based on the amount of cores you have",
-            cost: new Decimal(25),
+            cost: 25,
             effect() {
-               return player[this.layer].points.add(1).pow(0.2);
+                return player.c.points.add(1).pow(0.2);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             style: {'height':'120px'},
@@ -732,9 +732,9 @@ addLayer("c", {
         12: {
             title: "Core Countdown",
             description: "multiplies core gain based on the amount of points you have",
-            cost: new Decimal(100),
+            cost: 100,
             effect() {
-               return player.points.add(1).pow(0.01);
+                return player.points.add(1).pow(0.01);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             style: {'height':'120px'},
@@ -743,9 +743,9 @@ addLayer("c", {
         13: {
             title: "The Quarks' Core",
             description: "multiplies quark gain based on the amount of cores you have",
-            cost: new Decimal(750),
+            cost: 750,
             effect() {
-               return player[this.layer].points.add(1).pow(0.1);
+                return player.c.points.add(1).pow(0.1);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             style: {'height':'120px'},
@@ -754,9 +754,9 @@ addLayer("c", {
         21: {
             title: "Quarky Core",
             description: "multiplies the effect of <b>The Quarks' Core</b> based on the amount of cores you have",
-            cost: new Decimal(1e69),
+            cost: 1e69,
             effect() {
-               return player[this.layer].points.add(1).pow(0.005);
+                return player.c.points.add(1).pow(0.005);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             style: {'height':'120px'},
@@ -765,9 +765,9 @@ addLayer("c", {
         22: {
             title: "Quirky Core",
             description: "multiplies the effect of <b>Quarky Core</b> based on the amount of cores you have",
-            cost: new Decimal(1e71),
+            cost: 1e71,
             effect() {
-               return player[this.layer].points.add(1).pow(0.002);
+                return player.c.points.add(1).pow(0.002);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             style: {'height':'120px'},
@@ -776,9 +776,9 @@ addLayer("c", {
         23: {
             title: "Super Core",
             description: "multiplies core gain based on the amount of cores you have",
-            cost: new Decimal(1e73),
+            cost: 1e73,
             effect() {
-               return player[this.layer].points.add(1).pow(0.01);
+                return player.c.points.add(1).pow(0.01);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             style: {'height':'120px'},
@@ -787,9 +787,9 @@ addLayer("c", {
         31: {
             title: "Ultra Core",
             description: "multiplies the effect of <b>Super Core</b> based on the amount of cores you have",
-            cost: new Decimal(1e75),
+            cost: 1e75,
             effect() {
-               return player[this.layer].points.add(1).pow(0.0025);
+                return player.c.points.add(1).pow(0.0025);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             style: {'height':'120px'},
@@ -798,9 +798,9 @@ addLayer("c", {
         32: {
             title: "Hexed Core",
             description: "multiplies the effect of <b>Ultra Core</b> based on the amount of hexes you have",
-            cost: new Decimal(1e77),
+            cost: 1e77,
             effect() {
-               return player[this.layer].points.add(1).pow(0.001);
+                return player.c.points.add(1).pow(0.001);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             style: {'height':'120px'},
@@ -809,7 +809,7 @@ addLayer("c", {
         33: {
             title: "Core Liberation",
             description: "if you own <b>Core Production Line</b> and all subsequent upgrades, gain +25% of your core gain per second",
-            cost: new Decimal(1e80),
+            cost: 1e80,
             style: {'height':'120px'},
             unlocked() { return hasUpgrade("h", 53) && hasUpgrade("c", 32) },
         },
@@ -818,10 +818,10 @@ addLayer("c", {
         11: {
             cost() { return getBuyableAmount('c', 11).mul(2).add(1) },
             title: "Empowered Points",
-            canAfford() { return player[this.layer].points.gte(this.cost()) },
-            purchaseLimit: new Decimal(99),
+            canAfford() { return player.c.points.gte(this.cost()) },
+            purchaseLimit: 99,
             buy() {
-                player[this.layer].points = player[this.layer].points.sub(this.cost());
+                player.c.points = player.c.points.sub(this.cost());
                 setBuyableAmount('c', 11, getBuyableAmount('c', 11).add(1));
             },
             display() {
@@ -832,10 +832,10 @@ addLayer("c", {
         12: {
             cost() { return new Decimal(6 ** getBuyableAmount('c', 12)) },
             title: "Empowered Essence",
-            canAfford() { return player[this.layer].points.gte(this.cost()) },
-            purchaseLimit: new Decimal(49),
+            canAfford() { return player.c.points.gte(this.cost()) },
+            purchaseLimit: 49,
             buy() {
-                player[this.layer].points = player[this.layer].points.sub(this.cost());
+                player.c.points = player.c.points.sub(this.cost());
                 setBuyableAmount('c', 12, getBuyableAmount('c', 12).add(1));
             },
             display() {
@@ -956,24 +956,24 @@ addLayer("q", {
         0: {
             requirementDescription: "5 quarks",
             effectDescription: "you can explore 5 further essence upgrades",
-            done() { return player[this.layer].points.gte(5) }
+            done() { return player.q.points.gte(5) }
         },
         1: {
             requirementDescription: "50,000 quarks",
             effectDescription: "keep essence upgrades on quark resets",
-            done() { return player[this.layer].points.gte(50000) }
+            done() { return player.q.points.gte(50000) }
         },
         2: {
             requirementDescription: "250,000,000 quarks",
             effectDescription: "keep essence buyables on quark resets",
-            done() { return player[this.layer].points.gte(250000000) }
+            done() { return player.q.points.gte(250000000) }
         },
     },
     upgrades: {
         11: {
             title: "The Point of Quarks",
             description: "multiplies quark gain based on the amount of points you have",
-            cost: new Decimal(1),
+            cost: 1,
             effect() {
                return player.points.add(1).pow(0.01);
             },
@@ -983,9 +983,9 @@ addLayer("q", {
         12: {
             title: "Quark Power",
             description: "multiplies point gain based on the amount of quarks you have",
-            cost: new Decimal(2),
+            cost: 2,
             effect() {
-               return player[this.layer].points.add(1).pow(0.09);
+               return player.q.points.add(1).pow(0.09);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             style: {'height':'120px'},
@@ -994,7 +994,7 @@ addLayer("q", {
         13: {
             title: "Super Quarks",
             description: "multiplies the effect of <b>Quark Power</b> based on the amount of points you have",
-            cost: new Decimal(25),
+            cost: 25,
             effect() {
                return player.points.add(1).pow(0.0025);
             },
@@ -1005,9 +1005,9 @@ addLayer("q", {
         14: {
             title: "Essence of Quarks",
             description: "<b>Quark Power</b> also affects essence gain at a reduced rate (<b>Super Quarks</b> does not affect this)",
-            cost: new Decimal(100),
+            cost: 100,
             effect() {
-               return player[this.layer].points.add(1).pow(0.2);
+               return player.q.points.add(1).pow(0.2);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             style: {'height':'120px'},
@@ -1016,7 +1016,7 @@ addLayer("q", {
         15: {
             title: "Quark Fusion",
             description: "multiplies the effect of <b>Essence of Quarks</b> based on the amount of cores you have",
-            cost: new Decimal(750),
+            cost: 750,
             effect() {
                return player.c.points.add(1).pow(0.02);
             },
@@ -1027,9 +1027,9 @@ addLayer("q", {
         21: {
             title: "Quirky Quarks",
             description: "multiplies core gain and quark gain based on the amount of quarks you have",
-            cost: new Decimal(2500),
+            cost: 2500,
             effect() {
-               return player[this.layer].points.add(1).pow(0.05);
+               return player.q.points.add(1).pow(0.05);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             style: {'height':'120px'},
@@ -1038,7 +1038,7 @@ addLayer("q", {
         22: {
             title: "Very Quirky",
             description: "multiplies the effect of <b>Quirky Quarks</b> based on the amount of points you have",
-            cost: new Decimal(7500),
+            cost: 7500,
             effect() {
                return player.points.add(1).pow(0.02);
             },
@@ -1049,9 +1049,9 @@ addLayer("q", {
         23: {
             title: "Quark Extreme",
             description: "<b>Quark Power</b> also affects quark gain at a reduced rate (<b>Super Quarks</b> does not affect this)",
-            cost: new Decimal(25000),
+            cost: 25000,
             effect() {
-               return player[this.layer].points.add(1).pow(0.1);
+               return player.q.points.add(1).pow(0.1);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             style: {'height':'120px'},
@@ -1060,9 +1060,9 @@ addLayer("q", {
         24: {
             title: "Recurring Quarks",
             description: "multiplies the effect of <b>Quark Extreme</b> based on the amount of quarks you have",
-            cost: new Decimal(100000),
+            cost: 100000,
             effect() {
-               return player[this.layer].points.add(1).pow(0.2);
+               return player.q.points.add(1).pow(0.2);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             style: {'height':'120px'},
@@ -1071,9 +1071,9 @@ addLayer("q", {
         25: {
             title: "Recurring More",
             description: "multiplies the effect of <b>Recurring Quarks</b> based on the amount of quarks you have",
-            cost: new Decimal(1500000),
+            cost: 1500000,
             effect() {
-               return player[this.layer].points.add(1).pow(0.05);
+               return player.q.points.add(1).pow(0.05);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             style: {'height':'120px'},
@@ -1082,9 +1082,9 @@ addLayer("q", {
         31: {
             title: "Infinite Recur",
             description: "multiplies the effect of <b>Recurring More</b> based on the amount of quarks you have",
-            cost: new Decimal(50000000),
+            cost: 50000000,
             effect() {
-               return player[this.layer].points.add(1).pow(0.01);
+               return player.q.points.add(1).pow(0.01);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             style: {'height':'120px'},
@@ -1093,9 +1093,9 @@ addLayer("q", {
         32: {
             title: "Compact Quarks",
             description: "multiplies essence gain based on the amount of quarks you have",
-            cost: new Decimal(1e9),
+            cost: 1e9,
             effect() {
-               return player[this.layer].points.add(1).pow(0.15);
+               return player.q.points.add(1).pow(0.15);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             style: {'height':'120px'},
@@ -1104,9 +1104,9 @@ addLayer("q", {
         33: {
             title: "Quark Fission",
             description: "multiplies core gain based on the amount of quarks you have",
-            cost: new Decimal(1e10),
+            cost: 1e10,
             effect() {
-               return player[this.layer].points.add(1).pow(0.075);
+               return player.q.points.add(1).pow(0.075);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             style: {'height':'120px'},
@@ -1115,9 +1115,9 @@ addLayer("q", {
         34: {
             title: "The Quark Count",
             description: "multiplies point gain based on the amount of quarks you have",
-            cost: new Decimal(2.5e11),
+            cost: 2.5e11,
             effect() {
-               return player[this.layer].points.add(1).pow(0.01);
+               return player.q.points.add(1).pow(0.01);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             style: {'height':'120px'},
@@ -1126,9 +1126,9 @@ addLayer("q", {
         35: {
             title: "Quark Counting",
             description: "multiplies the effect of <b>The Quark Count</b> based on the amount of quarks you have",
-            cost: new Decimal(1e13),
+            cost: 1e13,
             effect() {
-               return player[this.layer].points.add(1).pow(0.015);
+               return player.q.points.add(1).pow(0.015);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             style: {'height':'120px'},
@@ -1137,9 +1137,9 @@ addLayer("q", {
         41: {
             title: "Ticking Quarks",
             description: "multiplies the effect of <b>Quark Counting</b> based on the amount of quarks you have",
-            cost: new Decimal(1e14),
+            cost: 1e14,
             effect() {
-               return player[this.layer].points.add(1).pow(0.005);
+               return player.q.points.add(1).pow(0.005);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             style: {'height':'120px'},
@@ -1148,7 +1148,7 @@ addLayer("q", {
         42: {
             title: "Subatomic Quarks",
             description: "multiplies quark gain based on the amount of subatomic particles you have",
-            cost: new Decimal(1e16),
+            cost: 1e16,
             effect() {
                return player.sp.points.add(1).pow(0.5);
             },
@@ -1159,9 +1159,9 @@ addLayer("q", {
         43: {
             title: "Quirky Particles",
             description: "multiplies subatomic particle gain based on the amount of quarks you have",
-            cost: new Decimal(1e18),
+            cost: 1e18,
             effect() {
-               return player[this.layer].points.add(1).pow(0.01);
+               return player.q.points.add(1).pow(0.01);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             style: {'height':'120px'},
@@ -1170,9 +1170,9 @@ addLayer("q", {
         44: {
             title: "Particle Quarks",
             description: "multiplies the effect of <b>Subatomic Quarks</b> based on the amount of quarks you have",
-            cost: new Decimal(1e20),
+            cost: 1e20,
             effect() {
-               return player[this.layer].points.add(1).pow(0.005);
+               return player.q.points.add(1).pow(0.005);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             style: {'height':'120px'},
@@ -1181,9 +1181,9 @@ addLayer("q", {
         45: {
             title: "The Ultra Quark",
             description: "multiplies quark gain based on the amount of quarks you have",
-            cost: new Decimal(1e22),
+            cost: 1e22,
             effect() {
-               return player[this.layer].points.add(1).pow(0.125);
+               return player.q.points.add(1).pow(0.125);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             style: {'height':'120px'},
@@ -1259,53 +1259,53 @@ addLayer("sp", {
         0: {
             requirementDescription: "1 subatomic particle",
             effectDescription: "you can buy max subatomic particles",
-            done() { return player[this.layer].points.gte(1) }
+            done() { return player.sp.points.gte(1) }
         },
         1: {
             requirementDescription: "2 subatomic particles",
             effectDescription: "keep essence upgrades on subatomic particle resets",
-            done() { return player[this.layer].points.gte(2) }
+            done() { return player.sp.points.gte(2) }
         },
         2: {
             requirementDescription: "3 subatomic particles",
             effectDescription: "you can explore 5 further quark upgrades",
-            done() { return player[this.layer].points.gte(3) }
+            done() { return player.sp.points.gte(3) }
         },
         3: {
             requirementDescription: "4 subatomic particles",
             effectDescription: "keep quark milestones on subatomic particle resets",
-            done() { return player[this.layer].points.gte(4) }
+            done() { return player.sp.points.gte(4) }
         },
         4: {
             requirementDescription: "5 subatomic particles",
             effectDescription: "keep essence buyables on subatomic particle resets",
-            done() { return player[this.layer].points.gte(5) }
+            done() { return player.sp.points.gte(5) }
         },
         5: {
             requirementDescription: "6 subatomic particles",
             effectDescription: "keep quark upgrades on subatomic particle resets",
-            done() { return player[this.layer].points.gte(6) }
+            done() { return player.sp.points.gte(6) }
         },
     },
     upgrades: {
         11: {
             title: "Positrons",
             description: "multiplies the base buff effect of <b>Protons</b> by 2",
-            cost: new Decimal(6),
+            cost: 6,
             style: {'height':'120px'},
             unlocked() { return (hasMilestone("h", 8)) && hasUpgrade("h", 53) },
         },
         12: {
             title: "Beta Particles",
             description: "multiplies the base buff effect of <b>Neutrons</b> by 2",
-            cost: new Decimal(6),
+            cost: 6,
             style: {'height':'120px'},
             unlocked() { return (hasMilestone("h", 8)) && hasUpgrade("h", 53) },
         },
         13: {
             title: "Gamma Particles",
             description: "multiplies the base buff effect of <b>Electrons</b> by 2",
-            cost: new Decimal(6),
+            cost: 6,
             style: {'height':'120px'},
             unlocked() { return (hasMilestone("h", 8)) && hasUpgrade("h", 53) },
         },
@@ -1314,10 +1314,10 @@ addLayer("sp", {
         11: {
             cost() { return getBuyableAmount('sp', 11).add(1) },
             title: "Protons",
-            canAfford() { return player[this.layer].points.gte(this.cost()) },
-            purchaseLimit: new Decimal(9),
+            canAfford() { return player.sp.points.gte(this.cost()) },
+            purchaseLimit: 9,
             buy() {
-                player[this.layer].points = player[this.layer].points.sub(this.cost());
+                player.sp.points = player.sp.points.sub(this.cost());
                 setBuyableAmount('sp', 11, getBuyableAmount('sp', 11).add(1));
             },
             display() {
@@ -1328,10 +1328,10 @@ addLayer("sp", {
         12: {
             cost() { return getBuyableAmount('sp', 12).add(1) },
             title: "Neutrons",
-            canAfford() { return player[this.layer].points.gte(this.cost()) },
-            purchaseLimit: new Decimal(9),
+            canAfford() { return player.sp.points.gte(this.cost()) },
+            purchaseLimit: 9,
             buy() {
-                player[this.layer].points = player[this.layer].points.sub(this.cost());
+                player.sp.points = player.sp.points.sub(this.cost());
                 setBuyableAmount('sp', 12, getBuyableAmount('sp', 12).add(1));
             },
             display() {
@@ -1343,7 +1343,7 @@ addLayer("sp", {
             cost() { return getBuyableAmount('sp', 21).add(1) },
             title: "Electrons",
             canAfford() { return player[this.layer].points.gte(this.cost()) },
-            purchaseLimit: new Decimal(9),
+            purchaseLimit: 9,
             buy() {
                 player[this.layer].points = player[this.layer].points.sub(this.cost());
                 setBuyableAmount('sp', 21, getBuyableAmount('sp', 21).add(1));
@@ -1486,7 +1486,7 @@ addLayer("h", {
         13: {
             title: "Hex Fusion",
             description: "multiplies core gain based on the amount of hexes you have",
-            cost: new Decimal(10),
+            cost: 10,
             effect() {
                return player[this.layer].points.add(1).pow(0.09);
             },
@@ -1496,7 +1496,7 @@ addLayer("h", {
         14: {
             title: "Boost Hexes",
             description: "Hex gain is quadrupled",
-            cost: new Decimal(25),
+            cost: 25,
             style: {'height':'120px'},
         },
         21: {
@@ -1800,7 +1800,7 @@ addLayer("ds", {
         11: {
             title: "Mad Hexes",
             description: "you can explore 2 further hex upgrades, and hex gain is multiplied based on the amount of demon souls you have",
-            cost: new Decimal(10),
+            cost: 10,
             style: {'height':'140px'},
             effect() {
                 return player.ds.points.add(1).pow(0.1)
