@@ -2294,6 +2294,8 @@ addLayer("p", {
         holiness: new Decimal(0),
         hymn: new Decimal(0),
         hymnEff: new Decimal(0),
+        auto_upgrades: false,
+        smart_auto_upgrades: false,
     }},
     color: "#FA99FF",
     branches: ["s"],
@@ -2328,6 +2330,44 @@ addLayer("p", {
         {key: "p", description: "P: Reset for prayers", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
     layerShown(){return player.a.unlocked},
+    automate() {
+        if (player.p.auto_upgrades) {
+            buyUpgrade('p', 11);
+            if (!smart_auto_upgrades) buyUpgrade('p', 12);
+            buyUpgrade('p', 13);
+            buyUpgrade('p', 14);
+            if (hasUpgrade('p', 14)) buyUpgrade('p', 15);
+            buyUpgrade('p', 21);
+            if (!smart_auto_upgrades || hasUpgrade('p', 14)) buyUpgrade('p', 22);
+            if (hasUpgrade('p', 22)) {
+                buyUpgrade('p', 23);
+                buyUpgrade('p', 24);
+                if (hasUpgrade('p', 24)) buyUpgrade('p', 25);
+                if (!smart_auto_upgrades || hasUpgrade('p', 24)) buyUpgrade('p', 31);
+                buyUpgrade('p', 32);
+                buyUpgrade('p', 33);
+                buyUpgrade('p', 34);
+                if (hasUpgrade('p', 34)) buyUpgrade('p', 35);
+                if (!smart_auto_upgrades || hasUpgrade('p', 34)) buyUpgrade('p', 41);
+            };
+            if (hasUpgrade('p', 41)) {
+                buyUpgrade('p', 42);
+                buyUpgrade('p', 43);
+                buyUpgrade('p', 44);
+                if (hasUpgrade('p', 44)) buyUpgrade('p', 45);
+                if (!smart_auto_upgrades || hasUpgrade('p', 44)) buyUpgrade('p', 51);
+                buyUpgrade('p', 52);
+                buyUpgrade('p', 53);
+                buyUpgrade('p', 54);
+                if (hasUpgrade('p', 54)) buyUpgrade('p', 55);
+                if (!smart_auto_upgrades || hasUpgrade('p', 54)) buyUpgrade('p', 61);
+                buyUpgrade('p', 62);
+                buyUpgrade('p', 63);
+                buyUpgrade('p', 64);
+                if (hasUpgrade('p', 64)) buyUpgrade('p', 65);
+            };
+        };
+    },
     effect() {
         effBoost = new Decimal(0.01);
         effEx = new Decimal(1);
@@ -2847,6 +2887,18 @@ addLayer("s", {
             effectDescription: "you can autobuy quark upgrades",
             done() { return player[this.layer].points.gte(4) },
             toggles: [["q", "auto_upgrades"]],
+        },
+        4: {
+            requirementDescription: "5 sanctums",
+            effectDescription: "you can autobuy prayer upgrades",
+            done() { return player[this.layer].points.gte(5) },
+            toggles: [["p", "auto_upgrades"]],
+        },
+        5: {
+            requirementDescription: "6 sanctums",
+            effectDescription: "you can have autobuy prayer upgrades<br>option be smart (toggle on or off)",
+            done() { return player[this.layer].points.gte(6) },
+            toggles: [["p", "smart_auto_upgrades"]],
         },
     },
 });
