@@ -2439,6 +2439,7 @@ addLayer("p", {
                 if (player.p.divinity.gte(100) && player.p.holiness.eq(0)) return true;
                 else return false;
             },
+            style: {'height':'120px'},
             unlocked() { return hasMilestone("s", 0) && !hasUpgrade('p', 14) },
         },
         15: {
@@ -2453,6 +2454,7 @@ addLayer("p", {
             effect() {
                 return player.p.divinity.add(500).pow(0.025);
             },
+            style: {'height':'120px'},
             unlocked() { return hasUpgrade('p', 14) },
         },
         21: {
@@ -2498,6 +2500,7 @@ addLayer("p", {
                 if (player.p.holiness.gte(75) && !hasUpgrade('p', 31)) return true;
                 else return false;
             },
+            style: {'height':'120px'},
             unlocked() { return hasMilestone("s", 0) && hasUpgrade('p', 22) && !hasUpgrade('p', 24) },
         },
         25: {
@@ -2509,6 +2512,7 @@ addLayer("p", {
             pay() {
                 player.p.holiness = player.p.holiness.sub(50);
             },
+            style: {'height':'120px'},
             unlocked() { return hasUpgrade('p', 24) },
         },
         31: {
@@ -2551,6 +2555,27 @@ addLayer("p", {
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             style: {'height':'120px'},
         },
+        34: {
+            fullDisplay() { return '<h3>Holy Conversion</h3><br>Req: 1,000 holiness with 0 hymns'},
+            canAfford() {
+                if (player.p.holiness.gte(1000) && player.p.hymn.eq(0)) return true;
+                else return false;
+            },
+            style: {'height':'120px'},
+            unlocked() { return hasMilestone("s", 0) && hasUpgrade('p', 22) && !hasUpgrade('p', 34) },
+        },
+        35: {
+            fullDisplay() { return '<h3>Holy Conversion</h3><br>increases efficiency of holiness conversion if you own <b>Holy Conversion</b> and all subsequent upgrades<br>0.08x --> 0.11x<br><br>Cost: 500 holiness'},
+            canAfford() {
+                if (player.p.holiness.gte(500)) return true;
+                else return false;
+            },
+            pay() {
+                player.p.holiness = player.p.holiness.sub(500);
+            },
+            style: {'height':'120px'},
+            unlocked() { return hasUpgrade('p', 34) },
+        },
         41: {
             fullDisplay() { return '<h3>Written hymns</h3><br>unlocks hymns<br><br>Cost: 2,000 divinity,<br>450 holiness' },
             canAfford() {
@@ -2575,7 +2600,8 @@ addLayer("p", {
                 player.p.hymn = player.p.hymn.sub(75);
             },
             effect() {
-                return player.p.hymn.add(1).pow(0.1);
+                if (hasUpgrade('p', 45)) return player.p.hymn.add(1).pow(0.15);
+                else return player.p.hymn.add(1).pow(0.1);
             },
             style: {'height':'120px'},
             unlocked() { if (hasUpgrade('p', 41)) return true },
@@ -2592,6 +2618,27 @@ addLayer("p", {
             },
             style: {'height':'120px'},
             unlocked() { if (hasUpgrade('p', 41)) return true },
+        },
+        44: {
+            fullDisplay() { return '<h3>Hymn Divination</h3><br>Req: 10,000,000 hymns without owning <b>Shorter Hymns'},
+            canAfford() {
+                if (player.p.hymn.gte(10000000) && !hasUpgrade('p', 51)) return true;
+                else return false;
+            },
+            style: {'height':'120px'},
+            unlocked() { return hasMilestone("s", 0) && hasUpgrade('p', 41) && !hasUpgrade('p', 44) },
+        },
+        45: {
+            fullDisplay() { return '<h3>Hymn Divination</h3><br>increases the exponent of <b>Divine Hymns</b><br>^0.1 --> ^0.15<br><br>Cost: 2,500,000 hymns'},
+            canAfford() {
+                if (player.p.hymn.gte(2500000)) return true;
+                else return false;
+            },
+            pay() {
+                player.p.hymn = player.p.hymn.sub(2500000);
+            },
+            style: {'height':'120px'},
+            unlocked() { return hasUpgrade('p', 44) },
         },
         51: {
             fullDisplay() { return '<h3>Shorter Hymns</h3><br>decreases hymn requirement<br>250 --> 200<br><br>Cost: 1,000,000 hymns' },
@@ -2629,8 +2676,29 @@ addLayer("p", {
             style: {'height':'120px'},
             unlocked() { if (hasUpgrade('p', 41)) return true },
         },
+        54: {
+            fullDisplay() { return '<h3>Hymn Divination</h3><br>Req: 1.00e10 hymns without owning <b>Holy Hymns'},
+            canAfford() {
+                if (player.p.hymn.gte(1e10) && !hasUpgrade('p', 61)) return true;
+                else return false;
+            },
+            style: {'height':'120px'},
+            unlocked() { return hasMilestone("s", 0) && hasUpgrade('p', 41) && !hasUpgrade('p', 54) },
+        },
+        55: {
+            fullDisplay() { return '<h3>Even Shorter</h3><br>decreases hymn requirement if you own <b>Shorter Hymns</b><br>200 --> 175<br><br>Cost: 2.50e9 hymns'},
+            canAfford() {
+                if (player.p.hymn.gte(2.5e9)) return true;
+                else return false;
+            },
+            pay() {
+                player.p.hymn = player.p.hymn.sub(2.5e9);
+            },
+            style: {'height':'120px'},
+            unlocked() { return hasUpgrade('p', 54) },
+        },
         61: {
-            fullDisplay() { return '<h3>Holy Hymns</h3><br>multiplies holiness gain based on the amount of hymns you have<br>Currently: ' + format(upgradeEffect(this.layer, this.id)) + 'x<br><br>Cost: 1e9 hymns' },
+            fullDisplay() { return '<h3>Holy Hymns</h3><br>multiplies holiness gain based on the amount of hymns you have<br>Currently: ' + format(upgradeEffect(this.layer, this.id)) + 'x<br><br>Cost: 1.00e9 hymns' },
             canAfford() {
                 if (player.p.hymn.gte(1e9)) return true;
                 else return false;
@@ -2645,7 +2713,7 @@ addLayer("p", {
             unlocked() { if (hasUpgrade('p', 41)) return true },
         },
         62: {
-            fullDisplay() { return '<h3>Hymn Deconstruction</h3><br>multiplies prayer gain based on the amount of hymns you have<br>Currently: ' + format(upgradeEffect(this.layer, this.id)) + 'x<br><br>Cost: 1e11 hymns' },
+            fullDisplay() { return '<h3>Hymn Deconstruction</h3><br>multiplies prayer gain based on the amount of hymns you have<br>Currently: ' + format(upgradeEffect(this.layer, this.id)) + 'x<br><br>Cost: 1.00e11 hymns' },
             canAfford() {
                 if (player.p.hymn.gte(1e11)) return true;
                 else return false;
@@ -2660,7 +2728,7 @@ addLayer("p", {
             unlocked() { if (hasUpgrade('p', 41)) return true },
         },
         63: {
-            fullDisplay() { return '<h3>Hymn Resolve</h3><br>multiplies the effect of <b>Hymn Deconstruction</b> based on the amount of essence you have<br>Currently: ' + format(upgradeEffect(this.layer, this.id)) + 'x<br><br>Cost: 1e15 hymns' },
+            fullDisplay() { return '<h3>Hymn Resolve</h3><br>multiplies the effect of <b>Hymn Deconstruction</b> based on the amount of essence you have<br>Currently: ' + format(upgradeEffect(this.layer, this.id)) + 'x<br><br>Cost: 1.00e15 hymns' },
             canAfford() {
                 if (player.p.hymn.gte(1e15)) return true;
                 else return false;
@@ -2673,6 +2741,27 @@ addLayer("p", {
             },
             style: {'height':'120px'},
             unlocked() { if (hasUpgrade('p', 41)) return true },
+        },
+        64: {
+            fullDisplay() { return '<h3>Prayer of (softcapped)</h3><br>Req: 1.00e100 prayers and 2 sanctums'},
+            canAfford() {
+                if (player.p.points.gte(1e100) && player.s.points.gte(2)) return true;
+                else return false;
+            },
+            style: {'height':'120px'},
+            unlocked() { return hasMilestone("s", 0) && hasUpgrade('p', 41) && !hasUpgrade('p', 44) },
+        },
+        65: {
+            fullDisplay() { return '<h3>Prayer of (softcapped)</h3><br>changes prayer gain hardcap to a softcap<br><br>Cost: 9.99e99 prayers'},
+            canAfford() {
+                if (player.p.points.gte(9.99e99)) return true;
+                else return false;
+            },
+            pay() {
+                player.p.hymn = player.p.points.sub(9.99e99);
+            },
+            style: {'height':'120px'},
+            unlocked() { return hasUpgrade('p', 44) },
         },
     },
 });
@@ -2693,7 +2782,7 @@ addLayer("s", {
     baseResource: "prayers",
     baseAmount() {return player.p.points},
     type: "static",
-    exponent: 5,
+    exponent: 7.5,
     canBuyMax() {
         if (hasMilestone("s", 0)) return true;
         else return false;
