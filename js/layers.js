@@ -323,16 +323,22 @@ addLayer("A", {
             unlocked() { if (hasAchievement("A", 91)) return true },
         },
         92: {
-            name: "Prayers all around",
+            name: "Church Prayer Circle",
             done() {return player.p.points.gte(1e10)},
             tooltip: "obtain 1e10 prayers.",
             unlocked() { if (hasAchievement("A", 91)) return true },
         },
         93: {
-            name: "Church Prayer Circle",
+            name: "Prayers all around",
             done() {return player.p.points.gte(1e100)},
             tooltip: "obtain 1e100 prayers.",
             unlocked() { if (hasAchievement("A", 92)) return true },
+        },
+        94: {
+            name: "Global Prayers",
+            done() {return player.p.points.gte("1e1000")},
+            tooltip: "obtain 1e1,000 prayers.",
+            unlocked() { if (hasAchievement("A", 93)) return true },
         },
         101: {
             name: "Church Sanctum",
