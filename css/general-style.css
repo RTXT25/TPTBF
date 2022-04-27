@@ -20,6 +20,41 @@ h1, h2, h3, b, input {
 	text-shadow: 0 0 10px #A5BCC2;
 }
 
+.layer-e {
+	color: #4BDC13;
+	text-shadow: 0 0 10px #4BDC13;
+}
+
+.layer-c {
+	color: #C2C238;
+	text-shadow: 0 0 10px #C2C238;
+}
+
+.layer-q {
+	color: #DB5196;
+	text-shadow: 0 0 10px #DB5196;
+}
+
+.layer-sp {
+	color: #710CC4;
+	text-shadow: 0 0 10px #710CC4;
+}
+
+.layer-h {
+	color: #E36409;
+	text-shadow: 0 0 10px #E36409;
+}
+
+.layer-ds {
+	color: #BA0035;
+	text-shadow: 0 0 10px #BA0035;
+}
+
+.layer-a {
+	color: #4D2FE0;
+	text-shadow: 0 0 10px #4D2FE0;
+}
+
 .layer-p {
 	color: #FA99FF;
 	text-shadow: 0 0 10px #FA99FF;
