@@ -2515,7 +2515,7 @@ addLayer("p", {
             unlocked() { return hasMilestone("s", 0) && !hasUpgrade('p', 14) },
         },
         15: {
-            fullDisplay() { return '<h3>Prayer Divination</h3><br>multiplies prayer gain based on the amount of divinity you have (+1e15)<br>Currently: ' + format(upgradeEffect(this.layer, this.id)) + 'x<br><br>Cost: 75 divinity'},
+            fullDisplay() { return '<h3>Prayer Divination</h3><br>multiplies prayer gain based on the amount of divinity you have<br>Currently: ' + format(upgradeEffect(this.layer, this.id)) + 'x<br><br>Cost: 75 divinity'},
             canAfford() {
                 if (player.p.divinity.gte(75)) return true;
                 else return false;
@@ -2524,7 +2524,7 @@ addLayer("p", {
                 player.p.divinity = player.p.divinity.sub(75);
             },
             effect() {
-                return player.p.divinity.add(1e15).pow(0.0025);
+                return player.p.divinity.add(1).pow(0.02);
             },
             style: {'height':'120px'},
             unlocked() { return hasUpgrade('p', 14) },
