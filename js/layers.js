@@ -1413,12 +1413,9 @@ addLayer("h", {
         }}};
         if (hasUpgrade('h', 14)) mult = mult.mul(4);
         if (hasUpgrade('h', 62)) mult = mult.mul(upgradeEffect('h', 62));
-        if (hasUpgrade('h', 11) && hasUpgrade('ds', 11)) {
-            mult = mult.mul(upgradeEffect('h', 11));
-            if (hasUpgrade('h', 12) && hasUpgrade('ds', 12)) mult = mult.mul(upgradeEffect('h', 12));
-        };
-        if (getBuyableAmount('ds', 11).gt(0)) mult = mult.mul(2 ** getBuyableAmount('ds', 11));
+        if (hasUpgrade('h', 11) && hasUpgrade('ds', 11)) mult = mult.mul(upgradeEffect('h', 11));
         if (hasUpgrade('p', 12)) mult = mult.mul(1.02);
+        if (getBuyableAmount('ds', 11).gt(0)) mult = mult.mul(2 ** getBuyableAmount('ds', 11));
         if (hasChallenge('ds', 11)) mult = mult.mul(player.ds.points.add(1).pow(0.25));
         if (inChallenge('ds', 11)) mult = mult.mul(0.001);
         if (inChallenge('ds', 12)) mult = mult.mul(0.0000000001);
@@ -1498,12 +1495,15 @@ addLayer("h", {
     upgrades: {
         11: {
             title: "Hex Leak",
-            description: "multiplies point gain based on the amount of hexes you have",
+            description() {
+                if (hasUpgrade('ds', 11)) return 'multiplies point and hex gain based on the amount of hexes you have';
+                return 'multiplies point gain based on the amount of hexes you have';
+            },
             cost: 1,
             effect() {
                return player.h.points.add(1).pow(0.005);
             },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x<br>and " + format(upgradeEffect(this.layer, this.id)) + "x" },
             style: {'height':'120px'},
         },
         12: {
@@ -1511,7 +1511,8 @@ addLayer("h", {
             description: "multiplies hex gain based on the amount of hexes you have",
             cost: 5,
             effect() {
-               return player.h.points.add(1).pow(0.1);
+                if (hasUpgrade('ds', 12)) return player.h.points.add(1).pow(0.1).pow(2);
+                else return player.h.points.add(1).pow(0.1);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             style: {'height':'120px'},
@@ -1521,7 +1522,7 @@ addLayer("h", {
             description: "multiplies core gain based on the amount of hexes you have",
             cost: 10,
             effect() {
-               return player.h.points.add(1).pow(0.09);
+                return player.h.points.add(1).pow(0.09);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             style: {'height':'120px'},
@@ -1534,10 +1535,13 @@ addLayer("h", {
         },
         21: {
             title: "Numerical Hexes",
-            description: "multiplies the effect of <b>Hex Leak</b> based on the amount of hexes you have",
+            description() {
+                if (hasUpgrade('ds', 11)) return 'multiplies the first effect of <b>Hex Leak</b> based on the amount of hexes you have';
+                return 'multiplies the effect of <b>Hex Leak</b> based on the amount of hexes you have';
+            },
             cost: 1000,
             effect() {
-               return player.h.points.add(1).pow(0.025);
+                return player.h.points.add(1).pow(0.025);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             style: {'height':'120px'},
@@ -1548,7 +1552,7 @@ addLayer("h", {
             description: "multiplies the effect of <b>Stronger Hexes</b> based on the amount of hexes you have",
             cost: 5000,
             effect() {
-               return player.h.points.add(1).pow(0.05);
+                return player.h.points.add(1).pow(0.05);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             style: {'height':'120px'},
@@ -1559,7 +1563,7 @@ addLayer("h", {
             description: "multiplies the effect of <b>Hex Fusion</b> based on the amount of hexes you have",
             cost: 10000,
             effect() {
-               return player.h.points.add(1).pow(0.15);
+                return player.h.points.add(1).pow(0.15);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             style: {'height':'120px'},
@@ -1577,7 +1581,7 @@ addLayer("h", {
             description: "multiplies the effect of <b>Numerical Hexes</b> based on the amount of points you have",
             cost: 100000,
             effect() {
-               return player.points.add(1).pow(0.002);
+                return player.points.add(1).pow(0.002);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             style: {'height':'120px'},
@@ -1588,7 +1592,7 @@ addLayer("h", {
             description: "multiplies the effect of <b>Super Strong Hexes</b> based on the amount of hexes you have",
             cost: 500000,
             effect() {
-               return player.h.points.add(1).pow(0.01);
+                return player.h.points.add(1).pow(0.01);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             style: {'height':'120px'},
@@ -1599,7 +1603,7 @@ addLayer("h", {
             description: "multiplies the effect of <b>Hex Fission</b> based on the amount of cores you have",
             cost: 1000000,
             effect() {
-               return player.h.points.add(1).pow(0.025);
+                return player.h.points.add(1).pow(0.025);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             style: {'height':'120px'},
@@ -1617,7 +1621,7 @@ addLayer("h", {
             description: "multiplies the effect of <b>Hex Numerals</b> based on the amount of hexes you have",
             cost: 7500000,
             effect() {
-               return player.points.add(1).pow(0.0001);
+                return player.points.add(1).pow(0.0001);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             style: {'height':'120px'},
@@ -1628,7 +1632,7 @@ addLayer("h", {
             description: "multiplies the effect of <b>Extreme Hexes</b> based on the amount of hexes you have",
             cost: 15000000,
             effect() {
-               return player.h.points.add(1).pow(0.001);
+                return player.h.points.add(1).pow(0.001);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             style: {'height':'120px'},
@@ -1688,7 +1692,7 @@ addLayer("h", {
             description: "multiply hex gain based on the amount of subatomic particles you have",
             cost: 1e50,
             effect() {
-               return player.sp.points.add(1).pow(2.5);
+                return player.sp.points.add(1).pow(2.5);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             style: {'height':'120px'},
@@ -1699,7 +1703,7 @@ addLayer("h", {
             description: "multiply subatomic particle gain based on the amount of hexes you have",
             cost: 6.66e66,
             effect() {
-               return player.h.points.add(1).pow(0.02);
+                return player.h.points.add(1).pow(0.02);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             style: {'height':'120px'},
@@ -1832,15 +1836,15 @@ addLayer("ds", {
     upgrades: {
         11: {
             title: "Mad Hexes",
-            description: "you can explore 2 further hex upgrades, and <b>Hex Leak</b> (a hex upgrade) also applies to hex gain",
+            description: "you can explore 2 further hex upgrades, and <b>Hex Leak</b> (a hex upgrade) also applies to hex gain (and not any other upgrades in the chain)",
             cost: 10,
-            style: {'height':'120px'},
+            style: {'height':'140px'},
         },
         12: {
             title: "Hex Mania",
-            description: "you can explore 2 further hex upgrades, and <b>Stronger Hexes</b>' (a hex upgrade) effect is cubed",
+            description: "you can explore 2 further hex upgrades, and <b>Stronger Hexes</b>' (a hex upgrade) effect is squared (and not any other upgrades in the chain)",
             cost: 75,
-            style: {'height':'120px'},
+            style: {'height':'140px'},
         },
         21: {
             title: "Hall of Fame",
