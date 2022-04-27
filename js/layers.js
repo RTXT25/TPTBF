@@ -698,8 +698,8 @@ addLayer("c", {
             if (hasMilestone("a", 1) && resettingLayer == "a") keep.push("buyables");
             if (hasMilestone("a", 2) && resettingLayer == "a") keep.push("upgrades");
             if (hasMilestone("a", 4) && resettingLayer == "a") keep.push("milestones");
-            if (hasMilestone("s", 1)) keep.push("auto_upgrades");
-            if (hasMilestone("s", 2)) keep.push("auto_buyables");
+            if (hasMilestone('s', 1)) keep.push("auto_upgrades");
+            if (hasMilestone('s', 2)) keep.push("auto_buyables");
             if (layers[resettingLayer].row > this.row) layerDataReset("c", keep);
         },
     tabFormat: [
@@ -968,7 +968,7 @@ addLayer("q", {
             if (hasMilestone("a", 0) && resettingLayer == "a") keep.push("buyables");
             if (hasMilestone("a", 1) && resettingLayer == "a") keep.push("upgrades");
             if (hasMilestone("a", 5) && resettingLayer == "a") keep.push("milestones");
-            if (hasMilestone("s", 3)) keep.push("auto_upgrades");
+            if (hasMilestone('s', 4)) keep.push("auto_upgrades");
             if (layers[resettingLayer].row > this.row) layerDataReset("q", keep);
     },
     tabFormat: [
@@ -2320,6 +2320,8 @@ addLayer("p", {
         best: new Decimal(0),
         total: new Decimal(0),
         divinity: new Decimal(0),
+        divinitysoftcap_start: new Decimal(1e125),
+        divinitysoftcap_power: 0.9,
         holiness: new Decimal(0),
         hymn: new Decimal(0),
         hymnEff: new Decimal(0),
@@ -2413,14 +2415,15 @@ addLayer("p", {
     },
     effectDescription() {
         if (tmp.p.effect.lt(0.1)) return 'which are generating <h2 class="layer-p">' + tmp.p.effect.mul(100).round().div(100) + '</h2> divinity/sec';
+        else if (tmp.p.effect.gt(player.p.divinitysoftcap_start)) return 'which are generating <h2 class="layer-p">' + format(tmp.p.effect) + '</h2> divinity/sec (softcapped)';
         else return 'which are generating <h2 class="layer-p">' + format(tmp.p.effect) + '</h2> divinity/sec';
     },
     doReset(resettingLayer) {
         let keep = [];
             if (resettingLayer == "h") keep.push("points", "best", "total", "milestones");
             if (resettingLayer == "sp") keep.push("points", "best", "total", "milestones");
-            if (hasMilestone("s", 4)) keep.push("auto_upgrades");
-            if (hasMilestone("s", 5)) keep.push("smart_auto_upgrades");
+            if (hasMilestone('s', 5)) keep.push("auto_upgrades");
+            if (hasMilestone('s', 6)) keep.push("smart_auto_upgrades");
             if (hasUpgrade('p', 22) && resettingLayer == "p") {
                 mult = new Decimal(1);
                 if (hasUpgrade('p', 61)) mult = mult.mul(upgradeEffect('p', 61));
@@ -2440,7 +2443,11 @@ addLayer("p", {
             };
         },
     update(diff) {
-        if (tmp.p.effect.gt(0)) player.p.divinity = player.p.divinity.add(tmp.p.effect.mul(diff));
+        sc_start = player.p.divinitysoftcap_start;
+        if (tmp.p.effect.gt(sc_start)) {
+            sc_amount = tmp.p.effect.sub(sc_start).pow(divinitysoftcap_power);
+            player.p.divinity = player.p.divinity.add(sc_start.add(sc_amount).mul(diff));
+        } else if (tmp.p.effect.gt(0)) player.p.divinity = player.p.divinity.add(tmp.p.effect.mul(diff));
         if (hasUpgrade('p', 41)) {
             if (hasUpgrade('p', 43) && hasUpgrade('p', 52) && hasUpgrade('p', 53)) player.p.hymnEff = player.p.hymn.add(1).pow(0.25);
             else if (hasUpgrade('p', 43) && hasUpgrade('p', 52)) player.p.hymnEff = player.p.hymn.add(1).pow(0.225);
@@ -2516,7 +2523,7 @@ addLayer("p", {
                 else return false;
             },
             style: {'height':'120px'},
-            unlocked() { return hasMilestone("s", 0) && !hasUpgrade('p', 14) },
+            unlocked() { return hasMilestone('s', 0) && !hasUpgrade('p', 14) },
         },
         15: {
             fullDisplay() { return '<h3>Prayer Divination</h3><br>multiplies prayer gain based on the amount of divinity you have<br>Currently: ' + format(upgradeEffect(this.layer, this.id)) + 'x<br><br>Cost: 75 divinity'},
@@ -2577,7 +2584,7 @@ addLayer("p", {
                 else return false;
             },
             style: {'height':'120px'},
-            unlocked() { return hasMilestone("s", 0) && hasUpgrade('p', 22) && !hasUpgrade('p', 24) },
+            unlocked() { return hasMilestone('s', 0) && hasUpgrade('p', 22) && !hasUpgrade('p', 24) },
         },
         25: {
             fullDisplay() { return '<h3>Holy Conversion</h3><br>increases efficiency of holiness conversion if you own <b>Holy Channeling</b><br>0.06x --> 0.08x<br><br>Cost: 50 holiness'},
@@ -2624,7 +2631,7 @@ addLayer("p", {
         33: {
             title: "Divine Recursion",
             description: "multiplies divinity gain based on the amount of divinity you have",
-            cost: new Decimal(750),
+            cost: 750,
             effect() {
                 return player.p.divinity.add(1).pow(0.2);
             },
@@ -2638,7 +2645,7 @@ addLayer("p", {
                 else return false;
             },
             style: {'height':'120px'},
-            unlocked() { return hasMilestone("s", 0) && hasUpgrade('p', 22) && !hasUpgrade('p', 34) },
+            unlocked() { return hasMilestone('s', 0) && hasUpgrade('p', 22) && !hasUpgrade('p', 34) },
         },
         35: {
             fullDisplay() { return '<h3>Holy Shift</h3><br>increases efficiency of holiness conversion if you own <b>Holy Conversion</b> and all subsequent upgrades<br>0.08x --> 0.11x<br><br>Cost: 500 holiness'},
@@ -2702,7 +2709,7 @@ addLayer("p", {
                 else return false;
             },
             style: {'height':'120px'},
-            unlocked() { return hasMilestone("s", 0) && hasUpgrade('p', 41) && !hasUpgrade('p', 44) },
+            unlocked() { return hasMilestone('s', 0) && hasUpgrade('p', 41) && !hasUpgrade('p', 44) },
         },
         45: {
             fullDisplay() { return '<h3>Hymn Divination</h3><br>increases the exponent of <b>Divine Hymns</b><br>^0.1 --> ^0.125<br><br>Cost: 2,500,000 hymns'},
@@ -2759,7 +2766,7 @@ addLayer("p", {
                 else return false;
             },
             style: {'height':'120px'},
-            unlocked() { return hasMilestone("s", 0) && hasUpgrade('p', 41) && !hasUpgrade('p', 54) },
+            unlocked() { return hasMilestone('s', 0) && hasUpgrade('p', 41) && !hasUpgrade('p', 54) },
         },
         55: {
             fullDisplay() { return '<h3>Even Shorter</h3><br>decreases hymn requirement if you own <b>Shorter Hymns</b><br>200 --> 175<br><br>Cost: 2.50e9 hymns'},
@@ -2825,10 +2832,12 @@ addLayer("p", {
                 else return false;
             },
             style: {'height':'120px'},
-            unlocked() { return hasMilestone("s", 0) && hasUpgrade('p', 41) && !hasUpgrade('p', 64) },
+            unlocked() { return hasMilestone('s', 0) && hasUpgrade('p', 41) && !hasUpgrade('p', 64) },
         },
         65: {
-            fullDisplay() { return '<h3>Silver Sanctums</h3><br>reduces sanctum gain exponent<br>7.5 --> 7<br><br>Cost: 2.50e25 prayers'},
+            title: "Silver Sanctums",
+            description: "reduces sanctum gain exponent<br>5 --> 4",
+            cost: 2.5e25,
             canAfford() {
                 if (player.p.points.gte(2.5e25)) return true;
                 else return false;
@@ -2838,6 +2847,17 @@ addLayer("p", {
             },
             style: {'height':'120px'},
             unlocked() { return hasUpgrade('p', 64) },
+        },
+        71: {
+            title: "Divine Sanctums",
+            description: "multiplies divinity gain based on the amount of sanctums you have",
+            cost: 1e30,
+            effect() {
+                return player.s.points.add(1).pow(1.1);
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
+            style: {'height':'120px'},
+            unlocked() { return hasMilestone('s', 3) && hasUpgrade('p', 65) },
         },
     },
 });
@@ -2858,9 +2878,12 @@ addLayer("s", {
     baseResource: "prayers",
     baseAmount() {return player.p.points},
     type: "static",
-    exponent: 5,
+    exponent() {
+        if (hasUpgrade('p', 65)) return 4;
+        return 5;
+    },
     canBuyMax() {
-        if (hasMilestone("s", 0)) return true;
+        if (hasMilestone('s', 0)) return true;
         else return false;
     },
     gainMult() {
@@ -2918,20 +2941,25 @@ addLayer("s", {
         },
         3: {
             requirementDescription: "4 sanctums",
-            effectDescription: "you can autobuy quark upgrades",
+            effectDescription: "you can explore 4 further prayer upgrades",
             done() { return player.s.points.gte(4) },
-            toggles: [["q", "auto_upgrades"]],
         },
         4: {
             requirementDescription: "5 sanctums",
-            effectDescription: "you can autobuy prayer upgrades",
+            effectDescription: "you can autobuy quark upgrades",
             done() { return player.s.points.gte(5) },
-            toggles: [["p", "auto_upgrades"]],
+            toggles: [["q", "auto_upgrades"]],
         },
         5: {
             requirementDescription: "6 sanctums",
-            effectDescription: "you can have autobuy prayer upgrades<br>option be smart (toggle on or off)",
+            effectDescription: "you can autobuy prayer upgrades",
             done() { return player.s.points.gte(6) },
+            toggles: [["p", "auto_upgrades"]],
+        },
+        6: {
+            requirementDescription: "7 sanctums",
+            effectDescription: "you can have autobuy prayer upgrades<br>option be smart (toggle on or off)",
+            done() { return player.s.points.gte(7) },
             toggles: [["p", "smart_auto_upgrades"]],
         },
     },
