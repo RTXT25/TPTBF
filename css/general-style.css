@@ -60,6 +60,11 @@ h1, h2, h3, b, input {
 	text-shadow: 0 0 10px #FA99FF;
 }
 
+.layer-p-dark {
+	color: #D877DD;
+	text-shadow: 0 0 10px #FA99FF;
+}
+
 .layer-s {
 	color: #AAFF00;
 	text-shadow: 0 0 10px #AAFF00;
