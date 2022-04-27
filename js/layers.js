@@ -552,7 +552,7 @@ addLayer("e", {
         },
         23: {
             title: "Recurring Recursion",
-            description: 'boosts the effect of <b class="layer-e">Point Recursion</b> based on the amount of points you have',
+            description: 'boosts the effect of <b class="layer-e' + getdark(this) + '>Point Recursion</b> based on the amount of points you have',
             cost: 3500,
             effect() {
                 return player.points.add(1).pow(0.25);
@@ -563,7 +563,7 @@ addLayer("e", {
         },
         31: {
             title: "Infinite Recursion",
-            description: 'boosts the effect of <b class="layer-e">Recurring Recursion</b> based on the amount of points you have',
+            description: 'boosts the effect of <b class="layer-e' + getdark(this) + '>Recurring Recursion</b> based on the amount of points you have',
             cost: 1.11e11,
             effect() {
                 return player.points.add(1).pow(0.01);
@@ -574,7 +574,7 @@ addLayer("e", {
         },
         32: {
             title: "Brilliance",
-            description: 'some of the effect of <b class="layer-e">Radiant Essence</b> is applied to point gain (based on essence)',
+            description: 'some of the effect of <b class="layer-e' + getdark(this) + '>Radiant Essence</b> is applied to point gain (based on essence)',
             cost: 3.33e33,
             effect() {
                 return player.e.points.add(1).pow(0.001);
@@ -585,7 +585,7 @@ addLayer("e", {
         },
         33: {
             title: "Essence Network",
-            description: 'boosts the effect of <b class="layer-e">Essence Influence</b> based on the amount of essence you have',
+            description: 'boosts the effect of <b class="layer-e' + getdark(this) + '>Essence Influence</b> based on the amount of essence you have',
             cost: 5.55e55,
             effect() {
                 return player.e.points.add(1).pow(0.025);
@@ -596,7 +596,7 @@ addLayer("e", {
         },
         41: {
             title: "Essence Recursion",
-            description: 'boosts the effect of <b class="layer-e">Essence of Essence</b> based on the amount of essence you have',
+            description: 'boosts the effect of <b class="layer-e' + getdark(this) + '>Essence of Essence</b> based on the amount of essence you have',
             cost: 7.77e77,
             effect() {
                 return player.e.points.add(1).pow(0.001);
@@ -607,7 +607,7 @@ addLayer("e", {
         },
         42: {
             title: "Essences to Infinity",
-            description: 'boosts the effect of <b class="layer-e">Essence Recursion</b> based on the amount of essence you have',
+            description: 'boosts the effect of <b class="layer-e' + getdark(this) + '>Essence Recursion</b> based on the amount of essence you have',
             cost: 9.99e99,
             effect() {
                 return player.e.points.add(1).pow(0.01);
@@ -821,7 +821,7 @@ addLayer("c", {
         },
         21: {
             title: "Quarky Core",
-            description: 'multiplies the effect of <b class="layer-c">The Quarks\' Core</b> based on the amount of cores you have',
+            description: 'multiplies the effect of <b class="layer-c' + getdark(this) + '>The Quarks\' Core</b> based on the amount of cores you have',
             cost: 1e69,
             effect() {
                 return player.c.points.add(1).pow(0.005);
@@ -832,7 +832,7 @@ addLayer("c", {
         },
         22: {
             title: "Quirky Core",
-            description: 'multiplies the effect of <b class="layer-c">Quarky Core</b> based on the amount of cores you have',
+            description: 'multiplies the effect of <b class="layer-c' + getdark(this) + '>Quarky Core</b> based on the amount of cores you have',
             cost: 1e71,
             effect() {
                 return player.c.points.add(1).pow(0.002);
@@ -854,7 +854,7 @@ addLayer("c", {
         },
         31: {
             title: "Ultra Core",
-            description: 'multiplies the effect of <b class="layer-c">Super Core</b> based on the amount of cores you have',
+            description: 'multiplies the effect of <b class="layer-c' + getdark(this) + '>Super Core</b> based on the amount of cores you have',
             cost: 1e75,
             effect() {
                 return player.c.points.add(1).pow(0.0025);
@@ -865,7 +865,7 @@ addLayer("c", {
         },
         32: {
             title: "Hexed Core",
-            description: 'multiplies the effect of <b class="layer-c">Ultra Core</b> based on the amount of hexes you have',
+            description: 'multiplies the effect of <b class="layer-c' + getdark(this) + '>Ultra Core</b> based on the amount of hexes you have',
             cost: 1e77,
             effect() {
                 return player.c.points.add(1).pow(0.001);
@@ -876,7 +876,7 @@ addLayer("c", {
         },
         33: {
             title: "Core Liberation",
-            description: 'if you own <b class="layer-h">Core Production Line</b> and all subsequent upgrades, gain +25% of your core gain per second',
+            description: 'if you own <b class="layer-h' + getdark(this) + '>Core Production Line</b> and all subsequent upgrades, gain +25% of your core gain per second',
             cost: 1e80,
             style: {'height':'120px'},
             unlocked() { return hasUpgrade("h", 53) && hasUpgrade("c", 32) },
@@ -1070,7 +1070,7 @@ addLayer("q", {
         },
         13: {
             title: "Super Quarks",
-            description: 'multiplies the effect of <b class="layer-q">Quark Power</b> based on the amount of points you have',
+            description: 'multiplies the effect of <b class="layer-q' + getdark(this) + '>Quark Power</b> based on the amount of points you have',
             cost: 25,
             effect() {
                return player.points.add(1).pow(0.0025);
@@ -1081,7 +1081,7 @@ addLayer("q", {
         },
         14: {
             title: "Essence of Quarks",
-            description: '<b class="layer-q">Quark Power</b> also affects essence gain at a reduced rate (<b class="layer-q">Super Quarks</b> does not affect this)',
+            description: '<b class="layer-q' + getdark(this) + '>Quark Power</b> also affects essence gain at a reduced rate (<b class="layer-q' + getdark(this) + '>Super Quarks</b> does not affect this)',
             cost: 100,
             effect() {
                return player.q.points.add(1).pow(0.2);
@@ -1092,7 +1092,7 @@ addLayer("q", {
         },
         15: {
             title: "Quark Fusion",
-            description: 'multiplies the effect of <b class="layer-q">Essence of Quarks</b> based on the amount of cores you have',
+            description: 'multiplies the effect of <b class="layer-q' + getdark(this) + '>Essence of Quarks</b> based on the amount of cores you have',
             cost: 750,
             effect() {
                return player.c.points.add(1).pow(0.02);
@@ -1114,7 +1114,7 @@ addLayer("q", {
         },
         22: {
             title: "Very Quirky",
-            description: 'multiplies the effect of <b class="layer-q">Quirky Quarks</b> based on the amount of points you have',
+            description: 'multiplies the effect of <b class="layer-q' + getdark(this) + '>Quirky Quarks</b> based on the amount of points you have',
             cost: 7500,
             effect() {
                return player.points.add(1).pow(0.02);
@@ -1125,7 +1125,7 @@ addLayer("q", {
         },
         23: {
             title: "Quark Extreme",
-            description: '<b class="layer-q">Quark Power</b> also affects quark gain at a reduced rate (<b class="layer-q">Super Quarks</b> does not affect this)',
+            description: '<b class="layer-q' + getdark(this) + '>Quark Power</b> also affects quark gain at a reduced rate (<b class="layer-q' + getdark(this) + '>Super Quarks</b> does not affect this)',
             cost: 25000,
             effect() {
                return player.q.points.add(1).pow(0.1);
@@ -1136,7 +1136,7 @@ addLayer("q", {
         },
         24: {
             title: "Recurring Quarks",
-            description: 'multiplies the effect of <b class="layer-q">Quark Extreme</b> based on the amount of quarks you have',
+            description: 'multiplies the effect of <b class="layer-q' + getdark(this) + '>Quark Extreme</b> based on the amount of quarks you have',
             cost: 100000,
             effect() {
                return player.q.points.add(1).pow(0.2);
@@ -1147,7 +1147,7 @@ addLayer("q", {
         },
         25: {
             title: "Recurring More",
-            description: 'multiplies the effect of <b class="layer-q">Recurring Quarks</b> based on the amount of quarks you have',
+            description: 'multiplies the effect of <b class="layer-q' + getdark(this) + '>Recurring Quarks</b> based on the amount of quarks you have',
             cost: 1500000,
             effect() {
                return player.q.points.add(1).pow(0.05);
@@ -1158,7 +1158,7 @@ addLayer("q", {
         },
         31: {
             title: "Infinite Recur",
-            description: 'multiplies the effect of <b class="layer-q">Recurring More</b> based on the amount of quarks you have',
+            description: 'multiplies the effect of <b class="layer-q' + getdark(this) + '>Recurring More</b> based on the amount of quarks you have',
             cost: 50000000,
             effect() {
                return player.q.points.add(1).pow(0.01);
@@ -1202,7 +1202,7 @@ addLayer("q", {
         },
         35: {
             title: "Quark Counting",
-            description: 'multiplies the effect of <b class="layer-q">The Quark Count</b> based on the amount of quarks you have',
+            description: 'multiplies the effect of <b class="layer-q' + getdark(this) + '>The Quark Count</b> based on the amount of quarks you have',
             cost: 1e13,
             effect() {
                return player.q.points.add(1).pow(0.015);
@@ -1213,7 +1213,7 @@ addLayer("q", {
         },
         41: {
             title: "Ticking Quarks",
-            description: 'multiplies the effect of <b class="layer-q">Quark Counting</b> based on the amount of quarks you have',
+            description: 'multiplies the effect of <b class="layer-q' + getdark(this) + '>Quark Counting</b> based on the amount of quarks you have',
             cost: 1e14,
             effect() {
                return player.q.points.add(1).pow(0.005);
@@ -1246,7 +1246,7 @@ addLayer("q", {
         },
         44: {
             title: "Particle Quarks",
-            description: 'multiplies the effect of <b class="layer-q">Subatomic Quarks</b> based on the amount of quarks you have',
+            description: 'multiplies the effect of <b class="layer-q' + getdark(this) + '>Subatomic Quarks</b> based on the amount of quarks you have',
             cost: 1e20,
             effect() {
                return player.q.points.add(1).pow(0.005);
@@ -1586,8 +1586,8 @@ addLayer("h", {
         21: {
             title: "Numerical Hexes",
             description() {
-                if (hasUpgrade('ds', 11)) return 'multiplies the first effect of <b class="layer-h">Hex Leak</b> based on the amount of hexes you have';
-                return 'multiplies the effect of <b class="layer-h">Hex Leak</b> based on the amount of hexes you have';
+                if (hasUpgrade('ds', 11)) return 'multiplies the first effect of <b class="layer-h' + getdark(this) + '>Hex Leak</b> based on the amount of hexes you have';
+                return 'multiplies the effect of <b class="layer-h' + getdark(this) + '>Hex Leak</b> based on the amount of hexes you have';
             },
             cost: 1000,
             effect() {
@@ -1599,7 +1599,7 @@ addLayer("h", {
         },
         22: {
             title: "Super Strong Hexes",
-            description: 'multiplies the effect of <b class="layer-h">Stronger Hexes</b> based on the amount of hexes you have',
+            description: 'multiplies the effect of <b class="layer-h' + getdark(this) + '>Stronger Hexes</b> based on the amount of hexes you have',
             cost: 5000,
             effect() {
                 return player.h.points.add(1).pow(0.05);
@@ -1610,7 +1610,7 @@ addLayer("h", {
         },
         23: {
             title: "Hex Fission",
-            description: 'multiplies the effect of <b class="layer-h">Hex Fusion</b> based on the amount of hexes you have',
+            description: 'multiplies the effect of <b class="layer-h' + getdark(this) + '>Hex Fusion</b> based on the amount of hexes you have',
             cost: 10000,
             effect() {
                 return player.h.points.add(1).pow(0.15);
@@ -1628,7 +1628,7 @@ addLayer("h", {
         },
         31: {
             title: "Hex Numerals",
-            description: 'multiplies the effect of <b class="layer-h">Numerical Hexes</b> based on the amount of points you have',
+            description: 'multiplies the effect of <b class="layer-h' + getdark(this) + '>Numerical Hexes</b> based on the amount of points you have',
             cost: 100000,
             effect() {
                 return player.points.add(1).pow(0.002);
@@ -1639,7 +1639,7 @@ addLayer("h", {
         },
         32: {
             title: "Extreme Hexes",
-            description: 'multiplies the effect of <b class="layer-h">Super Strong Hexes</b> based on the amount of hexes you have',
+            description: 'multiplies the effect of <b class="layer-h' + getdark(this) + '>Super Strong Hexes</b> based on the amount of hexes you have',
             cost: 500000,
             effect() {
                 return player.h.points.add(1).pow(0.01);
@@ -1650,7 +1650,7 @@ addLayer("h", {
         },
         33: {
             title: "Core of Hexes",
-            description: 'multiplies the effect of <b class="layer-h">Hex Fission</b> based on the amount of cores you have',
+            description: 'multiplies the effect of <b class="layer-h' + getdark(this) + '>Hex Fission</b> based on the amount of cores you have',
             cost: 1000000,
             effect() {
                 return player.h.points.add(1).pow(0.025);
@@ -1668,7 +1668,7 @@ addLayer("h", {
         },
         41: {
             title: "Numero Hex",
-            description: 'multiplies the effect of <b class="layer-h">Hex Numerals</b> based on the amount of hexes you have',
+            description: 'multiplies the effect of <b class="layer-h' + getdark(this) + '>Hex Numerals</b> based on the amount of hexes you have',
             cost: 7500000,
             effect() {
                 return player.points.add(1).pow(0.0001);
@@ -1679,7 +1679,7 @@ addLayer("h", {
         },
         42: {
             title: "Ultra Hexes",
-            description: 'multiplies the effect of <b class="layer-h">Extreme Hexes</b> based on the amount of hexes you have',
+            description: 'multiplies the effect of <b class="layer-h' + getdark(this) + '>Extreme Hexes</b> based on the amount of hexes you have',
             cost: 15000000,
             effect() {
                 return player.h.points.add(1).pow(0.001);
@@ -1697,21 +1697,21 @@ addLayer("h", {
         },
         44: {
             title: "Rapid Cores",
-            description: 'Increase the effect of <b class="layer-h">Core Continuation</b> by 9% (total: 10%)',
+            description: 'Increase the effect of <b class="layer-h' + getdark(this) + '>Core Continuation</b> by 9% (total: 10%)',
             cost: 75000000,
             style: {'height':'120px'},
             unlocked() { return hasUpgrade("h", 31) && hasUpgrade("h", 32) && hasUpgrade("h", 33) && hasUpgrade("h", 34) },
         },
         51: {
             title: "Faster Essence",
-            description: 'Increase essence gain per second by 25% if you have the <b class="layer-c">4th core milestone</b> (total: 75%)',
+            description: 'Increase essence gain per second by 25% if you have the <b class="layer-c' + getdark(this) + '>4th core milestone</b> (total: 75%)',
             cost: 9e90,
             style: {'height':'120px'},
             unlocked() { return hasUpgrade("ds", 11) && hasUpgrade("h", 41) && hasUpgrade("h", 42) && hasUpgrade("h", 43) && hasUpgrade("h", 44) },
         },
         52: {
             title: "Core Production Line",
-            description: 'Increase the effect of <b class="layer-h">Rapid Cores</b> by 15% (total: 25%)',
+            description: 'Increase the effect of <b class="layer-h' + getdark(this) + '>Rapid Cores</b> by 15% (total: 25%)',
             cost: 250000000,
             style: {'height':'120px'},
             unlocked() { return hasUpgrade("h", 41) && hasUpgrade("h", 42) && hasUpgrade("h", 43) && hasUpgrade("h", 44) },
@@ -1725,14 +1725,14 @@ addLayer("h", {
         },
         54: {
             title: "Fastest Essence",
-            description: 'Increase the effect of <b class="layer-h">Faster Essence</b> by 25% (total: 100%)',
+            description: 'Increase the effect of <b class="layer-h' + getdark(this) + '>Faster Essence</b> by 25% (total: 100%)',
             cost: 9.5e95,
             style: {'height':'120px'},
             unlocked() { return hasUpgrade("ds", 11) && hasUpgrade("h", 41) && hasUpgrade("h", 42) && hasUpgrade("h", 43) && hasUpgrade("h", 44) },
         },
         61: {
             title: "Essence Overdrive",
-            description: 'Increase the effect of <b class="layer-h">Fastest Essence</b> by 25% (total: 125%)',
+            description: 'Increase the effect of <b class="layer-h' + getdark(this) + '>Fastest Essence</b> by 25% (total: 125%)',
             cost: 1e100,
             style: {'height':'120px'},
             unlocked() { return hasUpgrade("ds", 12) && hasUpgrade("h", 51) && hasUpgrade("h", 52) && hasUpgrade("h", 53) && hasUpgrade("h", 54) },
@@ -1761,7 +1761,7 @@ addLayer("h", {
         },
         64: {
             title: "Potential Essence Potential",
-            description: 'Increase the effect of <b class="layer-h">Essence Overdrive</b> by 25% (total: 150%)',
+            description: 'Increase the effect of <b class="layer-h' + getdark(this) + '>Essence Overdrive</b> by 25% (total: 150%)',
             cost: 1.11e111,
             style: {'height':'120px'},
             unlocked() { return hasUpgrade("ds", 12) && hasUpgrade("h", 51) && hasUpgrade("h", 52) && hasUpgrade("h", 53) && hasUpgrade("h", 54) },
@@ -1886,13 +1886,13 @@ addLayer("ds", {
     upgrades: {
         11: {
             title: "Mad Hexes",
-            description: 'you can explore 2 further hex upgrades, and <b class="layer-h">Hex Leak</b> also applies to hex gain (and not any other upgrades in the chain)',
+            description: 'you can explore 2 further hex upgrades, and <b class="layer-h' + getdark(this) + '>Hex Leak</b> also applies to hex gain (and not any other upgrades in the chain)',
             cost: 10,
             style: {'height':'120px'},
         },
         12: {
             title: "Hex Mania",
-            description: 'you can explore 2 further hex upgrades, and <b class="layer-h">Stronger Hexes</b>\' effect is squared',
+            description: 'you can explore 2 further hex upgrades, and <b class="layer-h' + getdark(this) + '>Stronger Hexes</b>\' effect is squared',
             cost: 75,
             style: {'height':'120px'},
         },
@@ -1905,21 +1905,21 @@ addLayer("ds", {
         },
         22: {
             title: "Demonic Key",
-            description: 'unlocks the <b class="layer-ds">Demon Gateway</b>',
+            description: 'unlocks the <b class="layer-ds' + getdark(this) + '>Demon Gateway</b>',
             cost: 100000,
             style: {'height':'120px'},
             unlocked() { return hasUpgrade("ds", 11) && hasUpgrade("ds", 12) }
         },
         23: {
             title: "Trophy of Glory",
-            description: 'achievements also multiply core and quark gain if you own <b class="layer-ds">Hall of Fame',
+            description: 'achievements also multiply core and quark gain if you own <b class="layer-ds' + getdark(this) + '>Hall of Fame',
             cost: 2500000,
             style: {'height':'120px'},
             unlocked() { return hasUpgrade("ds", 11) && hasUpgrade("ds", 12) && hasUpgrade("ds", 21) }
         },
         24: {
             title: "Buried History",
-            description: 'achievements boosting point gain uses a better formula if you own <b class="layer-ds">Hall of Fame',
+            description: 'achievements boosting point gain uses a better formula if you own <b class="layer-ds' + getdark(this) + '>Hall of Fame',
             cost: 1.11e11,
             style: {'height':'120px'},
             unlocked() { return hasUpgrade("ds", 11) && hasUpgrade("ds", 12) && hasUpgrade("ds", 23) }
@@ -2620,7 +2620,8 @@ addLayer("p", {
             style: {'height':'120px'},
         },
         22: {
-            fullDisplay() { return '<h3>Holy Light</h3><br>unlocks <b class="layer-p">holiness</b><br><br>Cost: 45 divinity' },
+            fullDisplay() { return '<h3>Holy Light</h3><br>unlocks <b class="layer-p' + getdark(this, true) + '>holiness</b><br><br>Cost: 45 divinity';
+            },
             canAfford() {
                 if (player.p.divinity.gte(45)) return true;
                 return false;
@@ -2656,7 +2657,8 @@ addLayer("p", {
             unlocked() { return hasMilestone('s', 0) && hasUpgrade('p', 22) && !hasUpgrade('p', 24) },
         },
         25: {
-            fullDisplay() { return '<h3>Holy Conversion</h3><br>increases efficiency of holiness conversion if you own <b class="layer-p">Holy Channeling</b><br>0.06x --> 0.08x<br><br>Cost: 50 holiness'},
+            fullDisplay() { return '<h3>Holy Conversion</h3><br>increases efficiency of holiness conversion if you own <b class="layer-p' + getdark(this, true) + '>Holy Channeling</b><br>0.06x --> 0.08x<br><br>Cost: 50 holiness';
+            },
             canAfford() {
                 if (player.p.holiness.gte(50)) return true;
                 return false;
@@ -2721,7 +2723,8 @@ addLayer("p", {
             unlocked() { return hasMilestone('s', 0) && hasUpgrade('p', 22) && !hasUpgrade('p', 34) },
         },
         35: {
-            fullDisplay() { return '<h3>Holy Shift</h3><br>increases efficiency of holiness conversion if you own <b class="layer-p">Holy Conversion</b> and all subsequent upgrades<br>0.08x --> 0.11x<br><br>Cost: 500 holiness'},
+            fullDisplay() { return '<h3>Holy Shift</h3><br>increases efficiency of holiness conversion if you own <b class="layer-p' + getdark(this, true) + '>Holy Conversion</b> and all subsequent upgrades<br>0.08x --> 0.11x<br><br>Cost: 500 holiness';
+            },
             canAfford() {
                 if (player.p.holiness.gte(500)) return true;
                 return false;
@@ -2733,7 +2736,8 @@ addLayer("p", {
             unlocked() { return hasUpgrade('p', 34) },
         },
         41: {
-            fullDisplay() { return '<h3>Written hymns</h3><br>unlocks <b class="layer-p">hymns</b><br><br>Cost: 2,000 divinity,<br>450 holiness' },
+            fullDisplay() { return '<h3>Written hymns</h3><br>unlocks <b class="layer-p' + getdark(this, true) + '>hymns</b><br><br>Cost: 2,000 divinity,<br>450 holiness';
+            },
             canAfford() {
                 if (player.p.divinity.gte(2000) && player.p.holiness.gte(450)) return true;
                 return false;
@@ -2789,7 +2793,8 @@ addLayer("p", {
             unlocked() { return hasMilestone('s', 0) && hasUpgrade('p', 41) && !hasUpgrade('p', 44) },
         },
         45: {
-            fullDisplay() { return '<h3>Hymn Divination</h3><br>increases the exponent of <b class="layer-p">Divine Hymns</b><br>^0.1 --> ^0.125<br><br>Cost: 2,500,000 hymns'},
+            fullDisplay() { return '<h3>Hymn Divination</h3><br>increases the exponent of <b class="layer-p' + getdark(this, true) + '>Divine Hymns</b><br>^0.1 --> ^0.125<br><br>Cost: 2,500,000 hymns';
+            },
             canAfford() {
                 if (player.p.hymn.gte(2500000)) return true;
                 return false;
@@ -2813,7 +2818,8 @@ addLayer("p", {
             unlocked() { if (hasUpgrade('p', 41)) return true },
         },
         52: {
-            fullDisplay() { return '<h3>Stronger Hymns</h3><br>increases hymn effect exponent if you have <b class="layer-p">Hymn Singing</b><br>0.2 --> 0.225<br><br>Cost: 10,000,000 hymns' },
+            fullDisplay() { return '<h3>Stronger Hymns</h3><br>increases hymn effect exponent if you have <b class="layer-p' + getdark(this, true) + '>Hymn Singing</b><br>0.2 --> 0.225<br><br>Cost: 10,000,000 hymns';
+            },
             canAfford() {
                 if (player.p.hymn.gte(10000000)) return true;
                 return false;
@@ -2850,7 +2856,8 @@ addLayer("p", {
             unlocked() { return hasMilestone('s', 0) && hasUpgrade('p', 41) && !hasUpgrade('p', 54) },
         },
         55: {
-            fullDisplay() { return '<h3>Even Shorter</h3><br>decreases hymn requirement if you own <b class="layer-p">Shorter Hymns</b><br>200 --> 175<br><br>Cost: 2.50e9 hymns'},
+            fullDisplay() { return '<h3>Even Shorter</h3><br>decreases hymn requirement if you own <b class="layer-p' + getdark(this, true) + '>Shorter Hymns</b><br>200 --> 175<br><br>Cost: 2.50e9 hymns';
+            },
             canAfford() {
                 if (player.p.hymn.gte(2.5e9)) return true;
                 return false;
@@ -2892,7 +2899,8 @@ addLayer("p", {
             unlocked() { if (hasUpgrade('p', 41)) return true },
         },
         63: {
-            fullDisplay() { return '<h3>Hymn Resolve</h3><br>multiplies the effect of <b class="layer-p">Hymn Deconstruction</b> based on the amount of essence you have<br>Currently: ' + format(upgradeEffect(this.layer, this.id)) + 'x<br><br>Cost: 1.00e15 hymns' },
+            fullDisplay() { return '<h3>Hymn Resolve</h3><br>multiplies the effect of <b class="layer-p' + getdark(this, true) + '>Hymn Deconstruction</b> based on the amount of essence you have<br>Currently: ' + format(upgradeEffect(this.layer, this.id)) + 'x<br><br>Cost: 1.00e15 hymns';
+            },
             canAfford() {
                 if (player.p.hymn.gte(1e15)) return true;
                 return false;
@@ -2968,7 +2976,7 @@ addLayer("p", {
         },
         74: {
             title: "Gold Sanctums",
-            description: 'reduces sanctum gain exponent if you have <b class="layer-p">Silver Sanctums</b><br>4 --> 3.5',
+            description() { return 'reduces sanctum gain exponent if you have <b class="layer-p' + getdark(this) + '>Silver Sanctums</b><br>4 --> 3.5' },
             cost: 1e120,
             style: {'height':'120px'},
             unlocked() { return hasMilestone('s', 3) && hasUpgrade('p', 41) },
