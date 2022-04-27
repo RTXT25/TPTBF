@@ -14,8 +14,7 @@ function canAffordUpgrade(layer, id) {
 	if(tmp[layer].deactivated) return false;
 	if (tmp[layer].upgrades[id].canAfford === false) return false;
 	let cost = tmp[layer].upgrades[id].cost;
-	if (cost !== undefined) 
-		return canAffordPurchase(layer, upg, cost)
+	if (cost !== undefined) return canAffordPurchase(layer, upg, cost);
 	return true;
 };
 
@@ -26,22 +25,22 @@ function canBuyBuyable(layer, id) {
 
 function canAffordPurchase(layer, thing, cost) {
 	if (thing.currencyInternalName) {
-		let name = thing.currencyInternalName
+		let name = thing.currencyInternalName;
 		if (thing.currencyLocation) {
-			return !(thing.currencyLocation[name].lt(cost))
+			return !(thing.currencyLocation[name].lt(cost));
 		} else if (thing.currencyLayer) {
 			let lr = thing.currencyLayer;
 			return !(player[lr][name].lt(cost));
 		} else {
-			return !(player[name].lt(cost))
-		}
+			return !(player[name].lt(cost));
+		};
 	} else {
-		return !(player[layer].points.lt(cost))
-	}
+		return !(player[layer].points.lt(cost));
+	};
 };
 
 function buyUpgrade(layer, id) {
-	buyUpg(layer, id)
+	buyUpg(layer, id);
 };
 
 function buyUpg(layer, id) {
@@ -53,7 +52,7 @@ function buyUpg(layer, id) {
 	if (upg.canAfford === false) return;
 	let pay = layers[layer].upgrades[id].pay;
 	if (pay !== undefined)
-		run(pay, layers[layer].upgrades[id])
+		run(pay, layers[layer].upgrades[id]);
 	else {
 		let cost = tmp[layer].upgrades[id].cost;
 		if (upg.currencyInternalName) {
@@ -62,7 +61,7 @@ function buyUpg(layer, id) {
 				if (upg.currencyLocation[name].lt(cost)) return;
 				upg.currencyLocation[name] = upg.currencyLocation[name].sub(cost);
 			} else if (upg.currencyLayer) {
-				let lr = upg.currencyLayer
+				let lr = upg.currencyLayer;
 				if (player[lr][name].lt(cost)) return;
 				player[lr][name] = player[lr][name].sub(cost);
 			} else {
@@ -76,7 +75,7 @@ function buyUpg(layer, id) {
 	};
 	player[layer].upgrades.push(id);
 	if (upg.onPurchase != undefined)
-		run(upg.onPurchase, upg)
+		run(upg.onPurchase, upg);
 	needCanvasUpdate = true;
 };
 
@@ -109,7 +108,7 @@ function clickGrid(layer, id) {
 	if (!player[layer].unlocked  || tmp[layer].deactivated) return;
 	if (!run(layers[layer].grid.getUnlocked, layers[layer].grid, id)) return;
 	if (!gridRun(layer, 'getCanClick', player[layer].grid[id], id)) return;
-	gridRun(layer, 'onClick', player[layer].grid[id], id)
+	gridRun(layer, 'onClick', player[layer].grid[id], id);
 };
 
 // Function to determine if the player is in a challenge
@@ -119,7 +118,7 @@ function inChallenge(layer, id) {
 	id = toNumber(id);
 	if (challenge == id) return true;
 	if (layers[layer].challenges[challenge].countsAs)
-		return tmp[layer].challenges[challenge].countsAs.includes(id) || false
+		return tmp[layer].challenges[challenge].countsAs.includes(id) || false;
 	return false;
 };
 
@@ -131,7 +130,7 @@ function showTab(name, prev) {
 	if (LAYERS.includes(name) && !layerunlocked(name)) return;
 	if (player.tab !== name) clearParticles(function(p) {return p.layer === player.tab});
 	if (tmp[name] && player.tab === name && isPlainObject(tmp[name].tabFormat)) {
-		player.subtabs[name].mainTabs = Object.keys(layers[name].tabFormat)[0]
+		player.subtabs[name].mainTabs = Object.keys(layers[name].tabFormat)[0];
 	};
 	var toTreeTab = name == "none";
 	player.tab = name;
@@ -176,14 +175,12 @@ function prestigeNotify(layer) {
 	if (layers[layer].prestigeNotify) return layers[layer].prestigeNotify();
 	if (isPlainObject(tmp[layer].tabFormat)) {
 		for (subtab in tmp[layer].tabFormat) {
-			if (subtabResetNotify(layer, 'mainTabs', subtab))
-				return true
+			if (subtabResetNotify(layer, 'mainTabs', subtab)) return true;
 		};
 	};
 	for (family in tmp[layer].microtabs) {
 		for (subtab in tmp[layer].microtabs[family]) {
-			if (subtabResetNotify(layer, family, subtab))
-				return true
+			if (subtabResetNotify(layer, family, subtab)) return true;
 		};
 	};
 	if (tmp[layer].autoPrestige || tmp[layer].passiveGeneration) return false;
@@ -215,7 +212,7 @@ function subtabResetNotify(layer, family, id) {
 };
 
 function nodeShown(layer) {
-	return layerShown(layer)
+	return layerShown(layer);
 };
 
 function layerunlocked(layer) {
@@ -241,7 +238,7 @@ function updateMilestones(layer) {
 			player[layer].milestones.push(id);
 			if (layers[layer].milestones[id].onComplete) layers[layer].milestones[id].onComplete();
 			if (tmp[layer].milestonePopups || tmp[layer].milestonePopups === undefined) doPopup("milestone", tmp[layer].milestones[id].requirementDescription, "Milestone Gotten!", 3, tmp[layer].color);
-			player[layer].lastMilestone = id
+			player[layer].lastMilestone = id;
 		};
 	};
 };
@@ -293,8 +290,7 @@ document.onkeydown = function (e) {
 	if (ctrlDown && hotkeys[key]) e.preventDefault();
 	if (hotkeys[key]) {
 		let k = hotkeys[key];
-		if (player[k.layer].unlocked && tmp[k.layer].hotkeys[k.id].unlocked)
-			k.onPress()
+		if (player[k.layer].unlocked && tmp[k.layer].hotkeys[k.id].unlocked) k.onPress();
 	};
 };
 
@@ -306,7 +302,7 @@ document.onkeyup = function (e) {
 var onFocused = false;
 
 function focused(x) {
-	onFocused = x
+	onFocused = x;
 };
 
 function isFunction(obj) {
@@ -314,7 +310,7 @@ function isFunction(obj) {
 };
 
 function isPlainObject(obj) {
-	return (!!obj) && (obj.constructor === Object)
+	return (!!obj) && (obj.constructor === Object);
 };
 
 document.title = modInfo.name;
@@ -340,15 +336,15 @@ function doPopup(type = "none", text = "This is a test popup.", title = "", time
 	switch (type) {
 		case "achievement":
 			popupTitle = "Achievement Unlocked!";
-			popupType = "achievement-popup"
+			popupType = "achievement-popup";
 			break;
 		case "challenge":
 			popupTitle = "Challenge Complete";
-			popupType = "challenge-popup"
+			popupType = "challenge-popup";
 			break;
 		default:
 			popupTitle = "Something Happened?";
-			popupType = "default-popup"
+			popupType = "default-popup";
 			break;
 	};
 	if (title != "") popupTitle = title;
