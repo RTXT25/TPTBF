@@ -2819,7 +2819,7 @@ addLayer("p", {
                 else return false;
             },
             style: {'height':'120px'},
-            unlocked() { return hasMilestone("s", 0) && hasUpgrade('p', 41) && !hasUpgrade('p', 44) },
+            unlocked() { return hasMilestone("s", 0) && hasUpgrade('p', 41) && !hasUpgrade('p', 64) },
         },
         65: {
             fullDisplay() { return '<h3>Prayer of (softcapped)</h3><br>changes prayer gain hardcap to a softcap<br><br>Cost: 9.99e99 prayers'},
@@ -2831,7 +2831,7 @@ addLayer("p", {
                 player.p.hymn = player.p.points.sub(9.99e99);
             },
             style: {'height':'120px'},
-            unlocked() { return hasUpgrade('p', 44) },
+            unlocked() { return hasUpgrade('p', 64) },
         },
     },
 });
