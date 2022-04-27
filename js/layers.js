@@ -353,6 +353,48 @@ addLayer("A", {
     },
 });
 
+addLayer("ghost0", {
+    position: 1,
+    row: "side",
+    layerShown() {return "ghost"},
+});
+
+addLayer("SC", {
+    name: "Softcaps",
+    symbol: "SC",
+    position: 2,
+    startData() { return {
+        unlocked: true,
+        points: new Decimal(0),
+        softcaps: [],
+    }},
+    color: "#A5BCC2",
+    resource: "discovered softcaps",
+    row: "side",
+    layerShown() {return player.SC.points > 0},
+    tooltip() {return "Softcaps"},
+    update(diff) {
+        if (player.p.divinity.gt(player.p.divinitysoftcap_start[0]) && !player.SC.softcaps.includes("p-d1")) {
+            player.SC.softcaps.push("p-d1");
+            player.SC.points = player.SC.points.add(1);
+        };
+        if (player.p.divinity.gt(player.p.divinitysoftcap_start[1]) && !player.SC.softcaps.includes("p-d2")) {
+            player.SC.softcaps.push("p-d2");
+        };
+        player.SC.points = new Decimal(player.SC.softcaps.length);
+    },
+    tabFormat: [
+        "main-display",
+        ["display-text",
+            function() {
+                text = "";
+                if (player.SC.softcaps.includes("p-d1")) text += '<br><h2 class="layer-p">Divinity Softcap 1</h2><br>starts at ' + player.p.divinitysoftcap_start[0] + ', to the ' + player.p.divinitysoftcap_power[0] + 'th power<br>';
+                if (player.SC.softcaps.includes("p-d2")) text += '<br><br><h2 class="layer-p">Divinity Softcap 2</h2><br>starts at ' + player.p.divinitysoftcap_start[1] + ', to the ' + player.p.divinitysoftcap_power[1] + 'th power<br>';
+                return text;
+            }],
+    ],
+});
+
 addLayer("e", {
     name: "Essence",
     symbol: "E",
