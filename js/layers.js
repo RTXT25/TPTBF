@@ -382,11 +382,11 @@ addLayer("SC", {
         if (divine > 0) return 'of which <h2 class="layer-p">' + divine + '</h2> are <h2 class="layer-p">divine</h2>';
     },
     update(diff) {
-        if (player.p.divinity.gt(player.p.divinitysoftcap_start[0]) && !player.SC.softcaps.includes("p-d1")) {
+        if (player.p.divinity.gte(player.p.divinitysoftcap_start[0]) && !player.SC.softcaps.includes("p-d1")) {
             player.SC.softcaps.push("p-d1");
             player.SC.points = player.SC.points.add(1);
         };
-        if (player.p.divinity.gt(player.p.divinitysoftcap_start[1]) && !player.SC.softcaps.includes("p-d2")) {
+        if (player.p.divinity.gte(player.p.divinitysoftcap_start[1]) && !player.SC.softcaps.includes("p-d2")) {
             player.SC.softcaps.push("p-d2");
         };
         player.SC.points = new Decimal(player.SC.softcaps.length);
@@ -396,8 +396,8 @@ addLayer("SC", {
         ["display-text",
             function() {
                 text = "";
-                if (player.SC.softcaps.includes("p-d1")) text += '<br><h2 class="layer-p">Divinity Softcap 1</h2><br>starts at ' + player.p.divinitysoftcap_start[0] + ', to the ' + player.p.divinitysoftcap_power[0] + 'th power<br>';
-                if (player.SC.softcaps.includes("p-d2")) text += '<br><br><h2 class="layer-p">Divinity Softcap 2</h2><br>starts at ' + player.p.divinitysoftcap_start[1] + ', to the ' + player.p.divinitysoftcap_power[1] + 'th power<br>';
+                if (player.SC.softcaps.includes("p-d1")) text += '<br><h2 class="layer-p">Divinity Softcap 1</h2><br>starts at ' + player.p.divinitysoftcap_start[0] + ', gain to ^' + player.p.divinitysoftcap_power[0] + '<br>';
+                if (player.SC.softcaps.includes("p-d2")) text += '<br><br><h2 class="layer-p">Divinity Softcap 2</h2><br>starts at ' + player.p.divinitysoftcap_start[1] + ', gain to ^' + player.p.divinitysoftcap_power[1] + '<br>';
                 return text;
             }],
     ],
