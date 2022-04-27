@@ -23,14 +23,10 @@ var systemComponents = {
 					if (tmp[layer].leftTab) {
 						showNavTab(layer, prev)
 						showTab('none')
-					}
-					else
+					} else
 						showTab(layer, prev)
-				}
-				else {run(layers[layer].onClick, layers[layer])}
+				} else {run(layers[layer].onClick, layers[layer])}
 			}"
-
-
 			v-bind:class="{
 				treeNode: tmp[layer].isLayer,
 				treeButton: !tmp[layer].isLayer,
@@ -49,7 +45,7 @@ var systemComponents = {
 			v-bind:style="constructNodeStyle(layer)">
 			<span class="nodeLabel" v-html="(abb !== '' && tmp[layer].image === undefined) ? abb : '&nbsp;'"></span>
 			<tooltip
-      v-if="tmp[layer].tooltip != ''"
+      		v-if="tmp[layer].tooltip != ''"
 			:text="(tmp[layer].isLayer) ? (
 				player[layer].unlocked ? (tmp[layer].tooltip ? tmp[layer].tooltip : formatWhole(player[layer].points) + ' ' + tmp[layer].resource)
 				: (tmp[layer].tooltipLocked ? tmp[layer].tooltipLocked : 'Reach ' + formatWhole(tmp[layer].requires) + ' ' + tmp[layer].baseResource + ' to unlock (You have ' + formatWhole(tmp[layer].baseAmount) + ' ' + tmp[layer].baseResource + ')')
@@ -63,10 +59,10 @@ var systemComponents = {
 		`
 	},
 
-	
 	'layer-tab': {
 		props: ['layer', 'back', 'spacing', 'embedded'],
-		template: `<div v-bind:style="[tmp[layer].style ? tmp[layer].style : {}, (tmp[layer].tabFormat && !Array.isArray(tmp[layer].tabFormat)) ? tmp[layer].tabFormat[player.subtabs[layer].mainTabs].style : {}]" class="noBackground">
+		template: `
+		<div v-bind:style="[tmp[layer].style ? tmp[layer].style : {}, (tmp[layer].tabFormat && !Array.isArray(tmp[layer].tabFormat)) ? tmp[layer].tabFormat[player.subtabs[layer].mainTabs].style : {}]" class="noBackground">
 		<div v-if="back"><button v-bind:class="back == 'big' ? 'other-back' : 'back'" v-on:click="goBack(layer)">←</button></div>
 		<div v-if="!tmp[layer].tabFormat">
 			<div v-if="spacing" v-bind:style="{'height': spacing}" :key="this.$vnode.key + '-spacing'"></div>
@@ -99,11 +95,11 @@ var systemComponents = {
 				<column v-else :layer="layer" :data="tmp[layer].tabFormat[player.subtabs[layer].mainTabs].content" :key="this.$vnode.key + '-col'"></column>
 			</div>
 		</div></div>
-			`
+		`
 	},
 
 	'overlay-head': {
-		template: `			
+		template: `
 		<div class="overlayThing" style="padding-bottom:7px; width: 90%; z-index: 1000; position: relative">
 		<span v-if="player.devSpeed && player.devSpeed != 1" class="overlayThing">
 			<br>Dev Speed: {{format(player.devSpeed)}}x<br>
@@ -118,8 +114,8 @@ var systemComponents = {
 		<br>
 		<span v-if="canGenPoints()"  class="overlayThing">({{tmp.other.oompsMag != 0 ? format(tmp.other.oomps) + " OOM" + (tmp.other.oompsMag < 0 ? "^OOM" : tmp.other.oompsMag > 1 ? "^" + tmp.other.oompsMag : "") + "s" : formatSmall(getPointGen())}}/sec)</span>
 		<div v-for="thing in tmp.displayThings" class="overlayThing"><span v-if="thing" v-html="thing"></span></div>
-	</div>
-	`
+		</div>
+		`
     },
 
     'info-tab': {
@@ -145,7 +141,7 @@ var systemComponents = {
         Time Played: {{ formatTime(player.timePlayed) }}<br><br>
         <h3>Hotkeys</h3><br>
         <span v-for="key in hotkeys" v-if="player[key.layer].unlocked && tmp[key.layer].hotkeys[key.id].unlocked"><br>{{key.description}}</span></div>
-    `
+    	`
     },
 
     'options-tab': {
@@ -171,7 +167,8 @@ var systemComponents = {
                 <td><button class="opt" onclick="toggleOpt('forceOneTab'); needsCanvasUpdate = true">Single-Tab Mode: {{ options.forceOneTab?"ALWAYS":"AUTO" }}</button></td>
 				<td><button class="opt" onclick="toggleOpt('forceTooltips'); needsCanvasUpdate = true">Shift-Click to Toggle Tooltips: {{ options.forceTooltips?"ON":"OFF" }}</button></td>
 				</tr> 
-        </table>`
+        </table>
+		`
     },
 
     'back-button': {
@@ -180,10 +177,10 @@ var systemComponents = {
         `
     },
 
-
 	'tooltip' : {
 		props: ['text'],
-		template: `<div class="tooltip" v-html="text"></div>
+		template: `
+		<div class="tooltip" v-html="text"></div>
 		`
 	},
 
@@ -198,7 +195,8 @@ var systemComponents = {
 
 	'particle': {
 		props: ['data', 'index'],
-		template: `<div><div class='particle instant' v-bind:style="[constructParticleStyle(data), data.style]" 
+		template: `
+		<div><div class='particle instant' v-bind:style="[constructParticleStyle(data), data.style]" 
 			v-on:click="run(data.onClick, data)"  v-on:mouseenter="run(data.onMouseOver, data)" v-on:mouseleave="run(data.onMouseLeave, data)" ><span v-html="data.text"></span>
 		</div>
 		<svg version="2" v-if="data.color">
@@ -212,9 +210,8 @@ var systemComponents = {
 
 	'bg': {
 		props: ['layer'],
-		template: `<div class ="bg" v-bind:style="[tmp[layer].style ? tmp[layer].style : {}, (tmp[layer].tabFormat && !Array.isArray(tmp[layer].tabFormat)) ? tmp[layer].tabFormat[player.subtabs[layer].mainTabs].style : {}]"></div>
+		template: `
+		<div class ="bg" v-bind:style="[tmp[layer].style ? tmp[layer].style : {}, (tmp[layer].tabFormat && !Array.isArray(tmp[layer].tabFormat)) ? tmp[layer].tabFormat[player.subtabs[layer].mainTabs].style : {}]"></div>
 		`
 	}
-
-}
-
+};
