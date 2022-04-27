@@ -11,7 +11,23 @@ body {
 /* General text */
 h1, h2, h3, b, input {
 	display: inline;
-	font-family: "Lucida Console", "Courier New", monospace
+	font-family: "Lucida Console", "Courier New", "monospace"
+}
+
+/* Layer Text */
+.layer-A {
+	color: #A5BCC2;
+	text-shadow: 0 0 10px #A5BCC2;
+}
+
+.layer-p {
+	color: #FA99FF;
+	text-shadow: 0 0 10px #FA99FF;
+}
+
+.layer-s {
+	color: #AAFF00;
+	text-shadow: 0 0 10px #AAFF00;
 }
 
 /* These are styles for different states of components. You can make layer-specific versions with .c.locked, for example */
