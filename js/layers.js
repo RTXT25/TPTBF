@@ -12,15 +12,15 @@ addLayer("A", {
     layerShown() {return true},
     tooltip() {return "Achievements"},
     effectDescription() {
-        text = ["<br>"];
+        text = ["<br>", "", ""];
         if (hasUpgrade("ds", 21)) {
-            if (hasUpgrade('ds', 24)) text[0] += 'which are multiplying your point and essence gain by ' + format(player.A.points.mul(0.2)) + 'x';
-            if (!hasUpgrade("ds", 24)) text[1] += 'and also multiplying essence gain by ' + format(player.A.points.mul(0.2)) + 'x';
-            if (hasUpgrade("ds", 23) && !hasUpgrade("ds", 24) && !hasUpgrade("p", 31)) text[2] += 'addtionally, also multiplying core and quark gain by ' + format(player.A.points.pow(2).div(100)) + 'x';
-            if (hasUpgrade("ds", 23) && hasUpgrade("ds", 24) && !hasUpgrade("p", 31)) text[1] += 'and also multiplying core and quark gain by ' + format(player.A.points.pow(2).div(100)) + 'x';
-            if (hasUpgrade("ds", 23) && hasUpgrade("ds", 24) && hasUpgrade("p", 31)) text[1] += 'and also multiplying core, prayer, and quark gain by ' + format(player.A.points.pow(2).div(100)) + 'x';
-        } else text[0] += 'which are multiplying your point gain by ' + format(player.A.points.mul(0.1).add(1)) + 'x';
-        if (hasUpgrade('a', 51)) text[2] += 'additionally, also multiplying subatomic particle gain by ' + format(player.A.points.pow(1.25)) + 'x';
+            if (hasUpgrade('ds', 24)) text[0] += 'which are multiplying your point and essence gain by <h3 class="layer-A">' + format(player.A.points.mul(0.2)) + 'x</h3>';
+            if (!hasUpgrade("ds", 24)) text[1] += 'and also multiplying essence gain by <h3 class="layer-A">' + format(player.A.points.mul(0.2)) + 'x</h3>';
+            if (hasUpgrade("ds", 23) && !hasUpgrade("ds", 24) && !hasUpgrade("p", 31)) text[2] += 'addtionally, also multiplying core and quark gain by <h3 class="layer-A">' + format(player.A.points.pow(2).div(100)) + 'x</h3>';
+            if (hasUpgrade("ds", 23) && hasUpgrade("ds", 24) && !hasUpgrade("p", 31)) text[1] += 'and also multiplying core and quark gain by <h3 class="layer-A">' + format(player.A.points.pow(2).div(100)) + 'x</h3>';
+            if (hasUpgrade("ds", 23) && hasUpgrade("ds", 24) && hasUpgrade("p", 31)) text[1] += 'and also multiplying core, prayer, and quark gain by <h3 class="layer-A">' + format(player.A.points.pow(2).div(100)) + 'x</h3>';
+        } else text[0] += 'which are multiplying your point gain by <h3 class="layer-A">' + format(player.A.points.mul(0.1).add(1)) + 'x</h3>';
+        if (hasUpgrade('a', 51)) text[2] += 'additionally, also multiplying subatomic particle gain by <h3 class="layer-A">' + format(player.A.points.pow(1.25)) + 'x</h3>';
         fintext = text[0];
         if (text[1]) fintext += "<br>";
         fintext += text[1];
