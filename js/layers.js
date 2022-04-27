@@ -2497,7 +2497,7 @@ addLayer("p", {
             unlocked() { return hasMilestone("s", 0) && !hasUpgrade('p', 14) },
         },
         15: {
-            fullDisplay() { return '<h3>Prayer Divination</h3><br>multiplies prayer gain based on the amount of divinity you have (+500)<br>Currently: ' + format(upgradeEffect(this.layer, this.id)) + 'x<br><br>Cost: 75 divinity'},
+            fullDisplay() { return '<h3>Prayer Divination</h3><br>multiplies prayer gain based on the amount of divinity you have (+1e15)<br>Currently: ' + format(upgradeEffect(this.layer, this.id)) + 'x<br><br>Cost: 75 divinity'},
             canAfford() {
                 if (player.p.divinity.gte(75)) return true;
                 else return false;
@@ -2506,7 +2506,7 @@ addLayer("p", {
                 player.p.divinity = player.p.divinity.sub(75);
             },
             effect() {
-                return player.p.divinity.add(500).pow(0.025);
+                return player.p.divinity.add(1e15).pow(0.0025);
             },
             style: {'height':'120px'},
             unlocked() { return hasUpgrade('p', 14) },
@@ -2654,7 +2654,7 @@ addLayer("p", {
                 player.p.hymn = player.p.hymn.sub(75);
             },
             effect() {
-                if (hasUpgrade('p', 45)) return player.p.hymn.add(1).pow(0.15);
+                if (hasUpgrade('p', 45)) return player.p.hymn.add(1).pow(0.125);
                 else return player.p.hymn.add(1).pow(0.1);
             },
             style: {'height':'120px'},
@@ -2683,7 +2683,7 @@ addLayer("p", {
             unlocked() { return hasMilestone("s", 0) && hasUpgrade('p', 41) && !hasUpgrade('p', 44) },
         },
         45: {
-            fullDisplay() { return '<h3>Hymn Divination</h3><br>increases the exponent of <b>Divine Hymns</b><br>^0.1 --> ^0.15<br><br>Cost: 2,500,000 hymns'},
+            fullDisplay() { return '<h3>Hymn Divination</h3><br>increases the exponent of <b>Divine Hymns</b><br>^0.1 --> ^0.125<br><br>Cost: 2,500,000 hymns'},
             canAfford() {
                 if (player.p.hymn.gte(2500000)) return true;
                 else return false;
