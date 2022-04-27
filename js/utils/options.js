@@ -12,13 +12,12 @@ function getStartOptions() {
 		forceOneTab: false,
 		oldStyle: false,
 		tooltipForcing: true,
-	}
+	};
 };
 
 function toggleOpt(name) {
 	if (name == "oldStyle" && styleCooldown > 0)
 		return;
-
 	options[name] = !options[name];
 	if (name == "hqTree")
 		changeTreeQuality();
@@ -59,7 +58,6 @@ function adjustMSDisp() {
 function milestoneShown(layer, id) {
 	complete = player[layer].milestones.includes(id);
 	auto = layers[layer].milestones[id].toggles;
-
 	switch (options.msDisplay) {
 		case "always":
 			return true;
@@ -71,6 +69,6 @@ function milestoneShown(layer, id) {
 			return !complete;
 		case "never":
 			return false;
-	}
+	};
 	return false;
 };
