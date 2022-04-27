@@ -25,9 +25,19 @@ h1, h2, h3, b, input {
 	text-shadow: 0 0 10px #4BDC13;
 }
 
+.layer-e-dark {
+	color: #29BA01;
+	text-shadow: 0 0 10px #29BA01;
+}
+
 .layer-c {
 	color: #C2C238;
 	text-shadow: 0 0 10px #C2C238;
+}
+
+.layer-c-dark {
+	color: #A0A016;
+	text-shadow: 0 0 10px #A0A016;
 }
 
 .layer-q {
@@ -35,9 +45,19 @@ h1, h2, h3, b, input {
 	text-shadow: 0 0 10px #DB5196;
 }
 
+.layer-q-dark {
+	color: #B93074;
+	text-shadow: 0 0 10px #B93074;
+}
+
 .layer-sp {
 	color: #710CC4;
 	text-shadow: 0 0 10px #710CC4;
+}
+
+.layer-sp-dark {
+	color: #500AA2;
+	text-shadow: 0 0 10px #500AA2;
 }
 
 .layer-h {
@@ -45,14 +65,29 @@ h1, h2, h3, b, input {
 	text-shadow: 0 0 10px #E36409;
 }
 
+.layer-h-dark {
+	color: #C14207;
+	text-shadow: 0 0 10px #C14207;
+}
+
 .layer-ds {
 	color: #BA0035;
 	text-shadow: 0 0 10px #BA0035;
 }
 
+.layer-ds-dark {
+	color: #980013;
+	text-shadow: 0 0 10px #980013;
+}
+
 .layer-a {
 	color: #4D2FE0;
 	text-shadow: 0 0 10px #4D2FE0;
+}
+
+.layer-a-dark {
+	color: #2B0DC0;
+	text-shadow: 0 0 10px #2B0DC0;
 }
 
 .layer-p {
@@ -68,6 +103,11 @@ h1, h2, h3, b, input {
 .layer-s {
 	color: #AAFF00;
 	text-shadow: 0 0 10px #AAFF00;
+}
+
+.layer-s-dark {
+	color: #88DD00;
+	text-shadow: 0 0 10px #88DD00;
 }
 
 /* These are styles for different states of components. You can make layer-specific versions with .c.locked, for example */
