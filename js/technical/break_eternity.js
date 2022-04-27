@@ -19,18 +19,15 @@
       return result;
     }
 
-
     var length = result.length;
     if (length >= targetLen) {
       return result;
     }
 
-
     var filled = fillString === null ? '' : String(fillString);
     if (filled === '') {
       filled = ' ';
     }
-
 
     var fillLen = targetLen - length;
 
@@ -893,7 +890,6 @@
       this.normalize();
       return this;
     };
-
 
     Decimal.prototype.fromMantissaExponent_noNormalize = function (mantissa, exponent) {
       //The idea of 'normalizing' a break_infinity.js style Decimal doesn't really apply. So just do the same thing.
