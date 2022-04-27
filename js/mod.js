@@ -124,6 +124,7 @@ function canGenPoints(){
 // Calculate points/sec!
 function getPointGen() {
 	let gain = new Decimal(1)
+	if (hasUpgrade('e', 11)) gain = gain.mul(1.5);
 	if (hasUpgrade('e', 12)) {
 		gain = gain.mul(upgradeEffect('e', 12));
 		if (hasUpgrade('e', 33)) gain = gain.mul(upgradeEffect('e', 33));
@@ -153,6 +154,7 @@ function getPointGen() {
 				gain = gain.mul(upgradeEffect('h', 31));
 				if (hasUpgrade('h', 41)) gain = gain.mul(upgradeEffect('h', 41));
 	}}};
+	if (hasUpgrade('p', 72)) gain = gain.mul(upgradeEffect('p', 72));
 	if (getBuyableAmount('c', 11).gt(0)) gain = gain.mul(getBuyableAmount('c', 11).mul(5).add(1));
 	if (getBuyableAmount('sp', 21).gt(0)) {
 		gain = gain.mul(5 ** getBuyableAmount('sp', 21));
@@ -160,7 +162,6 @@ function getPointGen() {
 	};
 	if (getBuyableAmount('sp', 12).gt(0)) gain = gain.mul(getBuyableAmount('sp', 12).add(1).pow(-1));
 	if (hasMilestone('p', 1)) gain = gain.mul(player.p.divinity.add(1).pow(0.1));
-	if (hasUpgrade('e', 11)) gain = gain.mul(1.5);
 	if (hasUpgrade('ds', 21) && hasUpgrade('ds', 24)) gain = gain.mul(player.A.points.mul(0.2));
 	else gain = gain.mul(player.A.points.mul(0.1).add(1));
 	if (inChallenge('ds', 11)) gain = gain.mul(0.0001);
