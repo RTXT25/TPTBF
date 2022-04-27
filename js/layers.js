@@ -4,37 +4,35 @@ addLayer("A", {
     position: 0,
     startData() { return {
         unlocked: true,
+        points: new Decimal(0),
     }},
     color: "#A5BCC2",
+    resource: "achievements",
     row: "side",
     layerShown() {return true},
     tooltip() {return "Achievements"},
+    effectDescription() {
+        text = ["<br>"];
+        if (hasUpgrade("ds", 21)) {
+            if (hasUpgrade('ds', 24)) text[0] += 'which are multiplying your point and essence gain by ' + format(player.A.points.mul(0.2)) + 'x';
+            if (!hasUpgrade("ds", 24)) text[1] += 'and also multiplying essence gain by ' + format(player.A.points.mul(0.2)) + 'x';
+            if (hasUpgrade("ds", 23) && !hasUpgrade("ds", 24) && !hasUpgrade("p", 31)) text[2] += 'addtionally, also multiplying core and quark gain by ' + format(player.A.points.pow(2).div(100)) + 'x';
+            if (hasUpgrade("ds", 23) && hasUpgrade("ds", 24) && !hasUpgrade("p", 31)) text[1] += 'and also multiplying core and quark gain by ' + format(player.A.points.pow(2).div(100)) + 'x';
+            if (hasUpgrade("ds", 23) && hasUpgrade("ds", 24) && hasUpgrade("p", 31)) text[1] += 'and also multiplying core, prayer, and quark gain by ' + format(player.A.points.pow(2).div(100)) + 'x';
+        } else text[0] += 'which are multiplying your point gain by ' + format(player.A.points.mul(0.1).add(1)) + 'x';
+        if (hasUpgrade('a', 51)) text[2] += 'additionally, also multiplying subatomic particle gain by ' + format(player.A.points.pow(1.25)) + 'x';
+        fintext = text[0];
+        if (text[1]) fintext += "<br>";
+        fintext += text[1];
+        if (text[2]) fintext += "<br>";
+        fintext += text[2];
+        return fintext;
+    },
+    update(diff) {
+        player.A.points = new Decimal(player.A.achievements.length);
+    },
     tabFormat: [
-        ["display-text",
-            function() { if (player.A.achievements.length == 1) return 'You have 1 achievement,<br>which is multiplying your point gain by 1.1x' },
-            { "color": "white", "font-size": "16px", "font-family": "Lucida Console" }],
-        ["display-text",
-            function() { if (!hasUpgrade("ds", 24) && (player.A.achievements.length != 1)) return 'You have ' + player.A.achievements.length + ' achievements,<br>which are multiplying your point gain by ' + (Math.round(100 * (player.A.achievements.length * 0.1 + 1)) / 100) + 'x' },
-            { "color": "white", "font-size": "16px", "font-family": "Lucida Console" }],
-        ["display-text",
-            function() { if (hasUpgrade("ds", 21) && !hasUpgrade("ds", 24)) return 'and also multiplying essence gain by ' + (Math.round(100 * (player.A.achievements.length * 0.2)) / 100) + 'x' },
-            { "color": "white", "font-size": "16px", "font-family": "Lucida Console" }],
-        ["display-text",
-            function() { if (hasUpgrade("ds", 21) && hasUpgrade('ds', 24)) return 'You have ' + player.A.achievements.length + ' achievements,<br>which are multiplying your point and essence gain by ' + (Math.round(100 * (player.A.achievements.length * 0.2)) / 100) + 'x' },
-            { "color": "white", "font-size": "16px", "font-family": "Lucida Console" }],
-        ["display-text",
-            function() { if (hasUpgrade("ds", 21) && hasUpgrade("ds", 23) && !hasUpgrade("ds", 24) && !hasUpgrade("p", 31)) return 'addtionally, also multiplying core and quark gain by ' + (Math.round(100 * (player.A.achievements.length ** 2)) / 10000) + 'x' },
-            { "color": "white", "font-size": "16px", "font-family": "Lucida Console" }],
-        ["display-text",
-            function() { if (hasUpgrade("ds", 21) && hasUpgrade("ds", 23) && hasUpgrade("ds", 24) && !hasUpgrade("p", 31)) return 'and also multiplying core and quark gain by ' + (Math.round(100 * (player.A.achievements.length ** 2)) / 10000) + 'x' },
-            { "color": "white", "font-size": "16px", "font-family": "Lucida Console" }],
-        ["display-text",
-            function() { if (hasUpgrade("ds", 21) && hasUpgrade("ds", 23) && hasUpgrade("ds", 24) && hasUpgrade("p", 31)) return 'and also multiplying core, prayer, and quark gain by ' + (Math.round(100 * (player.A.achievements.length ** 2)) / 10000) + 'x' },
-            { "color": "white", "font-size": "16px", "font-family": "Lucida Console" }],
-        ["display-text",
-            function() { if (hasUpgrade('a', 51)) return 'additionally, also multiplying subatomic particle gain by ' + (Math.round(100 * (player.A.achievements.length ** 1.25)) / 100) + 'x' },
-            { "color": "white", "font-size": "16px", "font-family": "Lucida Console" }],
-        "blank",
+        "main-display",
         "achievements",
     ],
     achievements: {
@@ -393,7 +391,7 @@ addLayer("e", {
         if (getBuyableAmount('sp', 11).gt(0)) mult = mult.mul(getBuyableAmount('sp', 11).add(1).pow(-1));
         if (hasUpgrade('p', 22)) mult = mult.mul(player.p.holiness.add(1).pow(0.055));
         if (player.s.points.gt(0)) mult = mult.mul(tmp.s.effect);
-        if (hasUpgrade('ds', 21)) mult = mult.mul(player.A.achievements.length * 0.2);
+        if (hasUpgrade('ds', 21)) mult = mult.mul(player.A.points.mul(0.2));
         if (inChallenge('ds', 21)) mult = mult.mul(0.00000000000000000001);
         return mult;
     },
@@ -625,7 +623,7 @@ addLayer("c", {
                 if (hasUpgrade('h', 33)) mult = mult.mul(upgradeEffect('h', 33));
         if (hasUpgrade('h', 24)) mult = mult.mul(3);
         if (getBuyableAmount('e', 12).gt(0)) mult = mult.mul(getBuyableAmount('e', 12).add(1));
-        if (hasUpgrade('ds', 21) && hasUpgrade('ds', 23)) mult = mult.mul((player.A.achievements.length ** 2) / 100);
+        if (hasUpgrade('ds', 21) && hasUpgrade('ds', 23)) mult = mult.mul(player.A.points.pow(2).div(100));
         if (inChallenge('ds', 11)) mult = mult.mul(0.01);
         if (inChallenge('ds', 21)) mult = mult.mul(0.000000000000001);
         return mult;
@@ -891,7 +889,7 @@ addLayer("q", {
         if (getBuyableAmount('sp', 11).gt(0)) mult = mult.mul(5 ** getBuyableAmount('sp', 11));
             if (hasUpgrade('sp', 11)) mult = mult.mul(5 ** getBuyableAmount('sp', 11));
         if (getBuyableAmount('sp', 21).gt(0)) mult = mult.mul(getBuyableAmount('sp', 21).add(1).pow(-1));
-        if (hasUpgrade('ds', 21) && hasUpgrade('ds', 23)) mult = mult.mul((player.A.achievements.length ** 2) / 100);
+        if (hasUpgrade('ds', 21) && hasUpgrade('ds', 23)) mult = mult.mul(player.A.points.pow(2).div(100));
         if (inChallenge('ds', 11)) mult = mult.mul(0.1);
         if (inChallenge('ds', 22)) mult = mult.mul(0.0000000000000000000000000000000000000001);
         return mult;
@@ -1234,7 +1232,7 @@ addLayer("sp", {
         if (hasUpgrade('a', 22)) gain = gain.mul(upgradeEffect('a', 22));
         if (hasUpgrade('a', 31)) gain = gain.mul(upgradeEffect('a', 31));
         if (getBuyableAmount('ds', 11).gt(0)) gain = gain.mul((getBuyableAmount('ds', 11) * 5) + 1);
-        if (hasUpgrade('a', 51)) gain = gain.mul((player.A.achievements.length ** 2.5) / 100);
+        if (hasUpgrade('a', 51)) gain = gain.mul(player.A.points.pow(2.5).div(100));
         if (hasChallenge('ds', 21)) gain = gain.mul(player.ds.points.add(1).pow(0.2));
         if (inChallenge('ds', 12)) gain = gain.mul(player.q.points.pow(-0.05));
         if (inChallenge('ds', 22)) gain = gain.mul(0.0000000000000000000000000000000000000001);
@@ -2214,7 +2212,7 @@ addLayer("a", {
         },
         51: {
             title: "Famed Atoms' Donations",
-            description: "multiplies subatomic particle gain based on your number of acievements",
+            description: "multiplies subatomic particle gain based on your number of achievements",
             cost: 3,
             branches: [61, 62],
             style: {'height':'120px'},
@@ -2318,7 +2316,7 @@ addLayer("p", {
         mult = new Decimal(1);
         if (hasUpgrade('p', 15)) mult = mult.mul(upgradeEffect('p', 15));
         if (hasUpgrade('p', 21)) mult = mult.mul(upgradeEffect('p', 21));
-        if (hasUpgrade('ds', 21) && hasUpgrade('ds', 23) && hasUpgrade('ds', 24) && hasUpgrade('p', 31)) mult = mult.mul((player.A.achievements.length ** 2) / 100);
+        if (hasUpgrade('ds', 21) && hasUpgrade('ds', 23) && hasUpgrade('ds', 24) && hasUpgrade('p', 31)) mult = mult.mul(player.A.points.pow(2).div(100));
         if (hasUpgrade('p', 41)) mult = mult.mul(player.p.hymnEff);
         if (hasUpgrade('p', 62)) {
             mult = mult.mul(upgradeEffect('p', 62));
