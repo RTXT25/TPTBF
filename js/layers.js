@@ -2411,7 +2411,11 @@ addLayer("p", {
         if (hasUpgrade('p', 33)) effBoost = effBoost.mul(upgradeEffect('p', 33));
         if (hasUpgrade('p', 42)) effBoost = effBoost.mul(upgradeEffect('p', 42));
         if (hasMilestone('p', 2)) effEx = new Decimal(1.5);
-        return effBoost.mul(player.p.points).pow(effEx);
+        eff = effBoost.mul(player.p.points).pow(effEx);
+        sc_start = player.p.divinitysoftcap_start;
+        if (eff.gt(sc_start)) eff = eff.sub(sc_start).pow(divinitysoftcap_power).add(sc_start);
+        if (hasUpgrade('p', 71)) eff = eff.mul(upgradeEffect('p', 71));
+        return eff;
     },
     effectDescription() {
         if (tmp.p.effect.lt(0.1)) return 'which are generating <h2 class="layer-p">' + tmp.p.effect.mul(100).round().div(100) + '</h2> divinity/sec';
@@ -2443,11 +2447,7 @@ addLayer("p", {
             };
         },
     update(diff) {
-        sc_start = player.p.divinitysoftcap_start;
-        if (tmp.p.effect.gt(sc_start)) {
-            sc_amount = tmp.p.effect.sub(sc_start).pow(divinitysoftcap_power);
-            player.p.divinity = player.p.divinity.add(sc_start.add(sc_amount).mul(diff));
-        } else if (tmp.p.effect.gt(0)) player.p.divinity = player.p.divinity.add(tmp.p.effect.mul(diff));
+        if (tmp.p.effect.gt(0)) player.p.divinity = player.p.divinity.add(tmp.p.effect.mul(diff));
         if (hasUpgrade('p', 41)) {
             if (hasUpgrade('p', 43) && hasUpgrade('p', 52) && hasUpgrade('p', 53)) player.p.hymnEff = player.p.hymn.add(1).pow(0.25);
             else if (hasUpgrade('p', 43) && hasUpgrade('p', 52)) player.p.hymnEff = player.p.hymn.add(1).pow(0.225);
@@ -2826,9 +2826,9 @@ addLayer("p", {
             unlocked() { if (hasUpgrade('p', 41)) return true },
         },
         64: {
-            fullDisplay() { return '<h3>Silver Sanctums</h3><br>Req: 1.00e25 prayers and 2 sanctums'},
+            fullDisplay() { return '<h3>Silver Sanctums</h3><br>Req: 1.00e25 prayers, 2 sanctums, and all previous research'},
             canAfford() {
-                if (player.p.points.gte(1e25) && player.s.points.gte(2)) return true;
+                if (player.p.points.gte(1e25) && player.s.points.gte(2) && hasUpgrade('p', 15) && hasUpgrade('p', 25) && hasUpgrade('p', 35) && hasUpgrade('p', 45) && hasUpgrade('p', 55)) return true;
                 else return false;
             },
             style: {'height':'120px'},
@@ -2850,10 +2850,10 @@ addLayer("p", {
         },
         71: {
             title: "Divine Sanctums",
-            description: "multiplies divinity gain based on the amount of sanctums you have",
+            description: "multiplies divinity gain after softcap based on the amount of sanctums you have",
             cost: 1e30,
             effect() {
-                return player.s.points.add(1).pow(1.1);
+                return player.s.points.add(1).pow(0.9);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             style: {'height':'120px'},
