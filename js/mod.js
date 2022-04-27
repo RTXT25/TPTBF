@@ -21,6 +21,7 @@ let changelog = `<h1>Changelog:</h1><br>
 		- Added six researchable upgrades to prayers.<br>
 		- Added one achievement.<br>
 		- Changed 'best' and 'total' format.<br>
+		- Added custom colored text. Vibing!<br>
 		- Balance changes.<br>
 	<br><h3>v1.5: Creativity Rules</h3><br>
 		- Added one milestone to atoms.<br>
