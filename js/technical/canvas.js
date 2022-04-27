@@ -13,7 +13,7 @@ function retrieveCanvasData() {
 };
 
 function resizeCanvas() {
-	if (!retrieveCanvasData()) return
+	if (!retrieveCanvasData()) return;
 	canvas.width = 0;
     canvas.height = 0;
 	canvas.width  = window.innerWidth;
@@ -21,7 +21,7 @@ function resizeCanvas() {
 		drawTree();
 };
 
-var colors_theme
+var colors_theme;
 
 function drawTree() {
 	if (!retrieveCanvasData()) return;
