@@ -111,6 +111,12 @@ let winText = `<h3>You won the game!</h3><br>However, it isn't the end yet...<br
 
 // If you add new functions anywhere inside of a layer, and those functions have an effect when called, add them here.
 // (The ones here are examples, all official functions are already taken care of)
+function getdark(darklayer, darkid, special = false){
+	if (special) darkcanafford = layers[darklayer].upgrades[darkid].canAfford();
+	else darkcanafford = player[darklayer].points.gte(layers[darklayer].upgrades[darkid].cost);
+    if (darkcanafford && !hasUpgrade(darklayer, darkid)) return '-dark"';
+	return '"';
+};
 
 function getStartPoints(){
     return new Decimal(modInfo.initialStartPoints)
