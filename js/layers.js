@@ -2345,11 +2345,13 @@ addLayer("p", {
     gainExp() {
         return new Decimal(1);
     },
+    /*
     softcap: new Decimal(1e100),
     softcapPower() {
-        if (hasUpgrade('p', 65)) return new Decimal(0.5);
+        // if (whatever unlocks softcap here) return new Decimal(0.5);
         else return new Decimal(0);
     },
+    */
     row: 1,
     hotkeys: [
         {key: "p", description: "P: Reset for prayers", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
@@ -2813,22 +2815,22 @@ addLayer("p", {
             unlocked() { if (hasUpgrade('p', 41)) return true },
         },
         64: {
-            fullDisplay() { return '<h3>Prayer of (softcapped)</h3><br>Req: 1.00e100 prayers and 2 sanctums'},
+            fullDisplay() { return '<h3>Silver Sanctums</h3><br>Req: 1.00e25 prayers and 2 sanctums'},
             canAfford() {
-                if (player.p.points.gte(1e100) && player.s.points.gte(2)) return true;
+                if (player.p.points.gte(1e25) && player.s.points.gte(2)) return true;
                 else return false;
             },
             style: {'height':'120px'},
             unlocked() { return hasMilestone("s", 0) && hasUpgrade('p', 41) && !hasUpgrade('p', 64) },
         },
         65: {
-            fullDisplay() { return '<h3>Prayer of (softcapped)</h3><br>changes prayer gain hardcap to a softcap<br><br>Cost: 9.99e99 prayers'},
+            fullDisplay() { return '<h3>Silver Sanctums</h3><br>reduces sanctum gain exponent<br>7.5 --> 7<br><br>Cost: 2.50e25 prayers'},
             canAfford() {
-                if (player.p.points.gte(9.99e99)) return true;
+                if (player.p.points.gte(2.5e25)) return true;
                 else return false;
             },
             pay() {
-                player.p.hymn = player.p.points.sub(9.99e99);
+                player.p.points = player.p.points.sub(2.5e25);
             },
             style: {'height':'120px'},
             unlocked() { return hasUpgrade('p', 64) },
