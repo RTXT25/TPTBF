@@ -374,20 +374,27 @@ addLayer("e", {
     gainMult() {
         mult = new Decimal(1);
         if (hasUpgrade('e', 13)) mult = mult.mul(upgradeEffect('e', 13));
-        if (hasUpgrade('e', 22)) mult = mult.mul(upgradeEffect('e', 22));
-            if (hasUpgrade('e', 41)) mult = mult.mul(upgradeEffect('e', 41));
+        if (hasUpgrade('e', 22)) {
+            mult = mult.mul(upgradeEffect('e', 22));
+            if (hasUpgrade('e', 41)) {
+                mult = mult.mul(upgradeEffect('e', 41));
                 if (hasUpgrade('e', 42)) mult = mult.mul(upgradeEffect('e', 42));
+        }};
         if (hasUpgrade('c', 11)) mult = mult.mul(upgradeEffect('c', 11));
-        if (hasUpgrade('q', 14)) mult = mult.mul(upgradeEffect('q', 14));
+        if (hasUpgrade('q', 12) && hasUpgrade('q', 14)) {
+            mult = mult.mul(upgradeEffect('q', 14));
             if (hasUpgrade('q', 15)) mult = mult.mul(upgradeEffect('q', 15));
+        };
         if (hasUpgrade('q', 32)) mult = mult.mul(upgradeEffect('q', 32));
         if (hasUpgrade('a', 73)) mult = mult.mul(upgradeEffect('a', 73));
         if (hasUpgrade('p', 11)) mult = mult.mul(upgradeEffect('p', 11));
         if (getBuyableAmount('e', 11).gt(0)) mult = mult.mul(getBuyableAmount('e', 11).mul(2.5).add(1));
         if (getBuyableAmount('e', 12).gt(0)) mult = mult.mul(getBuyableAmount('e', 12).mul(0.25).add(1));
         if (getBuyableAmount('c', 12).gt(0)) mult = mult.mul(2 ** getBuyableAmount('c', 12));
-        if (getBuyableAmount('sp', 12).gt(0)) mult = mult.mul(5 ** getBuyableAmount('sp', 12));
+        if (getBuyableAmount('sp', 12).gt(0)) {
+            mult = mult.mul(5 ** getBuyableAmount('sp', 12));
             if (hasUpgrade('sp', 12)) mult = mult.mul(5 ** getBuyableAmount('sp', 12));
+        };
         if (getBuyableAmount('sp', 11).gt(0)) mult = mult.mul(getBuyableAmount('sp', 11).add(1).pow(-1));
         if (hasUpgrade('p', 22)) mult = mult.mul(player.p.holiness.add(1).pow(0.055));
         if (player.s.points.gt(0)) mult = mult.mul(tmp.s.effect);
@@ -615,12 +622,17 @@ addLayer("c", {
         mult = new Decimal(1);
         if (hasUpgrade('e', 32)) mult = mult.mul(upgradeEffect('e', 32));
         if (hasUpgrade('c', 12)) mult = mult.mul(upgradeEffect('c', 12));
-        if (hasUpgrade('q', 21)) mult = mult.mul(upgradeEffect('q', 21));
+        if (hasUpgrade('q', 21)) {
+            mult = mult.mul(upgradeEffect('q', 21));
             if (hasUpgrade('q', 22)) mult = mult.mul(upgradeEffect('q', 22));
+        };
         if (hasUpgrade('q', 33)) mult = mult.mul(upgradeEffect('q', 33));
-        if (hasUpgrade('h', 13)) mult = mult.mul(upgradeEffect('h', 13));
-            if (hasUpgrade('h', 23)) mult = mult.mul(upgradeEffect('h', 23));
+        if (hasUpgrade('h', 13)) {
+            mult = mult.mul(upgradeEffect('h', 13));
+            if (hasUpgrade('h', 23)) {
+                mult = mult.mul(upgradeEffect('h', 23));
                 if (hasUpgrade('h', 33)) mult = mult.mul(upgradeEffect('h', 33));
+        }};
         if (hasUpgrade('h', 24)) mult = mult.mul(3);
         if (getBuyableAmount('e', 12).gt(0)) mult = mult.mul(getBuyableAmount('e', 12).add(1));
         if (hasUpgrade('ds', 21) && hasUpgrade('ds', 23)) mult = mult.mul(player.A.points.pow(2).div(100));
@@ -877,17 +889,25 @@ addLayer("q", {
         if (hasUpgrade('q', 11)) mult = mult.mul(upgradeEffect('q', 11));
         if (hasUpgrade('q', 21)) mult = mult.mul(upgradeEffect('q', 21));
             if (hasUpgrade('q', 22)) mult = mult.mul(upgradeEffect('q', 22));
-        if (hasUpgrade('q', 23)) mult = mult.mul(upgradeEffect('q', 23));
-            if (hasUpgrade('q', 24)) mult = mult.mul(upgradeEffect('q', 24));
-                if (hasUpgrade('q', 25)) mult = mult.mul(upgradeEffect('q', 25));
+        if (hasUpgrade('q', 12) && hasUpgrade('q', 23)) {
+            mult = mult.mul(upgradeEffect('q', 23));
+            if (hasUpgrade('q', 24)) {
+                mult = mult.mul(upgradeEffect('q', 24));
+                if (hasUpgrade('q', 25)) {
+                    mult = mult.mul(upgradeEffect('q', 25));
                     if (hasUpgrade('q', 31)) mult = mult.mul(upgradeEffect('q', 31));
-        if (hasUpgrade('q', 42)) mult = mult.mul(upgradeEffect('q', 42));
+        }}};
+        if (hasUpgrade('q', 42)) {
+            mult = mult.mul(upgradeEffect('q', 42));
             if (hasUpgrade('q', 44)) mult = mult.mul(upgradeEffect('q', 44));
+        };
         if (hasUpgrade('q', 45)) mult = mult.mul(upgradeEffect('q', 45));
         if (hasUpgrade('h', 34)) mult = mult.mul(2);
         if (hasUpgrade('a', 41)) mult = mult.mul(upgradeEffect('a', 41));
-        if (getBuyableAmount('sp', 11).gt(0)) mult = mult.mul(5 ** getBuyableAmount('sp', 11));
+        if (getBuyableAmount('sp', 11).gt(0)) {
+            mult = mult.mul(5 ** getBuyableAmount('sp', 11));
             if (hasUpgrade('sp', 11)) mult = mult.mul(5 ** getBuyableAmount('sp', 11));
+        };
         if (getBuyableAmount('sp', 21).gt(0)) mult = mult.mul(getBuyableAmount('sp', 21).add(1).pow(-1));
         if (hasUpgrade('ds', 21) && hasUpgrade('ds', 23)) mult = mult.mul(player.A.points.pow(2).div(100));
         if (inChallenge('ds', 11)) mult = mult.mul(0.1);
@@ -1231,7 +1251,7 @@ addLayer("sp", {
         if (hasUpgrade('h', 63)) gain = gain.mul(upgradeEffect('h', 63));
         if (hasUpgrade('a', 22)) gain = gain.mul(upgradeEffect('a', 22));
         if (hasUpgrade('a', 31)) gain = gain.mul(upgradeEffect('a', 31));
-        if (getBuyableAmount('ds', 11).gt(0)) gain = gain.mul((getBuyableAmount('ds', 11) * 5) + 1);
+        if (getBuyableAmount('ds', 11).gt(0)) gain = gain.mul(getBuyableAmount('ds', 11).mul(5).add(1));
         if (hasUpgrade('a', 51)) gain = gain.mul(player.A.points.pow(2.5).div(100));
         if (hasChallenge('ds', 21)) gain = gain.mul(player.ds.points.add(1).pow(0.2));
         if (inChallenge('ds', 12)) gain = gain.mul(player.q.points.pow(-0.05));
@@ -1383,14 +1403,20 @@ addLayer("h", {
     exponent: 0.5,
     gainMult() {
         mult = new Decimal(1);
-        if (hasUpgrade('h', 12)) mult = mult.mul(upgradeEffect('h', 12));
-            if (hasUpgrade('h', 22)) mult = mult.mul(upgradeEffect('h', 22));
-                if (hasUpgrade('h', 32)) mult = mult.mul(upgradeEffect('h', 32));
+        if (hasUpgrade('h', 12)) {
+            mult = mult.mul(upgradeEffect('h', 12));
+            if (hasUpgrade('h', 22)) {
+                mult = mult.mul(upgradeEffect('h', 22));
+                if (hasUpgrade('h', 32)) {
+                    mult = mult.mul(upgradeEffect('h', 32));
                     if (hasUpgrade('h', 42)) mult = mult.mul(upgradeEffect('h', 42));
+        }}};
         if (hasUpgrade('h', 14)) mult = mult.mul(4);
         if (hasUpgrade('h', 62)) mult = mult.mul(upgradeEffect('h', 62));
-        if (hasUpgrade('ds', 11)) mult = mult.mul(upgradeEffect('h', 11));
-            if (hasUpgrade('ds', 12)) mult = mult.mul(upgradeEffect('h', 12));
+        if (hasUpgrade('h', 11) && hasUpgrade('ds', 11)) {
+            mult = mult.mul(upgradeEffect('h', 11));
+            if (hasUpgrade('h', 12) && hasUpgrade('ds', 12)) mult = mult.mul(upgradeEffect('h', 12));
+        };
         if (getBuyableAmount('ds', 11).gt(0)) mult = mult.mul(2 ** getBuyableAmount('ds', 11));
         if (hasUpgrade('p', 12)) mult = mult.mul(1.02);
         if (hasChallenge('ds', 11)) mult = mult.mul(player.ds.points.add(1).pow(0.25));
@@ -1806,23 +1832,15 @@ addLayer("ds", {
     upgrades: {
         11: {
             title: "Mad Hexes",
-            description: "you can explore 2 further hex upgrades, and hex gain is multiplied based on the amount of demon souls you have",
+            description: "you can explore 2 further hex upgrades, and <b>Hex Leak</b> (a hex upgrade) also applies to hex gain",
             cost: 10,
-            style: {'height':'140px'},
-            effect() {
-                return player.ds.points.add(1).pow(0.1)
-            },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
+            style: {'height':'120px'},
         },
         12: {
             title: "Hex Mania",
-            description: "you can explore 2 further hex upgrades, and the effect of <b>Mad Hexes</b> is multiplied based on the amount of demon souls you have",
+            description: "you can explore 2 further hex upgrades, and <b>Stronger Hexes</b>' (a hex upgrade) effect is cubed",
             cost: 75,
-            style: {'height':'140px'},
-            effect() {
-                return player.ds.points.add(1).pow(0.2)
-            },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
+            style: {'height':'120px'},
         },
         21: {
             title: "Hall of Fame",

@@ -161,8 +161,8 @@ function getPointGen() {
 	if (getBuyableAmount('sp', 12).gt(0)) gain = gain.mul(getBuyableAmount('sp', 12).add(1).pow(-1));
 	if (hasMilestone('p', 1)) gain = gain.mul(player.p.divinity.add(1).pow(0.1));
 	if (hasUpgrade('e', 11)) gain = gain.mul(1.5);
-	if (hasUpgrade('ds', 21) && hasUpgrade('ds', 24)) gain = gain.mul(player.A.achievements.length.mul(0.2));
-	else gain = gain.mul(player.A.achievements.length.mul(0.1).add(1));
+	if (hasUpgrade('ds', 21) && hasUpgrade('ds', 24)) gain = gain.mul(player.A.points.mul(0.2));
+	else gain = gain.mul(player.A.points.mul(0.1).add(1));
 	if (inChallenge('ds', 11)) gain = gain.mul(0.0001);
 	if (inChallenge('ds', 12)) gain = gain.mul(0.000001);
 	if (inChallenge('ds', 21)) gain = gain.mul(0.0000000001);
