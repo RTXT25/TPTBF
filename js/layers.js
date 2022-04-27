@@ -14,13 +14,13 @@ addLayer("A", {
     effectDescription() {
         text = ["<br>", "", ""];
         if (hasUpgrade("ds", 21)) {
-            if (hasUpgrade('ds', 24)) text[0] += 'which are multiplying your point and essence gain by <h3 class="layer-A">' + format(player.A.points.mul(0.2)) + 'x</h3>';
-            if (!hasUpgrade("ds", 24)) text[1] += 'and also multiplying essence gain by <h3 class="layer-A">' + format(player.A.points.mul(0.2)) + 'x</h3>';
-            if (hasUpgrade("ds", 23) && !hasUpgrade("ds", 24) && !hasUpgrade("p", 31)) text[2] += 'addtionally, also multiplying core and quark gain by <h3 class="layer-A">' + format(player.A.points.pow(2).div(100)) + 'x</h3>';
-            if (hasUpgrade("ds", 23) && hasUpgrade("ds", 24) && !hasUpgrade("p", 31)) text[1] += 'and also multiplying core and quark gain by <h3 class="layer-A">' + format(player.A.points.pow(2).div(100)) + 'x</h3>';
-            if (hasUpgrade("ds", 23) && hasUpgrade("ds", 24) && hasUpgrade("p", 31)) text[1] += 'and also multiplying core, prayer, and quark gain by <h3 class="layer-A">' + format(player.A.points.pow(2).div(100)) + 'x</h3>';
-        } else text[0] += 'which are multiplying your point gain by <h3 class="layer-A">' + format(player.A.points.mul(0.1).add(1)) + 'x</h3>';
-        if (hasUpgrade('a', 51)) text[2] += 'additionally, also multiplying subatomic particle gain by <h3 class="layer-A">' + format(player.A.points.pow(1.25)) + 'x</h3>';
+            if (hasUpgrade('ds', 24)) text[0] += 'which are multiplying your point and essence gain by <h2 class="layer-A">' + format(player.A.points.mul(0.2)) + '</h2>x';
+            if (!hasUpgrade("ds", 24)) text[1] += 'and also multiplying essence gain by <h2 class="layer-A">' + format(player.A.points.mul(0.2)) + '</h2>x';
+            if (hasUpgrade("ds", 23) && !hasUpgrade("ds", 24) && !hasUpgrade("p", 31)) text[2] += 'addtionally, also multiplying core and quark gain by <h2 class="layer-A">' + format(player.A.points.pow(2).div(100)) + '</h2>x';
+            if (hasUpgrade("ds", 23) && hasUpgrade("ds", 24) && !hasUpgrade("p", 31)) text[1] += 'and also multiplying core and quark gain by <h2 class="layer-A">' + format(player.A.points.pow(2).div(100)) + '</h2>x';
+            if (hasUpgrade("ds", 23) && hasUpgrade("ds", 24) && hasUpgrade("p", 31)) text[1] += 'and also multiplying core, prayer, and quark gain by <h2 class="layer-A">' + format(player.A.points.pow(2).div(100)) + '</h2>x';
+        } else text[0] += 'which are multiplying your point gain by <h2 class="layer-A">' + format(player.A.points.mul(0.1).add(1)) + '</h2>x';
+        if (hasUpgrade('a', 51)) text[2] += 'additionally, also multiplying subatomic particle gain by <h2 class="layer-A">' + format(player.A.points.pow(1.25)) + '</h2>x';
         fintext = text[0];
         if (text[1]) fintext += "<br>";
         fintext += text[1];
@@ -2406,8 +2406,8 @@ addLayer("p", {
         return effBoost.mul(player.p.points).pow(effEx);
     },
     effectDescription() {
-        if (tmp.p.effect.lt(0.1)) return "which are generating " + tmp.p.effect.mul(100).round().div(100) + " divinity/sec";
-        else return "which are generating " + format(tmp.p.effect) + " divinity/sec";
+        if (tmp.p.effect.lt(0.1)) return 'which are generating <h2 class="layer-p">' + tmp.p.effect.mul(100).round().div(100) + '</h2> divinity/sec';
+        else return 'which are generating <h2 class="layer-p">' + format(tmp.p.effect) + '</h2> divinity/sec';
     },
     doReset(resettingLayer) {
         let keep = [];
@@ -2449,9 +2449,9 @@ addLayer("p", {
         "blank",
         ["display-text",
             function() {
-                text = 'You have ' + format(player.p.divinity) + ' divinity, which boosts point generation by ' + format(player.p.divinity.add(1).pow(0.1)) + 'x';
-                if (hasUpgrade('p', 22)) text += '<br>You have ' + format(player.p.holiness) + ' holiness, which boosts essence gain by ' + format(player.p.holiness.add(1).pow(0.055)) + 'x';
-                if (hasUpgrade('p', 41)) text += '<br>You have ' + formatWhole(player.p.hymn) + ' hymns, which boosts prayer gain by ' + format(player.p.hymnEff) + 'x';
+                text = 'You have <h2 class="layer-p">' + format(player.p.divinity) + '</h2> divinity, which boosts point generation by <h2 class="layer-p">' + format(player.p.divinity.add(1).pow(0.1)) + '</h2>x';
+                if (hasUpgrade('p', 22)) text += '<br>You have <h2 class="layer-p">' + format(player.p.holiness) + '</h2> holiness, which boosts essence gain by <h2 class="layer-p">' + format(player.p.holiness.add(1).pow(0.055)) + '</h2>x';
+                if (hasUpgrade('p', 41)) text += '<br>You have <h2 class="layer-p">' + formatWhole(player.p.hymn) + '</h2> hymns, which boosts prayer gain by <h2 class="layer-p">' + format(player.p.hymnEff) + '</h2>x';
                 return text;
             }],
         "blank",
@@ -2626,7 +2626,7 @@ addLayer("p", {
             style: {'height':'120px'},
         },
         34: {
-            fullDisplay() { return '<h3>Holy Conversion</h3><br>Req: 1,000 holiness with 0 hymns'},
+            fullDisplay() { return '<h3>Holy Shift</h3><br>Req: 1,000 holiness with 0 hymns'},
             canAfford() {
                 if (player.p.holiness.gte(1000) && player.p.hymn.eq(0)) return true;
                 else return false;
@@ -2635,7 +2635,7 @@ addLayer("p", {
             unlocked() { return hasMilestone("s", 0) && hasUpgrade('p', 22) && !hasUpgrade('p', 34) },
         },
         35: {
-            fullDisplay() { return '<h3>Holy Conversion</h3><br>increases efficiency of holiness conversion if you own <b>Holy Conversion</b> and all subsequent upgrades<br>0.08x --> 0.11x<br><br>Cost: 500 holiness'},
+            fullDisplay() { return '<h3>Holy Shift</h3><br>increases efficiency of holiness conversion if you own <b>Holy Conversion</b> and all subsequent upgrades<br>0.08x --> 0.11x<br><br>Cost: 500 holiness'},
             canAfford() {
                 if (player.p.holiness.gte(500)) return true;
                 else return false;
@@ -2876,7 +2876,7 @@ addLayer("s", {
         return effBase.pow(player.s.points).mul(effBoost);
     },
     effectDescription() {
-        return "which multiplies essence gain by " + format(tmp.s.effect) + "x";
+        return 'which multiplies essence gain by <h2 class="layer-s">' + format(tmp.s.effect) + '</h2>x';
     },
     doReset(resettingLayer) {
         let keep = [];
