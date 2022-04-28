@@ -114,9 +114,13 @@ let winText = `<h3>You won the game!</h3><br>However, it isn't the end yet...<br
 // (The ones here are examples, all official functions are already taken care of)
 function getdark(darkthis, special = false){
 	if (darkthis.layer !== undefined) {
-		if (special) darkcanafford = darkthis.canAfford();
-		else darkcanafford = new Decimal(player[darkthis.layer].points).gte(darkthis.cost);
-    	if (darkcanafford && !hasUpgrade(darkthis.layer, darkthis.id)) return '-dark"';
+		if (colorvalue[1] == "normal") {
+			if (special) darkcanafford = darkthis.canAfford();
+			else darkcanafford = new Decimal(player[darkthis.layer].points).gte(darkthis.cost);
+			if (darkcanafford && !hasUpgrade(darkthis.layer, darkthis.id)) return '-dark"';
+		};
+		if (colorvalue[1] == "dark") return '-dark"';
+		if (colorvalue[1] == "none") return '-OFF"';
 	};
 	return '"';
 };

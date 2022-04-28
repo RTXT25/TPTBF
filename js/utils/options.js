@@ -12,6 +12,8 @@ function getStartOptions() {
 		forceOneTab: false,
 		oldStyle: false,
 		tooltipForcing: true,
+		colorDisplayMode: 0,
+		colorDisplay: 0,
 	};
 };
 
@@ -53,22 +55,24 @@ const MS_SETTINGS = ["always", "last", "automation", "incomplete", "never"];
 
 const DISPLAY_MODES = ["ALL", "ONLY SPECIAL", "SPECIAL AND TITLES", "SPECIAL AND REFRENCES"];
 
-const DISPLAY_MODE_INDEX = [0, 1, 2, 3];
-
 const COLOR_DISPLAYS = ["ON - NORMAL", "ON - ALWAYS DARK", "OFF"];
 
-const COLOR_DISPLAY_INDEX = [0, 1, 2];
+var colorvalue = [[true, true, true], "normal"];
 
 function adjustMSDisp() {
 	options.msDisplay = MS_SETTINGS[(MS_SETTINGS.indexOf(options.msDisplay) + 1) % 5];
 };
 
 function display_mode() {
-	options.colorDisplayMode = DISPLAY_MODE_INDEX[(DISPLAY_MODE_INDEX.indexOf(options.colorDisplayMode) + 1) % 4];
+	console.log(colorvalue[0] + " [" + colorvalue[1] + "]");
+	options.colorDisplayMode += 1;
+	if (options.colorDisplayMode >= 4) options.colorDisplayMode = 0;
 };
 
 function color_display() {
-	options.colorDisplay = COLOR_DISPLAY_INDEX[(COLOR_DISPLAY_INDEX.indexOf(options.colorDisplay) + 1) % 3];
+	console.log(colorvalue[0] + " [" + colorvalue[1] + "]");
+	options.colorDisplay += 1;
+	if (options.colorDisplay >= 3) options.colorDisplay = 0;
 };
 
 function milestoneShown(layer, id) {
@@ -90,24 +94,37 @@ function milestoneShown(layer, id) {
 };
 
 function fullcolordisplay() {
-	colorvalue = [[false, false, false], "none"];
+	console.log(colorvalue[0] + " [" + colorvalue[1] + "]");
 	switch (options.colorDisplayMode) {
 		case 0:
+			console.log(0);
 			colorvalue[0] = [true, true, true];
+			break;
 		case 1:
+			console.log(1);
 			colorvalue[0] = [true, false, false];
+			break;
 		case 2:
+			console.log(2);
 			colorvalue[0] = [true, true, false];
+			break;
 		case 3:
+			console.log(3);
 			colorvalue[0] = [true, false, true];
+			break;
 	};
 	switch (options.colorDisplay) {
 		case 0:
+			console.log(4);
 			colorvalue[1] = "normal";
+			break;
 		case 1:
+			console.log(5);
 			colorvalue[1] = "dark";
+			break;
 		case 2:
+			console.log(6);
 			colorvalue[1] = "none";
+			break;
 	};
-	return colorvalue;
 };

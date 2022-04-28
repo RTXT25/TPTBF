@@ -167,8 +167,8 @@ var systemComponents = {
 				<td><button class="opt" onclick="toggleOpt('forceTooltips'); needsCanvasUpdate = true">Shift-Click to Toggle Tooltips: {{ options.forceTooltips?"ON":"OFF" }}</button></td>
 			</tr>
 			<tr>
-                <td><button class="opt" onclick="display_mode()">Color Text Mode: {{ DISPLAY_MODES[options.colorDisplayMode] }}</button></td>
-				<td><button class="opt" onclick="color_display()">Colored Text: {{ COLOR_DISPLAYS[options.colorDisplay] }}</button></td>
+                <td><button class="opt" onclick="display_mode();fullcolordisplay()">Color Text Mode: {{ DISPLAY_MODES[options.colorDisplayMode] }}</button></td>
+				<td><button class="opt" onclick="color_display();fullcolordisplay()">Colored Text: {{ COLOR_DISPLAYS[options.colorDisplay] }}</button></td>
 			</tr>
         </table>
 		`

@@ -267,7 +267,7 @@ addLayer("info-tab", {
 });
 
 addLayer("options-tab", {
-    tabFormat: ["options-tab"],
+    tabFormat: ["options-tab", "blank"],
     row: "otherside"
 });
 
