@@ -399,7 +399,6 @@ addLayer("SC", {
     update(diff) {
         if (player.p.divinity.gte(player.p.divinitysoftcap_start[0]) && !player.SC.softcaps.includes("p-d1")) {
             player.SC.softcaps.push("p-d1");
-            player.SC.points = player.SC.points.add(1);
         };
         if (player.p.divinity.gte(player.p.divinitysoftcap_start[1]) && !player.SC.softcaps.includes("p-d2")) {
             player.SC.softcaps.push("p-d2");
@@ -2787,8 +2786,8 @@ addLayer("p", {
         best: new Decimal(0),
         total: new Decimal(0),
         divinity: new Decimal(0),
-        divinitysoftcap_start: [new Decimal(1e100), new Decimal(1e200)],
-        divinitysoftcap_power: [0.95, 0.9],
+        divinitysoftcap_start: [new Decimal(1e150), new Decimal("1e1000")],
+        divinitysoftcap_power: [0.95, 0.8],
         holiness: new Decimal(0),
         hymn: new Decimal(0),
         hymnEff: new Decimal(0),
@@ -2838,7 +2837,7 @@ addLayer("p", {
         if (player.p.auto_upgrades) {
             notsmart = !player.p.smart_auto_upgrades;
             buyUpgrade('p', 11);
-            if (notsmart) buyUpgrade('p', 12);
+            if (notsmart || player.p.points.gte(1000)) buyUpgrade('p', 12);
             buyUpgrade('p', 13);
             buyUpgrade('p', 14);
             if (hasUpgrade('p', 14)) buyUpgrade('p', 15);
@@ -2870,6 +2869,10 @@ addLayer("p", {
                 buyUpgrade('p', 63);
                 buyUpgrade('p', 64);
                 if (hasUpgrade('p', 64)) buyUpgrade('p', 65);
+                buyUpgrade('p', 71);
+                buyUpgrade('p', 72);
+                buyUpgrade('p', 73);
+                buyUpgrade('p', 74);
             };
         };
     },
@@ -2882,7 +2885,7 @@ addLayer("p", {
         if (hasUpgrade('p', 33)) effBoost = effBoost.mul(upgradeEffect('p', 33));
         if (hasUpgrade('p', 42)) effBoost = effBoost.mul(upgradeEffect('p', 42));
         if (hasMilestone('p', 2)) effEx = new Decimal(1.5);
-        if (hasMilestone('p', 3)) effEx = new Decimal(1.75);
+        if (hasMilestone('p', 3)) effEx = new Decimal(1.6);
         eff = effBoost.mul(player.p.points).pow(effEx);
         sc_start0 = player.p.divinitysoftcap_start[0];
         sc_start1 = player.p.divinitysoftcap_start[1];
@@ -2976,10 +2979,10 @@ addLayer("p", {
             unlocked() { if (hasUpgrade('p', 41)) return true },
         },
         3: {
-            requirementDescription: "1.00e36 prayers",
-            effectDescription: "divinity gain is raised to the power<br>of 1.75 instead of 1.5",
-            done() { return player.p.points.gte(1e36)},
-            unlocked() { if (hasMilestone('p', 2) && player.s.points.gt(1)) return true },
+            requirementDescription: "1.00e55 prayers",
+            effectDescription: "divinity gain is raised to the power<br>of 1.6 instead of 1.5",
+            done() { return player.p.points.gte(1e55)},
+            unlocked() { if (player.p.points.gte(1e50) || (hasMilestone('p', 2) && player.s.points.gt(3))) return true },
         },
     },
     upgrades: {
@@ -3364,12 +3367,12 @@ addLayer("p", {
         },
         64: {
             fullDisplay() {
-                text = '<h3>Silver Sanctums</h3><br>Req: 1.00e25 prayers, 2 sanctums, and all previous research';
+                text = '<h3>Silver Sanctums</h3><br>Req: 2.50e25 prayers, 2 sanctums, and all previous research';
                 if (this.canAfford()) text += '<br><br><b>Requirements met!';
                 return text;
             },
             canAfford() {
-                if (player.p.points.gte(1e25) && player.s.points.gte(2) && hasUpgrade('p', 15) && hasUpgrade('p', 25) && hasUpgrade('p', 35) && hasUpgrade('p', 45) && hasUpgrade('p', 55)) return true;
+                if (player.p.points.gte(2.5e25) && player.s.points.gte(2) && hasUpgrade('p', 15) && hasUpgrade('p', 25) && hasUpgrade('p', 35) && hasUpgrade('p', 45) && hasUpgrade('p', 55)) return true;
                 return false;
             },
             style: {'height':'120px','border':'2px dashed','border-color':'#FF8800','background-color':'#0088FF'},
@@ -3382,7 +3385,7 @@ addLayer("p", {
             description() {
                 return 'reduces sanctum gain exponent<br>5 --> 4';
             },
-            cost: 2.5e25,
+            cost: 1e25,
             style: {'height':'120px'},
             unlocked() { return hasUpgrade('p', 64) },
         },
@@ -3391,11 +3394,11 @@ addLayer("p", {
                 return '<b class="layer-p' + getdark(this, "title") + 'Divine Sanctums';
             },
             description() {
-                return 'multiplies divinity gain after all softcaps based on the amount of sanctums you have';
+                return 'multiplies divinity gain (unaffected by softcaps) based on the amount of sanctums you have';
             },
             cost: 1e30,
             effect() {
-                return player.s.points.add(1).mul(10).pow(0.9);
+                return player.s.points.mul(30).add(1).pow(0.95);
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
             style: {'height':'120px'},
@@ -3408,7 +3411,7 @@ addLayer("p", {
             description() {
                 return 'multiplies point gain based on the amount of sanctums you have';
             },
-            cost: 1e60,
+            cost: 1e75,
             effect() {
                 return player.s.points.mul(25).add(1).pow(0.5);
             },
@@ -3423,7 +3426,7 @@ addLayer("p", {
             description() {
                 return 'multiplies prayer gain based on the amount of sanctums you have';
             },
-            cost: 1e90,
+            cost: 1e125,
             effect() {
                 return player.s.points.mul(2).add(1).pow(1.5);
             },
@@ -3437,7 +3440,7 @@ addLayer("p", {
             },
             description() { return 'reduces sanctum gain exponent if you have <b class="layer-p' + getdark(this, "ref") + 'Silver Sanctums</b><br>4 --> 3.5' 
         },
-            cost: 1e120,
+            cost: 1e175,
             style: {'height':'120px'},
             unlocked() { return hasMilestone('s', 3) && hasUpgrade('p', 41) },
         },
