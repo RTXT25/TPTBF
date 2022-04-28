@@ -3767,7 +3767,7 @@ addLayer("r", {
         ["display-text",
             function() {
                 if (colorvalue[1] == "none") {
-                    text = 'you have <h2>';
+                    text = 'you have ' + player.r.points.sub(challengeCompletions('r', 11)) + ' unactivated relics and ' + challengeCompletions('r', 11) + ' activated relics';
                 } else {
                     text = 'you have <h2 class="layer-r">' + player.r.points.sub(challengeCompletions('r', 11)) + '</h2> unactivated relics and <h2 class="layer-r">' + challengeCompletions('r', 11) + '</h2> activated relics';
                 };
@@ -3818,7 +3818,9 @@ addLayer("r", {
                 else if (num.lt(90)) color = 'CCCCFF';
                 else if (num.lt(97)) color = 'DDDDFF';
                 else color = 'EEEEFF';
-                return {'background-color':'#'+color,'color':'#B9A975','border-radius':'25px','height':'350px','width':'350px'};
+                textcolor = 'B9A975';
+                if (colorvalue[1] == "none") textcolor = 'DFDFDF';
+                return {'background-color':'#'+color,'color':'#'+textcolor,'border-radius':'25px','height':'350px','width':'350px'};
             },
         },
     },
