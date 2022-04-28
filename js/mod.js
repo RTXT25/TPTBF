@@ -10,18 +10,20 @@ let modInfo = {
 };
 
 let VERSION = {
-	num: "1.6",
-	name: "Inner Sanctum",
+	num: "2.0",
+	name: "Sanctums of Color",
 };
 
 let changelog = `<h1>Changelog:</h1><br>
-	<br><h3>v1.6: Inner Sanctum</h3><br>
+	<br><h3>v2.0: Sanctums of Color</h3><br>
 		- Added sanctums.<br>
 		- Added six milestones to sanctums.<br>
+		- Added four upgrades to prayers.<br>
 		- Added six researchable upgrades to prayers.<br>
 		- Added one achievement.<br>
 		- Changed 'best' and 'total' format.<br>
 		- Added custom colored text. Vibing!<br>
+		- Added two options.<br>
 		- Balance changes.<br>
 	<br><h3>v1.5: Creativity Rules</h3><br>
 		- Added one milestone to atoms.<br>
