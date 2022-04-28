@@ -238,8 +238,8 @@ addLayer("A", {
         },
         55: {
             name: "The Universe in a Particle",
-            done() {return player.sp.points.gte(1e9)},
-            tooltip: "obtain 1e9 subatomic particles.",
+            done() {return player.sp.points.gte(1e10)},
+            tooltip: "obtain 1e10 subatomic particles.",
             unlocked() { if (hasAchievement("A", 54)) return true },
         },
         56: {
@@ -270,10 +270,16 @@ addLayer("A", {
             image() { if (hasAchievement("A", 63)) return "images/achievements/63.png" },
         },
         64: {
-            name: "The Advent (of the universe ending)",
+            name: "The Advent of the End",
             done() {return player.h.points.gte(new Decimal("1e1000"))},
             tooltip: "obtain 1e1,000 hexes.",
             unlocked() { if (hasAchievement("A", 63)) return true },
+        },
+        65: {
+            name: "Nihilism: Nothing is There",
+            done() {return player.h.points.gte(new Decimal("1e10000"))},
+            tooltip: "obtain 1e10,000 hexes.",
+            unlocked() { if (hasAchievement("A", 64)) return true },
         },
         66: {
             name: "Same Old Tricks",
@@ -361,6 +367,12 @@ addLayer("A", {
             tooltip: "obtain 1e1,000 prayers.",
             unlocked() { if (hasAchievement("A", 93)) return true },
         },
+        96: {
+            name: "Persistence",
+            done() {return player.p.points.gte(1e10) && player.h.points.eq(0) && player.sp.points.eq(0) && player.s.points.eq(0)},
+            tooltip: "obtain 1e10 prayers with no hexes, subatomic particles, and sanctums.",
+            unlocked() { if (hasAchievement("A", 92) && hasAchievement("A", 101)) return true },
+        },
         101: {
             name: "Church Sanctum",
             done() {return player.s.points.gte(1)},
@@ -399,57 +411,82 @@ addLayer("SC", {
     effectDescription() {
         core = 0;
         quark = 0;
+        hex = 0;
         divine = 0;
-        text = ["of which ", ", ", ", and "];
+        text = ["of which "];
         textfin = "";
         textvalue = 0;
-        if (player.SC.softcaps.includes("p-d1")) {
+        if (player.SC.softcaps.includes("c1")) {
             core += 1;
         };
-        if (player.SC.softcaps.includes("p-d1")) {
+        if (player.SC.softcaps.includes("q1")) {
             quark += 1;
+        };
+        if (player.SC.softcaps.includes("h1")) {
+            hex += 1;
         };
         if (player.SC.softcaps.includes("p-d1")) {
             divine += 1;
         };
         if (colorvalue[1] == "none") {
             if (core > 0) {
-                text[textvalue] += core + ' is core</h2>';
-                textvalue += 1;
+                text.push(core + ' is core</h2>');
             };
             if (quark > 0) {
-                text[textvalue] += core + ' is quark</h2>';
-                textvalue += 1;
+                text.push(quark + ' is quark</h2>');
+            };
+            if (hex > 0) {
+                text.push(hex + ' is hexed</h2>');
             };
             if (divine > 0) {
-                text[textvalue] += core + ' is divine</h2>';
-                textvalue += 1;
+                text.push(divine + ' is divine</h2>');
             };
         } else {
             if (core > 0) {
-                text[textvalue] += '<h2 class="layer-c">' + core + '</h2> is <h2 class="layer-c">core</h2>';
-                textvalue += 1;
+                text.push('<h2 class="layer-c">' + core + '</h2> is <h2 class="layer-c">core</h2>');
             };
             if (quark > 0) {
-                text[textvalue] += '<h2 class="layer-q">' + core + '</h2> is <h2 class="layer-q">quark</h2>';
-                textvalue += 1;
+                text.push('<h2 class="layer-q">' + quark + '</h2> is <h2 class="layer-q">quark</h2>');
+            };
+            if (hex > 0) {
+                text.push('<h2 class="layer-h">' + hex + '</h2> is <h2 class="layer-h">hexed</h2>');
             };
             if (divine > 0) {
-                text[textvalue] += '<h2 class="layer-p">' + core + '</h2> is <h2 class="layer-p">divine</h2>';
-                textvalue += 1;
+                text.push('<h2 class="layer-p">' + divine + '</h2> is <h2 class="layer-p">divine</h2>');
             };
         };
         textfin = text[0];
-        if (textvalue > 0) textfin += text[1];
-        if (textvalue > 1) textfin += text[2];
+        if (text.length > 1) {
+            if (text.length == 2) textfin += "and ";
+            else textfin += ", ";
+            textfin += text[1];
+        };
+        if (text.length > 2) {
+            if (text.length == 3) textfin += ", and ";
+            else textfin += ", ";
+            textfin += text[2];
+        };
+        if (text.length > 3) {
+            if (text.length == 4) textfin += ", and ";
+            else textfin += ", ";
+            textfin += text[3];
+        };
+        if (text.length > 4) {
+            if (text.length == 5) textfin += ", and ";
+            else textfin += ", ";
+            textfin += text[4];
+        };
         return textfin;
     },
     update(diff) {
-        if (player.c.points.gte(player.c.softcap) && !player.SC.softcaps.includes("c1")) {
+        if (player.c.points.gte(layers.c.softcap) && !player.SC.softcaps.includes("c1")) {
             player.SC.softcaps.push("c1");
         };
-        if (player.q.points.gte(player.q.softcap) && !player.SC.softcaps.includes("q1")) {
+        if (player.q.points.gte(layers.q.softcap) && !player.SC.softcaps.includes("q1")) {
             player.SC.softcaps.push("q1");
+        };
+        if (player.h.points.gte(layers.h.softcap) && !player.SC.softcaps.includes("h1")) {
+            player.SC.softcaps.push("h1");
         };
         if (player.p.divinity.gte(player.p.divinitysoftcap_start[0]) && !player.SC.softcaps.includes("p-d1")) {
             player.SC.softcaps.push("p-d1");
@@ -463,6 +500,7 @@ addLayer("SC", {
                 text = "";
                 if (player.SC.softcaps.includes("c1")) text += '<br><h2 class="layer-c">Core Gain Softcap</h2><br>starts at ' + format(layers.c.softcap) + ', gain to ^' + layers.c.softcapPower + '<br>';
                 if (player.SC.softcaps.includes("q1")) text += '<br><h2 class="layer-q">Quark Gain Softcap</h2><br>starts at ' + format(layers.q.softcap) + ', gain to ^' + layers.q.softcapPower + '<br>';
+                if (player.SC.softcaps.includes("h1")) text += '<br><h2 class="layer-h">Hex Gain Softcap</h2><br>starts at ' + format(layers.h.softcap) + ', gain to ^' + layers.h.softcapPower + '<br>';
                 if (player.SC.softcaps.includes("p-d1")) text += '<br><h2 class="layer-p">Divinity Gain Softcap</h2><br>starts at ' + format(player.p.divinitysoftcap_start[0]) + ', gain to ^' + player.p.divinitysoftcap_power[0] + '<br>';
                 return text;
             }],
@@ -590,7 +628,7 @@ addLayer("e", {
                 return eff;
             },
             effectDisplay() {
-                if (this.effect().gte("1e1750")) return format(upgradeEffect(this.layer, this.id)) + "x<br>(hardcapped)";
+                if (this.effect().gte("1e1750")) return format(upgradeEffect(this.layer, this.id)) + "x<br>.(hardcapped)";
                 return format(upgradeEffect(this.layer, this.id)) + "x";
             },
             style: {'height':'120px'},
@@ -1135,7 +1173,7 @@ addLayer("q", {
         return new Decimal(1);
     },
     softcap: new Decimal("1e1250"),
-    softcapPower: 0.7,
+    softcapPower: 0.6,
     row: 1,
     hotkeys: [
         {key: "q", description: "Q: Reset for quarks", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
@@ -1748,6 +1786,8 @@ addLayer("h", {
     gainExp() {
         return new Decimal(1);
     },
+    softcap: new Decimal("1e1000"),
+    softcapPower: 0.5,
     row: 2,
     hotkeys: [
         {key: "h", description: "H: Reset for hexes", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
@@ -2887,6 +2927,13 @@ addLayer("p", {
         {key: "p", description: "P: Reset for prayers", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
     layerShown(){return player.a.unlocked},
+    passiveGeneration() {
+        let gen = 0;
+        if (hasMilestone("s", 7)) {
+            gen += 0.001;
+        };
+        return gen;
+    },
     automate() {
         if (player.p.auto_upgrades) {
             notsmart = !player.p.smart_auto_upgrades;
@@ -2966,11 +3013,12 @@ addLayer("p", {
                 mult = new Decimal(1);
                 if (hasUpgrade('p', 61)) mult = mult.mul(upgradeEffect('p', 61));
                 if (hasUpgrade('p', 23) && hasUpgrade('p', 25)) player.p.holiness = player.p.holiness.add(player.p.divinity.mul(0.08).mul(mult));
-                if (hasUpgrade('p', 23)) player.p.holiness = player.p.holiness.add(player.p.divinity.mul(0.06).mul(mult));
+                else if (hasUpgrade('p', 23)) player.p.holiness = player.p.holiness.add(player.p.divinity.mul(0.06).mul(mult));
                 else player.p.holiness = player.p.holiness.add(player.p.divinity.mul(0.04).mul(mult));
             };
             if (hasUpgrade('p', 41) && resettingLayer == "p") {
-                if (hasUpgrade('p', 51)) player.p.hymn = player.p.hymn.add(player.p.holiness.div(200).floor());
+                if (hasUpgrade('p', 51) && hasUpgrade('p', 55)) player.p.hymn = player.p.hymn.add(player.p.holiness.div(175).floor());
+                else if (hasUpgrade('p', 51)) player.p.hymn = player.p.hymn.add(player.p.holiness.div(200).floor());
                 else player.p.hymn = player.p.hymn.add(player.p.holiness.div(250).floor());
             };
             if (layers[resettingLayer].row >= this.row) player.p.divinity = new Decimal(0);
@@ -2981,7 +3029,22 @@ addLayer("p", {
             };
         },
     update(diff) {
-        if (tmp.p.effect.gt(0)) player.p.divinity = player.p.divinity.add(tmp.p.effect.mul(diff));
+        if (tmp.p.effect.gt(0)) {
+            player.p.divinity = player.p.divinity.add(tmp.p.effect.mul(diff));
+            if (hasMilestone('s', 8) && hasUpgrade('p', 22)) {
+                mult = new Decimal(1);
+                if (hasUpgrade('p', 61)) mult = mult.mul(upgradeEffect('p', 61));
+                if (hasUpgrade('p', 23) && hasUpgrade('p', 25)) player.p.holiness = player.p.holiness.add(player.p.divinity.mul(0.08).mul(mult).mul(diff).mul(0.001));
+                if (hasUpgrade('p', 23)) player.p.holiness = player.p.holiness.add(player.p.divinity.mul(0.06).mul(mult).mul(diff).mul(0.001));
+                else player.p.holiness = player.p.holiness.add(player.p.divinity.mul(0.04).mul(mult).mul(diff).mul(0.001));
+            };
+            if (hasMilestone('s', 9) && hasUpgrade('p', 41)) {
+                mult = new Decimal(1);
+                if (hasUpgrade('p', 51) && hasUpgrade('p', 55)) player.p.hymn = player.p.hymn.add(player.p.holiness.div(175).mul(diff).mul(0.001).floor());
+                else if (hasUpgrade('p', 51)) player.p.hymn = player.p.hymn.add(player.p.holiness.div(200).mul(diff).mul(0.001).floor());
+                else player.p.hymn = player.p.hymn.add(player.p.holiness.div(250).mul(diff).mul(0.001).floor());
+            };
+        };
         if (hasUpgrade('p', 41)) {
             if (hasUpgrade('p', 43) && hasUpgrade('p', 52) && hasUpgrade('p', 53)) player.p.hymnEff = player.p.hymn.add(1).pow(0.25);
             else if (hasUpgrade('p', 43) && hasUpgrade('p', 52)) player.p.hymnEff = player.p.hymn.add(1).pow(0.225);
@@ -3598,6 +3661,21 @@ addLayer("s", {
             effectDescription: "you can have autobuy prayer upgrades<br>option be smart (toggle on or off)",
             done() { return player.s.points.gte(7) },
             toggles: [["p", "smart_auto_upgrades"]],
+        },
+        7: {
+            requirementDescription: "8 sanctums",
+            effectDescription: "gain 0.1% of prayer gain per second",
+            done() { return player.s.points.gte(8) },
+        },
+        8: {
+            requirementDescription: "9 sanctums",
+            effectDescription: "gain 0.1% of holiness gain per second",
+            done() { return player.s.points.gte(9) },
+        },
+        9: {
+            requirementDescription: "10 sanctums",
+            effectDescription: "gain 0.1% of hymn gain per second",
+            done() { return player.s.points.gte(10) },
         },
     },
 });
