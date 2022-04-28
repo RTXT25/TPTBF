@@ -391,6 +391,18 @@ addLayer("A", {
             tooltip: "obtain 100 sanctums.",
             unlocked() { if (hasAchievement("A", 102)) return true },
         },
+        111: {
+            name: "Ancient Relic",
+            done() {return player.r.points.gte(1)},
+            tooltip: "obtain 1 relic.",
+            unlocked() { if (hasAchievement("A", 111)) return true },
+        },
+        112: {
+            name: "Relic Stash",
+            done() {return player.r.points.gte(10)},
+            tooltip: "obtain 10 relics.",
+            unlocked() { if (hasAchievement("A", 111)) return true },
+        },
     },
 });
 
@@ -629,7 +641,9 @@ addLayer("e", {
             cost: 2,
             effect() {
                 eff = player.e.points.add(1).pow(0.5);
-                if (eff.gte("1e1750")) return new Decimal("1e1750");
+                hardcap = new Decimal("1e1750");
+                if (tmp.r.effect.gt(1)) hardcap = hardcap.mul(tmp.r.effect)
+                if (eff.gt(hardcap)) return hardcap;
                 return eff;
             },
             effectDisplay() {
@@ -2480,7 +2494,7 @@ addLayer("ds", {
 addLayer("a", {
     name: "Atoms",
     symbol: "A",
-    position: 1,
+    position: 2,
     startData() { return {
         unlocked: false,
         points: new Decimal(0),
@@ -3014,6 +3028,7 @@ addLayer("p", {
             if (resettingLayer == "sp") keep.push("points", "best", "total", "milestones");
             if (hasMilestone('s', 5)) keep.push("auto_upgrades");
             if (hasMilestone('s', 6)) keep.push("smart_auto_upgrades");
+            if (hasMilestone('r', 0) && resettingLayer == "r") keep.push("milestones");
             if (hasUpgrade('p', 22) && resettingLayer == "p") {
                 mult = new Decimal(1);
                 if (hasUpgrade('p', 61)) mult = mult.mul(upgradeEffect('p', 61));
@@ -3579,6 +3594,7 @@ addLayer("s", {
         if (player.p.points.gte(1e15) || player.s.unlocked) return "#AAFF00";
         return "#666666";
     },
+    branches: ["r"],
     requires: 1e15,
     resource: "sanctums",
     baseResource: "prayers",
@@ -3599,6 +3615,7 @@ addLayer("s", {
     },
     gainExp() {
         gain = new Decimal(1);
+        if (player.r.sanctummult.gt(1)) gain = gain.mul(player.r.sanctummult);
         return gain;
     },
     row: 2,
@@ -3676,6 +3693,74 @@ addLayer("s", {
             requirementDescription: "9 sanctums",
             effectDescription: "gain 0.2% of holiness and hymn gain per second",
             done() { return player.s.points.gte(9) },
+        },
+    },
+});
+
+addLayer("r", {
+    name: "Relics", 
+    symbol: "R",
+    position: 1,
+    startData() { return {
+        unlocked: false,
+        points: new Decimal(0),
+        best: new Decimal(0),
+        total: new Decimal(0),
+        sanctummult: new Decimal(1),
+    }},
+    color() {
+        if (player.s.points.gte(10) || player.r.unlocked) return "#B9A975";
+        return "#666666";
+    },
+    requires: 10,
+    resource: "relics",
+    baseResource: "sanctums",
+    baseAmount() {return player.s.points},
+    type: "static",
+    exponent: 1.2,
+    canBuyMax() {
+        if (hasMilestone('r', 0)) return true;
+        return false;
+    },
+    gainMult() {
+        mult = new Decimal(1);
+        return mult;
+    },
+    gainExp() {
+        gain = new Decimal(1);
+        return gain;
+    },
+    row: 3,
+    hotkeys: [
+        {key: "r", description: "R: Reset for relics", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
+    ],
+    layerShown(){return player.p.unlocked},
+    effect() {
+        effBoost = new Decimal(1);
+        player.r.sanctummult = player.r.points.add(1).pow(0.5).mul(effBoost);
+        return player.r.points.mul(effBoost).div(10).add(1);
+    },
+    effectDescription() {
+        if (colorvalue[1] == "none") return 'which makes Essence Influence\'s hardcap start ' + format(tmp.r.effect) + 'x later, and also multiplies sanctum gain by ' + format(player.r.sanctummult) + 'x';
+        if (!colorvalue[0][2]) return 'which makes <h3>Essence Influence\'s</h3> hardcap start <h2 class="layer-r">' + format(tmp.r.effect) + '</h2>x later, and also multiplies sanctum gain by <h2 class="layer-r">' + format(player.r.sanctummult) + '</h2>x';
+        return 'which makes <h3 class="layer-e">Essence Influence\'s</h3> hardcap start <h2 class="layer-r">' + format(tmp.r.effect) + '</h2>x later, and also multiplies sanctum gain by <h2 class="layer-r">' + format(player.r.sanctummult) + '</h2>x';
+    },
+    doReset(resettingLayer) {
+        let keep = [];
+            if (layers[resettingLayer].row > this.row) layerDataReset("r", keep);
+        },
+    tabFormat: [
+        "main-display",
+        "prestige-button",
+        "resource-display",
+        "blank",
+        "milestones",
+    ],
+    milestones: {
+        0: {
+            requirementDescription: "1 relic",
+            effectDescription: "you can buy max relics and keep prayer milestones on reset",
+            done() { return player.r.points.gte(1) },
         },
     },
 });

@@ -56,8 +56,8 @@ h1, h2, h3, b, input {
 }
 
 .layer-sp-dark {
-	color: #350c81;
-	text-shadow: 0 0 10px #400AA1;
+	color: #2E0874;
+	text-shadow: 0 0 10px #2E0874;
 }
 
 .layer-h {
@@ -108,6 +108,16 @@ h1, h2, h3, b, input {
 .layer-s-dark {
 	color: #88DD00;
 	text-shadow: 0 0 10px #88DD00;
+}
+
+.layer-r {
+	color: #B9A975;
+	text-shadow: 0 0 10px #B9A975;
+}
+
+.layer-r-dark {
+	color: #8A7C4D;
+	text-shadow: 0 0 10px #8A7C4D;
 }
 
 /* These are styles for different states of components. You can make layer-specific versions with .c.locked, for example */
