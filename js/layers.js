@@ -385,6 +385,12 @@ addLayer("A", {
             tooltip: "obtain 10 sanctums.",
             unlocked() { if (hasAchievement("A", 101)) return true },
         },
+        103: {
+            name: "Greatest Sanctum",
+            done() {return player.s.points.gte(100)},
+            tooltip: "obtain 100 sanctums.",
+            unlocked() { if (hasAchievement("A", 102)) return true },
+        },
     },
 });
 
@@ -458,7 +464,6 @@ addLayer("SC", {
         textfin = text[0];
         if (text.length > 1) {
             if (text.length == 2) textfin += "and ";
-            else textfin += ", ";
             textfin += text[1];
         };
         if (text.length > 2) {
@@ -2930,7 +2935,7 @@ addLayer("p", {
     passiveGeneration() {
         let gen = 0;
         if (hasMilestone("s", 7)) {
-            gen += 0.001;
+            gen += 0.005;
         };
         return gen;
     },
@@ -3034,15 +3039,15 @@ addLayer("p", {
             if (hasMilestone('s', 8) && hasUpgrade('p', 22)) {
                 mult = new Decimal(1);
                 if (hasUpgrade('p', 61)) mult = mult.mul(upgradeEffect('p', 61));
-                if (hasUpgrade('p', 23) && hasUpgrade('p', 25)) player.p.holiness = player.p.holiness.add(player.p.divinity.mul(0.08).mul(mult).mul(diff).mul(0.001));
-                if (hasUpgrade('p', 23)) player.p.holiness = player.p.holiness.add(player.p.divinity.mul(0.06).mul(mult).mul(diff).mul(0.001));
-                else player.p.holiness = player.p.holiness.add(player.p.divinity.mul(0.04).mul(mult).mul(diff).mul(0.001));
+                if (hasUpgrade('p', 23) && hasUpgrade('p', 25)) player.p.holiness = player.p.holiness.add(player.p.divinity.mul(0.08).mul(mult).mul(diff).mul(0.002));
+                if (hasUpgrade('p', 23)) player.p.holiness = player.p.holiness.add(player.p.divinity.mul(0.06).mul(mult).mul(diff).mul(0.002));
+                else player.p.holiness = player.p.holiness.add(player.p.divinity.mul(0.04).mul(mult).mul(diff).mul(0.002));
             };
-            if (hasMilestone('s', 9) && hasUpgrade('p', 41)) {
+            if (hasMilestone('s', 8) && hasUpgrade('p', 41)) {
                 mult = new Decimal(1);
-                if (hasUpgrade('p', 51) && hasUpgrade('p', 55)) player.p.hymn = player.p.hymn.add(player.p.holiness.div(175).mul(diff).mul(0.001).floor());
-                else if (hasUpgrade('p', 51)) player.p.hymn = player.p.hymn.add(player.p.holiness.div(200).mul(diff).mul(0.001).floor());
-                else player.p.hymn = player.p.hymn.add(player.p.holiness.div(250).mul(diff).mul(0.001).floor());
+                if (hasUpgrade('p', 51) && hasUpgrade('p', 55)) player.p.hymn = player.p.hymn.add(player.p.holiness.div(175).mul(diff).mul(0.002).floor());
+                else if (hasUpgrade('p', 51)) player.p.hymn = player.p.hymn.add(player.p.holiness.div(200).mul(diff).mul(0.002).floor());
+                else player.p.hymn = player.p.hymn.add(player.p.holiness.div(250).mul(diff).mul(0.002).floor());
             };
         };
         if (hasUpgrade('p', 41)) {
@@ -3551,7 +3556,7 @@ addLayer("p", {
             title() {
                 return '<b class="layer-p' + getdark(this, "title") + 'Gold Sanctums';
             },
-            description() { return 'reduces sanctum gain exponent if you have <b class="layer-p' + getdark(this, "ref") + 'Silver Sanctums</b><br>4 --> 3.5' 
+            description() { return 'reduces sanctum gain exponent if you have <b class="layer-p' + getdark(this, "ref") + 'Silver Sanctums</b><br>4 --> 3.48' 
         },
             cost: 1e175,
             style: {'height':'120px'},
@@ -3580,7 +3585,7 @@ addLayer("s", {
     baseAmount() {return player.p.points},
     type: "static",
     exponent() {
-        if (hasUpgrade('p', 65) && hasUpgrade('p', 74)) return 3.5;
+        if (hasUpgrade('p', 65) && hasUpgrade('p', 74)) return 3.48;
         if (hasUpgrade('p', 65)) return 4;
         return 5;
     },
@@ -3664,18 +3669,13 @@ addLayer("s", {
         },
         7: {
             requirementDescription: "8 sanctums",
-            effectDescription: "gain 0.1% of prayer gain per second",
+            effectDescription: "gain 0.5% of prayer gain per second",
             done() { return player.s.points.gte(8) },
         },
         8: {
             requirementDescription: "9 sanctums",
-            effectDescription: "gain 0.1% of holiness gain per second",
+            effectDescription: "gain 0.2% of holiness and hymn gain per second",
             done() { return player.s.points.gte(9) },
-        },
-        9: {
-            requirementDescription: "10 sanctums",
-            effectDescription: "gain 0.1% of hymn gain per second",
-            done() { return player.s.points.gte(10) },
         },
     },
 });
