@@ -26,8 +26,8 @@ h1, h2, h3, b, input {
 }
 
 .layer-e-dark {
-	color: #28A901;
-	text-shadow: 0 0 10px #28A901;
+	color: #078600;
+	text-shadow: 0 0 10px #078600;
 }
 
 .layer-c {
@@ -36,8 +36,8 @@ h1, h2, h3, b, input {
 }
 
 .layer-c-dark {
-	color: #A0A016;
-	text-shadow: 0 0 10px #A0A016;
+	color: #808005;
+	text-shadow: 0 0 10px #808005;
 }
 
 .layer-q {
@@ -56,8 +56,8 @@ h1, h2, h3, b, input {
 }
 
 .layer-sp-dark {
-	color: #500AA2;
-	text-shadow: 0 0 10px #500AA2;
+	color: #350c81;
+	text-shadow: 0 0 10px #400AA1;
 }
 
 .layer-h {
@@ -76,8 +76,8 @@ h1, h2, h3, b, input {
 }
 
 .layer-ds-dark {
-	color: #980013;
-	text-shadow: 0 0 10px #980013;
+	color: #980012;
+	text-shadow: 0 0 10px #980012;
 }
 
 .layer-a {
@@ -91,13 +91,13 @@ h1, h2, h3, b, input {
 }
 
 .layer-p {
-	color: #FBAAFF;
-	text-shadow: 0 0 10px #FBAAFF;
+	color: #FDBBFF;
+	text-shadow: 0 0 10px #FDBBFF;
 }
 
 .layer-p-dark {
-	color: #D877DD;
-	text-shadow: 0 0 10px #D877DD;
+	color: #D766DD;
+	text-shadow: 0 0 10px #D766DD;
 }
 
 .layer-s {
