@@ -114,14 +114,17 @@ let winText = `<h3>You won the game!</h3><br>However, it isn't the end yet...<br
 
 // If you add new functions anywhere inside of a layer, and those functions have an effect when called, add them here.
 // (The ones here are examples, all official functions are already taken care of)
-function getdark(darkthis, type, special = false){
+function getdark(darkthis, type, special = false, research = false){
 	if (darkthis.layer !== undefined) {
 		if (colorvalue[1] == "dark") return '-dark">';
 		if (colorvalue[1] == "none") return '-OFF">';
 		if ((type == "title" && colorvalue[0][1]) || (type == "ref" && colorvalue[0][2])) {
-			if (special) darkcanafford = darkthis.canAfford();
-			else darkcanafford = new Decimal(player[darkthis.layer].points).gte(darkthis.cost);
-			if (darkcanafford && !hasUpgrade(darkthis.layer, darkthis.id)) return '-dark">';
+			if (research) return '">';
+			else {
+				if (special) darkcanafford = darkthis.canAfford();
+				else darkcanafford = new Decimal(player[darkthis.layer].points).gte(darkthis.cost);
+				if (darkcanafford && !hasUpgrade(darkthis.layer, darkthis.id)) return '-dark">';
+			};
 		} else if (type == "title-buyable" && colorvalue[0][1]) {
 			darkcanafford = darkthis.canAfford();
 			if (darkcanafford && getBuyableAmount(darkthis.layer, darkthis.id).lt(darkthis.purchaseLimit)) return '-dark">';

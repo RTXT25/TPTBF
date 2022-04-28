@@ -725,7 +725,7 @@ addLayer("c", {
     }},
     color() {
         if (player.e.points.gte(10000) || player.c.unlocked) return "#D2D237";
-        return "#888888";
+        return "#666666";
     },
     branches: ["h"],
     requires: 10000,
@@ -1033,7 +1033,7 @@ addLayer("q", {
     }},
     color() {
         if (player.e.points.gte(1e9) || player.q.unlocked) return "#DB5196";
-        return "#888888";
+        return "#666666";
     },
     branches: ["sp"],
     requires: 1e9,
@@ -1470,7 +1470,7 @@ addLayer("sp", {
     }},
     color() {
         if (player.q.points.gte(1e15) || player.sp.unlocked) return "#710CC4";
-        return "#888888";
+        return "#666666";
     },
     branches: ["a"],
     requires: 1e15,
@@ -1655,7 +1655,7 @@ addLayer("h", {
     }},
     color() {
         if (player.c.points.gte(1e60) || player.h.unlocked) return "#E36409";
-        return "#888888";
+        return "#666666";
     },
     branches: ["ds"],
     requires: 1e60,
@@ -2086,7 +2086,7 @@ addLayer("ds", {
     }},
     color() {
         if (player.h.points.gte(1e60) || player.ds.unlocked) return "#BA0035";
-        return "#888888";
+        return "#666666";
     },
     requires: 1e60,
     resource: "demon souls",
@@ -2384,7 +2384,7 @@ addLayer("a", {
     }},
     color() {
         if (player.sp.points.gte(10000) || player.a.unlocked) return "#4D2FE0";
-        return "#888888";
+        return "#666666";
     },
     requires: 1000,
     resource: "atoms",
@@ -2796,8 +2796,8 @@ addLayer("p", {
         smart_auto_upgrades: false,
     }},
     color() {
-        if (player.e.points.gte(new Decimal("1e1000")) || player.p.unlocked) return "#FBAAFF";
-        return "#888888";
+        if (player.e.points.gte(new Decimal("1e1000")) || player.p.unlocked) return "#FDBBFF";
+        return "#666666";
     },
     branches: ["s"],
     requires: new Decimal("1e1000"),
@@ -3023,7 +3023,7 @@ addLayer("p", {
         },
         14: {
             fullDisplay() {
-                text = '<h3 class="layer-p' + getdark(this, "title", true) + 'Prayer Divination</h3><br>Req: 100 divinity with having 0 holiness';
+                text = '<h3 class="layer-p' + getdark(this, "title", true, true) + 'Prayer Divination</h3><br>Req: 100 divinity with having 0 holiness';
                 if (this.canAfford()) text += '<br><br><b>Requirements met!';
                 return text;
             },
@@ -3089,7 +3089,7 @@ addLayer("p", {
         },
         24: {
             fullDisplay() {
-                text = '<h3 class="layer-p' + getdark(this, "title", true) + 'Holy Conversion</h3><br>Req: 75 holiness without owning <b class="layer-p' + getdark(this, "ref", true) + 'Church Relics</b>';
+                text = '<h3 class="layer-p' + getdark(this, "title", true, true) + 'Holy Conversion</h3><br>Req: 75 holiness without owning <b class="layer-p' + getdark(this, "ref", true, true) + 'Church Relics</b>';
                 if (this.canAfford()) text += '<br><br><b>Requirements met!';
                 return text;
             },
@@ -3159,7 +3159,7 @@ addLayer("p", {
         },
         34: {
             fullDisplay() {
-                text = '<h3 class="layer-p' + getdark(this, "title", true) + 'Holy Shift</h3><br>Req: 1,000 holiness with 0 hymns';
+                text = '<h3 class="layer-p' + getdark(this, "title", true, true) + 'Holy Shift</h3><br>Req: 1,000 holiness with 0 hymns';
                 if (this.canAfford()) text += '<br><br><b>Requirements met!';
                 return text;
             },
@@ -3229,7 +3229,7 @@ addLayer("p", {
         },
         44: {
             fullDisplay() {
-                text = '<h3 class="layer-p' + getdark(this, "title", true) + 'Hymn Divination</h3><br>Req: 10,000,000 hymns without owning <b class="layer-p' + getdark(this, "ref", true) + 'Shorter Hymns</b>';
+                text = '<h3 class="layer-p' + getdark(this, "title", true, true) + 'Hymn Divination</h3><br>Req: 10,000,000 hymns without owning <b class="layer-p' + getdark(this, "ref", true, true) + 'Shorter Hymns</b>';
                 if (this.canAfford()) text += '<br><br><b>Requirements met!';
                 return text;
             },
@@ -3292,7 +3292,7 @@ addLayer("p", {
         },
         54: {
             fullDisplay() {
-                text = '<h3 class="layer-p' + getdark(this, "title", true) + 'Even Shorter</h3><br>Req: 1.00e10 hymns without owning <b class="layer-p' + getdark(this, "ref", true) + 'Holy Hymns</b>';
+                text = '<h3 class="layer-p' + getdark(this, "title", true, true) + 'Even Shorter</h3><br>Req: 1.00e10 hymns without owning <b class="layer-p' + getdark(this, "ref", true, true) + 'Holy Hymns</b>';
                 if (this.canAfford()) text += '<br><br><b>Requirements met!';
                 return text;
             },
@@ -3456,7 +3456,7 @@ addLayer("s", {
     }},
     color() {
         if (player.p.points.gte(1e15) || player.s.unlocked) return "#AAFF00";
-        return "#888888";
+        return "#666666";
     },
     requires: 1e15,
     resource: "sanctums",
