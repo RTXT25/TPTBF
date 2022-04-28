@@ -53,7 +53,7 @@ const MS_SETTINGS = ["always", "last", "automation", "incomplete", "never"];
 
 const DISPLAY_MODES = ["ALL", "ONLY SPECIAL", "SPECIAL AND TITLES", "SPECIAL AND REFRENCES"];
 
-const DISPLAY_MODE_INDEX = [1, 2, 3, 4];
+const DISPLAY_MODE_INDEX = [0, 1, 2, 3];
 
 const COLOR_DISPLAYS = ["ON - NORMAL", "ON - ALWAYS DARK", "OFF"];
 
