@@ -3028,7 +3028,6 @@ addLayer("p", {
             if (resettingLayer == "sp") keep.push("points", "best", "total", "milestones");
             if (hasMilestone('s', 5)) keep.push("auto_upgrades");
             if (hasMilestone('s', 6)) keep.push("smart_auto_upgrades");
-            if (hasMilestone('r', 0) && resettingLayer == "r") keep.push("milestones");
             if (hasUpgrade('p', 22) && resettingLayer == "p") {
                 mult = new Decimal(1);
                 if (hasUpgrade('p', 61)) mult = mult.mul(upgradeEffect('p', 61));
@@ -3706,6 +3705,10 @@ addLayer("r", {
         points: new Decimal(0),
         best: new Decimal(0),
         total: new Decimal(0),
+        lightreq: new Decimal(1000000),
+        light: new Decimal(0),
+        lightgain: new Decimal(0),
+        relic_effects: [new Decimal(0), new Decimal(0)],
         sanctummult: new Decimal(1),
     }},
     color() {
@@ -3717,10 +3720,9 @@ addLayer("r", {
     baseResource: "sanctums",
     baseAmount() {return player.s.points},
     type: "static",
-    exponent: 1.2,
+    exponent: 1.5,
     canBuyMax() {
-        if (hasMilestone('r', 0)) return true;
-        return false;
+        return true;
     },
     gainMult() {
         mult = new Decimal(1);
@@ -3749,18 +3751,75 @@ addLayer("r", {
         let keep = [];
             if (layers[resettingLayer].row > this.row) layerDataReset("r", keep);
         },
+    update(diff) {
+        player.r.lightreq = new Decimal(challengeCompletions('r', 11)).add(1).pow(2).mul(1000000);
+        player.r.relic_effects[0] = player.r.points.mul(10).add(1).pow(0.5);
+        if (inChallenge('r', 11)) {
+            player.r.lightgain = getPointGen(true).pow(0.001).div(10);
+            player.r.light = player.r.light.add(player.r.lightgain.mul(diff));
+        } else player.r.lightgain = new Decimal(0);
+    },
     tabFormat: [
         "main-display",
         "prestige-button",
         "resource-display",
         "blank",
-        "milestones",
+        ["display-text",
+            function() {
+                if (colorvalue[1] == "none") {
+                    text = 'you have <h2>';
+                } else {
+                    text = 'you have <h2 class="layer-r">' + player.r.points.sub(challengeCompletions('r', 11)) + '</h2> unactivated relics and <h2 class="layer-r">' + challengeCompletions('r', 11) + '</h2> activated relics';
+                };
+                return text;
+            }],
+        "blank",
+        "challenges",
+        "blank",
     ],
-    milestones: {
-        0: {
-            requirementDescription: "1 relic",
-            effectDescription: "you can buy max relics and keep prayer milestones on reset",
-            done() { return player.r.points.gte(1) },
+    challenges: {
+        11: {
+            name() {
+                if (colorvalue[0][1] && colorvalue[1] != "none") return '<h3 class="layer-r">Activate Relics';
+                return '<h3>Activate Relics';
+            },
+            challengeDescription() {
+                return 'Converts all point production into light production. Get enough light, and you can activate your relics for rewards.<br>';
+            },
+            goalDescription() {
+                return 'You have ' + format(player.r.light) + '/' + format(player.r.lightreq) + ' light.<br>(' + format(player.r.lightgain) + '/sec)<br>';
+            },
+            rewardDescription() {
+                text = "";
+                if (challengeCompletions('r', 11) == 0) text += 'nothing currently<br><br>Next reward: multiply essence gain based on the amount of relics you have';
+                if (challengeCompletions('r', 11) >= 1) text += 'multiply essence gain based on the amount of relics you have<br>Currently: ' + format(player.r.relic_effects[0]) + 'x<br>';
+                return text;
+            },
+            canComplete: function() {
+                return player.r.light.gte(player.r.lightreq);
+            },
+            completionLimit() {
+                return player.r.points;
+            },
+            style() {
+                num = player.r.light.div(player.r.lightreq).mul(100);
+                if (num.lt(7)) color = '000033';
+                else if (num.lt(14)) color = '111144';
+                else if (num.lt(21)) color = '222255';
+                else if (num.lt(28)) color = '333366';
+                else if (num.lt(34)) color = '444477';
+                else if (num.lt(41)) color = '555588';
+                else if (num.lt(48)) color = '666699';
+                else if (num.lt(55)) color = '7777AA';
+                else if (num.lt(62)) color = '8888BB';
+                else if (num.lt(69)) color = '9999CC';
+                else if (num.lt(76)) color = 'AAAADD';
+                else if (num.lt(83)) color = 'BBBBEE';
+                else if (num.lt(90)) color = 'CCCCFF';
+                else if (num.lt(97)) color = 'DDDDFF';
+                else color = 'EEEEFF';
+                return {'background-color':'#'+color,'color':'#B9A975','border-radius':'25px','height':'350px','width':'350px'};
+            },
         },
     },
 });

@@ -143,8 +143,8 @@ function canGenPoints(){
 };
 
 // Calculate points/sec!
-function getPointGen() {
-	let gain = new Decimal(1)
+function getPointGen(forced = false) {
+	let gain = new Decimal(1);
 	if (hasUpgrade('e', 11)) gain = gain.mul(1.5);
 	if (hasUpgrade('e', 12)) {
 		gain = gain.mul(upgradeEffect('e', 12));
@@ -189,7 +189,8 @@ function getPointGen() {
 	if (inChallenge('ds', 12)) gain = gain.mul(0.000001);
 	if (inChallenge('ds', 21)) gain = gain.mul(0.0000000001);
 	if (inChallenge('ds', 22)) gain = gain.mul(0.0000000001);
-	return gain
+	if (inChallenge('r', 11) && !forced) gain = new Decimal(0);
+	return gain;
 };
 
 // You can add non-layer related variables that should to into "player" and be saved here, along with default values
