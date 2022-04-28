@@ -13,16 +13,7 @@ addLayer("A", {
     tooltip() {return "Achievements"},
     effectDescription() {
         text = ["<br>", "", ""];
-        if (colorvalue[0][0]) {
-            if (hasUpgrade("ds", 21)) {
-                if (hasUpgrade('ds', 24)) text[0] += 'which are multiplying your point and essence gain by <h2 class="layer-A">' + format(player.A.points.mul(0.2)) + '</h2>x';
-                if (!hasUpgrade("ds", 24)) text[1] += 'and also multiplying essence gain by <h2 class="layer-A">' + format(player.A.points.mul(0.2)) + '</h2>x';
-                if (hasUpgrade("ds", 23) && !hasUpgrade("ds", 24) && !hasUpgrade("p", 31)) text[2] += 'addtionally, also multiplying core and quark gain by <h2 class="layer-A">' + format(player.A.points.pow(2).div(100)) + '</h2>x';
-                if (hasUpgrade("ds", 23) && hasUpgrade("ds", 24) && !hasUpgrade("p", 31)) text[1] += 'and also multiplying core and quark gain by <h2 class="layer-A">' + format(player.A.points.pow(2).div(100)) + '</h2>x';
-                if (hasUpgrade("ds", 23) && hasUpgrade("ds", 24) && hasUpgrade("p", 31)) text[1] += 'and also multiplying core, prayer, and quark gain by <h2 class="layer-A">' + format(player.A.points.pow(2).div(100)) + '</h2>x';
-            } else text[0] += 'which are multiplying your point gain by <h2 class="layer-A">' + format(player.A.points.mul(0.1).add(1)) + '</h2>x';
-            if (hasUpgrade('a', 51)) text[2] += 'additionally, also multiplying subatomic particle gain by <h2 class="layer-A">' + format(player.A.points.pow(1.25)) + '</h2>x';
-        } else {
+        if (colorvalue[1] == "none") {
             if (hasUpgrade("ds", 21)) {
                 if (hasUpgrade('ds', 24)) text[0] += 'which are multiplying your point and essence gain by ' + format(player.A.points.mul(0.2)) + 'x';
                 if (!hasUpgrade("ds", 24)) text[1] += 'and also multiplying essence gain by ' + format(player.A.points.mul(0.2)) + 'x';
@@ -31,6 +22,15 @@ addLayer("A", {
                 if (hasUpgrade("ds", 23) && hasUpgrade("ds", 24) && hasUpgrade("p", 31)) text[1] += 'and also multiplying core, prayer, and quark gain by ' + format(player.A.points.pow(2).div(100)) + 'x';
             } else text[0] += 'which are multiplying your point gain by ' + format(player.A.points.mul(0.1).add(1)) + 'x';
             if (hasUpgrade('a', 51)) text[2] += 'additionally, also multiplying subatomic particle gain by ' + format(player.A.points.pow(1.25)) + 'x';
+        } else {
+            if (hasUpgrade("ds", 21)) {
+                if (hasUpgrade('ds', 24)) text[0] += 'which are multiplying your point and essence gain by <h2 class="layer-A">' + format(player.A.points.mul(0.2)) + '</h2>x';
+                if (!hasUpgrade("ds", 24)) text[1] += 'and also multiplying essence gain by <h2 class="layer-A">' + format(player.A.points.mul(0.2)) + '</h2>x';
+                if (hasUpgrade("ds", 23) && !hasUpgrade("ds", 24) && !hasUpgrade("p", 31)) text[2] += 'addtionally, also multiplying core and quark gain by <h2 class="layer-A">' + format(player.A.points.pow(2).div(100)) + '</h2>x';
+                if (hasUpgrade("ds", 23) && hasUpgrade("ds", 24) && !hasUpgrade("p", 31)) text[1] += 'and also multiplying core and quark gain by <h2 class="layer-A">' + format(player.A.points.pow(2).div(100)) + '</h2>x';
+                if (hasUpgrade("ds", 23) && hasUpgrade("ds", 24) && hasUpgrade("p", 31)) text[1] += 'and also multiplying core, prayer, and quark gain by <h2 class="layer-A">' + format(player.A.points.pow(2).div(100)) + '</h2>x';
+            } else text[0] += 'which are multiplying your point gain by <h2 class="layer-A">' + format(player.A.points.mul(0.1).add(1)) + '</h2>x';
+            if (hasUpgrade('a', 51)) text[2] += 'additionally, also multiplying subatomic particle gain by <h2 class="layer-A">' + format(player.A.points.pow(1.25)) + '</h2>x';
         };
         fintext = text[0];
         if (text[1]) fintext += "<br>";
@@ -390,10 +390,10 @@ addLayer("SC", {
             divine += 1;
             if (player.SC.softcaps.includes("p-d2")) divine += 1;
         };
-        if (colorvalue[0][0]) {
-            if (divine > 0) return 'of which <h2 class="layer-p">' + divine + '</h2> are <h2 class="layer-p">divine</h2>';
-        } else {
+        if (colorvalue[1] == "none") {
             if (divine > 0) return 'of which ' + divine + ' are divine';
+        } else {
+            if (divine > 0) return 'of which <h2 class="layer-p">' + divine + '</h2> are <h2 class="layer-p">divine</h2>';
         };
     },
     update(diff) {
@@ -2892,16 +2892,16 @@ addLayer("p", {
         return eff;
     },
     effectDescription() {
-        if (colorvalue[0][0]) {
-            if (tmp.p.effect.lt(0.1)) return 'which are generating <h2 class="layer-p">' + tmp.p.effect.mul(100).round().div(100) + '</h2> divinity/sec';
+        if (colorvalue[1] == "none") {
+            if (tmp.p.effect.lt(0.1)) return 'which are generating ' + tmp.p.effect.mul(100).round().div(100) + ' divinity/sec';
+            if (tmp.p.effect.gt(player.p.divinitysoftcap_start[1])) return 'which are generating ' + format(tmp.p.effect) + ' divinity/sec (double softcapped)';
+            if (tmp.p.effect.gt(player.p.divinitysoftcap_start[0])) return 'which are generating ' + format(tmp.p.effect) + ' divinity/sec (softcapped)';
+            return 'which are generating ' + format(tmp.p.effect) + ' divinity/sec';
+        };
+        if (tmp.p.effect.lt(0.1)) return 'which are generating <h2 class="layer-p">' + tmp.p.effect.mul(100).round().div(100) + '</h2> divinity/sec';
             if (tmp.p.effect.gt(player.p.divinitysoftcap_start[1])) return 'which are generating <h2 class="layer-p">' + format(tmp.p.effect) + '</h2> divinity/sec (double softcapped)';
             if (tmp.p.effect.gt(player.p.divinitysoftcap_start[0])) return 'which are generating <h2 class="layer-p">' + format(tmp.p.effect) + '</h2> divinity/sec (softcapped)';
             return 'which are generating <h2 class="layer-p">' + format(tmp.p.effect) + '</h2> divinity/sec';
-        };
-        if (tmp.p.effect.lt(0.1)) return 'which are generating ' + tmp.p.effect.mul(100).round().div(100) + ' divinity/sec';
-        if (tmp.p.effect.gt(player.p.divinitysoftcap_start[1])) return 'which are generating ' + format(tmp.p.effect) + ' divinity/sec (double softcapped)';
-        if (tmp.p.effect.gt(player.p.divinitysoftcap_start[0])) return 'which are generating ' + format(tmp.p.effect) + ' divinity/sec (softcapped)';
-        return 'which are generating ' + format(tmp.p.effect) + ' divinity/sec';
     },
     doReset(resettingLayer) {
         let keep = [];
@@ -2943,14 +2943,14 @@ addLayer("p", {
         "blank",
         ["display-text",
             function() {
-                if (colorvalue[0][0]) {
+                if (colorvalue[1] == "none") {
+                    text = 'You have ' + format(player.p.divinity) + ' divinity, which boosts point generation by ' + format(player.p.divinity.add(1).pow(0.1)) + 'x';
+                    if (hasUpgrade('p', 22)) text += '<br>You have ' + format(player.p.holiness) + ' holiness, which boosts essence gain by ' + format(player.p.holiness.add(1).pow(0.055)) + 'x';
+                    if (hasUpgrade('p', 41)) text += '<br>You have ' + formatWhole(player.p.hymn) + ' hymns, which boosts prayer gain by ' + format(player.p.hymnEff) + 'x';
+                } else {
                     text = 'You have <h2 class="layer-p">' + format(player.p.divinity) + '</h2> divinity, which boosts point generation by <h2 class="layer-p">' + format(player.p.divinity.add(1).pow(0.1)) + '</h2>x';
                     if (hasUpgrade('p', 22)) text += '<br>You have <h2 class="layer-p">' + format(player.p.holiness) + '</h2> holiness, which boosts essence gain by <h2 class="layer-p">' + format(player.p.holiness.add(1).pow(0.055)) + '</h2>x';
                     if (hasUpgrade('p', 41)) text += '<br>You have <h2 class="layer-p">' + formatWhole(player.p.hymn) + '</h2> hymns, which boosts prayer gain by <h2 class="layer-p">' + format(player.p.hymnEff) + '</h2>x';
-                } else {
-                    text = 'You have <h2>' + format(player.p.divinity) + '</h2> divinity, which boosts point generation by <h2>' + format(player.p.divinity.add(1).pow(0.1)) + '</h2>x';
-                    if (hasUpgrade('p', 22)) text += '<br>You have <h2>' + format(player.p.holiness) + '</h2> holiness, which boosts essence gain by <h2>' + format(player.p.holiness.add(1).pow(0.055)) + '</h2>x';
-                    if (hasUpgrade('p', 41)) text += '<br>You have <h2>' + formatWhole(player.p.hymn) + '</h2> hymns, which boosts prayer gain by <h2>' + format(player.p.hymnEff) + '</h2>x';
                 };
                 return text;
             }],
@@ -3089,7 +3089,7 @@ addLayer("p", {
         },
         24: {
             fullDisplay() {
-                text = '<h3 class="layer-p' + getdark(this, "title", true) + 'Holy Conversion</h3><br>Req: 75 holiness without owning <b class="layer-p">Church Relics</b>';
+                text = '<h3 class="layer-p' + getdark(this, "title", true) + 'Holy Conversion</h3><br>Req: 75 holiness without owning <b class="layer-p' + getdark(this, "ref", true) + 'Church Relics</b>';
                 if (this.canAfford()) text += '<br><br><b>Requirements met!';
                 return text;
             },
@@ -3229,7 +3229,7 @@ addLayer("p", {
         },
         44: {
             fullDisplay() {
-                text = '<h3 class="layer-p' + getdark(this, "title", true) + 'Hymn Divination</h3><br>Req: 10,000,000 hymns without owning <b class="layer-p">Shorter Hymns</b>';
+                text = '<h3 class="layer-p' + getdark(this, "title", true) + 'Hymn Divination</h3><br>Req: 10,000,000 hymns without owning <b class="layer-p' + getdark(this, "ref", true) + 'Shorter Hymns</b>';
                 if (this.canAfford()) text += '<br><br><b>Requirements met!';
                 return text;
             },
@@ -3292,7 +3292,7 @@ addLayer("p", {
         },
         54: {
             fullDisplay() {
-                text = '<h3 class="layer-p' + getdark(this, "title", true) + 'Even Shorter</h3><br>Req: 1.00e10 hymns without owning <b class="layer-p">Holy Hymns</b>';
+                text = '<h3 class="layer-p' + getdark(this, "title", true) + 'Even Shorter</h3><br>Req: 1.00e10 hymns without owning <b class="layer-p' + getdark(this, "ref", true) + 'Holy Hymns</b>';
                 if (this.canAfford()) text += '<br><br><b>Requirements met!';
                 return text;
             },
@@ -3491,8 +3491,8 @@ addLayer("s", {
         return effBase.pow(player.s.points).mul(effBoost);
     },
     effectDescription() {
-        if (colorvalue[0][0]) return 'which multiplies essence gain by <h2 class="layer-s">' + format(tmp.s.effect) + '</h2>x';
-        return 'which multiplies essence gain by ' + format(tmp.s.effect) + 'x';
+        if (colorvalue[1] == "none") return 'which multiplies essence gain by ' + format(tmp.s.effect) + 'x';
+        return 'which multiplies essence gain by <h2 class="layer-s">' + format(tmp.s.effect) + '</h2>x';
     },
     doReset(resettingLayer) {
         let keep = [];
