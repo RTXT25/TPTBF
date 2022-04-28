@@ -428,7 +428,7 @@ addLayer("e", {
         best: new Decimal(0),
         total: new Decimal(0),
     }},
-    color: "#4BDC13",
+    color: "#4CED13",
     branches: ["c", "q", "p"],
     requires: new Decimal(5),
     resource: "essence",
@@ -723,9 +723,12 @@ addLayer("c", {
         auto_upgrades: false,
         auto_buyables: false,
     }},
-    color: "#C2C238",
+    color() {
+        if (player.e.points.gte(10000) || player.c.unlocked) return "#D2D237";
+        return "#888888";
+    },
     branches: ["h"],
-    requires: new Decimal(10000),
+    requires: 10000,
     resource: "cores",
     baseResource: "essence",
     baseAmount() {return player.e.points},
@@ -1028,9 +1031,12 @@ addLayer("q", {
         total: new Decimal(0),
         auto_upgrades: false,
     }},
-    color: "#DB5196",
+    color() {
+        if (player.e.points.gte(1e9) || player.q.unlocked) return "#DB5196";
+        return "#888888";
+    },
     branches: ["sp"],
-    requires: new Decimal(1e9),
+    requires: 1e9,
     resource: "quarks",
     baseResource: "essence",
     baseAmount() {return player.e.points},
@@ -1462,9 +1468,12 @@ addLayer("sp", {
         best: new Decimal(0),
         total: new Decimal(0),
     }},
-    color: "#710CC4",
+    color() {
+        if (player.q.points.gte(1e15) || player.sp.unlocked) return "#710CC4";
+        return "#888888";
+    },
     branches: ["a"],
-    requires: new Decimal(1e15),
+    requires: 1e15,
     resource: "subatomic particles",
     baseResource: "quarks",
     baseAmount() {return player.q.points},
@@ -1644,9 +1653,12 @@ addLayer("h", {
         best: new Decimal(0),
         total: new Decimal(0),
     }},
-    color: "#E36409",
+    color() {
+        if (player.c.points.gte(1e60) || player.h.unlocked) return "#E36409";
+        return "#888888";
+    },
     branches: ["ds"],
-    requires: new Decimal(1e60),
+    requires: 1e60,
     resource: "hexes",
     baseResource: "cores",
     baseAmount() {return player.c.points},
@@ -2072,8 +2084,11 @@ addLayer("ds", {
         best: new Decimal(0),
         total: new Decimal(0),
     }},
-    color: "#BA0035",
-    requires: new Decimal(1e60),
+    color() {
+        if (player.h.points.gte(1e60) || player.ds.unlocked) return "#BA0035";
+        return "#888888";
+    },
+    requires: 1e60,
     resource: "demon souls",
     baseResource: "hexes",
     baseAmount() {return player.h.points},
@@ -2367,8 +2382,11 @@ addLayer("a", {
         best: new Decimal(0),
         total: new Decimal(0),
     }},
-    color: "#4D2FE0",
-    requires: new Decimal(1000),
+    color() {
+        if (player.sp.points.gte(10000) || player.a.unlocked) return "#4D2FE0";
+        return "#888888";
+    },
+    requires: 1000,
     resource: "atoms",
     baseResource: "subatomic particles",
     baseAmount() {return player.sp.points},
@@ -2777,7 +2795,10 @@ addLayer("p", {
         auto_upgrades: false,
         smart_auto_upgrades: false,
     }},
-    color: "#FA99FF",
+    color() {
+        if (player.e.points.gte(new Decimal("1e1000")) || player.p.unlocked) return "#FBAAFF";
+        return "#888888";
+    },
     branches: ["s"],
     requires: new Decimal("1e1000"),
     resource: "prayers",
@@ -3433,8 +3454,11 @@ addLayer("s", {
         best: new Decimal(0),
         total: new Decimal(0),
     }},
-    color: "#AAFF00",
-    requires: new Decimal(1e15),
+    color() {
+        if (player.p.points.gte(1e15) || player.s.unlocked) return "#AAFF00";
+        return "#888888";
+    },
+    requires: 1e15,
     resource: "sanctums",
     baseResource: "prayers",
     baseAmount() {return player.p.points},

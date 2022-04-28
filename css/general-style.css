@@ -21,18 +21,18 @@ h1, h2, h3, b, input {
 }
 
 .layer-e {
-	color: #4BDC13;
-	text-shadow: 0 0 10px #4BDC13;
+	color: #4CED13;
+	text-shadow: 0 0 10px #4CED13;
 }
 
 .layer-e-dark {
-	color: #29BA01;
-	text-shadow: 0 0 10px #29BA01;
+	color: #28A901;
+	text-shadow: 0 0 10px #28A901;
 }
 
 .layer-c {
-	color: #C2C238;
-	text-shadow: 0 0 10px #C2C238;
+	color: #D2D237;
+	text-shadow: 0 0 10px #D2D237;
 }
 
 .layer-c-dark {
@@ -91,13 +91,13 @@ h1, h2, h3, b, input {
 }
 
 .layer-p {
-	color: #FA99FF;
-	text-shadow: 0 0 10px #FA99FF;
+	color: #FBAAFF;
+	text-shadow: 0 0 10px #FBAAFF;
 }
 
 .layer-p-dark {
 	color: #D877DD;
-	text-shadow: 0 0 10px #FA99FF;
+	text-shadow: 0 0 10px #D877DD;
 }
 
 .layer-s {
