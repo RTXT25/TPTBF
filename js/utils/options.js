@@ -94,36 +94,28 @@ function milestoneShown(layer, id) {
 };
 
 function fullcolordisplay() {
-	console.log(colorvalue[0] + " [" + colorvalue[1] + "]");
 	switch (options.colorDisplayMode) {
 		case 0:
-			console.log(0);
 			colorvalue[0] = [true, true, true];
 			break;
 		case 1:
-			console.log(1);
 			colorvalue[0] = [true, false, false];
 			break;
 		case 2:
-			console.log(2);
 			colorvalue[0] = [true, true, false];
 			break;
 		case 3:
-			console.log(3);
 			colorvalue[0] = [true, false, true];
 			break;
 	};
 	switch (options.colorDisplay) {
 		case 0:
-			console.log(4);
 			colorvalue[1] = "normal";
 			break;
 		case 1:
-			console.log(5);
 			colorvalue[1] = "dark";
 			break;
 		case 2:
-			console.log(6);
 			colorvalue[1] = "none";
 			break;
 	};
