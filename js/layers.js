@@ -155,6 +155,12 @@ addLayer("A", {
             tooltip: "obtain 1e1,000 cores.",
             unlocked() { if (hasAchievement("A", 33)) return true },
         },
+        35: {
+            name: "Core of Truth",
+            done() {return player.c.points.gte(new Decimal("1e10000"))},
+            tooltip: "obtain 1e10,000 cores.",
+            unlocked() { if (hasAchievement("A", 34)) return true },
+        },
         36: {
             name: "Pointless Core",
             done() {return getBuyableAmount("c", 11).eq(0) && getBuyableAmount("c", 12).eq(0) && player.q.points.eq(0) && player.c.points.gte(1e10)},
@@ -188,6 +194,12 @@ addLayer("A", {
             done() {return player.q.points.gte(new Decimal("1e1000"))},
             tooltip: "obtain 1e1,000 quarks.",
             unlocked() { if (hasAchievement("A", 43)) return true },
+        },
+        45: {
+            name: "Impossible Quarks",
+            done() {return player.q.points.gte(new Decimal("1e10000"))},
+            tooltip: "obtain 1e10,000 quarks.",
+            unlocked() { if (hasAchievement("A", 44)) return true },
         },
         46: {
             name: "The Outside",
@@ -226,8 +238,8 @@ addLayer("A", {
         },
         55: {
             name: "The Universe in a Particle",
-            done() {return player.sp.points.gte(100000000)},
-            tooltip: "obtain 100,000,000 subatomic particles.",
+            done() {return player.sp.points.gte(1e9)},
+            tooltip: "obtain 1e9 subatomic particles.",
             unlocked() { if (hasAchievement("A", 54)) return true },
         },
         56: {
@@ -385,23 +397,62 @@ addLayer("SC", {
     layerShown() {return player.SC.points > 0},
     tooltip() {return "Softcaps"},
     effectDescription() {
+        core = 0;
+        quark = 0;
         divine = 0;
+        text = ["of which ", ", ", ", and "];
+        textfin = "";
+        textvalue = 0;
+        if (player.SC.softcaps.includes("p-d1")) {
+            core += 1;
+        };
+        if (player.SC.softcaps.includes("p-d1")) {
+            quark += 1;
+        };
         if (player.SC.softcaps.includes("p-d1")) {
             divine += 1;
-            if (player.SC.softcaps.includes("p-d2")) divine += 1;
         };
         if (colorvalue[1] == "none") {
-            if (divine > 0) return 'of which ' + divine + ' are divine';
+            if (core > 0) {
+                text[textvalue] += core + ' is core</h2>';
+                textvalue += 1;
+            };
+            if (quark > 0) {
+                text[textvalue] += core + ' is quark</h2>';
+                textvalue += 1;
+            };
+            if (divine > 0) {
+                text[textvalue] += core + ' is divine</h2>';
+                textvalue += 1;
+            };
         } else {
-            if (divine > 0) return 'of which <h2 class="layer-p">' + divine + '</h2> are <h2 class="layer-p">divine</h2>';
+            if (core > 0) {
+                text[textvalue] += '<h2 class="layer-c">' + core + '</h2> is <h2 class="layer-c">core</h2>';
+                textvalue += 1;
+            };
+            if (quark > 0) {
+                text[textvalue] += '<h2 class="layer-q">' + core + '</h2> is <h2 class="layer-q">quark</h2>';
+                textvalue += 1;
+            };
+            if (divine > 0) {
+                text[textvalue] += '<h2 class="layer-p">' + core + '</h2> is <h2 class="layer-p">divine</h2>';
+                textvalue += 1;
+            };
         };
+        textfin = text[0];
+        if (textvalue > 0) textfin += text[1];
+        if (textvalue > 1) textfin += text[2];
+        return textfin;
     },
     update(diff) {
+        if (player.c.points.gte(player.c.softcap) && !player.SC.softcaps.includes("c1")) {
+            player.SC.softcaps.push("c1");
+        };
+        if (player.q.points.gte(player.q.softcap) && !player.SC.softcaps.includes("q1")) {
+            player.SC.softcaps.push("q1");
+        };
         if (player.p.divinity.gte(player.p.divinitysoftcap_start[0]) && !player.SC.softcaps.includes("p-d1")) {
             player.SC.softcaps.push("p-d1");
-        };
-        if (player.p.divinity.gte(player.p.divinitysoftcap_start[1]) && !player.SC.softcaps.includes("p-d2")) {
-            player.SC.softcaps.push("p-d2");
         };
         player.SC.points = new Decimal(player.SC.softcaps.length);
     },
@@ -410,8 +461,9 @@ addLayer("SC", {
         ["display-text",
             function() {
                 text = "";
-                if (player.SC.softcaps.includes("p-d1")) text += '<br><h2 class="layer-p">Divinity Softcap 1</h2><br>starts at ' + player.p.divinitysoftcap_start[0] + ', gain to ^' + player.p.divinitysoftcap_power[0] + '<br>';
-                if (player.SC.softcaps.includes("p-d2")) text += '<br><br><h2 class="layer-p">Divinity Softcap 2</h2><br>starts at ' + player.p.divinitysoftcap_start[1] + ', gain to ^' + player.p.divinitysoftcap_power[1] + '<br>';
+                if (player.SC.softcaps.includes("c1")) text += '<br><h2 class="layer-c">Core Gain Softcap</h2><br>starts at ' + format(layers.c.softcap) + ', gain to ^' + layers.c.softcapPower + '<br>';
+                if (player.SC.softcaps.includes("q1")) text += '<br><h2 class="layer-q">Quark Gain Softcap</h2><br>starts at ' + format(layers.q.softcap) + ', gain to ^' + layers.q.softcapPower + '<br>';
+                if (player.SC.softcaps.includes("p-d1")) text += '<br><h2 class="layer-p">Divinity Gain Softcap</h2><br>starts at ' + format(player.p.divinitysoftcap_start[0]) + ', gain to ^' + player.p.divinitysoftcap_power[0] + '<br>';
                 return text;
             }],
     ],
@@ -529,13 +581,18 @@ addLayer("e", {
                 return '<b class="layer-e' + getdark(this, "title") + 'Essence Influence';
             },
             description() {
-                return 'multiplies point gain based on the amount of essence you have'
+                return 'multiplies point gain based on the amount of essence you have';
             },
             cost: 2,
             effect() {
-                return player.e.points.add(1).pow(0.5);
+                eff = player.e.points.add(1).pow(0.5);
+                if (eff.gte("1e1750")) return new Decimal("1e1750");
+                return eff;
             },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" },
+            effectDisplay() {
+                if (this.effect().gte("1e1750")) return format(upgradeEffect(this.layer, this.id)) + "x<br>(hardcapped)";
+                return format(upgradeEffect(this.layer, this.id)) + "x";
+            },
             style: {'height':'120px'},
             unlocked() { return hasUpgrade("e", 11) },
         },
@@ -544,7 +601,7 @@ addLayer("e", {
                 return '<b class="layer-e' + getdark(this, "title") + 'Influenced Essence';
             },
             description() {
-                return 'multiplies essence gain based on the amount of points you have'
+                return 'multiplies essence gain based on the amount of points you have';
             },
             cost: 5,
             effect() { 
@@ -559,7 +616,7 @@ addLayer("e", {
                 return '<b class="layer-e' + getdark(this, "title") + 'Point Recursion';
             },
             description() {
-                return 'multiplies point gain based on the amount of points you have'
+                return 'multiplies point gain based on the amount of points you have';
             },
             cost: 500,
             effect() {
@@ -574,7 +631,7 @@ addLayer("e", {
                 return '<b class="layer-e' + getdark(this, "title") + 'Essence of Essence';
             },
             description() {
-                return 'multiplies essence gain based on the amount of essence you have'
+                return 'multiplies essence gain based on the amount of essence you have';
             },
             cost: 1250,
             effect() {
@@ -589,7 +646,7 @@ addLayer("e", {
                 return '<b class="layer-e' + getdark(this, "title") + 'Recurring Recursion';
             },
             description() {
-                return 'boosts the effect of <b class="layer-e' + getdark(this, "ref") + 'Point Recursion</b> based on the amount of points you have'
+                return 'boosts the effect of <b class="layer-e' + getdark(this, "ref") + 'Point Recursion</b> based on the amount of points you have';
             },
             cost: 3500,
             effect() {
@@ -604,7 +661,7 @@ addLayer("e", {
                 return '<b class="layer-e' + getdark(this, "title") + 'Infinite Recursion';
             },
             description() {
-                return 'boosts the effect of <b class="layer-e' + getdark(this, "ref") + 'Recurring Recursion</b> based on the amount of points you have'
+                return 'boosts the effect of <b class="layer-e' + getdark(this, "ref") + 'Recurring Recursion</b> based on the amount of points you have';
             },
             cost: 1.11e11,
             effect() {
@@ -619,7 +676,7 @@ addLayer("e", {
                 return '<b class="layer-e' + getdark(this, "title") + 'Brilliance';
             },
             description() {
-                return 'some of the effect of <b class="layer-e' + getdark(this, "ref") + 'Radiant Essence</b> is applied to point gain (based on essence)'
+                return 'some of the effect of <b class="layer-e' + getdark(this, "ref") + 'Radiant Essence</b> is applied to point gain (based on essence)';
             },
             cost: 3.33e33,
             effect() {
@@ -634,7 +691,7 @@ addLayer("e", {
                 return '<b class="layer-e' + getdark(this, "title") + 'Essence Network';
             },
             description() {
-                return 'boosts the effect of <b class="layer-e' + getdark(this, "ref") + 'Essence Influence</b> based on the amount of essence you have'
+                return 'boosts the effect of <b class="layer-e' + getdark(this, "ref") + 'Essence Influence</b> based on the amount of essence you have';
             },
             cost: 5.55e55,
             effect() {
@@ -649,7 +706,7 @@ addLayer("e", {
                 return '<b class="layer-e' + getdark(this, "title") + 'Essence Recursion';
             },
             description() {
-                return 'boosts the effect of <b class="layer-e' + getdark(this, "ref") + 'Essence of Essence</b> based on the amount of essence you have'
+                return 'boosts the effect of <b class="layer-e' + getdark(this, "ref") + 'Essence of Essence</b> based on the amount of essence you have';
             },
             cost: 7.77e77,
             effect() {
@@ -664,7 +721,7 @@ addLayer("e", {
                 return '<b class="layer-e' + getdark(this, "title") + 'Essences to Infinity';
             },
             description() {
-                return 'boosts the effect of <b class="layer-e' + getdark(this, "ref") + 'Essence Recursion</b> based on the amount of essence you have'
+                return 'boosts the effect of <b class="layer-e' + getdark(this, "ref") + 'Essence Recursion</b> based on the amount of essence you have';
             },
             cost: 9.99e99,
             effect() {
@@ -758,6 +815,8 @@ addLayer("c", {
     gainExp() {
         return new Decimal(1);
     },
+    softcap: new Decimal("1e1250"),
+    softcapPower: 0.7,
     row: 1,
     hotkeys: [
         {key: "c", description: "C: Reset for cores", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
@@ -1075,6 +1134,8 @@ addLayer("q", {
     gainExp() {
         return new Decimal(1);
     },
+    softcap: new Decimal("1e1250"),
+    softcapPower: 0.7,
     row: 1,
     hotkeys: [
         {key: "q", description: "Q: Reset for quarks", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
@@ -2786,8 +2847,8 @@ addLayer("p", {
         best: new Decimal(0),
         total: new Decimal(0),
         divinity: new Decimal(0),
-        divinitysoftcap_start: [new Decimal(1e150), new Decimal("1e1000")],
-        divinitysoftcap_power: [0.95, 0.8],
+        divinitysoftcap_start: [1e150],
+        divinitysoftcap_power: [0.95],
         holiness: new Decimal(0),
         hymn: new Decimal(0),
         hymnEff: new Decimal(0),
@@ -2821,13 +2882,6 @@ addLayer("p", {
     gainExp() {
         return new Decimal(1);
     },
-    /*
-    softcap: new Decimal(1e100),
-    softcapPower() {
-        // if (whatever unlocks softcap here) return new Decimal(0.5);
-        else return new Decimal(0);
-    },
-    */
     row: 1,
     hotkeys: [
         {key: "p", description: "P: Reset for prayers", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
@@ -2888,21 +2942,17 @@ addLayer("p", {
         if (hasMilestone('p', 3)) effEx = new Decimal(1.6);
         eff = effBoost.mul(player.p.points).pow(effEx);
         sc_start0 = player.p.divinitysoftcap_start[0];
-        sc_start1 = player.p.divinitysoftcap_start[1];
         if (eff.gt(sc_start0)) eff = eff.sub(sc_start0).pow(player.p.divinitysoftcap_power[0]).add(sc_start0);
-        if (eff.gt(sc_start1)) eff = eff.sub(sc_start1).pow(player.p.divinitysoftcap_power[1]).add(sc_start1);
         if (hasUpgrade('p', 71)) eff = eff.mul(upgradeEffect('p', 71));
         return eff;
     },
     effectDescription() {
         if (colorvalue[1] == "none") {
             if (tmp.p.effect.lt(0.1)) return 'which are generating ' + tmp.p.effect.mul(100).round().div(100) + ' divinity/sec';
-            if (tmp.p.effect.gt(player.p.divinitysoftcap_start[1])) return 'which are generating ' + format(tmp.p.effect) + ' divinity/sec (double softcapped)';
             if (tmp.p.effect.gt(player.p.divinitysoftcap_start[0])) return 'which are generating ' + format(tmp.p.effect) + ' divinity/sec (softcapped)';
             return 'which are generating ' + format(tmp.p.effect) + ' divinity/sec';
         };
         if (tmp.p.effect.lt(0.1)) return 'which are generating <h2 class="layer-p">' + tmp.p.effect.mul(100).round().div(100) + '</h2> divinity/sec';
-            if (tmp.p.effect.gt(player.p.divinitysoftcap_start[1])) return 'which are generating <h2 class="layer-p">' + format(tmp.p.effect) + '</h2> divinity/sec (double softcapped)';
             if (tmp.p.effect.gt(player.p.divinitysoftcap_start[0])) return 'which are generating <h2 class="layer-p">' + format(tmp.p.effect) + '</h2> divinity/sec (softcapped)';
             return 'which are generating <h2 class="layer-p">' + format(tmp.p.effect) + '</h2> divinity/sec';
     },
