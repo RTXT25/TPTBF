@@ -198,12 +198,11 @@ function addedPlayerData() { return {
 
 // Display extra things at the top of the page
 var displayThings = [
-	"Current endgame: 1.00e2,000 points",
-]
+];
 
 // Determines when the game "ends"
 function isEndgame() {
-	return player.points.gte(new Decimal("1e2000"))
+	return player.points.gte(new Decimal("ee16"))
 };
 
 // Less important things beyond this point!
