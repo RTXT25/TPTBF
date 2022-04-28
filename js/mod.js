@@ -17,11 +17,10 @@ let VERSION = {
 let changelog = `<h1>Changelog:</h1><br>
 	<br><h3>v2.0: Sanctums of Color</h3><br>
 		- Added sanctums.<br>
-		- Added six milestones to sanctums.<br>
+		- Added nine milestones to sanctums.<br>
 		- Added four upgrades to prayers.<br>
 		- Added six researchable upgrades to prayers.<br>
-		- Added one achievement.<br>
-		- Changed 'best' and 'total' format.<br>
+		- Added four achievements.<br>
 		- Added custom colored text. Vibing!<br>
 		- Added two options.<br>
 		- Balance changes.<br>
@@ -30,6 +29,7 @@ let changelog = `<h1>Changelog:</h1><br>
 		- Added six upgrades to prayers.<br>
 		- Added two achievements.<br>
 		- Added twenty-seven achievement images.<br>
+		- Changed 'best' and 'total' format.<br>
 		- Finally fixed the buyable format bug.<br>
 		- Balance changes.<br>
 	<br><h3>v1.4: Praise the Sky</h3><br>
