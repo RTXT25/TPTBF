@@ -1,4 +1,4 @@
-let options = {}
+let options = {};
 
 function getStartOptions() {
 	return {
@@ -51,8 +51,24 @@ const MS_DISPLAYS = ["ALL", "LAST, AUTO, INCOMPLETE", "AUTOMATION, INCOMPLETE", 
 
 const MS_SETTINGS = ["always", "last", "automation", "incomplete", "never"];
 
+const DISPLAY_MODES = ["ALL", "ONLY SPECIAL", "SPECIAL AND TITLES", "SPECIAL AND REFRENCES"];
+
+const DISPLAY_MODE_INDEX = [1, 2, 3, 4];
+
+const COLOR_DISPLAYS = ["ON - NORMAL", "ON - ALWAYS DARK", "OFF"];
+
+const COLOR_DISPLAY_INDEX = [0, 1, 2];
+
 function adjustMSDisp() {
 	options.msDisplay = MS_SETTINGS[(MS_SETTINGS.indexOf(options.msDisplay) + 1) % 5];
+};
+
+function display_mode() {
+	options.colorDisplayMode = DISPLAY_MODE_INDEX[(DISPLAY_MODE_INDEX.indexOf(options.colorDisplayMode) + 1) % 4];
+};
+
+function color_display() {
+	options.colorDisplay = COLOR_DISPLAY_INDEX[(COLOR_DISPLAY_INDEX.indexOf(options.colorDisplay) + 1) % 3];
 };
 
 function milestoneShown(layer, id) {
@@ -71,4 +87,27 @@ function milestoneShown(layer, id) {
 			return false;
 	};
 	return false;
+};
+
+function fullcolordisplay() {
+	colorvalue = [[false, false, false], "none"];
+	switch (options.colorDisplayMode) {
+		case 0:
+			colorvalue[0] = [true, true, true];
+		case 1:
+			colorvalue[0] = [true, false, false];
+		case 2:
+			colorvalue[0] = [true, true, false];
+		case 3:
+			colorvalue[0] = [true, false, true];
+	};
+	switch (options.colorDisplay) {
+		case 0:
+			colorvalue[1] = "normal";
+		case 1:
+			colorvalue[1] = "dark";
+		case 2:
+			colorvalue[1] = "none";
+	};
+	return colorvalue;
 };
