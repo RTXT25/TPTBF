@@ -117,11 +117,12 @@ function getdark(darkthis, type, special = false){
 		if (colorvalue[1] == "dark") return '-dark">';
 		if (colorvalue[1] == "none") return '-OFF">';
 		if ((type == "title" && colorvalue[0][1]) || (type == "ref" && colorvalue[0][2])) {
-			if (colorvalue[1] == "normal") {
-				if (special) darkcanafford = darkthis.canAfford();
-				else darkcanafford = new Decimal(player[darkthis.layer].points).gte(darkthis.cost);
-				if (darkcanafford && !hasUpgrade(darkthis.layer, darkthis.id)) return '-dark">';
-			};
+			if (special) darkcanafford = darkthis.canAfford();
+			else darkcanafford = new Decimal(player[darkthis.layer].points).gte(darkthis.cost);
+			if (darkcanafford && !hasUpgrade(darkthis.layer, darkthis.id)) return '-dark">';
+		} else if (type == "title-buyable" && colorvalue[0][1]) {
+			darkcanafford = darkthis.canAfford();
+			if (darkcanafford && getBuyableAmount(darkthis.layer, darkthis.id).lt(darkthis.purchaseLimit)) return '-dark">';
 		} else return '-OFF">'
 	};
 	return '">';

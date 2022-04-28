@@ -517,7 +517,7 @@ addLayer("e", {
     upgrades: {
         11: {
             title() {
-                return '<tag class="layer-e' + getdark(this, "title") + 'Faster Points';
+                return '<b class="layer-e' + getdark(this, "title") + 'Faster Points';
             },
             description() {
                 return 'multiplies point gain by 1.5'
@@ -527,7 +527,7 @@ addLayer("e", {
         },
         12: {
             title() {
-                return '<tag class="layer-e' + getdark(this, "title") + 'Essence Influence';
+                return '<b class="layer-e' + getdark(this, "title") + 'Essence Influence';
             },
             description() {
                 return 'multiplies point gain based on the amount of essence you have'
@@ -542,7 +542,7 @@ addLayer("e", {
         },
         13: {
             title() {
-                return '<tag class="layer-e' + getdark(this, "title") + 'Influenced Essence';
+                return '<b class="layer-e' + getdark(this, "title") + 'Influenced Essence';
             },
             description() {
                 return 'multiplies essence gain based on the amount of points you have'
@@ -557,7 +557,7 @@ addLayer("e", {
         },
         21: {
             title() {
-                return '<tag class="layer-e' + getdark(this, "title") + 'Point Recursion';
+                return '<b class="layer-e' + getdark(this, "title") + 'Point Recursion';
             },
             description() {
                 return 'multiplies point gain based on the amount of points you have'
@@ -572,7 +572,7 @@ addLayer("e", {
         },
         22: {
             title() {
-                return '<tag class="layer-e' + getdark(this, "title") + 'Essence of Essence';
+                return '<b class="layer-e' + getdark(this, "title") + 'Essence of Essence';
             },
             description() {
                 return 'multiplies essence gain based on the amount of essence you have'
@@ -587,7 +587,7 @@ addLayer("e", {
         },
         23: {
             title() {
-                return '<tag class="layer-e' + getdark(this, "title") + 'Recurring Recursion';
+                return '<b class="layer-e' + getdark(this, "title") + 'Recurring Recursion';
             },
             description() {
                 return 'boosts the effect of <b class="layer-e' + getdark(this, "ref") + 'Point Recursion</b> based on the amount of points you have'
@@ -602,7 +602,7 @@ addLayer("e", {
         },
         31: {
             title() {
-                return '<tag class="layer-e' + getdark(this, "title") + 'Infinite Recursion';
+                return '<b class="layer-e' + getdark(this, "title") + 'Infinite Recursion';
             },
             description() {
                 return 'boosts the effect of <b class="layer-e' + getdark(this, "ref") + 'Recurring Recursion</b> based on the amount of points you have'
@@ -617,7 +617,7 @@ addLayer("e", {
         },
         32: {
             title() {
-                return '<tag class="layer-e' + getdark(this, "title") + 'Brilliance';
+                return '<b class="layer-e' + getdark(this, "title") + 'Brilliance';
             },
             description() {
                 return 'some of the effect of <b class="layer-e' + getdark(this, "ref") + 'Radiant Essence</b> is applied to point gain (based on essence)'
@@ -632,7 +632,7 @@ addLayer("e", {
         },
         33: {
             title() {
-                return '<tag class="layer-e' + getdark(this, "title") + 'Essence Network';
+                return '<b class="layer-e' + getdark(this, "title") + 'Essence Network';
             },
             description() {
                 return 'boosts the effect of <b class="layer-e' + getdark(this, "ref") + 'Essence Influence</b> based on the amount of essence you have'
@@ -647,7 +647,7 @@ addLayer("e", {
         },
         41: {
             title() {
-                return '<tag class="layer-e' + getdark(this, "title") + 'Essence Recursion';
+                return '<b class="layer-e' + getdark(this, "title") + 'Essence Recursion';
             },
             description() {
                 return 'boosts the effect of <b class="layer-e' + getdark(this, "ref") + 'Essence of Essence</b> based on the amount of essence you have'
@@ -662,7 +662,7 @@ addLayer("e", {
         },
         42: {
             title() {
-                return '<tag class="layer-e' + getdark(this, "title") + 'Essences to Infinity';
+                return '<b class="layer-e' + getdark(this, "title") + 'Essences to Infinity';
             },
             description() {
                 return 'boosts the effect of <b class="layer-e' + getdark(this, "ref") + 'Essence Recursion</b> based on the amount of essence you have'
@@ -680,7 +680,7 @@ addLayer("e", {
         11: {
             cost() { return new Decimal(12 ** getBuyableAmount('e', 11)).add(20) },
             title() {
-                return 'Purer Essence';
+                return '<b class="layer-e' + getdark(this, "title-buyable") + 'Purer Essence';
             },
             canAfford() { return player.e.points.gte(this.cost()) },
             purchaseLimit: 14,
@@ -695,7 +695,7 @@ addLayer("e", {
         12: {
             cost() { return new Decimal(44 ** getBuyableAmount('e', 12)).mul(10).add(85184) },
             title() {
-                return 'Radiant Essence';
+                return '<b class="layer-e' + getdark(this, "title-buyable") + 'Radiant Essence';
             },
             canAfford() { return player.e.points.gte(this.cost()) },
             purchaseLimit: 99,
@@ -851,7 +851,7 @@ addLayer("c", {
     upgrades: {
         11: {
             title() {
-                return '<tag class="layer-c' + getdark(this, "title") + 'Heat Emission';
+                return '<b class="layer-c' + getdark(this, "title") + 'Heat Emission';
             },
             description() {
                 return 'multiplies essence gain based on the amount of cores you have'
@@ -866,7 +866,7 @@ addLayer("c", {
         },
         12: {
             title() {
-                return '<tag class="layer-c' + getdark(this, "title") + 'Core Countdown';
+                return '<b class="layer-c' + getdark(this, "title") + 'Core Countdown';
             },
             description() {
                 return 'multiplies core gain based on the amount of points you have'
@@ -881,7 +881,7 @@ addLayer("c", {
         },
         13: {
             title() {
-                return '<tag class="layer-c' + getdark(this, "title") + 'The Quarks\' Core';
+                return '<b class="layer-c' + getdark(this, "title") + 'The Quarks\' Core';
             },
             description() {
                 return 'multiplies quark gain based on the amount of cores you have'
@@ -896,7 +896,7 @@ addLayer("c", {
         },
         21: {
             title() {
-                return '<tag class="layer-c' + getdark(this, "title") + 'Quarky Core';
+                return '<b class="layer-c' + getdark(this, "title") + 'Quarky Core';
             },
             description() {
                 return 'multiplies the effect of <b class="layer-c' + getdark(this, "ref") + 'The Quarks\' Core</b> based on the amount of cores you have'
@@ -911,7 +911,7 @@ addLayer("c", {
         },
         22: {
             title() {
-                return '<tag class="layer-c' + getdark(this, "title") + 'Quirky Core';
+                return '<b class="layer-c' + getdark(this, "title") + 'Quirky Core';
             },
             description() {
                 return 'multiplies the effect of <b class="layer-c' + getdark(this, "ref") + 'Quarky Core</b> based on the amount of cores you have'
@@ -926,7 +926,7 @@ addLayer("c", {
         },
         23: {
             title() {
-                return '<tag class="layer-c' + getdark(this, "title") + 'Super Core';
+                return '<b class="layer-c' + getdark(this, "title") + 'Super Core';
             },
             description() {
                 return 'multiplies core gain based on the amount of cores you have'
@@ -941,7 +941,7 @@ addLayer("c", {
         },
         31: {
             title() {
-                return '<tag class="layer-c' + getdark(this, "title") + 'Ultra Core';
+                return '<b class="layer-c' + getdark(this, "title") + 'Ultra Core';
             },
             description() {
                 return 'multiplies the effect of <b class="layer-c' + getdark(this, "ref") + 'Super Core</b> based on the amount of cores you have'
@@ -956,7 +956,7 @@ addLayer("c", {
         },
         32: {
             title() {
-                return '<tag class="layer-c' + getdark(this, "title") + 'Hexed Core';
+                return '<b class="layer-c' + getdark(this, "title") + 'Hexed Core';
             },
             description() {
                 return 'multiplies the effect of <b class="layer-c' + getdark(this, "ref") + 'Ultra Core</b> based on the amount of hexes you have'
@@ -971,7 +971,7 @@ addLayer("c", {
         },
         33: {
             title() {
-                return '<tag class="layer-c' + getdark(this, "title") + 'Core Liberation';
+                return '<b class="layer-c' + getdark(this, "title") + 'Core Liberation';
             },
             description() {
                 return 'if you own <b class="layer-h' + getdark(this, "ref") + 'Core Production Line</b> and all subsequent upgrades, gain +25% of your core gain per second'
@@ -985,7 +985,7 @@ addLayer("c", {
         11: {
             cost() { return getBuyableAmount('c', 11).mul(2).add(1) },
             title() {
-                return 'Empowered Points';
+                return '<b class="layer-c' + getdark(this, "title-buyable") + 'Empowered Points';
             },
             canAfford() { return player.c.points.gte(this.cost()) },
             purchaseLimit: 99,
@@ -1001,7 +1001,7 @@ addLayer("c", {
         12: {
             cost() { return new Decimal(6 ** getBuyableAmount('c', 12)) },
             title() {
-                return 'Empowered Essence';
+                return '<b class="layer-c' + getdark(this, "title-buyable") + 'Empowered Essence';
             },
             canAfford() { return player.c.points.gte(this.cost()) },
             purchaseLimit: 49,
@@ -1152,7 +1152,7 @@ addLayer("q", {
     upgrades: {
         11: {
             title() {
-                return '<tag class="layer-q' + getdark(this, "title") + 'The Point of Quarks';
+                return '<b class="layer-q' + getdark(this, "title") + 'The Point of Quarks';
             },
             description() {
                 return 'multiplies quark gain based on the amount of points you have'
@@ -1166,7 +1166,7 @@ addLayer("q", {
         },
         12: {
             title() {
-                return '<tag class="layer-q' + getdark(this, "title") + 'Quark Power';
+                return '<b class="layer-q' + getdark(this, "title") + 'Quark Power';
             },
             description() {
                 return 'multiplies point gain based on the amount of quarks you have'
@@ -1181,7 +1181,7 @@ addLayer("q", {
         },
         13: {
             title() {
-                return '<tag class="layer-q' + getdark(this, "title") + 'Super Quarks';
+                return '<b class="layer-q' + getdark(this, "title") + 'Super Quarks';
             },
             description() {
                 return 'multiplies the effect of <b class="layer-q' + getdark(this, "ref") + 'Quark Power</b> based on the amount of points you have'
@@ -1196,7 +1196,7 @@ addLayer("q", {
         },
         14: {
             title() {
-                return '<tag class="layer-q' + getdark(this, "title") + 'Essence of Quarks';
+                return '<b class="layer-q' + getdark(this, "title") + 'Essence of Quarks';
             },
             description() {
                 return '<b class="layer-q' + getdark(this, "ref") + 'Quark Power</b> also affects essence gain at a reduced rate (<b class="layer-q' + getdark(this, "ref") + 'Super Quarks</b> does not affect this)'
@@ -1211,7 +1211,7 @@ addLayer("q", {
         },
         15: {
             title() {
-                return '<tag class="layer-q' + getdark(this, "title") + 'Quark Fusion';
+                return '<b class="layer-q' + getdark(this, "title") + 'Quark Fusion';
             },
             description() {
                 return 'multiplies the effect of <b class="layer-q' + getdark(this, "ref") + 'Essence of Quarks</b> based on the amount of cores you have'
@@ -1226,7 +1226,7 @@ addLayer("q", {
         },
         21: {
             title() {
-                return '<tag class="layer-q' + getdark(this, "title") + 'Quirky Quarks';
+                return '<b class="layer-q' + getdark(this, "title") + 'Quirky Quarks';
             },
             description() {
                 return 'multiplies core gain and quark gain based on the amount of quarks you have';
@@ -1241,7 +1241,7 @@ addLayer("q", {
         },
         22: {
             title() {
-                return '<tag class="layer-q' + getdark(this, "title") + 'Very Quirky';
+                return '<b class="layer-q' + getdark(this, "title") + 'Very Quirky';
             },
             description() {
                 return 'multiplies the effect of <b class="layer-q' + getdark(this, "ref") + 'Quirky Quarks</b> based on the amount of points you have';
@@ -1256,7 +1256,7 @@ addLayer("q", {
         },
         23: {
             title() {
-                return '<tag class="layer-q' + getdark(this, "title") + 'Quark Extreme';
+                return '<b class="layer-q' + getdark(this, "title") + 'Quark Extreme';
             },
             description() {
                 return '<b class="layer-q' + getdark(this, "ref") + 'Quark Power</b> also affects quark gain at a reduced rate (<b class="layer-q' + getdark(this, "ref") + 'Super Quarks</b> does not affect this)';
@@ -1271,7 +1271,7 @@ addLayer("q", {
         },
         24: {
             title() {
-                return '<tag class="layer-q' + getdark(this, "title") + 'Recurring Quarks';
+                return '<b class="layer-q' + getdark(this, "title") + 'Recurring Quarks';
             },
             description() {
                 return 'multiplies the effect of <b class="layer-q' + getdark(this, "ref") + 'Quark Extreme</b> based on the amount of quarks you have';
@@ -1286,7 +1286,7 @@ addLayer("q", {
         },
         25: {
             title() {
-                return '<tag class="layer-q' + getdark(this, "title") + 'Recurring More';
+                return '<b class="layer-q' + getdark(this, "title") + 'Recurring More';
             },
             description() {
                 return 'multiplies the effect of <b class="layer-q' + getdark(this, "ref") + 'Recurring Quarks</b> based on the amount of quarks you have';
@@ -1301,7 +1301,7 @@ addLayer("q", {
         },
         31: {
             title() {
-                return '<tag class="layer-q' + getdark(this, "title") + 'Infinite Recur';
+                return '<b class="layer-q' + getdark(this, "title") + 'Infinite Recur';
             },
             description() {
                 return 'multiplies the effect of <b class="layer-q' + getdark(this, "ref") + 'Recurring More</b> based on the amount of quarks you have';
@@ -1316,7 +1316,7 @@ addLayer("q", {
         },
         32: {
             title() {
-                return '<tag class="layer-q' + getdark(this, "title") + 'Compact Quarks';
+                return '<b class="layer-q' + getdark(this, "title") + 'Compact Quarks';
             },
             description() {
                 return 'multiplies essence gain based on the amount of quarks you have';
@@ -1331,7 +1331,7 @@ addLayer("q", {
         },
         33: {
             title() {
-                return '<tag class="layer-q' + getdark(this, "title") + 'Quark Fission';
+                return '<b class="layer-q' + getdark(this, "title") + 'Quark Fission';
             },
             description() {
                 return 'multiplies core gain based on the amount of quarks you have';
@@ -1346,7 +1346,7 @@ addLayer("q", {
         },
         34: {
             title() {
-                return '<tag class="layer-q' + getdark(this, "title") + 'The Quark Count';
+                return '<b class="layer-q' + getdark(this, "title") + 'The Quark Count';
             },
             description() {
                 return 'multiplies point gain based on the amount of quarks you have';
@@ -1361,7 +1361,7 @@ addLayer("q", {
         },
         35: {
             title() {
-                return '<tag class="layer-q' + getdark(this, "title") + 'Quark Counting';
+                return '<b class="layer-q' + getdark(this, "title") + 'Quark Counting';
             },
             description() {
                 return 'multiplies the effect of <b class="layer-q' + getdark(this, "ref") + 'The Quark Count</b> based on the amount of quarks you have';
@@ -1376,7 +1376,7 @@ addLayer("q", {
         },
         41: {
             title() {
-                return '<tag class="layer-q' + getdark(this, "title") + 'Ticking Quarks';
+                return '<b class="layer-q' + getdark(this, "title") + 'Ticking Quarks';
             },
             description() {
                 return 'multiplies the effect of <b class="layer-q' + getdark(this, "ref") + 'Quark Counting</b> based on the amount of quarks you have';
@@ -1391,7 +1391,7 @@ addLayer("q", {
         },
         42: {
             title() {
-                return '<tag class="layer-q' + getdark(this, "title") + 'Subatomic Quarks';
+                return '<b class="layer-q' + getdark(this, "title") + 'Subatomic Quarks';
             },
             description() {
                 return 'multiplies quark gain based on the amount of subatomic particles you have';
@@ -1406,7 +1406,7 @@ addLayer("q", {
         },
         43: {
             title() {
-                return '<tag class="layer-q' + getdark(this, "title") + 'Quirky Particles';
+                return '<b class="layer-q' + getdark(this, "title") + 'Quirky Particles';
             },
             description() {
                 return 'multiplies subatomic particle gain based on the amount of quarks you have';
@@ -1421,7 +1421,7 @@ addLayer("q", {
         },
         44: {
             title() {
-                return '<tag class="layer-q' + getdark(this, "title") + 'Particle Quarks';
+                return '<b class="layer-q' + getdark(this, "title") + 'Particle Quarks';
             },
             description() {
                 return 'multiplies the effect of <b class="layer-q' + getdark(this, "ref") + 'Subatomic Quarks</b> based on the amount of quarks you have';
@@ -1436,7 +1436,7 @@ addLayer("q", {
         },
         45: {
             title() {
-                return '<tag class="layer-q' + getdark(this, "title") + 'The Ultra Quark';
+                return '<b class="layer-q' + getdark(this, "title") + 'The Ultra Quark';
             },
             description() {
                 return 'multiplies quark gain based on the amount of quarks you have';
@@ -1550,7 +1550,7 @@ addLayer("sp", {
     upgrades: {
         11: {
             title() {
-                return '<tag class="layer-sp' + getdark(this, "title") + 'Positrons';
+                return '<b class="layer-sp' + getdark(this, "title") + 'Positrons';
             },
             description() {
                 return 'multiplies the base buff effect of <b class="layer-sp' + getdark(this, "ref") + 'Protons</b> by 2';
@@ -1561,7 +1561,7 @@ addLayer("sp", {
         },
         12: {
             title() {
-                return '<tag class="layer-sp' + getdark(this, "title") + 'Beta Particles';
+                return '<b class="layer-sp' + getdark(this, "title") + 'Beta Particles';
             },
             description() {
                 return 'multiplies the base buff effect of <b class="layer-sp' + getdark(this, "ref") + 'Neutrons</b> by 2';
@@ -1572,7 +1572,7 @@ addLayer("sp", {
         },
         13: {
             title() {
-                return '<tag class="layer-sp' + getdark(this, "title") + 'Gamma Particles';
+                return '<b class="layer-sp' + getdark(this, "title") + 'Gamma Particles';
             },
             description() {
                 return 'multiplies the base buff effect of <b class="layer-sp' + getdark(this, "ref") + 'Electrons</b> by 2';
@@ -1586,7 +1586,7 @@ addLayer("sp", {
         11: {
             cost() { return getBuyableAmount('sp', 11).add(1) },
             title() {
-                return 'Protons';
+                return '<b class="layer-sp' + getdark(this, "title-buyable") + 'Protons';
             },
             canAfford() { return player.sp.points.gte(this.cost()) },
             purchaseLimit: 9,
@@ -1602,7 +1602,7 @@ addLayer("sp", {
         12: {
             cost() { return getBuyableAmount('sp', 12).add(1) },
             title() {
-                return 'Neutrons';
+                return '<b class="layer-sp' + getdark(this, "title-buyable") + 'Neutrons';
             },
             canAfford() { return player.sp.points.gte(this.cost()) },
             purchaseLimit: 9,
@@ -1618,7 +1618,7 @@ addLayer("sp", {
         21: {
             cost() { return getBuyableAmount('sp', 21).add(1) },
             title() {
-                return 'Electrons';
+                return '<b class="layer-sp' + getdark(this, "title-buyable") + 'Electrons';
             },
             canAfford() { return player[this.layer].points.gte(this.cost()) },
             purchaseLimit: 9,
@@ -1746,7 +1746,7 @@ addLayer("h", {
     upgrades: {
         11: {
             title() {
-                return '<tag class="layer-h' + getdark(this, "title") + 'Hex Leak';
+                return '<b class="layer-h' + getdark(this, "title") + 'Hex Leak';
             },
             description() {
                 if (hasUpgrade('ds', 11)) return 'multiplies point and hex gain based on the amount of hexes you have';
@@ -1761,7 +1761,7 @@ addLayer("h", {
         },
         12: {
             title() {
-                return '<tag class="layer-h' + getdark(this, "title") + 'Stronger Hexes';
+                return '<b class="layer-h' + getdark(this, "title") + 'Stronger Hexes';
             },
             description() {
                 return 'multiplies hex gain based on the amount of hexes you have'
@@ -1776,7 +1776,7 @@ addLayer("h", {
         },
         13: {
             title() {
-                return '<tag class="layer-h' + getdark(this, "title") + 'Hex Fusion';
+                return '<b class="layer-h' + getdark(this, "title") + 'Hex Fusion';
             },
             description() {
                 return 'multiplies core gain based on the amount of hexes you have'
@@ -1790,7 +1790,7 @@ addLayer("h", {
         },
         14: {
             title() {
-                return '<tag class="layer-h' + getdark(this, "title") + 'Boost Hexes';
+                return '<b class="layer-h' + getdark(this, "title") + 'Boost Hexes';
             },
             description() {
                 return 'Hex gain is quadrupled';
@@ -1800,7 +1800,7 @@ addLayer("h", {
         },
         21: {
             title() {
-                return '<tag class="layer-h' + getdark(this, "title") + 'Numerical Hexes';
+                return '<b class="layer-h' + getdark(this, "title") + 'Numerical Hexes';
             },
             description() {
                 if (hasUpgrade('ds', 11)) return 'multiplies the first effect of <b class="layer-h' + getdark(this, "ref") + 'Hex Leak</b> based on the amount of hexes you have';
@@ -1816,7 +1816,7 @@ addLayer("h", {
         },
         22: {
             title() {
-                return '<tag class="layer-h' + getdark(this, "title") + 'Super Strong Hexes';
+                return '<b class="layer-h' + getdark(this, "title") + 'Super Strong Hexes';
             },
             description() {
                 return 'multiplies the effect of <b class="layer-h' + getdark(this, "ref") + 'Stronger Hexes</b> based on the amount of hexes you have';            
@@ -1831,7 +1831,7 @@ addLayer("h", {
         },
         23: {
             title() {
-                return '<tag class="layer-h' + getdark(this, "title") + 'Hex Fission';
+                return '<b class="layer-h' + getdark(this, "title") + 'Hex Fission';
             },
             description() {
                 return 'multiplies the effect of <b class="layer-h' + getdark(this, "ref") + 'Hex Fusion</b> based on the amount of hexes you have'            
@@ -1846,7 +1846,7 @@ addLayer("h", {
         },
         24: {
             title() {
-                return '<tag class="layer-h' + getdark(this, "title") + 'Boost Cores';
+                return '<b class="layer-h' + getdark(this, "title") + 'Boost Cores';
             },
             description() {
                 return 'Core gain is tripled';
@@ -1857,7 +1857,7 @@ addLayer("h", {
         },
         31: {
             title() {
-                return '<tag class="layer-h' + getdark(this, "title") + 'Hex Numerals';
+                return '<b class="layer-h' + getdark(this, "title") + 'Hex Numerals';
             },
             description() {
                 return 'multiplies the effect of <b class="layer-h' + getdark(this, "ref") + 'Numerical Hexes</b> based on the amount of points you have'            
@@ -1872,7 +1872,7 @@ addLayer("h", {
         },
         32: {
             title() {
-                return '<tag class="layer-h' + getdark(this, "title") + 'Extreme Hexes';
+                return '<b class="layer-h' + getdark(this, "title") + 'Extreme Hexes';
             },
             description() {
                 return 'multiplies the effect of <b class="layer-h' + getdark(this, "ref") + 'Super Strong Hexes</b> based on the amount of hexes you have'            
@@ -1887,7 +1887,7 @@ addLayer("h", {
         },
         33: {
             title() {
-                return '<tag class="layer-h' + getdark(this, "title") + 'Core of Hexes';
+                return '<b class="layer-h' + getdark(this, "title") + 'Core of Hexes';
             },
             description() {
                 return 'multiplies the effect of <b class="layer-h' + getdark(this, "ref") + 'Hex Fission</b> based on the amount of cores you have';
@@ -1902,7 +1902,7 @@ addLayer("h", {
         },
         34: {
             title() {
-                return '<tag class="layer-h' + getdark(this, "title") + 'Boost Quarks';
+                return '<b class="layer-h' + getdark(this, "title") + 'Boost Quarks';
             },
             description() {
                 return 'Quark gain is doubled';
@@ -1913,7 +1913,7 @@ addLayer("h", {
         },
         41: {
             title() {
-                return '<tag class="layer-h' + getdark(this, "title") + 'Numero Hex';
+                return '<b class="layer-h' + getdark(this, "title") + 'Numero Hex';
             },
             description() {
                 return 'multiplies the effect of <b class="layer-h' + getdark(this, "ref") + 'Hex Numerals</b> based on the amount of hexes you have';
@@ -1928,7 +1928,7 @@ addLayer("h", {
         },
         42: {
             title() {
-                return '<tag class="layer-h' + getdark(this, "title") + 'Ultra Hexes';
+                return '<b class="layer-h' + getdark(this, "title") + 'Ultra Hexes';
             },
             description() {
                 return 'multiplies the effect of <b class="layer-h' + getdark(this, "ref") + 'Extreme Hexes</b> based on the amount of hexes you have';
@@ -1943,7 +1943,7 @@ addLayer("h", {
         },
         43: {
             title() {
-                return '<tag class="layer-h' + getdark(this, "title") + 'Core Continuation';
+                return '<b class="layer-h' + getdark(this, "title") + 'Core Continuation';
             },
             description() {
                 return 'Gain 1% of core gain per second';
@@ -1954,7 +1954,7 @@ addLayer("h", {
         },
         44: {
             title() {
-                return '<tag class="layer-h' + getdark(this, "title") + 'Rapid Cores';
+                return '<b class="layer-h' + getdark(this, "title") + 'Rapid Cores';
             },
             description() {
                 return 'Increase the effect of <b class="layer-h' + getdark(this, "ref") + 'Core Continuation</b> by 9% (total: 10%)';
@@ -1965,7 +1965,7 @@ addLayer("h", {
         },
         51: {
             title() {
-                return '<tag class="layer-h' + getdark(this, "title") + 'Faster Essence';
+                return '<b class="layer-h' + getdark(this, "title") + 'Faster Essence';
             },
             description() {
                 return 'Increase essence gain per second by 25% if you have the <b class="layer-c' + getdark(this, "ref") + '4th core milestone</b> (total: 75%)';
@@ -1976,7 +1976,7 @@ addLayer("h", {
         },
         52: {
             title() {
-                return '<tag class="layer-h' + getdark(this, "title") + 'Core Production Line';
+                return '<b class="layer-h' + getdark(this, "title") + 'Core Production Line';
             },
             description() {
                 return 'Increase the effect of <b class="layer-h' + getdark(this, "ref") + 'Rapid Cores</b> by 15% (total: 25%)';
@@ -1987,7 +1987,7 @@ addLayer("h", {
         },
         53: {
             title() {
-                return '<tag class="layer-h' + getdark(this, "title") + 'Sub Core Particle Fusion';
+                return '<b class="layer-h' + getdark(this, "title") + 'Sub Core Particle Fusion';
             },
             description() {
                 return 'you can explore 3 new core upgrades and 3 new subatomic particle upgrades';
@@ -1998,7 +1998,7 @@ addLayer("h", {
         },
         54: {
             title() {
-                return '<tag class="layer-h' + getdark(this, "title") + 'Fastest Essence';
+                return '<b class="layer-h' + getdark(this, "title") + 'Fastest Essence';
             },
             description() {
                 return 'Increase the effect of <b class="layer-h' + getdark(this, "ref") + 'Faster Essence</b> by 25% (total: 100%)';
@@ -2009,7 +2009,7 @@ addLayer("h", {
         },
         61: {
             title() {
-                return '<tag class="layer-h' + getdark(this, "title") + 'Essence Overdrive';
+                return '<b class="layer-h' + getdark(this, "title") + 'Essence Overdrive';
             },
             description() {
                 return 'Increase the effect of <b class="layer-h' + getdark(this, "ref") + 'Fastest Essence</b> by 25% (total: 125%)';
@@ -2020,7 +2020,7 @@ addLayer("h", {
         },
         62: {
             title() {
-                return '<tag class="layer-h' + getdark(this, "title") + 'Sub Hex Particle';
+                return '<b class="layer-h' + getdark(this, "title") + 'Sub Hex Particle';
             },
             description() {
                 return 'multiply hex gain based on the amount of subatomic particles you have';
@@ -2035,7 +2035,7 @@ addLayer("h", {
         },
         63: {
             title() {
-                return '<tag class="layer-h' + getdark(this, "title") + 'Hexed Subatomic Particle';
+                return '<b class="layer-h' + getdark(this, "title") + 'Hexed Subatomic Particle';
             },
             description() {
                 return 'multiply subatomic particle gain based on the amount of hexes you have';
@@ -2050,7 +2050,7 @@ addLayer("h", {
         },
         64: {
             title() {
-                return '<tag class="layer-h' + getdark(this, "title") + 'Potential Essence Potential';
+                return '<b class="layer-h' + getdark(this, "title") + 'Potential Essence Potential';
             },
             description() {
                 return 'Increase the effect of <b class="layer-h' + getdark(this, "ref") + 'Essence Overdrive</b> by 25% (total: 150%)';
@@ -2179,7 +2179,7 @@ addLayer("ds", {
     upgrades: {
         11: {
             title() {
-                return '<tag class="layer-ds' + getdark(this, "title") + 'Mad Hexes';
+                return '<b class="layer-ds' + getdark(this, "title") + 'Mad Hexes';
             },
             description() {
                 return 'you can explore 2 further hex upgrades, and <b class="layer-h' + getdark(this, "ref") + 'Hex Leak</b> also applies to hex gain (and not any other upgrades in the chain)';
@@ -2189,7 +2189,7 @@ addLayer("ds", {
         },
         12: {
             title() {
-                return '<tag class="layer-ds' + getdark(this, "title") + 'Hex Mania';
+                return '<b class="layer-ds' + getdark(this, "title") + 'Hex Mania';
             },
             description() {
                 return 'you can explore 2 further hex upgrades, and <b class="layer-h' + getdark(this, "ref") + 'Stronger Hexes</b>\' effect is squared';
@@ -2199,7 +2199,7 @@ addLayer("ds", {
         },
         21: {
             title() {
-                return '<tag class="layer-ds' + getdark(this, "title") + 'Hall of Fame';
+                return '<b class="layer-ds' + getdark(this, "title") + 'Hall of Fame';
             },
             description() {
                 return 'achievements also multiply essence gain';
@@ -2210,7 +2210,7 @@ addLayer("ds", {
         },
         22: {
             title() {
-                return '<tag class="layer-ds' + getdark(this, "title") + 'Demonic Key';
+                return '<b class="layer-ds' + getdark(this, "title") + 'Demonic Key';
             },
             description() {
                 return 'unlocks the <b class="layer-ds' + getdark(this, "ref") + 'Demon Gateway</b>';
@@ -2221,7 +2221,7 @@ addLayer("ds", {
         },
         23: {
             title() {
-                return '<tag class="layer-ds' + getdark(this, "title") + 'Trophy of Glory';
+                return '<b class="layer-ds' + getdark(this, "title") + 'Trophy of Glory';
             },
             description() {
                 return 'achievements also multiply core and quark gain if you own <b class="layer-ds' + getdark(this, "ref") + 'Hall of Fame';
@@ -2232,7 +2232,7 @@ addLayer("ds", {
         },
         24: {
             title() {
-                return '<tag class="layer-ds' + getdark(this, "title") + 'Buried History';
+                return '<b class="layer-ds' + getdark(this, "title") + 'Buried History';
             },
             description() {
                 return 'achievements boosting point gain uses a better formula if you own <b class="layer-ds' + getdark(this, "ref") + 'Hall of Fame';
@@ -2246,7 +2246,7 @@ addLayer("ds", {
         11: {
             cost() { return new Decimal(2 ** getBuyableAmount('ds', 11)).add(1) },
             title() {
-                return '<tag class="layer-ds' + getdark(this, "title") + 'Demonic Energy';
+                return '<h3 class="layer-ds' + getdark(this, "title-buyable") + 'Demonic Energy';
             },
             canAfford() { 
                 return player.ds.points.gte(this.cost());
@@ -2264,9 +2264,15 @@ addLayer("ds", {
     },
     challenges: {
         11: {
-            name: "Blazing Curse",
+            name() {
+                if (colorvalue[0][1] && colorvalue[1] != "none") return '<h3 class="layer-ds">Blazing Curse';
+                return '<h3>Blazing Curse';
+            },
             challengeDescription: " - Forces a Demon Soul reset<br> - Quark gain is divided by 100,000<br> - Point gain is divided by 10,000<br> - Hex gain is divided by 1,000<br> - Core gain is divided by 100<br> - Quark gain is divided by 10",
-            goalDescription: '<b class="layer-h">Potential Essence Potential',
+            goalDescription() {
+                if (colorvalue[0][2] && colorvalue[1] != "none") return '<b class="layer-h">Potential Essence Potential';
+                return '<b>Potential Essence Potential';
+            },
             canComplete() {
                 if (hasUpgrade('h', 64)) return true;
                 return false;
@@ -2278,9 +2284,15 @@ addLayer("ds", {
             rewardDisplay() { return format(player.ds.points.add(1).pow(0.25)) + 'x' },
         },
         12: {
-            name: "Hellfire",
+            name() {
+                if (colorvalue[0][1] && colorvalue[1] != "none") return '<h3 class="layer-ds">Hellfire';
+                return '<h3>Hellfire';
+            },
             challengeDescription: " - Forces a Demon Soul reset<br> - Point gain is divided by 1,000,000<br> - Hex gain is divided by 1e10<br> - Subatomic Particle gain is divided by the number of Quarks you have",
-            goalDescription: '<b class="layer-h">Sub Core Particle Fusion',
+            goalDescription() {
+                if (colorvalue[0][2] && colorvalue[1] != "none") return '<b class="layer-h">Sub Core Particle Fusion';
+                return '<b>Sub Core Particle Fusion';
+            },
             canComplete() {
                 if (hasUpgrade('h', 63)) return true;
                 return false;
@@ -2296,9 +2308,15 @@ addLayer("ds", {
             rewardDisplay() { return format(player.h.points.add(1).pow(0.02)) + 'x' },
         },
         21: {
-            name: "Opposite Polarity",
+            name() {
+                if (colorvalue[0][1] && colorvalue[1] != "none") return '<h3 class="layer-ds">Opposite Polarity';
+                return '<h3>Opposite Polarity';
+            },
             challengeDescription: " - Forces a Demon Soul reset<br> - Hex gain is divided by 100,000<br> - Point gain is divided by 1e10<br> - Core gain is divided by 1e15<br> - Essence gain is divided by 1e20",
-            goalDescription: '<b class="layer-h">Sub Core Particle Fusion',
+            goalDescription() {
+                if (colorvalue[0][2] && colorvalue[1] != "none") return '<b class="layer-h">Sub Core Particle Fusion';
+                return '<b>Sub Core Particle Fusion';
+            },
             canComplete() {
                 if (hasUpgrade('h', 53)) return true;
                 return false;
@@ -2314,9 +2332,15 @@ addLayer("ds", {
             rewardDisplay() { return format(player.ds.points.add(1).pow(0.2)) + 'x' },
         },
         22: {
-            name: "Dreaded Science",
+            name() {
+                if (colorvalue[0][1] && colorvalue[1] != "none") return '<h3 class="layer-ds">Dreaded Science';
+                return '<h3>Dreaded Science';
+            },
             challengeDescription: " - Forces a Demon Soul reset<br> - Point gain is divided by 1e10<br> - Quark and Subatomic Particle gain is divided by 1e40",
-            goalDescription: '<b class="layer-a">Famed Atom\'s Donations',
+            goalDescription() {
+                if (colorvalue[0][2] && colorvalue[1] != "none") return '<b class="layer-a">Famed Atom\'s Donations';
+                return '<b>Famed Atom\'s Donations';
+            },
             canComplete() {
                 if (hasUpgrade('a', 51)) return true;
                 return false;
@@ -2494,7 +2518,7 @@ addLayer("a", {
     upgrades: {
         11: {
             title() {
-                return 'The Demon of the Atom';
+                return '<b class="layer-a' + getdark(this, "title") + 'The Demon of the Atom';
             },
             description() {
                 return 'multiplies demon soul gain based on the amount of atoms you have'
@@ -2509,7 +2533,7 @@ addLayer("a", {
         },
         21: {
             title() {
-                return 'Decaying Atoms';
+                return '<b class="layer-a' + getdark(this, "title") + 'Decaying Atoms';
             },
             description() {
                 return 'multiplies subatomic particle gain based on your best atoms'
@@ -2527,7 +2551,7 @@ addLayer("a", {
         },
         22: {
             title() {
-                return 'Atom Construction';
+                return '<b class="layer-a' + getdark(this, "title") + 'Atom Construction';
             },
             description() {
                 return 'multiplies atom gain based on the amount of subatomic particles you have'
@@ -2545,7 +2569,7 @@ addLayer("a", {
         },
         31: {
             title() {
-                return 'Decayed Atoms';
+                return '<b class="layer-a' + getdark(this, "title") + 'Decayed Atoms';
             },
             description() {
                 return 'multiplies subatomic particle gain based on your total atoms'
@@ -2563,7 +2587,7 @@ addLayer("a", {
         },
         32: {
             title() {
-                return 'Atomic Recursion';
+                return '<b class="layer-a' + getdark(this, "title") + 'Atomic Recursion';
             },
             description() {
                 return 'multiplies atom gain based on your total atoms'
@@ -2581,7 +2605,7 @@ addLayer("a", {
         },
         33: {
             title() {
-                return 'Atom Production';
+                return '<b class="layer-a' + getdark(this, "title") + 'Atom Production';
             },
             description() {
                 return 'multiplies atom gain based on the amount of subatomic particles you have'
@@ -2599,7 +2623,7 @@ addLayer("a", {
         },
         41: {
             title() {
-                return 'Atom Revenants';
+                return '<b class="layer-a' + getdark(this, "title") + 'Atom Revenants';
             },
             description() {
                 return 'multiplies quark gain based on your total atoms minus your current atoms'
@@ -2617,7 +2641,7 @@ addLayer("a", {
         },
         42: {
             title() {
-                return 'The Fallen';
+                return '<b class="layer-a' + getdark(this, "title") + 'The Fallen';
             },
             description() {
                 return 'multiplies demon soul gain based on your best atoms minus your current atoms'
@@ -2635,7 +2659,7 @@ addLayer("a", {
         },
         51: {
             title() {
-                return 'Famed Atoms\' Donations';
+                return '<b class="layer-a' + getdark(this, "title") + 'Famed Atoms\' Donations';
             },
             description() {
                 return 'multiplies subatomic particle gain based on your number of achievements'
@@ -2647,7 +2671,7 @@ addLayer("a", {
         },
         61: {
             title() {
-                return 'Unpeaked';
+                return '<b class="layer-a' + getdark(this, "title") + 'Unpeaked';
             },
             description() {
                 return 'multiplies atom gain based on your total atoms minus your best atoms'
@@ -2665,7 +2689,7 @@ addLayer("a", {
         },
         62: {
             title() {
-                return 'Higher Peak';
+                return '<b class="layer-a' + getdark(this, "title") + 'Higher Peak';
             },
             description() {
                 return 'multiplies atom gain based on your total atoms times your current atoms'
@@ -2683,7 +2707,7 @@ addLayer("a", {
         },
         71: {
             title() {
-                return 'Demons Inside';
+                return '<b class="layer-a' + getdark(this, "title") + 'Demons Inside';
             },
             description() {
                 return 'multiplies demon soul gain based on your best atoms times your current atoms'
@@ -2700,7 +2724,7 @@ addLayer("a", {
         },
         72: {
             title() {
-                return 'Recurred, Recurring';
+                return '<b class="layer-a' + getdark(this, "title") + 'Recurred, Recurring';
             },
             description() {
                 return 'multiplies atom gain based on your total atoms'
@@ -2717,7 +2741,7 @@ addLayer("a", {
         },
         73: {
             title() {
-                return 'Atomic Essence';
+                return '<b class="layer-a' + getdark(this, "title") + 'Atomic Essence';
             },
             description() {
                 return 'multiplies essence gain based on the amount of atoms you have'
@@ -2940,7 +2964,7 @@ addLayer("p", {
     upgrades: {
         11: {
             title() {
-                return '<tag class="layer-p' + getdark(this, "title") + 'Prayer Influence';
+                return '<b class="layer-p' + getdark(this, "title") + 'Prayer Influence';
             },
             description() {
                 return 'multiplies essence gain based on the amount of prayers you have';
@@ -2954,7 +2978,7 @@ addLayer("p", {
         },
         12: {
             title() {
-                return '<tag class="layer-p' + getdark(this, "title") + 'Heretic Leniency';
+                return '<b class="layer-p' + getdark(this, "title") + 'Heretic Leniency';
             },
             description() {
                 return 'multiplies hex gain by 1.02';
@@ -2964,7 +2988,7 @@ addLayer("p", {
         },
         13: {
             title() {
-                return '<tag class="layer-p' + getdark(this, "title") + 'Essence of Divinity';
+                return '<b class="layer-p' + getdark(this, "title") + 'Essence of Divinity';
             },
             description() {
                 return 'multiplies divinity gain based on the amount of essence you have';
@@ -3100,7 +3124,7 @@ addLayer("p", {
         },
         33: {
             title() {
-                return '<tag class="layer-p' + getdark(this, "title") + 'Divine Recursion';
+                return '<b class="layer-p' + getdark(this, "title") + 'Divine Recursion';
             },
             description() {
             return 'multiplies divinity gain based on the amount of divinity you have'
@@ -3332,7 +3356,7 @@ addLayer("p", {
         },
         65: {
             title() {
-                return '<tag class="layer-p' + getdark(this, "title") + 'Silver Sanctums';
+                return '<b class="layer-p' + getdark(this, "title") + 'Silver Sanctums';
             },
             description() {
                 return 'reduces sanctum gain exponent<br>5 --> 4';
@@ -3343,7 +3367,7 @@ addLayer("p", {
         },
         71: {
             title() {
-                return '<tag class="layer-p' + getdark(this, "title") + 'Divine Sanctums';
+                return '<b class="layer-p' + getdark(this, "title") + 'Divine Sanctums';
             },
             description() {
                 return 'multiplies divinity gain after all softcaps based on the amount of sanctums you have';
@@ -3358,7 +3382,7 @@ addLayer("p", {
         },
         72: {
             title() {
-                return '<tag class="layer-p' + getdark(this, "title") + 'Sanctum Sanctions';
+                return '<b class="layer-p' + getdark(this, "title") + 'Sanctum Sanctions';
             },
             description() {
                 return 'multiplies point gain based on the amount of sanctums you have';
@@ -3373,7 +3397,7 @@ addLayer("p", {
         },
         73: {
             title() {
-                return '<tag class="layer-p' + getdark(this, "title") + 'Sanctum Prayers';
+                return '<b class="layer-p' + getdark(this, "title") + 'Sanctum Prayers';
             },
             description() {
                 return 'multiplies prayer gain based on the amount of sanctums you have';
@@ -3388,7 +3412,7 @@ addLayer("p", {
         },
         74: {
             title() {
-                return '<tag class="layer-p' + getdark(this, "title") + 'Gold Sanctums';
+                return '<b class="layer-p' + getdark(this, "title") + 'Gold Sanctums';
             },
             description() { return 'reduces sanctum gain exponent if you have <b class="layer-p' + getdark(this, "ref") + 'Silver Sanctums</b><br>4 --> 3.5' 
         },
