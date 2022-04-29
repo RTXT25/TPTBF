@@ -464,7 +464,7 @@ addLayer("SC", {
                 text.push('<h2 class="layer-c">' + core + '</h2> is <h2 class="layer-c">core</h2>');
             };
             if (quark > 0) {
-                text.push('<h2 class="layer-q">' + quark + '</h2> is <h2 class="layer-q">quark</h2>');
+                text.push('<h2 class="layer-q">' + quark + '</h2> is <h2 class="layer-q">quirky</h2>');
             };
             if (hex > 0) {
                 text.push('<h2 class="layer-h">' + hex + '</h2> is <h2 class="layer-h">hexed</h2>');
@@ -475,11 +475,10 @@ addLayer("SC", {
         };
         textfin = text[0];
         if (text.length > 1) {
-            if (text.length == 2) textfin += "and ";
             textfin += text[1];
         };
         if (text.length > 2) {
-            if (text.length == 3) textfin += ", and ";
+            if (text.length == 3) textfin += " and ";
             else textfin += ", ";
             textfin += text[2];
         };
@@ -569,6 +568,7 @@ addLayer("e", {
         if (getBuyableAmount('sp', 11).gt(0)) mult = mult.mul(getBuyableAmount('sp', 11).add(1).pow(-1));
         if (hasUpgrade('p', 22)) mult = mult.mul(player.p.holiness.add(1).pow(0.055));
         if (player.s.points.gt(0)) mult = mult.mul(tmp.s.effect);
+        if (player.r.points.gt(0)) mult = mult.mul(player.r.essencemult);
         if (hasUpgrade('ds', 21)) mult = mult.mul(player.A.points.mul(0.2));
         if (inChallenge('ds', 21)) mult = mult.mul(0.00000000000000000001);
         return mult;
@@ -3211,13 +3211,13 @@ addLayer("p", {
             style: {'height':'120px'},
         },
         23: {
-            fullDisplay() { return '<h3 class="layer-p' + getdark(this, "title", true) + 'Holy Channeling</h3><br>increases efficiency of holiness conversion<br>0.04x --> 0.06x<br><br>Cost: 15 holiness' },
+            fullDisplay() { return '<h3 class="layer-p' + getdark(this, "title", true) + 'Holy Channeling</h3><br>increases efficiency of holiness conversion<br>0.04x --> 0.06x<br><br>Cost: 10 holiness' },
             canAfford() {
-                if (player.p.holiness.gte(15)) return true;
+                if (player.p.holiness.gte(10)) return true;
                 return false;
             },
             pay() {
-                player.p.holiness = player.p.holiness.sub(15);
+                player.p.holiness = player.p.holiness.sub(10);
             },
             style: {'height':'120px'},
             unlocked() { if (hasUpgrade('p', 22)) return true },
@@ -3249,14 +3249,14 @@ addLayer("p", {
             unlocked() { return hasUpgrade('p', 24) },
         },
         31: {
-            fullDisplay() { return '<h3 class="layer-p' + getdark(this, "title", true) + 'Church Relics</h3><br>achievements also multiply prayer gain if you have all subsequent achievement upgrades<br><br>Cost: 175 divinity,<br>45 holiness' },
+            fullDisplay() { return '<h3 class="layer-p' + getdark(this, "title", true) + 'Church Relics</h3><br>achievements also multiply prayer gain if you have all subsequent achievement upgrades<br><br>Cost: 175 divinity,<br>40 holiness' },
             canAfford() {
-                if (player.p.divinity.gte(175) && player.p.holiness.gte(45)) return true;
+                if (player.p.divinity.gte(175) && player.p.holiness.gte(40)) return true;
                 return false;
             },
             pay() {
                 player.p.divinity = player.p.divinity.sub(175);
-                player.p.holiness = player.p.holiness.sub(45);
+                player.p.holiness = player.p.holiness.sub(40);
             },
             style: {'height':'120px'},
             unlocked() { if (hasUpgrade('p', 22)) return true },
@@ -3614,7 +3614,7 @@ addLayer("s", {
     },
     gainExp() {
         gain = new Decimal(1);
-        if (player.r.sanctummult.gt(1)) gain = gain.mul(player.r.sanctummult);
+        if (player.r.points.gt(0)) gain = gain.mul(player.r.sanctummult);
         return gain;
     },
     row: 2,
@@ -3710,6 +3710,7 @@ addLayer("r", {
         lightgain: new Decimal(0),
         relic_effects: [new Decimal(0), new Decimal(0)],
         sanctummult: new Decimal(1),
+        essencemult: new Decimal(1),
     }},
     color() {
         if (player.s.points.gte(10) || player.r.unlocked) return "#B9A975";
@@ -3738,22 +3739,26 @@ addLayer("r", {
     ],
     layerShown(){return player.p.unlocked},
     effect() {
-        effBoost = new Decimal(1);
-        player.r.sanctummult = player.r.points.add(1).pow(0.5).mul(effBoost);
-        return player.r.points.mul(effBoost).div(10).add(1);
+        effBoost1 = new Decimal(1);
+        effBoost2 = new Decimal(1);
+        effBoost3 = new Decimal(1);
+        if (challengeCompletions('r', 11) >= 1) effBoost3 = player.r.relic_effects[0];
+        player.r.sanctummult = player.r.points.add(1).pow(0.5).mul(effBoost2);
+        player.r.essencemult = player.r.points.mul(100).add(1).pow(0.25).mul(effBoost3);
+        return player.r.points.mul(effBoost1).div(10).add(1);
     },
     effectDescription() {
-        if (colorvalue[1] == "none") return 'which makes Essence Influence\'s hardcap start ' + format(tmp.r.effect) + 'x later, and also multiplies sanctum gain by ' + format(player.r.sanctummult) + 'x';
-        if (!colorvalue[0][2]) return 'which makes <h3>Essence Influence\'s</h3> hardcap start <h2 class="layer-r">' + format(tmp.r.effect) + '</h2>x later, and also multiplies sanctum gain by <h2 class="layer-r">' + format(player.r.sanctummult) + '</h2>x';
-        return 'which makes <h3 class="layer-e">Essence Influence\'s</h3> hardcap start <h2 class="layer-r">' + format(tmp.r.effect) + '</h2>x later, and also multiplies sanctum gain by <h2 class="layer-r">' + format(player.r.sanctummult) + '</h2>x';
+        if (colorvalue[1] == "none") return 'which makes Essence Influence\'s hardcap start ' + format(tmp.r.effect) + 'x later, multiplies sanctum gain by ' + format(player.r.sanctummult) + 'x, and also multiplies essence gain by ' + format(player.r.essencemult) + 'x';
+        if (!colorvalue[0][2]) return 'which makes <h3>Essence Influence\'s</h3> hardcap start <h2 class="layer-r">' + format(tmp.r.effect) + '</h2>x later, multiplies sanctum gain by <h2 class="layer-r">' + format(player.r.sanctummult) + '</h2>x, and also multiplies essence gain by <h2 class="layer-r">' + format(player.r.essencemult) + '</h2>x';
+        return 'which makes <h3 class="layer-e">Essence Influence\'s</h3> hardcap start <h2 class="layer-r">' + format(tmp.r.effect) + '</h2>x later, multiplies sanctum gain by <h2 class="layer-r">' + format(player.r.sanctummult) + '</h2>x, and also multiplies essence gain by <h2 class="layer-r">' + format(player.r.essencemult) + '</h2>x';
     },
     doReset(resettingLayer) {
         let keep = [];
             if (layers[resettingLayer].row > this.row) layerDataReset("r", keep);
         },
     update(diff) {
-        player.r.lightreq = new Decimal(challengeCompletions('r', 11)).add(1).pow(2).mul(1000000);
-        player.r.relic_effects[0] = player.r.points.mul(10).add(1).pow(0.5);
+        player.r.lightreq = new Decimal(1000000).pow(new Decimal(challengeCompletions('r', 11)).add(1));
+        player.r.relic_effects[0] = player.r.light.add(1).pow(0.1);
         if (inChallenge('r', 11)) {
             player.r.lightgain = getPointGen(true).pow(0.001).div(10);
             player.r.light = player.r.light.add(player.r.lightgain.mul(diff));
@@ -3791,8 +3796,8 @@ addLayer("r", {
             },
             rewardDescription() {
                 text = "";
-                if (challengeCompletions('r', 11) == 0) text += 'nothing currently<br><br>Next reward: multiply essence gain based on the amount of relics you have';
-                if (challengeCompletions('r', 11) >= 1) text += 'multiply essence gain based on the amount of relics you have<br>Currently: ' + format(player.r.relic_effects[0]) + 'x<br>';
+                if (challengeCompletions('r', 11) == 0) text += 'nothing currently<br><br>Next reward: multiply relic\'s third effect based on the amount of light you have<br>Currently: ' + format(player.r.relic_effects[0]) + 'x';
+                if (challengeCompletions('r', 11) >= 1) text += 'multiply essence gain based on the amount of light you have<br>Currently: ' + format(player.r.relic_effects[0]) + 'x<br><br>Next reward: relic\'s third effect also effects point gain';
                 return text;
             },
             canComplete: function() {
@@ -3820,7 +3825,7 @@ addLayer("r", {
                 else color = 'EEEEFF';
                 textcolor = 'B9A975';
                 if (colorvalue[1] == "none") textcolor = 'DFDFDF';
-                return {'background-color':'#'+color,'color':'#'+textcolor,'border-radius':'25px','height':'350px','width':'350px'};
+                return {'background-color':'#'+color,'color':'#'+textcolor,'border-radius':'25px','height':'400px','width':'400px'};
             },
         },
     },
