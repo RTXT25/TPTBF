@@ -154,6 +154,7 @@ addLayer("A", {
             done() {return player.c.points.gte(new Decimal("1e1000"))},
             tooltip: "obtain 1e1,000 cores.",
             unlocked() { if (hasAchievement("A", 33)) return true },
+            image() { if (hasAchievement("A", 34)) return "images/achievements/34.png" },
         },
         35: {
             name: "Core of Truth",
@@ -194,6 +195,7 @@ addLayer("A", {
             done() {return player.q.points.gte(new Decimal("1e1000"))},
             tooltip: "obtain 1e1,000 quarks.",
             unlocked() { if (hasAchievement("A", 43)) return true },
+            image() { if (hasAchievement("A", 44)) return "images/achievements/44.png" },
         },
         45: {
             name: "Impossible Quarks",
@@ -237,16 +239,18 @@ addLayer("A", {
             image() { if (hasAchievement("A", 54)) return "images/achievements/54.png" },
         },
         55: {
-            name: "The Universe in a Particle",
+            name: "Anti Dark Matter",
             done() {return player.sp.points.gte(1e10)},
             tooltip: "obtain 1e10 subatomic particles.",
             unlocked() { if (hasAchievement("A", 54)) return true },
+            image() { if (hasAchievement("A", 55)) return "images/achievements/55.png" },
         },
         56: {
             name: "Hollow Particles",
             done() {return getBuyableAmount("sp", 11).eq(0) && getBuyableAmount("sp", 12).eq(0) && getBuyableAmount("sp", 21).eq(0) && player.h.points.eq(0) && player.sp.points.gte(10)},
             tooltip: "obtain 10 subatomic particles with no subatomic particle buyables and hexes.",
             unlocked() { if (hasAchievement("A", 52) && hasAchievement("A", 61)) return true },
+            image() { if (hasAchievement("A", 56)) return "images/achievements/56.png" },
         },
         61: {
             name: "The Hex Game",
