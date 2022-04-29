@@ -1018,7 +1018,7 @@ addLayer("c", {
                 return '<b class="layer-c' + getdark(this, "title") + 'Heat Emission';
             },
             description() {
-                return 'multiplies essence gain based on your cores'
+                return 'multiplies essence gain based on your cores';
             },
             cost: 25,
             effect() {
@@ -1036,7 +1036,7 @@ addLayer("c", {
                 return '<b class="layer-c' + getdark(this, "title") + 'Core Countdown';
             },
             description() {
-                return 'multiplies core gain based on your points'
+                return 'multiplies core gain based on your points';
             },
             cost: 100,
             effect() {
@@ -1054,7 +1054,7 @@ addLayer("c", {
                 return '<b class="layer-c' + getdark(this, "title") + 'The Quarks\' Core';
             },
             description() {
-                return 'multiplies quark gain based on your cores'
+                return 'multiplies quark gain based on your cores';
             },
             cost: 750,
             effect() {
@@ -1072,7 +1072,7 @@ addLayer("c", {
                 return '<b class="layer-c' + getdark(this, "title") + 'Quarky Core';
             },
             description() {
-                return 'multiplies the effect of <b class="layer-c' + getdark(this, "ref") + 'The Quarks\' Core</b> based on your cores'
+                return 'multiplies the effect of <b class="layer-c' + getdark(this, "ref") + 'The Quarks\' Core</b> based on your cores';
             },
             cost: 1e69,
             effect() {
@@ -1090,7 +1090,7 @@ addLayer("c", {
                 return '<b class="layer-c' + getdark(this, "title") + 'Quirky Core';
             },
             description() {
-                return 'multiplies the effect of <b class="layer-c' + getdark(this, "ref") + 'Quarky Core</b> based on your cores'
+                return 'multiplies the effect of <b class="layer-c' + getdark(this, "ref") + 'Quarky Core</b> based on your cores';
             },
             cost: 1e71,
             effect() {
@@ -1108,7 +1108,7 @@ addLayer("c", {
                 return '<b class="layer-c' + getdark(this, "title") + 'Super Core';
             },
             description() {
-                return 'multiplies core gain based on your cores'
+                return 'multiplies core gain based on your cores';
             },
             cost: 1e73,
             effect() {
@@ -1126,7 +1126,7 @@ addLayer("c", {
                 return '<b class="layer-c' + getdark(this, "title") + 'Ultra Core';
             },
             description() {
-                return 'multiplies the effect of <b class="layer-c' + getdark(this, "ref") + 'Super Core</b> based on your cores'
+                return 'multiplies the effect of <b class="layer-c' + getdark(this, "ref") + 'Super Core</b> based on your cores';
             },
             cost: 1e75,
             effect() {
@@ -1144,7 +1144,7 @@ addLayer("c", {
                 return '<b class="layer-c' + getdark(this, "title") + 'Hexed Core';
             },
             description() {
-                return 'multiplies the effect of <b class="layer-c' + getdark(this, "ref") + 'Ultra Core</b> based on your hexes'
+                return 'multiplies the effect of <b class="layer-c' + getdark(this, "ref") + 'Ultra Core</b> based on your hexes';
             },
             cost: 1e77,
             effect() {
@@ -1162,7 +1162,7 @@ addLayer("c", {
                 return '<b class="layer-c' + getdark(this, "title") + 'Core Liberation';
             },
             description() {
-                return 'if you own <b class="layer-h' + getdark(this, "ref") + 'Core Production Line</b> and all subsequent upgrades, gain +25% of your core gain per second'
+                return 'if you own <b class="layer-h' + getdark(this, "ref") + 'Core Production Line</b> and all subsequent upgrades, gain +25% of your core gain per second';
             },
             cost: 1e80,
             unlocked() { return hasUpgrade("h", 53) && hasUpgrade("c", 32) },
@@ -1351,7 +1351,7 @@ addLayer("q", {
                 return '<b class="layer-q' + getdark(this, "title") + 'The Point of Quarks';
             },
             description() {
-                return 'multiplies quark gain based on your points'
+                return 'multiplies quark gain based on your points';
             },
             cost: 1,
             effect() {
@@ -1368,7 +1368,7 @@ addLayer("q", {
                 return '<b class="layer-q' + getdark(this, "title") + 'Quark Power';
             },
             description() {
-                return 'multiplies point gain based on your quarks'
+                return 'multiplies point gain based on your quarks';
             },
             cost: 2,
             effect() {
@@ -1386,7 +1386,7 @@ addLayer("q", {
                 return '<b class="layer-q' + getdark(this, "title") + 'Super Quarks';
             },
             description() {
-                return 'multiplies the effect of <b class="layer-q' + getdark(this, "ref") + 'Quark Power</b> based on your points'
+                return 'multiplies the effect of <b class="layer-q' + getdark(this, "ref") + 'Quark Power</b> based on your points';
             },
             cost: 25,
             effect() {
@@ -1404,7 +1404,7 @@ addLayer("q", {
                 return '<b class="layer-q' + getdark(this, "title") + 'Essence of Quarks';
             },
             description() {
-                return '<b class="layer-q' + getdark(this, "ref") + 'Quark Power</b> also affects essence gain at a reduced rate (<b class="layer-q' + getdark(this, "ref") + 'Super Quarks</b> does not affect this)'
+                return '<b class="layer-q' + getdark(this, "ref") + 'Quark Power</b> also affects essence gain at a reduced rate (<b class="layer-q' + getdark(this, "ref") + 'Super Quarks</b> does not affect this)';
             },
             cost: 100,
             effect() {
@@ -1422,7 +1422,7 @@ addLayer("q", {
                 return '<b class="layer-q' + getdark(this, "title") + 'Quark Fusion';
             },
             description() {
-                return 'multiplies the effect of <b class="layer-q' + getdark(this, "ref") + 'Essence of Quarks</b> based on your cores'
+                return 'multiplies the effect of <b class="layer-q' + getdark(this, "ref") + 'Essence of Quarks</b> based on your cores';
             },
             cost: 750,
             effect() {
@@ -2050,7 +2050,7 @@ addLayer("h", {
                 return '<b class="layer-h' + getdark(this, "title") + 'Stronger Hexes';
             },
             description() {
-                return 'multiplies hex gain based on your hexes'
+                return 'multiplies hex gain based on your hexes';
             },
             cost: 5,
             effect() {
@@ -2071,7 +2071,7 @@ addLayer("h", {
                 return '<b class="layer-h' + getdark(this, "title") + 'Hex Fusion';
             },
             description() {
-                return 'multiplies core gain based on your hexes'
+                return 'multiplies core gain based on your hexes';
             },
             cost: 10,
             effect() {
@@ -2517,7 +2517,7 @@ addLayer("ds", {
                 return '<b class="layer-ds' + getdark(this, "title") + 'Hall of Fame';
             },
             description() {
-                text = 'achievements also multiply essence gain'
+                text = 'achievements also multiply essence gain';
                 if (player.nerdMode) text += ' <br>formula: x*0.2';
                 return text;
             },
@@ -2756,8 +2756,14 @@ addLayer("a", {
                 ["display-text",
                     function() {
                         text = 'When you buy one of these upgrades, you cannot buy<br>any upgrades that are not on its path. When you<br>do a row 4 reset, all atom upgrades will be reset.';
-                        if (hasMilestone('a', 10)) text += '<br><br>From the effect of the 11th atom milestone:<br>you can buy all atom upgrades.';
-                        if (hasMilestone('a', 12)) text += '<br><br>From the effect of the 13th atom milestone:<br>row 4 resets do not reset atom upgrades.';
+                        if (hasMilestone('a', 10)) {
+                            if (!colorvalue[0][2] || colorvalue[1] == "none") text += '<br><br>From the effect of the 11th atom milestone:<br>you can buy all atom upgrades.';
+                            else text += '<br><br>From the effect of the <b class="layer-a' + getdark(this, "ref", true, true) + '11th atom milestone</b>:<br>you can buy all atom upgrades.';
+                        };
+                        if (hasMilestone('a', 12)) {
+                            if (!colorvalue[0][2] || colorvalue[1] == "none") text += '<br><br>From the effect of the 13th atom milestone:<br>row 4 resets do not reset atom upgrades.';
+                            else text += '<br><br>From the effect of the <b class="layer-a' + getdark(this, "ref", true, true) + '13th atom milestone:</b><br>row 4 resets do not reset atom upgrades.';
+                        };
                         return text;
                     }],
                 "blank",
@@ -2855,13 +2861,17 @@ addLayer("a", {
                 return '<b class="layer-a' + getdark(this, "title") + 'The Demon of the Atom';
             },
             description() {
-                return 'multiplies demon soul gain based on your atoms'
+                return 'multiplies demon soul gain based on your atoms';
             },
             cost: 1,
             effect() {
                 return player.a.points.add(1).pow(0.5);
             },
-            effectDisplay() { return format(this.effect()) + 'x' },
+            effectDisplay() {
+                text = format(this.effect()) + 'x';
+                if (player.nerdMode) text += ' <br>formula: (x+1)^0.5';
+                return text;
+            },
             branches: [21, 22],
         },
         21: {
@@ -2869,13 +2879,17 @@ addLayer("a", {
                 return '<b class="layer-a' + getdark(this, "title") + 'Decaying Atoms';
             },
             description() {
-                return 'multiplies subatomic particle gain based on your best atoms'
+                return 'multiplies subatomic particle gain based on your best atoms';
             },
             cost: 1,
             effect() {
                 return player.a.best.add(1).pow(1.25);
             },
-            effectDisplay() { return format(this.effect()) + 'x' },
+            effectDisplay() {
+                text = format(this.effect()) + 'x';
+                if (player.nerdMode) text += ' <br>formula: (x+1)^1.25';
+                return text;
+            },
             branches: [31, 32],
             unlocked() {
                 if (!hasUpgrade('a', 22) && !hasUpgrade('a', 33) || hasMilestone('a', 10)) return true;
@@ -2886,13 +2900,17 @@ addLayer("a", {
                 return '<b class="layer-a' + getdark(this, "title") + 'Atom Construction';
             },
             description() {
-                return 'multiplies atom gain based on your subatomic particles'
+                return 'multiplies atom gain based on your subatomic particles';
             },
             cost: 1,
             effect() {
                 return player.sp.points.add(1).pow(0.02);
             },
-            effectDisplay() { return format(this.effect()) + 'x' },
+            effectDisplay() {
+                text = format(this.effect()) + 'x';
+                if (player.nerdMode) text += ' <br>formula: (x+1)^0.02';
+                return text;
+            },
             branches: [32, 33],
             unlocked() {
                 if (!hasUpgrade('a', 21) && !hasUpgrade('a', 31) || hasMilestone('a', 10)) return true;
@@ -2903,13 +2921,17 @@ addLayer("a", {
                 return '<b class="layer-a' + getdark(this, "title") + 'Decayed Atoms';
             },
             description() {
-                return 'multiplies subatomic particle gain based on your total atoms'
+                return 'multiplies subatomic particle gain based on your total atoms';
             },
             cost: 2,
             effect() {
                 return player.a.total.add(1).pow(1.05);
             },
-            effectDisplay() { return format(this.effect()) + 'x' },
+            effectDisplay() {
+                text = format(this.effect()) + 'x';
+                if (player.nerdMode) text += ' <br>formula: (x+1)^1.05';
+                return text;
+            },
             branches: [41],
             unlocked() {
                 if (!hasUpgrade('a', 22) && !hasUpgrade('a', 32) && !hasUpgrade('a', 33) && !hasUpgrade('a', 42) || hasMilestone('a', 10)) return true;
@@ -2920,13 +2942,17 @@ addLayer("a", {
                 return '<b class="layer-a' + getdark(this, "title") + 'Atomic Recursion';
             },
             description() {
-                return 'multiplies atom gain based on your total atoms'
+                return 'multiplies atom gain based on your total atoms';
             },
             cost: 2,
             effect() {
                 return player.a.total.add(1).pow(0.05);
             },
-            effectDisplay() { return format(this.effect()) + 'x' },
+            effectDisplay() {
+                text = format(this.effect()) + 'x';
+                if (player.nerdMode) text += ' <br>formula: (x+1)^0.05';
+                return text;
+            },
             branches: [41, 42],
             unlocked() {
                 if (!hasUpgrade('a', 31) && !hasUpgrade('a', 33) || hasMilestone('a', 10)) return true;
@@ -2937,13 +2963,17 @@ addLayer("a", {
                 return '<b class="layer-a' + getdark(this, "title") + 'Atom Production';
             },
             description() {
-                return 'multiplies atom gain based on your subatomic particles'
+                return 'multiplies atom gain based on your subatomic particles';
             },
             cost: 2,
             effect() {
                 return player.sp.points.add(1).pow(0.025);
             },
-            effectDisplay() { return format(this.effect()) + 'x' },
+            effectDisplay() {
+                text = format(this.effect()) + 'x';
+                if (player.nerdMode) text += ' <br>formula: (x+1)^0.025';
+                return text;
+            },
             branches: [42],
             unlocked() {
                 if (!hasUpgrade('a', 21) && !hasUpgrade('a', 31) && !hasUpgrade('a', 32) && !hasUpgrade('a', 41) || hasMilestone('a', 10)) return true;
@@ -2954,13 +2984,17 @@ addLayer("a", {
                 return '<b class="layer-a' + getdark(this, "title") + 'Atom Revenants';
             },
             description() {
-                return 'multiplies quark gain based on your total atoms minus your current atoms'
+                return 'multiplies quark gain based on your total atoms minus your current atoms';
             },
             cost: 2,
             effect() {
                 return player.a.total.sub(player.a.points).pow(0.75);
             },
-            effectDisplay() { return format(this.effect()) + 'x' },
+            effectDisplay() {
+                text = format(this.effect()) + 'x';
+                if (player.nerdMode) text += ' <br>formula: (x-y)^0.75';
+                return text;
+            },
             branches: [51],
             unlocked() {
                 if (!hasUpgrade('a', 33) && !hasUpgrade('a', 42) || hasMilestone('a', 10)) return true;
@@ -2971,13 +3005,17 @@ addLayer("a", {
                 return '<b class="layer-a' + getdark(this, "title") + 'The Fallen';
             },
             description() {
-                return 'multiplies demon soul gain based on your best atoms minus your current atoms'
+                return 'multiplies demon soul gain based on your best atoms minus your current atoms';
             },
             cost: 2,
             effect() {
                 return player.a.best.mul(1.5).sub(player.a.points).pow(1.05);
             },
-            effectDisplay() { return format(this.effect()) + 'x' },
+            effectDisplay() {
+                text = format(this.effect()) + 'x';
+                if (player.nerdMode) text += ' <br>formula:<br>(x*1.5-y)^1.05';
+                return text;
+            },
             branches: [51],
             unlocked() {
                 if (!hasUpgrade('a', 31) && !hasUpgrade('a', 41) || hasMilestone('a', 10)) return true;
@@ -2988,7 +3026,9 @@ addLayer("a", {
                 return '<b class="layer-a' + getdark(this, "title") + 'Famed Atoms\' Donations';
             },
             description() {
-                return 'multiplies subatomic particle gain based on your number of achievements'
+                text = 'multiplies subatomic particle gain based on your number of achievements';
+                if (player.nerdMode) text += ' <br>formula: x^1.25';
+                return text;
             },
             cost: 3,
             branches: [61, 62],
@@ -2999,13 +3039,17 @@ addLayer("a", {
                 return '<b class="layer-a' + getdark(this, "title") + 'Unpeaked';
             },
             description() {
-                return 'multiplies atom gain based on your total atoms minus your best atoms'
+                return 'multiplies atom gain based on your total atoms minus your best atoms';
             },
             cost: 3,
             effect() {
                 return player.a.total.sub(player.a.best).pow(0.2);
             },
-            effectDisplay() { return format(this.effect()) + 'x' },
+            effectDisplay() {
+                text = format(this.effect()) + 'x';
+                if (player.nerdMode) text += ' <br>formula: (x-y)^0.2';
+                return text;
+            },
             branches: [71, 72],
             unlocked() {
                 if (!hasUpgrade('a', 62) && !hasUpgrade('a', 73) || hasMilestone('a', 10)) return true;
@@ -3016,13 +3060,17 @@ addLayer("a", {
                 return '<b class="layer-a' + getdark(this, "title") + 'Higher Peak';
             },
             description() {
-                return 'multiplies atom gain based on your total atoms times your current atoms'
+                return 'multiplies atom gain based on your total atoms times your current atoms';
             },
             cost: 3,
             effect() {
                 return player.a.total.mul(player.a.points).pow(0.05).add(1);
             },
-            effectDisplay() { return format(this.effect()) + 'x' },
+            effectDisplay() {
+                text = format(this.effect()) + 'x';
+                if (player.nerdMode) text += ' <br>formula: (x*y)^0.05+1';
+                return text;
+            },
             branches: [72, 73],
             unlocked() {
                 if (!hasUpgrade('a', 61) && !hasUpgrade('a', 71) || hasMilestone('a', 10)) return true;
@@ -3033,13 +3081,17 @@ addLayer("a", {
                 return '<b class="layer-a' + getdark(this, "title") + 'Demons Inside';
             },
             description() {
-                return 'multiplies demon soul gain based on your best atoms times your current atoms'
+                return 'multiplies demon soul gain based on your best atoms times your current atoms';
             },
             cost: 4,
             effect() {
                 return player.a.best.mul(player.a.points).mul(2.5).pow(0.15);
             },
-            effectDisplay() { return format(this.effect()) + 'x' },
+            effectDisplay() {
+                text = format(this.effect()) + 'x';
+                if (player.nerdMode) text += ' <br>formula: (x*y*2.5)^0.15';
+                return text;
+            },
             unlocked() {
                 if (!hasUpgrade('a', 62) && !hasUpgrade('a', 72) && !hasUpgrade('a', 73) || hasMilestone('a', 10)) return true;
             },
@@ -3049,13 +3101,17 @@ addLayer("a", {
                 return '<b class="layer-a' + getdark(this, "title") + 'Recurred, Recurring';
             },
             description() {
-                return 'multiplies atom gain based on your total atoms'
+                return 'multiplies atom gain based on your total atoms';
             },
             cost: 4,
             effect() {
                 return player.a.total.add(1).pow(0.1);
             },
-            effectDisplay() { return format(this.effect()) + 'x' },
+            effectDisplay() {
+                text = format(this.effect()) + 'x';
+                if (player.nerdMode) text += ' <br>formula: (x+1)^0.1';
+                return text;
+            },
             unlocked() {
                 if (!hasUpgrade('a', 71) && !hasUpgrade('a', 73) || hasMilestone('a', 10)) return true;
             },
@@ -3065,13 +3121,17 @@ addLayer("a", {
                 return '<b class="layer-a' + getdark(this, "title") + 'Atomic Essence';
             },
             description() {
-                return 'multiplies essence gain based on your atoms'
+                return 'multiplies essence gain based on your atoms';
             },
             cost: 4,
             effect() {
                 return player.a.points.add(1).pow(1.75);
             },
-            effectDisplay() { return format(this.effect()) + 'x' },
+            effectDisplay() {
+                text = format(this.effect()) + 'x';
+                if (player.nerdMode) text += ' <br>formula: (x+1)^1.75';
+                return text;
+            },
             unlocked() {
                 if (!hasUpgrade('a', 61) && !hasUpgrade('a', 71) && !hasUpgrade('a', 72) || hasMilestone('a', 10)) return true;
             },
@@ -3456,7 +3516,7 @@ addLayer("p", {
                 return '<b class="layer-p' + getdark(this, "title") + 'Divine Recursion';
             },
             description() {
-            return 'multiplies divinity gain based on your divinity'
+            return 'multiplies divinity gain based on your divinity';
             },
             cost: 750,
             effect() {
