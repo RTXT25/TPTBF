@@ -20,7 +20,7 @@ let changelog = `<h1>Changelog:</h1><br>
 		- Added one custom challenge to relics.<br>
 		- Added three milestones to sanctums.<br>
 		- Added one milestone to atoms.<br>
-		- Added two achievements.<br>
+		- Added four achievements.<br>
 		- Added eight achievement images.<br>
 		- Added nerd mode.<br>
 		- More things coming soon!<br>

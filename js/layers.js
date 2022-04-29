@@ -78,14 +78,14 @@ addLayer("A", {
         },
         14: {
             name: "Cosmic Point",
-            done() {return player.points.gte(new Decimal("1e1000"))},
+            done() {return player.points.gte("1e1000")},
             tooltip: "obtain 1e1,000 points.",
             unlocked() { if (hasAchievement("A", 13)) return true },
             image() { if (hasAchievement("A", 14)) return "images/achievements/14.png" },
         },
         15: {
             name: "The Point of Everything",
-            done() {return player.points.gte(new Decimal("1e10000"))},
+            done() {return player.points.gte("1e10000")},
             tooltip: "obtain 1e10,000 points.",
             unlocked() { if (hasAchievement("A", 14)) return true },
         },
@@ -119,14 +119,14 @@ addLayer("A", {
         },
         24: {
             name: "Essence of the Universe",
-            done() {return player.e.points.gte(new Decimal("1e1000"))},
+            done() {return player.e.points.gte("1e1000")},
             tooltip: "obtain 1e1,000 essence.",
             unlocked() { if (hasAchievement("A", 23)) return true },
             image() { if (hasAchievement("A", 24)) return "images/achievements/24.png" },
         },
         25: {
             name: "Essence of all Essence",
-            done() {return player.e.points.gte(new Decimal("1e10000"))},
+            done() {return player.e.points.gte("1e10000")},
             tooltip: "obtain 1e10,000 essence.",
             unlocked() { if (hasAchievement("A", 24)) return true },
         },
@@ -160,14 +160,14 @@ addLayer("A", {
         },
         34: {
             name: "Core of the Sun",
-            done() {return player.c.points.gte(new Decimal("1e1000"))},
+            done() {return player.c.points.gte("1e1000")},
             tooltip: "obtain 1e1,000 cores.",
             unlocked() { if (hasAchievement("A", 33)) return true },
             image() { if (hasAchievement("A", 34)) return "images/achievements/34.png" },
         },
         35: {
             name: "Core of Truth",
-            done() {return player.c.points.gte(new Decimal("1e10000"))},
+            done() {return player.c.points.gte("1e10000")},
             tooltip: "obtain 1e10,000 cores.",
             unlocked() { if (hasAchievement("A", 34)) return true },
         },
@@ -201,14 +201,14 @@ addLayer("A", {
         },
         44: {
             name: "Quirky Quarks",
-            done() {return player.q.points.gte(new Decimal("1e1000"))},
+            done() {return player.q.points.gte("1e1000")},
             tooltip: "obtain 1e1,000 quarks.",
             unlocked() { if (hasAchievement("A", 43)) return true },
             image() { if (hasAchievement("A", 44)) return "images/achievements/44.png" },
         },
         45: {
             name: "Impossible Quarks",
-            done() {return player.q.points.gte(new Decimal("1e10000"))},
+            done() {return player.q.points.gte("1e10000")},
             tooltip: "obtain 1e10,000 quarks.",
             unlocked() { if (hasAchievement("A", 44)) return true },
         },
@@ -284,14 +284,14 @@ addLayer("A", {
         },
         64: {
             name: "The Advent of the End",
-            done() {return player.h.points.gte(new Decimal("1e1000"))},
+            done() {return player.h.points.gte("1e1000")},
             tooltip: "obtain 1e1,000 hexes.",
             unlocked() { if (hasAchievement("A", 63)) return true },
             image() { if (hasAchievement("A", 64)) return "images/achievements/64.png" },
         },
         65: {
             name: "Nihilism: Nothing is There",
-            done() {return player.h.points.gte(new Decimal("1e10000"))},
+            done() {return player.h.points.gte("1e10000")},
             tooltip: "obtain 1e10,000 hexes.",
             unlocked() { if (hasAchievement("A", 64)) return true },
         },
@@ -310,16 +310,22 @@ addLayer("A", {
         },
         72: {
             name: "Demonic Ruin",
-            done() {return player.ds.points.gte(1e10)},
-            tooltip: "obtain 1e10 demon souls.",
+            done() {return player.ds.points.gte(1e9)},
+            tooltip: "obtain 1e9 demon souls.",
             unlocked() { if (hasAchievement("A", 71)) return true },
             image() { if (hasAchievement("A", 72)) return "images/achievements/72.png" },
         },
         73: {
             name: "Demonic Origin",
-            done() {return player.ds.points.gte(1e100)},
-            tooltip: "obtain 1e100 demon souls.",
+            done() {return player.ds.points.gte(1e80)},
+            tooltip: "obtain 1e80 demon souls.",
             unlocked() { if (hasAchievement("A", 72)) return true },
+        },
+        74: {
+            name: "Demon Dimension",
+            done() {return player.ds.points.gte("1e700")},
+            tooltip: "obtain 1e700 demon souls.",
+            unlocked() { if (hasAchievement("A", 73)) return true },
         },
         76: {
             name: "Occult Uprising",
@@ -353,6 +359,12 @@ addLayer("A", {
             done() {return player.a.points.gte(10000)},
             tooltip: "obtain 10,000 atoms.",
             unlocked() { if (hasAchievement("A", 83)) return true },
+        },
+        85: {
+            name: "Atoms Made of Atoms",
+            done() {return player.a.points.gte(1000000)},
+            tooltip: "obtain 1,000,000 atoms.",
+            unlocked() { if (hasAchievement("A", 84)) return true },
         },
         86: {
             name: "For Science!",
@@ -2759,6 +2771,10 @@ addLayer("a", {
             };
             if (layers[resettingLayer].row > this.row) layerDataReset("a", keep);
         },
+    resetsNothing() {
+        if (hasMilestone('a', 14)) return true;
+        return false;
+    },
     tabFormat: {
         "Atomic Progress": {
             content: [
@@ -2877,9 +2893,9 @@ addLayer("a", {
             done() { return player.a.points.gte(1000) && player.a.total.gte(1500) }
         },
         14: {
-            requirementDescription: "10,000 atoms and 2 relics",
+            requirementDescription: "10,000 atoms and 1e600 prayers",
             effectDescription: "atoms reset nothing",
-            done() { return player.a.points.gte(10000) && player.r.points.gte(2) },
+            done() { return player.a.points.gte(10000) && player.p.points.gte("1e600") },
             unlocked() { return hasMilestone('a', 13) && player.r.points.gt(0) }
         },
     },
