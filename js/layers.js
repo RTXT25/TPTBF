@@ -278,6 +278,7 @@ addLayer("A", {
             done() {return player.h.points.gte(new Decimal("1e1000"))},
             tooltip: "obtain 1e1,000 hexes.",
             unlocked() { if (hasAchievement("A", 63)) return true },
+            image() { if (hasAchievement("A", 64)) return "images/achievements/64.png" },
         },
         65: {
             name: "Nihilism: Nothing is There",
@@ -322,18 +323,21 @@ addLayer("A", {
             done() {return player.a.points.gte(1)},
             tooltip: "obtain 1 atom.",
             unlocked() { if (hasAchievement("A", 81)) return true },
+            image() { if (hasAchievement("A", 81)) return "images/achievements/81.png" },
         },
         82: {
             name: "Atomic Movement",
             done() {return player.a.points.gte(10)},
             tooltip: "obtain 10 atoms.",
             unlocked() { if (hasAchievement("A", 81)) return true },
+            image() { if (hasAchievement("A", 82)) return "images/achievements/82.png" },
         },
         83: {
             name: "Masses of Atoms",
             done() {return player.a.points.gte(1000)},
             tooltip: "obtain 1,000 atoms.",
             unlocked() { if (hasAchievement("A", 82)) return true },
+            image() { if (hasAchievement("A", 83)) return "images/achievements/83.png" },
         },
         84: {
             name: "Atom Grams (as seen on TV!)",
