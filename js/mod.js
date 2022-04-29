@@ -18,7 +18,8 @@ let changelog = `<h1>Changelog:</h1><br>
 	<br><h3>v2.1: Relics of Light</h3><br>
 		- Added relics.<br>
 		- Added one custom challenge to relics.<br>
-		- Added one milestone to sanctums.<br>
+		- Added three milestones to sanctums.<br>
+		- Added one milestone to atoms.<br>
 		- Added two achievements.<br>
 		- Added eight achievement images.<br>
 		- Added nerd mode.<br>
@@ -178,6 +179,7 @@ function getPointGen(forced = false) {
 	};
 	if (getBuyableAmount('sp', 12).gt(0)) gain = gain.mul(getBuyableAmount('sp', 12).add(1).pow(-1));
 	if (hasMilestone('p', 1)) gain = gain.mul(player.p.divinity.add(1).pow(0.1));
+	if (challengeCompletions('r', 11) >= 2) gain = gain.mul(player.r.essencemult);
 	if (hasUpgrade('ds', 21) && hasUpgrade('ds', 24)) gain = gain.mul(player.A.points.mul(0.2));
 	else gain = gain.mul(player.A.points.mul(0.1).add(1));
 	if (inChallenge('ds', 11)) gain = gain.mul(0.0001);

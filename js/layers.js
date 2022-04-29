@@ -1750,6 +1750,10 @@ addLayer("sp", {
         if (inChallenge('ds', 22)) gain = gain.mul(0.0000000000000000000000000000000000000001);
         return gain;
     },
+    autoPrestige() {
+        if (hasMilestone('s', 11)) return true;
+        return false;
+    },
     row: 2,
     hotkeys: [
         {key: "S", description: "Shift-S: Reset for subatomic particles", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
@@ -1764,6 +1768,10 @@ addLayer("sp", {
             if (hasMilestone("a", 13) && resettingLayer == "a") keep.push("milestones");
             if (layers[resettingLayer].row > this.row) layerDataReset("sp", keep);
         },
+    resetsNothing() {
+        if (hasMilestone('s', 11)) return true;
+        return false;
+    },
     tabFormat: [
         "main-display",
         "prestige-button",
@@ -2420,6 +2428,13 @@ addLayer("ds", {
         {key: "d", description: "D: Reset for demon souls", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
     layerShown(){return player.h.unlocked},
+    passiveGeneration() {
+        let gen = 0;
+        if (hasMilestone("s", 10)) {
+            gen += 0.00001;
+        };
+        return gen;
+    },
     doReset(resettingLayer) {
         let keep = [];
             if (layers[resettingLayer].row > this.row) layerDataReset("ds", keep);
@@ -2860,6 +2875,12 @@ addLayer("a", {
             requirementDescription: "1,000 atoms and 1,500 total atoms",
             effectDescription: "keep subatomic particle milestones on atom resets",
             done() { return player.a.points.gte(1000) && player.a.total.gte(1500) }
+        },
+        14: {
+            requirementDescription: "10,000 atoms and 2 relics",
+            effectDescription: "atoms reset nothing",
+            done() { return player.a.points.gte(10000) && player.r.points.gte(2) },
+            unlocked() { return hasMilestone('a', 13) && player.r.points.gt(0) }
         },
     },
     upgrades: {
@@ -3880,6 +3901,7 @@ addLayer("s", {
     },
     doReset(resettingLayer) {
         let keep = [];
+            if (hasMilestone('s', 12) && resettingLayer == 'a') keep.push("points", "best", "total", "milestones");
             if (layers[resettingLayer].row > this.row) layerDataReset("s", keep);
         },
     tabFormat: [
@@ -3945,6 +3967,21 @@ addLayer("s", {
             effectDescription: "gain 0.1% of hex gain per second",
             done() { return player.s.points.gte(10) },
         },
+        10: {
+            requirementDescription: "15 sanctums",
+            effectDescription: "gain 0.001% of demon soul gain per second",
+            done() { return player.s.points.gte(15) },
+        },
+        11: {
+            requirementDescription: "18 sanctums",
+            effectDescription: "subatomic particles reset nothing,<br>and perform subatomic particle<br>resets automatically",
+            done() { return player.s.points.gte(18) },
+        },
+        12: {
+            requirementDescription: "19 sanctums",
+            effectDescription: "keep sanctums on atom resets",
+            done() { return player.s.points.gte(19) },
+        },
     },
 });
 
@@ -4000,19 +4037,21 @@ addLayer("r", {
         };
         player.r.sanctummult = player.r.points.add(1).pow(0.5).mul(effBoost2);
         player.r.essencemult = player.r.points.mul(100).add(1).pow(0.25).mul(effBoost3);
-        return player.r.points.mul(effBoost1).div(2).add(1);
+        return player.r.points.mul(effBoost1).add(1).pow(1.1);
     },
     effectDescription() {
-        if (colorvalue[1] == "none") return 'which makes Essence Influence\'s hardcap start ' + format(tmp.r.effect) + 'x later, multiplies sanctum gain by ' + format(player.r.sanctummult) + 'x, and also multiplies essence gain by ' + format(player.r.essencemult) + 'x';
-        if (!colorvalue[0][2]) return 'which makes <h3>Essence Influence\'s</h3> hardcap start <h2 class="layer-r">' + format(tmp.r.effect) + '</h2>x later, multiplies sanctum gain by <h2 class="layer-r">' + format(player.r.sanctummult) + '</h2>x, and also multiplies essence gain by <h2 class="layer-r">' + format(player.r.essencemult) + '</h2>x';
-        return 'which makes <h3 class="layer-e">Essence Influence\'s</h3> hardcap start <h2 class="layer-r">' + format(tmp.r.effect) + '</h2>x later, multiplies sanctum gain by <h2 class="layer-r">' + format(player.r.sanctummult) + '</h2>x, and also multiplies essence gain by <h2 class="layer-r">' + format(player.r.essencemult) + '</h2>x';
+        text = '';
+        if (challengeCompletions('r', 11) >= 2) text = 'point and ';
+        if (colorvalue[1] == "none") return 'which makes Essence Influence\'s hardcap start ' + format(tmp.r.effect) + 'x later, multiplies sanctum gain by ' + format(player.r.sanctummult) + 'x, and also multiplies ' + text + 'essence gain by ' + format(player.r.essencemult) + 'x';
+        if (!colorvalue[0][2]) return 'which makes <h3>Essence Influence\'s</h3> hardcap start <h2 class="layer-r">' + format(tmp.r.effect) + '</h2>x later, multiplies sanctum gain by <h2 class="layer-r">' + format(player.r.sanctummult) + '</h2>x, and also multiplies ' + text + 'essence gain by <h2 class="layer-r">' + format(player.r.essencemult) + '</h2>x';
+        return 'which makes <h3 class="layer-e">Essence Influence\'s</h3> hardcap start <h2 class="layer-r">' + format(tmp.r.effect) + '</h2>x later, multiplies sanctum gain by <h2 class="layer-r">' + format(player.r.sanctummult) + '</h2>x, and also multiplies ' + text + 'essence gain by <h2 class="layer-r">' + format(player.r.essencemult) + '</h2>x';
     },
     doReset(resettingLayer) {
         let keep = [];
             if (layers[resettingLayer].row > this.row) layerDataReset("r", keep);
         },
     update(diff) {
-        player.r.lightreq = new Decimal(20000).pow(new Decimal(challengeCompletions('r', 11)).add(1));
+        player.r.lightreq = new Decimal(20000).mul(new Decimal(5).pow(challengeCompletions('r', 11)));
         player.r.relic_effects[0] = player.r.light.mul(10).add(1).pow(0.15);
         if (inChallenge('r', 11)) {
             player.r.lightgain = getPointGen(true).pow(0.001).div(10);
@@ -4047,12 +4086,15 @@ addLayer("r", {
                 return 'Converts all point production into light production. Get enough light, and you can activate your relics for rewards.<br>';
             },
             goalDescription() {
+                if (maxedChallenge('r', 11)) return 'You have ' + format(player.r.light) + ' light.<br>(' + format(player.r.lightgain) + '/sec)<br>';
                 return 'You have ' + format(player.r.light) + '/' + format(player.r.lightreq) + ' light.<br>(' + format(player.r.lightgain) + '/sec)<br>';
             },
             rewardDescription() {
                 text = '';
                 if (challengeCompletions('r', 11) == 0) text += 'nothing currently<br><br>Next reward: multiply relic\'s second and third effects based on your light<br>Currently: ' + format(player.r.relic_effects[0]) + 'x';
-                if (challengeCompletions('r', 11) >= 1) text += 'multiply relic\'s second and third effects based on your light<br>Currently: ' + format(player.r.relic_effects[0]) + 'x<br><br>Next reward: relic\'s third effect also effects point gain';
+                if (challengeCompletions('r', 11) >= 1) text += 'multiply relic\'s second and third effects based on your light<br>Currently: ' + format(player.r.relic_effects[0]) + 'x<br>';
+                if (challengeCompletions('r', 11) == 1) text += '<br>Next reward: relic\'s third effect also effects point gain';
+                if (challengeCompletions('r', 11) == 2) text += '<br>Next reward: square relic\'s first effect (doesn\'t actually work yet)';
                 return text;
             },
             canComplete: function() {
@@ -4072,6 +4114,7 @@ addLayer("r", {
                 else if (num.lt(84)) color = '666699';
                 else if (num.lt(96)) color = '7777AA';
                 else color = '8888BB';
+                if (maxedChallenge('r', 11)) color = '000033';
                 textcolor = 'B9A975';
                 if (colorvalue[1] == "none") textcolor = 'DFDFDF';
                 return {'background-color':'#'+color,'color':'#'+textcolor,'border-radius':'25px','height':'400px','width':'400px'};
