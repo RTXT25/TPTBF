@@ -579,8 +579,8 @@ addLayer("e", {
         if (getBuyableAmount('e', 12).gt(0)) mult = mult.mul(getBuyableAmount('e', 12).mul(0.25).add(1));
         if (getBuyableAmount('c', 12).gt(0)) mult = mult.mul(2 ** getBuyableAmount('c', 12));
         if (getBuyableAmount('sp', 12).gt(0)) {
-            mult = mult.mul(5 ** getBuyableAmount('sp', 12));
-            if (hasUpgrade('sp', 12)) mult = mult.mul(5 ** getBuyableAmount('sp', 12));
+            mult = mult.mul(new Decimal(5).pow(getBuyableAmount('sp', 12)));
+            if (hasUpgrade('sp', 12)) mult = mult.mul(new Decimal(5).pow(getBuyableAmount('sp', 12)));
         };
         if (getBuyableAmount('sp', 11).gt(0)) mult = mult.mul(getBuyableAmount('sp', 11).add(1).pow(-1));
         if (hasUpgrade('p', 22)) mult = mult.mul(player.p.holiness.add(1).pow(0.055));
@@ -1024,7 +1024,11 @@ addLayer("c", {
             effect() {
                 return player.c.points.add(1).pow(0.2);
             },
-            effectDisplay() { return format(this.effect()) + "x" },
+            effectDisplay() {
+                text = format(this.effect()) + "x";
+                if (player.nerdMode) text += ' <br>formula: (x+1)^0.2';
+                return text;
+            },
             unlocked() { return hasMilestone("c", 1) },
         },
         12: {
@@ -1038,7 +1042,11 @@ addLayer("c", {
             effect() {
                 return player.points.add(1).pow(0.01);
             },
-            effectDisplay() { return format(this.effect()) + "x" },
+            effectDisplay() {
+                text = format(this.effect()) + "x";
+                if (player.nerdMode) text += ' <br>formula: (x+1)^0.01';
+                return text;
+            },
             unlocked() { return hasUpgrade("c", 11) },
         },
         13: {
@@ -1052,7 +1060,11 @@ addLayer("c", {
             effect() {
                 return player.c.points.add(1).pow(0.1);
             },
-            effectDisplay() { return format(this.effect()) + "x" },
+            effectDisplay() {
+                text = format(this.effect()) + "x";
+                if (player.nerdMode) text += ' <br>formula: (x+1)^0.1';
+                return text;
+            },
             unlocked() { return hasUpgrade("c", 12) },
         },
         21: {
@@ -1066,7 +1078,11 @@ addLayer("c", {
             effect() {
                 return player.c.points.add(1).pow(0.005);
             },
-            effectDisplay() { return format(this.effect()) + "x" },
+            effectDisplay() {
+                text = format(this.effect()) + "x";
+                if (player.nerdMode) text += ' <br>formula: (x+1)^0.005';
+                return text;
+            },
             unlocked() { return hasMilestone("h", 8) && hasUpgrade("c", 13) },
         },
         22: {
@@ -1080,7 +1096,11 @@ addLayer("c", {
             effect() {
                 return player.c.points.add(1).pow(0.002);
             },
-            effectDisplay() { return format(this.effect()) + "x" },
+            effectDisplay() {
+                text = format(this.effect()) + "x";
+                if (player.nerdMode) text += ' <br>formula: (x+1)^0.002';
+                return text;
+            },
             unlocked() { return hasMilestone("h", 8) && hasUpgrade("c", 21) },
         },
         23: {
@@ -1094,7 +1114,11 @@ addLayer("c", {
             effect() {
                 return player.c.points.add(1).pow(0.01);
             },
-            effectDisplay() { return format(this.effect()) + "x" },
+            effectDisplay() {
+                text = format(this.effect()) + "x";
+                if (player.nerdMode) text += ' <br>formula: (x+1)^0.01';
+                return text;
+            },
             unlocked() { return hasMilestone("h", 8) && hasUpgrade("c", 22) },
         },
         31: {
@@ -1108,7 +1132,11 @@ addLayer("c", {
             effect() {
                 return player.c.points.add(1).pow(0.0025);
             },
-            effectDisplay() { return format(this.effect()) + "x" },
+            effectDisplay() {
+                text = format(this.effect()) + "x";
+                if (player.nerdMode) text += ' <br>formula: (x+1)^0.0025';
+                return text;
+            },
             unlocked() { return hasUpgrade("h", 53) && hasUpgrade("c", 23) },
         },
         32: {
@@ -1122,7 +1150,11 @@ addLayer("c", {
             effect() {
                 return player.c.points.add(1).pow(0.001);
             },
-            effectDisplay() { return format(this.effect()) + "x" },
+            effectDisplay() {
+                text = format(this.effect()) + "x";
+                if (player.nerdMode) text += ' <br>formula: (x+1)^0.001';
+                return text;
+            },
             unlocked() { return hasUpgrade("h", 53) && hasUpgrade("c", 31) },
         },
         33: {
@@ -1149,8 +1181,10 @@ addLayer("c", {
                 setBuyableAmount('c', 11, getBuyableAmount('c', 11).add(1));
             },
             display() {
-                if (getBuyableAmount('c', 11).eq(0)) return "multiplies point gain based on the amount of this upgrade bought.<br>Currently: 1.00x<br><br>Cost: 1 core<br><br>Bought: 0";
-                else return "multiplies point gain based on the amount of this upgrade bought.<br>Currently: " + format(5 * getBuyableAmount('c', 11) + 1) + "x<br><br>Cost: " + formatWhole(this.cost()) + " cores<br><br>Bought: " + formatWhole(getBuyableAmount('c', 11));
+                text = "";
+                if (player.nerdMode) text += '<br>formula: x*5+1';
+                if (getBuyableAmount('c', 11).eq(0)) return 'multiplies point gain based on the amount of this upgrade bought.<br>Currently: 1.00x' + text + '<br><br>Cost: 1 core<br><br>Bought: 0';
+                else return 'multiplies point gain based on the amount of this upgrade bought.<br>Currently: ' + format(getBuyableAmount('c', 11).mul(5).add(1)) + 'x' + text + '<br><br>Cost: ' + formatWhole(this.cost()) + ' cores<br><br>Bought: ' + formatWhole(getBuyableAmount('c', 11));
             },
         },
         12: {
@@ -1165,8 +1199,10 @@ addLayer("c", {
                 setBuyableAmount('c', 12, getBuyableAmount('c', 12).add(1));
             },
             display() {
-                if (getBuyableAmount('c', 12).eq(0)) return "multiplies essence gain based on the amount of this upgrade bought.<br>Currently: 1.00x<br><br>Cost: 1 core<br><br>Bought: 0";
-                else return "multiplies essence gain based on the amount of this upgrade bought.<br>Currently: " + format(2 ** getBuyableAmount('c', 12)) + "x<br><br>Cost: " + formatWhole(this.cost()) + " cores<br><br>Bought: " + formatWhole(getBuyableAmount('c', 12));
+                text = "";
+                if (player.nerdMode) text += '<br>formula: 2^x';
+                if (getBuyableAmount('c', 12).eq(0)) return 'multiplies essence gain based on the amount of this upgrade bought.<br>Currently: 1.00x' + text + '<br><br>Cost: 1 core<br><br>Bought: 0';
+                else return 'multiplies essence gain based on the amount of this upgrade bought.<br>Currently: ' + format(2 ** getBuyableAmount('c', 12)) + 'x' + text + '<br><br>Cost: ' + formatWhole(this.cost()) + ' cores<br><br>Bought: ' + formatWhole(getBuyableAmount('c', 12));
             },
         },
     },
@@ -1216,8 +1252,8 @@ addLayer("q", {
         if (hasUpgrade('h', 34)) mult = mult.mul(2);
         if (hasUpgrade('a', 41)) mult = mult.mul(upgradeEffect('a', 41));
         if (getBuyableAmount('sp', 11).gt(0)) {
-            mult = mult.mul(5 ** getBuyableAmount('sp', 11));
-            if (hasUpgrade('sp', 11)) mult = mult.mul(5 ** getBuyableAmount('sp', 11));
+            mult = mult.mul(new Decimal(5).pow(getBuyableAmount('sp', 11)));
+            if (hasUpgrade('sp', 11)) mult = mult.mul(new Decimal(5).pow(getBuyableAmount('sp', 11)));
         };
         if (getBuyableAmount('sp', 21).gt(0)) mult = mult.mul(getBuyableAmount('sp', 21).add(1).pow(-1));
         if (hasUpgrade('ds', 21) && hasUpgrade('ds', 23)) mult = mult.mul(player.A.points.pow(2).div(100));
@@ -1321,7 +1357,11 @@ addLayer("q", {
             effect() {
                return player.points.add(1).pow(0.01);
             },
-            effectDisplay() { return format(this.effect()) + "x" },
+            effectDisplay() {
+                text = format(this.effect()) + "x";
+                if (player.nerdMode) text += ' <br>formula: (x+1)^0.01';
+                return text;
+            },
         },
         12: {
             title() {
@@ -1334,7 +1374,11 @@ addLayer("q", {
             effect() {
                return player.q.points.add(1).pow(0.09);
             },
-            effectDisplay() { return format(this.effect()) + "x" },
+            effectDisplay() {
+                text = format(this.effect()) + "x";
+                if (player.nerdMode) text += ' <br>formula: (x+1)^0.09';
+                return text;
+            },
             unlocked() { return hasUpgrade("q", 11) },
         },
         13: {
@@ -1348,7 +1392,11 @@ addLayer("q", {
             effect() {
                return player.points.add(1).pow(0.0025);
             },
-            effectDisplay() { return format(this.effect()) + "x" },
+            effectDisplay() {
+                text = format(this.effect()) + "x";
+                if (player.nerdMode) text += ' <br>formula: (x+1)^0.0025';
+                return text;
+            },
             unlocked() { return hasUpgrade("q", 12) },
         },
         14: {
@@ -1362,7 +1410,11 @@ addLayer("q", {
             effect() {
                return player.q.points.add(1).pow(0.2);
             },
-            effectDisplay() { return format(this.effect()) + "x" },
+            effectDisplay() {
+                text = format(this.effect()) + "x";
+                if (player.nerdMode) text += ' <br>formula: (x+1)^0.2';
+                return text;
+            },
             unlocked() { return hasUpgrade("q", 13) },
         },
         15: {
@@ -1376,7 +1428,11 @@ addLayer("q", {
             effect() {
                return player.c.points.add(1).pow(0.02);
             },
-            effectDisplay() { return format(this.effect()) + "x" },
+            effectDisplay() {
+                text = format(this.effect()) + "x";
+                if (player.nerdMode) text += ' <br>formula: (x+1)^0.02';
+                return text;
+            },
             unlocked() { return hasUpgrade("q", 14) },
         },
         21: {
@@ -1390,7 +1446,11 @@ addLayer("q", {
             effect() {
                return player.q.points.add(1).pow(0.05);
             },
-            effectDisplay() { return format(this.effect()) + "x" },
+            effectDisplay() {
+                text = format(this.effect()) + "x";
+                if (player.nerdMode) text += ' <br>formula: (x+1)^0.05';
+                return text;
+            },
             unlocked() { return hasUpgrade("q", 15) },
         },
         22: {
@@ -1404,7 +1464,11 @@ addLayer("q", {
             effect() {
                return player.points.add(1).pow(0.02);
             },
-            effectDisplay() { return format(this.effect()) + "x" },
+            effectDisplay() {
+                text = format(this.effect()) + "x";
+                if (player.nerdMode) text += ' <br>formula: (x+1)^0.02';
+                return text;
+            },
             unlocked() { return hasUpgrade("q", 21) },
         },
         23: {
@@ -1418,7 +1482,11 @@ addLayer("q", {
             effect() {
                return player.q.points.add(1).pow(0.1);
             },
-            effectDisplay() { return format(this.effect()) + "x" },
+            effectDisplay() {
+                text = format(this.effect()) + "x";
+                if (player.nerdMode) text += ' <br>formula: (x+1)^0.1';
+                return text;
+            },
             unlocked() { return hasUpgrade("q", 22) },
         },
         24: {
@@ -1432,7 +1500,11 @@ addLayer("q", {
             effect() {
                return player.q.points.add(1).pow(0.2);
             },
-            effectDisplay() { return format(this.effect()) + "x" },
+            effectDisplay() {
+                text = format(this.effect()) + "x";
+                if (player.nerdMode) text += ' <br>formula: (x+1)^0.2';
+                return text;
+            },
             unlocked() { return hasUpgrade("q", 23) },
         },
         25: {
@@ -1446,7 +1518,11 @@ addLayer("q", {
             effect() {
                return player.q.points.add(1).pow(0.05);
             },
-            effectDisplay() { return format(this.effect()) + "x" },
+            effectDisplay() {
+                text = format(this.effect()) + "x";
+                if (player.nerdMode) text += ' <br>formula: (x+1)^0.05';
+                return text;
+            },
             unlocked() { return hasUpgrade("q", 24) },
         },
         31: {
@@ -1460,7 +1536,11 @@ addLayer("q", {
             effect() {
                return player.q.points.add(1).pow(0.01);
             },
-            effectDisplay() { return format(this.effect()) + "x" },
+            effectDisplay() {
+                text = format(this.effect()) + "x";
+                if (player.nerdMode) text += ' <br>formula: (x+1)^0.01';
+                return text;
+            },
             unlocked() { return hasUpgrade("q", 25) },
         },
         32: {
@@ -1474,7 +1554,11 @@ addLayer("q", {
             effect() {
                return player.q.points.add(1).pow(0.15);
             },
-            effectDisplay() { return format(this.effect()) + "x" },
+            effectDisplay() {
+                text = format(this.effect()) + "x";
+                if (player.nerdMode) text += ' <br>formula: (x+1)^0.15';
+                return text;
+            },
             unlocked() { return hasUpgrade("q", 31) },
         },
         33: {
@@ -1488,7 +1572,11 @@ addLayer("q", {
             effect() {
                return player.q.points.add(1).pow(0.075);
             },
-            effectDisplay() { return format(this.effect()) + "x" },
+            effectDisplay() {
+                text = format(this.effect()) + "x";
+                if (player.nerdMode) text += ' <br>formula: (x+1)^0.075';
+                return text;
+            },
             unlocked() { return hasUpgrade("q", 32) },
         },
         34: {
@@ -1502,7 +1590,11 @@ addLayer("q", {
             effect() {
                return player.q.points.add(1).pow(0.01);
             },
-            effectDisplay() { return format(this.effect()) + "x" },
+            effectDisplay() {
+                text = format(this.effect()) + "x";
+                if (player.nerdMode) text += ' <br>formula: (x+1)^0.01';
+                return text;
+            },
             unlocked() { return hasUpgrade("q", 33) },
         },
         35: {
@@ -1516,7 +1608,11 @@ addLayer("q", {
             effect() {
                return player.q.points.add(1).pow(0.015);
             },
-            effectDisplay() { return format(this.effect()) + "x" },
+            effectDisplay() {
+                text = format(this.effect()) + "x";
+                if (player.nerdMode) text += ' <br>formula: (x+1)^0.015';
+                return text;
+            },
             unlocked() { return hasUpgrade("q", 34) },
         },
         41: {
@@ -1530,7 +1626,11 @@ addLayer("q", {
             effect() {
                return player.q.points.add(1).pow(0.005);
             },
-            effectDisplay() { return format(this.effect()) + "x" },
+            effectDisplay() {
+                text = format(this.effect()) + "x";
+                if (player.nerdMode) text += ' <br>formula: (x+1)^0.005';
+                return text;
+            },
             unlocked() { return hasMilestone("sp", 2) && hasUpgrade("q", 35) },
         },
         42: {
@@ -1544,7 +1644,11 @@ addLayer("q", {
             effect() {
                return player.sp.points.add(1).pow(0.5);
             },
-            effectDisplay() { return format(this.effect()) + "x" },
+            effectDisplay() {
+                text = format(this.effect()) + "x";
+                if (player.nerdMode) text += ' <br>formula: (x+1)^0.5';
+                return text;
+            },
             unlocked() { return hasMilestone("sp", 2) && hasUpgrade("q", 41) },
         },
         43: {
@@ -1558,7 +1662,11 @@ addLayer("q", {
             effect() {
                return player.q.points.add(1).pow(0.01);
             },
-            effectDisplay() { return format(this.effect()) + "x" },
+            effectDisplay() {
+                text = format(this.effect()) + "x";
+                if (player.nerdMode) text += ' <br>formula: (x+1)^0.01';
+                return text;
+            },
             unlocked() { return hasMilestone("sp", 2) && hasUpgrade("q", 42) },
         },
         44: {
@@ -1572,7 +1680,11 @@ addLayer("q", {
             effect() {
                return player.q.points.add(1).pow(0.005);
             },
-            effectDisplay() { return format(this.effect()) + "x" },
+            effectDisplay() {
+                text = format(this.effect()) + "x";
+                if (player.nerdMode) text += ' <br>formula: (x+1)^0.005';
+                return text;
+            },
             unlocked() { return hasMilestone("sp", 2) && hasUpgrade("q", 43) },
         },
         45: {
@@ -1586,7 +1698,11 @@ addLayer("q", {
             effect() {
                return player.q.points.add(1).pow(0.125);
             },
-            effectDisplay() { return format(this.effect()) + "x" },
+            effectDisplay() {
+                text = format(this.effect()) + "x";
+                if (player.nerdMode) text += ' <br>formula: (x+1)^0.125';
+                return text;
+            },
             unlocked() { return hasMilestone("sp", 2) && hasUpgrade("q", 44) },
         },
     },
@@ -1696,7 +1812,7 @@ addLayer("sp", {
                 return '<b class="layer-sp' + getdark(this, "title") + 'Positrons';
             },
             description() {
-                return 'multiplies the base buff effect of <b class="layer-sp' + getdark(this, "ref") + 'Protons</b> by 2';
+                return 'squares the positive effect of <b class="layer-sp' + getdark(this, "ref") + 'Protons';
             },
             cost: 6,
             unlocked() { return (hasMilestone("h", 8)) && hasUpgrade("h", 53) },
@@ -1706,7 +1822,7 @@ addLayer("sp", {
                 return '<b class="layer-sp' + getdark(this, "title") + 'Beta Particles';
             },
             description() {
-                return 'multiplies the base buff effect of <b class="layer-sp' + getdark(this, "ref") + 'Neutrons</b> by 2';
+                return 'squares the positive effect of <b class="layer-sp' + getdark(this, "ref") + 'Neutrons';
             },
             cost: 6,
             unlocked() { return (hasMilestone("h", 8)) && hasUpgrade("h", 53) },
@@ -1716,7 +1832,7 @@ addLayer("sp", {
                 return '<b class="layer-sp' + getdark(this, "title") + 'Gamma Particles';
             },
             description() {
-                return 'multiplies the base buff effect of <b class="layer-sp' + getdark(this, "ref") + 'Electrons</b> by 2';
+                return 'squares the positive effect of <b class="layer-sp' + getdark(this, "ref") + 'Electrons';
             },
             cost: 6,
             unlocked() { return (hasMilestone("h", 8)) && hasUpgrade("h", 53) },
@@ -1735,8 +1851,14 @@ addLayer("sp", {
                 setBuyableAmount('sp', 11, getBuyableAmount('sp', 11).add(1));
             },
             display() {
-                if (getBuyableAmount('sp', 11).eq(0)) return "multiplies quark gain (but also decreases essence gain at a reduced rate) based on the amount of this upgrade bought.<br>Currently: 1.00x<br>and 1.00x<br><br>Cost: 1 subatomic particle<br><br>Bought: 0";
-                else return "multiplies quark gain (but also decreases essence gain at a reduced rate) based on the amount of this upgrade bought.<br>Currently: " + format(5 ** getBuyableAmount('sp', 11)) + "x<br>and " + format(getBuyableAmount('sp', 11).add(1) ** -1) + "x<br><br>Cost: " + formatWhole(this.cost()) + " subatomic particles<br><br>Bought: " + formatWhole(getBuyableAmount('sp', 11));
+                text = "";
+                if (player.nerdMode) {
+                    if (hasUpgrade('sp', 11)) text += '<br>formula: 5^x^2';
+                    else text += '<br>formula: 5^x';
+                };
+                if (getBuyableAmount('sp', 11).eq(0)) return 'multiplies quark gain (but also decreases essence gain at a reduced rate) based on the amount of this upgrade bought.<br>Currently: 1.00x<br>and 1.00x' + text + '<br><br>Cost: 1 subatomic particle<br><br>Bought: 0';
+                else if (hasUpgrade('sp', 11)) return 'multiplies quark gain (but also decreases essence gain at a reduced rate) based on the amount of this upgrade bought.<br>Currently: ' + format(new Decimal(5).pow(getBuyableAmount('sp', 11)).pow(2)) + 'x<br>and ' + format(getBuyableAmount('sp', 11).add(1) ** -1) + 'x' + text + '<br><br>Cost: ' + formatWhole(this.cost()) + ' subatomic particles<br><br>Bought: ' + formatWhole(getBuyableAmount('sp', 11));
+                else return 'multiplies quark gain (but also decreases essence gain at a reduced rate) based on the amount of this upgrade bought.<br>Currently: ' + format(new Decimal(5).pow(getBuyableAmount('sp', 11))) + 'x<br>and ' + format(getBuyableAmount('sp', 11).add(1) ** -1) + 'x' + text + '<br><br>Cost: ' + formatWhole(this.cost()) + ' subatomic particles<br><br>Bought: ' + formatWhole(getBuyableAmount('sp', 11));
             },
         },
         12: {
@@ -1751,8 +1873,14 @@ addLayer("sp", {
                 setBuyableAmount('sp', 12, getBuyableAmount('sp', 12).add(1));
             },
             display() {
-                if (getBuyableAmount('sp', 12).eq(0)) return "multiplies essence gain (but also decreases point gain at a reduced rate) based on the amount of this upgrade bought.<br>Currently: 1.00x<br>and 1.00x<br><br>Cost: 1 subatomic particle<br><br>Bought: 0";
-                else return "multiplies essence gain (but also decreases point gain at a reduced rate) based on the amount of this upgrade bought.<br>Currently: " + format(5 ** getBuyableAmount('sp', 12)) + "x<br>and " + format(getBuyableAmount('sp', 12).add(1) ** -1) + "x<br><br>Cost: " +formatWhole(this.cost()) + " subatomic particles<br><br>Bought: " + formatWhole(getBuyableAmount('sp', 12));
+                text = "";
+                if (player.nerdMode) {
+                    if (hasUpgrade('sp', 12)) text += '<br>formula: 5^x^2';
+                    else text += '<br>formula: 5^x';
+                };
+                if (getBuyableAmount('sp', 12).eq(0)) return 'multiplies essence gain (but also decreases point gain at a reduced rate) based on the amount of this upgrade bought.<br>Currently: 1.00x<br>and 1.00x' + text + '<br><br>Cost: 1 subatomic particle<br><br>Bought: 0';
+                else if (hasUpgrade('sp', 12)) return 'multiplies essence gain (but also decreases point gain at a reduced rate) based on the amount of this upgrade bought.<br>Currently: ' + format(new Decimal(5).pow(getBuyableAmount('sp', 12)).pow(2)) + 'x<br>and ' + format(getBuyableAmount('sp', 12).add(1) ** -1) + 'x' + text + '<br><br>Cost: ' + formatWhole(this.cost()) + ' subatomic particles<br><br>Bought: ' + formatWhole(getBuyableAmount('sp', 12));
+                else return 'multiplies essence gain (but also decreases point gain at a reduced rate) based on the amount of this upgrade bought.<br>Currently: ' + format(new Decimal(5).pow(getBuyableAmount('sp', 12))) + 'x<br>and ' + format(getBuyableAmount('sp', 12).add(1) ** -1) + 'x' + text + '<br><br>Cost: ' + formatWhole(this.cost()) + ' subatomic particles<br><br>Bought: ' + formatWhole(getBuyableAmount('sp', 12));
             },
         },
         21: {
@@ -1767,8 +1895,14 @@ addLayer("sp", {
                 setBuyableAmount('sp', 21, getBuyableAmount('sp', 21).add(1));
             },
             display() {
-                if (getBuyableAmount('sp', 21).eq(0)) return "multiplies point gain (but also decreases quark gain at a reduced rate) based on the amount of this upgrade bought.<br>Currently: 1.00x<br>and 1.00x<br><br>Cost: 1 subatomic particle<br><br>Bought: 0";
-                else return "multiplies point gain (but also decreases quark gain at a reduced rate) based on the amount of this upgrade bought.<br>Currently: " + format(5 ** getBuyableAmount('sp', 21)) + "x<br>and " + format(getBuyableAmount('sp', 21).add(1) ** -1) + "x<br><br>Cost: " + formatWhole(this.cost()) + " subatomic particles<br><br>Bought: " + formatWhole(getBuyableAmount('sp', 21));
+                text = "";
+                if (player.nerdMode) {
+                    if (hasUpgrade('sp', 13)) text += '<br>formula: 5^x^2';
+                    else text += '<br>formula: 5^x';
+                };
+                if (getBuyableAmount('sp', 21).eq(0)) return 'multiplies point gain (but also decreases quark gain at a reduced rate) based on the amount of this upgrade bought.<br>Currently: 1.00x<br>and 1.00x' + text + '<br><br>Cost: 1 subatomic particle<br><br>Bought: 0';
+                else if (hasUpgrade('sp', 13)) return 'multiplies point gain (but also decreases quark gain at a reduced rate) based on the amount of this upgrade bought.<br>Currently: ' + format(new Decimal(5).pow(getBuyableAmount('sp', 21)).pow(2)) + 'x<br>and ' + format(getBuyableAmount('sp', 21).add(1) ** -1) + 'x' + text + '<br><br>Cost: ' + formatWhole(this.cost()) + ' subatomic particles<br><br>Bought: ' + formatWhole(getBuyableAmount('sp', 21));
+                else return 'multiplies point gain (but also decreases quark gain at a reduced rate) based on the amount of this upgrade bought.<br>Currently: ' + format(new Decimal(5).pow(getBuyableAmount('sp', 21))) + 'x<br>and ' + format(getBuyableAmount('sp', 21).add(1) ** -1) + 'x' + text + '<br><br>Cost: ' + formatWhole(this.cost()) + ' subatomic particles<br><br>Bought: ' + formatWhole(getBuyableAmount('sp', 21));
             },
         },
     },
@@ -1901,7 +2035,7 @@ addLayer("h", {
             effect() {
                return player.h.points.add(1).pow(0.005);
             },
-            effectDisplay() { return format(this.effect()) + "x<br>and " + format(this.effect()) + "x" },
+            effectDisplay() { return format(this.effect()) + 'x<br>and ' + format(this.effect()) + "x" },
         },
         12: {
             title() {
@@ -2376,7 +2510,7 @@ addLayer("ds", {
             },
             display() {
                 if (getBuyableAmount('ds', 11).eq(0)) return "multiplies hex gain (and also subatomic particle gain at a reduced rate) based on the amount of this upgrade bought.<br>Currently: 1.00x<br>and 1.00x<br><br>Cost: 1 demon soul<br><br>Bought: 0";
-                else return "multiplies hex gain (and also subatomic particle gain at a reduced rate) based on the amount of this upgrade bought.<br>Currently: " + format(2 ** getBuyableAmount('ds', 11)) + "x<br>and " + format(getBuyableAmount('ds', 11).mul(5).add(1)) + "x<br><br>Cost: " + formatWhole(this.cost()) + " demon souls<br><br>Bought: " + formatWhole(getBuyableAmount('ds', 11));
+                else return "multiplies hex gain (and also subatomic particle gain at a reduced rate) based on the amount of this upgrade bought.<br>Currently: " + format(2 ** getBuyableAmount('ds', 11)) + 'x<br>and ' + format(getBuyableAmount('ds', 11).mul(5).add(1)) + 'x<br><br>Cost: ' + formatWhole(this.cost()) + " demon souls<br><br>Bought: " + formatWhole(getBuyableAmount('ds', 11));
             },
         },
     },
