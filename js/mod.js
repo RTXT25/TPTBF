@@ -17,7 +17,8 @@ let VERSION = {
 let changelog = `<h1>Changelog:</h1><br>
 	<br><h3>v2.1: Relics of Light</h3><br>
 		- Added relics.<br>
-		- Added one custom challenge to sanctums.<br>
+		- Added one custom challenge to relics.<br>
+		- Added one milestone to sanctums.<br>
 		- Added two achievements.<br>
 		- Added eight achievement images.<br>
 		- Added nerd mode.<br>
