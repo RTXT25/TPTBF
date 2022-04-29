@@ -10,11 +10,16 @@ let modInfo = {
 };
 
 let VERSION = {
-	num: "2.0",
-	name: "Sanctums of Color",
+	num: "2.1",
+	name: "Relics of Light",
 };
 
 let changelog = `<h1>Changelog:</h1><br>
+	<br><h3>v2.1: Relics of Light</h3><br>
+		- Added relics.<br>
+		- Added one custom challenge to sanctums.<br>
+		- Added two achievements.<br>
+		- More things coming soon!<br>
 	<br><h3>v2.0: Sanctums of Color</h3><br>
 		- Added sanctums.<br>
 		- Added nine milestones to sanctums.<br>
@@ -23,7 +28,6 @@ let changelog = `<h1>Changelog:</h1><br>
 		- Added four achievements.<br>
 		- Added custom colored text. Vibing!<br>
 		- Added two options.<br>
-		- Balance changes.<br>
 	<br><h3>v1.5: Creativity Rules</h3><br>
 		- Added one milestone to atoms.<br>
 		- Added six upgrades to prayers.<br>
@@ -31,21 +35,18 @@ let changelog = `<h1>Changelog:</h1><br>
 		- Added twenty-seven achievement images.<br>
 		- Changed 'best' and 'total' format.<br>
 		- Finally fixed the buyable format bug.<br>
-		- Balance changes.<br>
 	<br><h3>v1.4: Praise the Sky</h3><br>
 		- Added prayers.<br>
 		- Added three milestones to prayers.<br>
 		- Added twelve upgrades to prayers.<br>
 		- Added one milestone to atoms.<br>
 		- Added four achievements.<br>
-		- Balance changes.<br>
 	<br><h3>v1.3: Atomic Measure</h3><br>
 		- Added atoms.<br>
 		- Added twelve milestones to atoms.<br>
 		- Added fourteen upgrades to atoms.<br>
 		- Added one challenge to demon souls.<br>
 		- Added six achievements.<br>
-		- Balance changes.<br>
 	<br><h3>v1.2: Demon Gateway</h3><br>
 		- Added demonic gateway.<br>
 		- Added two milestones to demon souls.<br>
@@ -53,7 +54,6 @@ let changelog = `<h1>Changelog:</h1><br>
 		- Added three challenges to demon souls.<br>
 		- Added twelve achievements.<br>
 		- Reformatted all tabs.<br>
-		- Balance changes.<br>
 	<br><h3>v1.1: Demonic Faith</h3><br>
 		- Added demon souls.<br>
 		- Added seven milestones to demon souls.<br>
@@ -63,7 +63,6 @@ let changelog = `<h1>Changelog:</h1><br>
 		- Added seven achievements.<br>
 		- Renamed most achievements.<br>
 		- Achievements now boost point gain.<br>
-		- Balance changes.<br>
 	<br><h3>v1.0: Variety Rules</h3><br>
 		- Added one milestone to hexes.<br>
 		- Added eight upgrades to hexes.<br>
@@ -72,39 +71,32 @@ let changelog = `<h1>Changelog:</h1><br>
 		- Added one milestone to cores.<br>
 		- Added six upgrades to cores.<br>
 		- Added three achievements.<br>
-		- Balance changes.<br>
 	<br><h3>v0.7: The Hex Game</h3><br>
 		- Added hexes.<br>
 		- Added eight milestones to hexes.<br>
 		- Added twelve upgrades to hexes.<br>
 		- Added one achievement.<br>
-		- Balance changes.<br>
 	<br><h3>v0.6: Subatomic Layer</h3><br>
 		- Added subatomic particles.<br>
 		- Added five milestones to subatomic particles.<br>
 		- Added three buyables to subatomic particles.<br>
 		- Added five upgrades to quarks.<br>
 		- Added two achievements.<br>
-		- Balance changes.<br>
 	<br><h3>v0.5: How Many Miles</h3><br>
 		- Added three milestones to cores.<br>
 		- Added three milestones to quarks.<br>
 		- Added eight achievements.<br>
-		- Balance changes.<br>
 	<br><h3>v0.4: To Infinity</h3><br>
 		- Added five more upgrades to essence.<br>
 		- Added another buyable to essence.<br>
 		- Added twelve more upgrades to quarks.<br>
-		- Balance changes.<br>
 	<br><h3>v0.3: Quark Addition</h3><br>
 		- Added quarks.<br>
 		- Added three upgrades to cores.<br>
 		- Added three upgrades to quarks.<br>
-		- Balance changes.<br>
 	<br><h3>v0.2: Core Update</h3><br>
 		- Added cores.<br>
 		- Added two buyables to cores.<br>
-		- Balance changes.<br>
 	<br><h3>v0.1: Game Launch</h3><br>
 		- Game Launch.<br>
 		- Added six upgrades.<br>
@@ -134,12 +126,12 @@ function getdark(darkthis, type, special = false, research = false){
 };
 
 function getStartPoints(){
-    return new Decimal(modInfo.initialStartPoints)
+    return new Decimal(modInfo.initialStartPoints);
 };
 
 // Determines if it should show points/sec
 function canGenPoints(){
-	return true
+	return true;
 };
 
 // Calculate points/sec!
@@ -195,6 +187,7 @@ function getPointGen(forced = false) {
 
 // You can add non-layer related variables that should to into "player" and be saved here, along with default values
 function addedPlayerData() { return {
+	//examplevar: new Decimal(0),
 }};
 
 // Display extra things at the top of the page
@@ -203,7 +196,7 @@ var displayThings = [
 
 // Determines when the game "ends"
 function isEndgame() {
-	return player.points.gte(new Decimal("ee16"))
+	return player.points.gte(new Decimal("ee16"));
 };
 
 // Less important things beyond this point!
@@ -213,7 +206,7 @@ var backgroundStyle = {
 };
 
 function maxTickLength() {
-	return(1) // In seconds
+	return 1; // In seconds
 };
 
 // Use this if you need to undo inflation from an older version. If the version is older than the version that fixed the issue,
