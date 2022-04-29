@@ -835,7 +835,7 @@ addLayer("e", {
     },
     buyables: {
         11: {
-            cost() { return new Decimal(12 ** getBuyableAmount('e', 11)).add(20) },
+            cost(x = 0) { return new Decimal(12).pow(getBuyableAmount('e', 11)).add(x).add(20) },
             title() {
                 return '<b class="layer-e' + getdark(this, "title-buyable") + 'Purer Essence';
             },
@@ -851,7 +851,7 @@ addLayer("e", {
             },
         },
         12: {
-            cost() { return new Decimal(44 ** getBuyableAmount('e', 12)).mul(10).add(85184) },
+            cost(x = 0) { return new Decimal(44).pow(getBuyableAmount('e', 12)).add(x).mul(10).add(85184) },
             title() {
                 return '<b class="layer-e' + getdark(this, "title-buyable") + 'Radiant Essence';
             },
@@ -955,8 +955,8 @@ addLayer("c", {
                 player.c.points = player.c.points.sub(getBuyableAmount('c', 11).mul(2).add(1));
                 setBuyableAmount('c', 11, getBuyableAmount('c', 11).add(1));
             };
-            if (getBuyableAmount('c', 12).lt(49) && player.c.points.gte(new Decimal(6 ** getBuyableAmount('c', 12)))) {
-                player.c.points = player.c.points.sub(new Decimal(6 ** getBuyableAmount('c', 12)));
+            if (getBuyableAmount('c', 12).lt(49) && player.c.points.gte(new Decimal(6).pow(getBuyableAmount('c', 12)))) {
+                player.c.points = player.c.points.sub(new Decimal(6).pow(getBuyableAmount('c', 12)));
                 setBuyableAmount('c', 12, getBuyableAmount('c', 12).add(1));
             };
         };
@@ -1170,7 +1170,7 @@ addLayer("c", {
     },
     buyables: {
         11: {
-            cost() { return getBuyableAmount('c', 11).mul(2).add(1) },
+            cost(x = 0) { return getBuyableAmount('c', 11).add(x).mul(2).add(1) },
             title() {
                 return '<b class="layer-c' + getdark(this, "title-buyable") + 'Empowered Points';
             },
@@ -1188,7 +1188,7 @@ addLayer("c", {
             },
         },
         12: {
-            cost() { return new Decimal(6 ** getBuyableAmount('c', 12)) },
+            cost(x = 0) { return new Decimal(6).pow(getBuyableAmount('c', 12).add(x)) },
             title() {
                 return '<b class="layer-c' + getdark(this, "title-buyable") + 'Empowered Essence';
             },
@@ -1840,7 +1840,7 @@ addLayer("sp", {
     },
     buyables: {
         11: {
-            cost() { return getBuyableAmount('sp', 11).add(1) },
+            cost(x = 0) { return getBuyableAmount('sp', 11).add(1) },
             title() {
                 return '<b class="layer-sp' + getdark(this, "title-buyable") + 'Protons';
             },
@@ -1862,7 +1862,7 @@ addLayer("sp", {
             },
         },
         12: {
-            cost() { return getBuyableAmount('sp', 12).add(1) },
+            cost(x = 0) { return getBuyableAmount('sp', 12).add(1) },
             title() {
                 return '<b class="layer-sp' + getdark(this, "title-buyable") + 'Neutrons';
             },
@@ -1884,7 +1884,7 @@ addLayer("sp", {
             },
         },
         21: {
-            cost() { return getBuyableAmount('sp', 21).add(1) },
+            cost(x = 0) { return getBuyableAmount('sp', 21).add(1) },
             title() {
                 return '<b class="layer-sp' + getdark(this, "title-buyable") + 'Electrons';
             },
@@ -2496,7 +2496,7 @@ addLayer("ds", {
     },
     buyables: {
         11: {
-            cost() { return new Decimal(2 ** getBuyableAmount('ds', 11)).add(1) },
+            cost(x = 0) { return new Decimal(2 ** getBuyableAmount('ds', 11)).add(1) },
             title() {
                 return '<h3 class="layer-ds' + getdark(this, "title-buyable") + 'Demonic Energy';
             },
