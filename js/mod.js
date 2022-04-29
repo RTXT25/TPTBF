@@ -19,7 +19,7 @@ let changelog = `<h1>Changelog:</h1><br>
 		- Added relics.<br>
 		- Added one custom challenge to sanctums.<br>
 		- Added two achievements.<br>
-		- Added four achievement images.<br>
+		- Added eight achievement images.<br>
 		- More things coming soon!<br>
 	<br><h3>v2.0: Sanctums of Color</h3><br>
 		- Added sanctums.<br>
