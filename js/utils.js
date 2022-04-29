@@ -284,6 +284,7 @@ document.onkeydown = function (e) {
 	shiftDown = e.shiftKey;
 	ctrlDown = e.ctrlKey;
 	if (tmp.gameEnded && !player.keepGoing) return;
+	player.nerdMode = ctrlDown ? !player.nerdMode : player.nerdMode;
 	let key = e.key;
 	if (ctrlDown) key = "ctrl+" + key;
 	if (onFocused) return;
@@ -295,6 +296,7 @@ document.onkeydown = function (e) {
 };
 
 document.onkeyup = function (e) {
+	if (!ctrlDown && player.nerdMode) tmp.nerdMode = false;
 	shiftDown = e.shiftKey;
 	ctrlDown = e.ctrlKey;
 };

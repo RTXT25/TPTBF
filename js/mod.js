@@ -188,7 +188,7 @@ function getPointGen(forced = false) {
 
 // You can add non-layer related variables that should to into "player" and be saved here, along with default values
 function addedPlayerData() { return {
-	//examplevar: new Decimal(0),
+	nerdMode: false,
 }};
 
 // Display extra things at the top of the page

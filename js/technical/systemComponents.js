@@ -169,6 +169,7 @@ var systemComponents = {
 			<tr>
                 <td><button class="opt" onclick="display_mode();fullcolordisplay()">Color Text Mode: {{ DISPLAY_MODES[options.colorDisplayMode] }}</button></td>
 				<td><button class="opt" onclick="color_display();fullcolordisplay()">Colored Text: {{ COLOR_DISPLAYS[options.colorDisplay] }}</button></td>
+				<td><button class="opt" onclick="player.nerdMode=!player.nerdMode">Nerd mode is {{ player.nerdMode?"ON":"OFF" }} (you can also use the control key to toggle)</button></td>
 			</tr>
         </table>
 		`
