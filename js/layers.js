@@ -2595,11 +2595,11 @@ addLayer("ds", {
     },
     buyables: {
         11: {
-            cost(x = 0) { return new Decimal(2).pow(getBuyableAmount('ds', 11)).add(1) },
+            cost(x = 0) { return new Decimal(2).pow(getBuyableAmount('ds', 11).add(x)).add(1) },
             title() {
                 return '<h3 class="layer-ds' + getdark(this, "title-buyable") + 'Demonic Energy';
             },
-            canAfford() { 
+            canAfford() {
                 return player.ds.points.gte(this.cost());
             },
             purchaseLimit: 22,
@@ -3872,6 +3872,8 @@ addLayer("s", {
         points: new Decimal(0),
         best: new Decimal(0),
         total: new Decimal(0),
+        devotion: new Decimal(0),
+        devotion_effect: new Decimal(1),
     }},
     color() {
         if (player.p.points.gte(1e15) || player.s.unlocked) return "#AAFF00";
@@ -3920,13 +3922,37 @@ addLayer("s", {
             if (hasMilestone('s', 12) && resettingLayer == 'a') keep.push("points", "best", "total", "milestones");
             if (layers[resettingLayer].row > this.row) layerDataReset("s", keep);
         },
-    tabFormat: [
-        "main-display",
-        "prestige-button",
-        "resource-display",
-        "blank",
-        "milestones",
-    ],
+    tabFormat: {
+        "Landmarks": {
+            content: [
+                "main-display",
+                "prestige-button",
+                "resource-display",
+                "blank",
+                "milestones",
+            ],
+        },
+        "Devotion": {
+            content: [
+                "main-display",
+                "prestige-button",
+                "resource-display",
+                "blank",
+                ["display-text",
+                    function() {
+                        if (!colorvalue[0][2] || colorvalue[1] == "none") text = 'Worshipping.';
+                        else text = '<b class="layer-s' + getdark(this, "ref", true, true) + 'Worshipping</b> and <b class="layer-s' + getdark(this, "ref", true, true) + 'Sacrificing</b>.';
+                        return 'you have <h2 class="layer-s">' + format(player.s.devotion) + '</h2> devotion, which multiplies sanctum gain by <h2 class="layer-s">' + format(player.s.devotion_effect) + '</h2>x<br>Gain more by ' + text;
+                    }],
+                "blank",
+                //"buyables",
+            ],
+            unlocked() {
+                if (hasMilestone("s", 13)) return true;
+                return false;
+            },
+        },
+    },
     milestones: {
         0: {
             requirementDescription: "1 sanctum",
@@ -3984,20 +4010,46 @@ addLayer("s", {
             done() { return player.s.points.gte(10) },
         },
         10: {
-            requirementDescription: "15 sanctums",
+            requirementDescription: "14 sanctums",
             effectDescription: "gain 0.001% of demon soul gain per second",
-            done() { return player.s.points.gte(15) },
+            done() { return player.s.points.gte(14) },
         },
         11: {
-            requirementDescription: "18 sanctums",
+            requirementDescription: "16 sanctums",
             effectDescription: "subatomic particles reset nothing,<br>and perform subatomic particle<br>resets automatically",
-            done() { return player.s.points.gte(18) },
+            done() { return player.s.points.gte(16) },
         },
         12: {
-            requirementDescription: "19 sanctums",
+            requirementDescription: "18 sanctums",
             effectDescription: "keep sanctums on atom resets",
-            done() { return player.s.points.gte(19) },
+            done() { return player.s.points.gte(18) },
         },
+        13: {
+            requirementDescription: "19 sanctums",
+            effectDescription() {
+                if (!colorvalue[0][2] || colorvalue[1] == "none") return 'unlock Devotion';
+                return 'unlock <b class="layer-s' + getdark(this, "ref", true, true) + 'Devotion';
+            },
+            done() { return player.s.points.gte(19) },
+        },/*
+        buyables: {
+            11: {
+                cost(x = 0) { return new Decimal(1e100).mul(new Decimal(getBuyableAmount('s', 11)).add(x).add(1)) },
+                title() {
+                    return '<h3 class="layer-s' + getdark(this, "title-buyable") + 'Worship';
+                },
+                canAfford() {
+                    return player.p.points.gte(this.cost());
+                },
+                buy() {
+                    player.p.points = player.p.points.sub(this.cost());
+                    setBuyableAmount('s', 11, getBuyableAmount('s', 11).add(1));
+                },
+                display() {
+                    return 'use some prayers to worship the gods. you are rewarded with 0.1 devotion.<br>Currently: ' + format(getBuyableAmount('s', 11).mul(0.1)) + '<br><br>Cost: ' + formatWhole(this.cost()) + ' prayers<br><br>Bought: ' + formatWhole(getBuyableAmount('s', 11));
+                },
+            },
+        },*/
     },
 });
 
