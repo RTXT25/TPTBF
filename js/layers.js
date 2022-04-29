@@ -1960,6 +1960,13 @@ addLayer("h", {
         {key: "h", description: "H: Reset for hexes", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
     layerShown(){return player.sp.unlocked},
+    passiveGeneration() {
+        let gen = 0;
+        if (hasMilestone("s", 9)) {
+            gen += 0.001;
+        };
+        return gen;
+    },
     doReset(resettingLayer) {
         let keep = [];
             if (hasMilestone("ds", 8) && resettingLayer == "ds") keep.push("milestones");
@@ -3372,7 +3379,11 @@ addLayer("p", {
             effect() {
                 return player.p.points.add(1).pow(0.075);
             },
-            effectDisplay() { return format(this.effect()) + 'x' },
+            effectDisplay() {
+                text = format(this.effect()) + 'x';
+                if (player.nerdMode) text += ' <br>formula: (x+1)^0.075';
+                return text;
+            },
         },
         12: {
             title() {
@@ -3394,7 +3405,11 @@ addLayer("p", {
             effect() {
                 return player.e.points.add(1).pow(0.0001);
             },
-            effectDisplay() { return format(this.effect()) + 'x' },
+            effectDisplay() {
+                text = format(this.effect()) + 'x';
+                if (player.nerdMode) text += ' <br>formula: (x+1)^0.0001';
+                return text;
+            },
         },
         14: {
             fullDisplay() {
@@ -3522,7 +3537,11 @@ addLayer("p", {
             effect() {
                 return player.p.divinity.add(1).pow(0.2);
             },
-            effectDisplay() { return format(this.effect()) + 'x' },
+            effectDisplay() {
+                text = format(this.effect()) + 'x';
+                if (player.nerdMode) text += ' <br>formula: (x+1)^0.2';
+                return text;
+            },
         },
         34: {
             fullDisplay() {
@@ -3751,7 +3770,11 @@ addLayer("p", {
             effect() {
                 return player.s.points.mul(30).add(1).pow(0.95);
             },
-            effectDisplay() { return format(this.effect()) + 'x' },
+            effectDisplay() {
+                text = format(this.effect()) + 'x';
+                if (player.nerdMode) text += ' <br>formula: (x*30+1)^0.95';
+                return text;
+            },
             unlocked() { return hasMilestone('s', 3) && hasUpgrade('p', 41) },
         },
         72: {
@@ -3765,7 +3788,11 @@ addLayer("p", {
             effect() {
                 return player.s.points.mul(25).add(1).pow(0.5);
             },
-            effectDisplay() { return format(this.effect()) + 'x' },
+            effectDisplay() {
+                text = format(this.effect()) + 'x';
+                if (player.nerdMode) text += ' <br>formula: (x*25+1)^0.5';
+                return text;
+            },
             unlocked() { return hasMilestone('s', 3) && hasUpgrade('p', 41) },
         },
         73: {
@@ -3779,15 +3806,20 @@ addLayer("p", {
             effect() {
                 return player.s.points.mul(2).add(1).pow(1.5);
             },
-            effectDisplay() { return format(this.effect()) + 'x' },
+            effectDisplay() {
+                text = format(this.effect()) + 'x';
+                if (player.nerdMode) text += ' <br>formula: (x*2+1)^1.5';
+                return text;
+            },
             unlocked() { return hasMilestone('s', 3) && hasUpgrade('p', 41) },
         },
         74: {
             title() {
                 return '<b class="layer-p' + getdark(this, "title") + 'Gold Sanctums';
             },
-            description() { return 'reduces sanctum gain exponent if you have <b class="layer-p' + getdark(this, "ref") + 'Silver Sanctums</b><br>4 --> 3.48' 
-        },
+            description() {
+                return 'reduces sanctum gain exponent if you have <b class="layer-p' + getdark(this, "ref") + 'Silver Sanctums</b><br>4 --> 3.48' 
+            },
             cost: 1e175,
             unlocked() { return hasMilestone('s', 3) && hasUpgrade('p', 41) },
         },
@@ -3908,6 +3940,11 @@ addLayer("s", {
             effectDescription: "gain 0.2% of holiness and hymn gain per second",
             done() { return player.s.points.gte(9) },
         },
+        9: {
+            requirementDescription: "10 sanctums",
+            effectDescription: "gain 0.1% of hex gain per second",
+            done() { return player.s.points.gte(10) },
+        },
     },
 });
 
@@ -3920,7 +3957,7 @@ addLayer("r", {
         points: new Decimal(0),
         best: new Decimal(0),
         total: new Decimal(0),
-        lightreq: new Decimal(1000000),
+        lightreq: new Decimal(20000),
         light: new Decimal(0),
         lightgain: new Decimal(0),
         relic_effects: [new Decimal(0), new Decimal(0)],
@@ -3957,10 +3994,13 @@ addLayer("r", {
         effBoost1 = new Decimal(1);
         effBoost2 = new Decimal(1);
         effBoost3 = new Decimal(1);
-        if (challengeCompletions('r', 11) >= 1) effBoost3 = player.r.relic_effects[0];
+        if (challengeCompletions('r', 11) >= 1) {
+            effBoost2 = player.r.relic_effects[0];
+            effBoost3 = player.r.relic_effects[0];
+        };
         player.r.sanctummult = player.r.points.add(1).pow(0.5).mul(effBoost2);
         player.r.essencemult = player.r.points.mul(100).add(1).pow(0.25).mul(effBoost3);
-        return player.r.points.mul(effBoost1).div(10).add(1);
+        return player.r.points.mul(effBoost1).div(2).add(1);
     },
     effectDescription() {
         if (colorvalue[1] == "none") return 'which makes Essence Influence\'s hardcap start ' + format(tmp.r.effect) + 'x later, multiplies sanctum gain by ' + format(player.r.sanctummult) + 'x, and also multiplies essence gain by ' + format(player.r.essencemult) + 'x';
@@ -3972,8 +4012,8 @@ addLayer("r", {
             if (layers[resettingLayer].row > this.row) layerDataReset("r", keep);
         },
     update(diff) {
-        player.r.lightreq = new Decimal(1000000).pow(new Decimal(challengeCompletions('r', 11)).add(1));
-        player.r.relic_effects[0] = player.r.light.add(1).pow(0.1);
+        player.r.lightreq = new Decimal(20000).pow(new Decimal(challengeCompletions('r', 11)).add(1));
+        player.r.relic_effects[0] = player.r.light.mul(10).add(1).pow(0.15);
         if (inChallenge('r', 11)) {
             player.r.lightgain = getPointGen(true).pow(0.001).div(10);
             player.r.light = player.r.light.add(player.r.lightgain.mul(diff));
@@ -4011,8 +4051,8 @@ addLayer("r", {
             },
             rewardDescription() {
                 text = '';
-                if (challengeCompletions('r', 11) == 0) text += 'nothing currently<br><br>Next reward: multiply relic\'s third effect based on your light<br>Currently: ' + format(player.r.relic_effects[0]) + 'x';
-                if (challengeCompletions('r', 11) >= 1) text += 'multiply essence gain based on your light<br>Currently: ' + format(player.r.relic_effects[0]) + 'x<br><br>Next reward: relic\'s third effect also effects point gain';
+                if (challengeCompletions('r', 11) == 0) text += 'nothing currently<br><br>Next reward: multiply relic\'s second and third effects based on your light<br>Currently: ' + format(player.r.relic_effects[0]) + 'x';
+                if (challengeCompletions('r', 11) >= 1) text += 'multiply relic\'s second and third effects based on your light<br>Currently: ' + format(player.r.relic_effects[0]) + 'x<br><br>Next reward: relic\'s third effect also effects point gain';
                 return text;
             },
             canComplete: function() {
@@ -4022,22 +4062,16 @@ addLayer("r", {
                 return player.r.points;
             },
             style() {
-                num = player.r.light.div(player.r.lightreq).mul(100);
-                if (num.lt(7)) color = '000033';
-                else if (num.lt(14)) color = '111144';
-                else if (num.lt(21)) color = '222255';
-                else if (num.lt(28)) color = '333366';
-                else if (num.lt(34)) color = '444477';
-                else if (num.lt(41)) color = '555588';
-                else if (num.lt(48)) color = '666699';
-                else if (num.lt(55)) color = '7777AA';
-                else if (num.lt(62)) color = '8888BB';
-                else if (num.lt(69)) color = '9999CC';
-                else if (num.lt(76)) color = 'AAAADD';
-                else if (num.lt(83)) color = 'BBBBEE';
-                else if (num.lt(90)) color = 'CCCCFF';
-                else if (num.lt(97)) color = 'DDDDFF';
-                else color = 'EEEEFF';
+                num = player.r.light.log(2).div(player.r.lightreq.log(2)).mul(100);
+                if (num.lt(12)) color = '000033';
+                else if (num.lt(24)) color = '111144';
+                else if (num.lt(36)) color = '222255';
+                else if (num.lt(48)) color = '333366';
+                else if (num.lt(60)) color = '444477';
+                else if (num.lt(72)) color = '555588';
+                else if (num.lt(84)) color = '666699';
+                else if (num.lt(96)) color = '7777AA';
+                else color = '8888BB';
                 textcolor = 'B9A975';
                 if (colorvalue[1] == "none") textcolor = 'DFDFDF';
                 return {'background-color':'#'+color,'color':'#'+textcolor,'border-radius':'25px','height':'400px','width':'400px'};
