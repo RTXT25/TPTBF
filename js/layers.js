@@ -3901,6 +3901,7 @@ addLayer("s", {
     gainExp() {
         gain = new Decimal(1);
         if (player.r.points.gt(0)) gain = gain.mul(player.r.sanctummult);
+        if (player.s.devotion_effect.gt(1)) gain = gain.mul(player.s.devotion_effect);
         return gain;
     },
     row: 2,
@@ -3922,6 +3923,10 @@ addLayer("s", {
             if (hasMilestone('s', 12) && resettingLayer == 'a') keep.push("points", "best", "total", "milestones");
             if (layers[resettingLayer].row > this.row) layerDataReset("s", keep);
         },
+    update(diff) {
+        player.s.devotion = getBuyableAmount('r', 11).mul(0.1);
+        player.s.devotion_effect = player.s.devotion.add(1).pow(0.3);
+    },
     tabFormat: {
         "Landmarks": {
             content: [
@@ -3945,7 +3950,7 @@ addLayer("s", {
                         return 'you have <h2 class="layer-s">' + format(player.s.devotion) + '</h2> devotion, which multiplies sanctum gain by <h2 class="layer-s">' + format(player.s.devotion_effect) + '</h2>x<br>Gain more by ' + text;
                     }],
                 "blank",
-                //"buyables",
+                ["layer-proxy", ["r", ["buyables", [1]]]],
             ],
             unlocked() {
                 if (hasMilestone("s", 13)) return true;
@@ -4031,25 +4036,7 @@ addLayer("s", {
                 return 'unlock <b class="layer-s' + getdark(this, "ref", true, true) + 'Devotion';
             },
             done() { return player.s.points.gte(19) },
-        },/*
-        buyables: {
-            11: {
-                cost(x = 0) { return new Decimal(1e100).mul(new Decimal(getBuyableAmount('s', 11)).add(x).add(1)) },
-                title() {
-                    return '<h3 class="layer-s' + getdark(this, "title-buyable") + 'Worship';
-                },
-                canAfford() {
-                    return player.p.points.gte(this.cost());
-                },
-                buy() {
-                    player.p.points = player.p.points.sub(this.cost());
-                    setBuyableAmount('s', 11, getBuyableAmount('s', 11).add(1));
-                },
-                display() {
-                    return 'use some prayers to worship the gods. you are rewarded with 0.1 devotion.<br>Currently: ' + format(getBuyableAmount('s', 11).mul(0.1)) + '<br><br>Cost: ' + formatWhole(this.cost()) + ' prayers<br><br>Bought: ' + formatWhole(getBuyableAmount('s', 11));
-                },
-            },
-        },*/
+        },
     },
 });
 
@@ -4078,7 +4065,7 @@ addLayer("r", {
     baseResource: "sanctums",
     baseAmount() {return player.s.points},
     type: "static",
-    exponent: 1.5,
+    exponent: 0.5,
     canBuyMax() {
         return true;
     },
@@ -4186,6 +4173,31 @@ addLayer("r", {
                 textcolor = 'B9A975';
                 if (colorvalue[1] == "none") textcolor = 'DFDFDF';
                 return {'background-color':'#'+color,'color':'#'+textcolor,'border-radius':'25px','height':'400px','width':'400px'};
+            },
+        },
+    },
+    buyables: {
+        11: {
+            cost(x = 0) { return new Decimal(10).pow(getBuyableAmount('r', 11).add(x).add(1).mul(50)).mul(1e50) },
+            title() {
+                return '<h3 class="layer-s' + getdark(this, "title-buyable") + 'Worship';
+            },
+            canAfford() {
+                return player.p.points.gte(this.cost());
+            },
+            buy() {
+                player.p.points = player.p.points.sub(this.cost());
+                setBuyableAmount('r', 11, getBuyableAmount('r', 11).add(1));
+            },
+            display() {
+                return 'use some prayers to worship the gods. you will be rewarded with 0.1 devotion per worship.<br>Currently: ' + format(getBuyableAmount('r', 11).mul(0.1)) + '<br><br>Cost: ' + formatWhole(this.cost()) + ' prayers<br><br>Bought: ' + formatWhole(getBuyableAmount('r', 11));
+            },
+            style() {
+                backcolor = '224400';
+                if (this.canAfford()) backcolor = '448800';
+                textcolor = 'AAFF00';
+                if (colorvalue[1] == "none") textcolor = 'DFDFDF';
+                return {'background-color':'#'+backcolor,'color':'#'+textcolor,'border-radius':'100px','height':'200px','width':'200px'};
             },
         },
     },
