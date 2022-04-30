@@ -1721,7 +1721,7 @@ addLayer("q", {
 });
 
 addLayer("sp", {
-    name: "Subatomic Particles", 
+    name: "Subatomic Particles",
     symbol: "SP",
     position: 2,
     startData() { return {
@@ -3864,7 +3864,7 @@ addLayer("p", {
 });
 
 addLayer("s", {
-    name: "Sanctums", 
+    name: "Sanctums",
     symbol: "S",
     position: 1,
     startData() { return {
@@ -3924,7 +3924,10 @@ addLayer("s", {
             if (layers[resettingLayer].row > this.row) layerDataReset("s", keep);
         },
     update(diff) {
-        player.s.devotion = getBuyableAmount('r', 11).mul(0.1);
+        eff = new Decimal(0);
+        eff = eff.add(getBuyableAmount('d', 11).mul(0.1));
+        eff = eff.add(getBuyableAmount('d', 12).mul(0.5));
+        player.s.devotion = eff;
         player.s.devotion_effect = player.s.devotion.add(1).pow(0.3);
     },
     tabFormat: {
@@ -3950,7 +3953,7 @@ addLayer("s", {
                         return 'you have <h2 class="layer-s">' + format(player.s.devotion) + '</h2> devotion, which multiplies sanctum gain by <h2 class="layer-s">' + format(player.s.devotion_effect) + '</h2>x<br>Gain more by ' + text;
                     }],
                 "blank",
-                ["layer-proxy", ["r", ["buyables", [1]]]],
+                ["layer-proxy", ["d", ["buyables"]]],
             ],
             unlocked() {
                 if (hasMilestone("s", 13)) return true;
@@ -4040,8 +4043,101 @@ addLayer("s", {
     },
 });
 
+addLayer("d", {
+    name: "Devotion",
+    symbol: "D",
+    position: 3,
+    row: 2,
+    layerShown() {return false},
+    buyables: {
+        11: {
+            cost(x = 0) {
+                if (x = 0) return new Decimal(10).pow(getBuyableAmount('d', 11).add(1).mul(50)).mul(1e50);
+                return new Decimal(10).pow(getBuyableAmount('d', 11).add(x).add(1).mul(50)).mul(1e50);
+            },
+            title() {
+                return '<h3 class="layer-s' + getdark(this, "title-buyable") + 'Worship<br>';
+            },
+            canAfford() {
+                return player.p.points.gte(this.cost());
+            },
+            buy() {
+                player.p.points = player.p.points.sub(this.cost());
+                setBuyableAmount('d', 11, getBuyableAmount('d', 11).add(1));
+            },
+            display() {
+                return 'use prayers to worship the gods. you will gain 0.1 devotion per worship.<br><br>Devotion Reward: ' + format(getBuyableAmount('d', 11).mul(0.1)) + '<br><br>Cost: ' + formatWhole(this.cost()) + ' prayers<br><br>Times Worshipped: ' + formatWhole(getBuyableAmount('d', 11));
+            },
+            style() {
+                backcolors = '#224400, #336600';
+                if (this.canAfford()) backcolors = '#112200, #448800';
+                textcolor = 'AAFF00';
+                if (colorvalue[1] == "none") textcolor = 'DFDFDF';
+                return {'background-image':'radial-gradient('+backcolors+')','color':'#'+textcolor,'border-radius':'100px'};
+            },
+        },
+        12: {
+            cost(x = 0) {
+                if (x = 0) return getBuyableAmount('d', 12).add(20);
+                return getBuyableAmount('d', 12).add(x).add(20);
+            },
+            title() {
+                return '<h3 class="layer-s' + getdark(this, "title-buyable") + 'Sacrifice<br>';
+            },
+            canAfford() {
+                return player.s.points.gte(this.cost());
+            },
+            buy() {
+                player.s.points = player.s.points.sub(this.cost());
+                setBuyableAmount('d', 12, getBuyableAmount('d', 12).add(1));
+            },
+            display() {
+                return 'use sanctums as a sacrifice to worship the gods. you will gain<br>0.5 devotion per sacrifice.<br>each sacrifice also multiplies relic\'s first effect by 1.5<br>Currently: ' + format(new Decimal(1.5).pow(getBuyableAmount('d', 12))) + '<br><br>Devotion Reward: ' + format(getBuyableAmount('d', 12).mul(0.5)) + '<br><br>Cost: ' + formatWhole(this.cost()) + ' sanctums<br><br>Times Sacrificed: ' + formatWhole(getBuyableAmount('d', 12));
+            },
+            style() {
+                backcolors = '#224400, #336600';
+                if (this.canAfford()) backcolors = '#112200, #448800';
+                textcolor = 'AAFF00';
+                if (colorvalue[1] == "none") textcolor = 'DFDFDF';
+                return {'background-image':'radial-gradient('+backcolors+')','color':'#'+textcolor,'border-radius':'100px'};
+            },/*
+            21: {
+                cost_h(x = 0) {
+                    if (x = 0) return new Decimal(10).pow(getBuyableAmount('d', 21).add(1).mul(50)).mul(1e50);
+                    return new Decimal(10).pow(getBuyableAmount('d', 21).add(x).add(1).mul(50)).mul(1e50);
+                },
+                cost_sp(x = 0) {
+                    if (x = 0) return getBuyableAmount('d', 21).mul(1e15);
+                    return getBuyableAmount('d', 21).add(x).mul(1e15);
+                },
+                title() {
+                    return '<h3 class="layer-s' + getdark(this, "title-buyable") + 'Sacrificial Ceremony<br>';
+                },
+                canAfford() {
+                    return player.h.points.gte(this.cost_h()) && player.sp.points.gte(this.cost_sp());
+                },
+                buy() {
+                    player.h.points = player.h.points.sub(this.cost_h());
+                    player.sp.points = player.sp.points.sub(this.cost_sp());
+                    setBuyableAmount('d', 21, getBuyableAmount('d', 21).add(1));
+                },
+                display() {
+                    return 'use hexes and subatomic particles as in a sacrificial ceremony to worship the gods. you will gain<br>5 devotion per sacrificial ceremony.<br><br>Devotion Reward: ' + format(getBuyableAmount('d', 21).mul(5)) + '<br><br>Cost: ' + formatWhole(this.cost_h()) + ' hexes<br>and ' + formatWhole(this.cost_sp()) + ' subatomic particles<br><br>Ceremonies Performed: ' + formatWhole(getBuyableAmount('d', 21));
+                },
+                style() {
+                    backcolors = '#224400, #336600';
+                    if (this.canAfford()) backcolors = '#112200, #448800';
+                    textcolor = 'AAFF00';
+                    if (colorvalue[1] == "none") textcolor = 'DFDFDF';
+                    return {'background-image':'radial-gradient('+backcolors+')','color':'#'+textcolor,'border-radius':'100px','height':'400px','width':'400px'};
+                },
+            },*/
+        },
+    },
+});
+
 addLayer("r", {
-    name: "Relics", 
+    name: "Relics",
     symbol: "R",
     position: 1,
     startData() { return {
@@ -4086,9 +4182,10 @@ addLayer("r", {
         effBoost1 = new Decimal(1);
         effBoost2 = new Decimal(1);
         effBoost3 = new Decimal(1);
+        if (getBuyableAmount('d', 12).gt(0)) effBoost1 = effBoost1.mul(new Decimal(1.5).pow(getBuyableAmount('d', 12)));
         if (challengeCompletions('r', 11) >= 1) {
-            effBoost2 = player.r.relic_effects[0];
-            effBoost3 = player.r.relic_effects[0];
+            effBoost2 = effBoost2.mul(player.r.relic_effects[0]);
+            effBoost3 = effBoost3.mul(player.r.relic_effects[0]);
         };
         player.r.sanctummult = player.r.points.add(1).pow(0.5).mul(effBoost2);
         player.r.essencemult = player.r.points.mul(100).add(1).pow(0.25).mul(effBoost3);
@@ -4120,7 +4217,7 @@ addLayer("r", {
         "blank",
         ["display-text",
             function() {
-                text = 'relic resets reset everything on lower layers exept prayer milestones, sanctum milestones, and devotion.<br><br>';
+                text = 'relic resets reset everything on lower layers exept prayer and sanctum milestones.<br><br>';
                 if (colorvalue[1] == "none") {
                     text += 'you have ' + player.r.points.sub(challengeCompletions('r', 11)) + ' unactivated relics and ' + challengeCompletions('r', 11) + ' activated relics';
                 } else {
@@ -4174,31 +4271,6 @@ addLayer("r", {
                 textcolor = 'B9A975';
                 if (colorvalue[1] == "none") textcolor = 'DFDFDF';
                 return {'background-color':'#'+color,'color':'#'+textcolor,'border-radius':'25px','height':'400px','width':'400px'};
-            },
-        },
-    },
-    buyables: {
-        11: {
-            cost(x = 0) { return new Decimal(10).pow(getBuyableAmount('r', 11).add(x).add(1).mul(50)).mul(1e50) },
-            title() {
-                return '<h3 class="layer-s' + getdark(this, "title-buyable") + 'Worship<br>';
-            },
-            canAfford() {
-                return player.p.points.gte(this.cost());
-            },
-            buy() {
-                player.p.points = player.p.points.sub(this.cost());
-                setBuyableAmount('r', 11, getBuyableAmount('r', 11).add(1));
-            },
-            display() {
-                return 'use prayers to worship the gods. you will gain 0.1 devotion per worship.<br><br>Total Reward: ' + format(getBuyableAmount('r', 11).mul(0.1)) + '<br><br>Cost: ' + formatWhole(this.cost()) + ' prayers<br><br>Times Worshipped: ' + formatWhole(getBuyableAmount('r', 11));
-            },
-            style() {
-                backcolor = '224400';
-                if (this.canAfford()) backcolor = '448800';
-                textcolor = 'AAFF00';
-                if (colorvalue[1] == "none") textcolor = 'DFDFDF';
-                return {'background-color':'#'+backcolor,'color':'#'+textcolor,'border-radius':'100px','height':'200px','width':'200px'};
             },
         },
     },
