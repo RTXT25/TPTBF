@@ -4065,7 +4065,7 @@ addLayer("r", {
     baseResource: "sanctums",
     baseAmount() {return player.s.points},
     type: "static",
-    exponent: 0.5,
+    exponent: 1,
     canBuyMax() {
         return true;
     },
@@ -4120,10 +4120,11 @@ addLayer("r", {
         "blank",
         ["display-text",
             function() {
+                text = 'relic resets reset everything on lower layers exept prayer milestones, sanctum milestones, and devotion.<br><br>';
                 if (colorvalue[1] == "none") {
-                    text = 'you have ' + player.r.points.sub(challengeCompletions('r', 11)) + ' unactivated relics and ' + challengeCompletions('r', 11) + ' activated relics';
+                    text += 'you have ' + player.r.points.sub(challengeCompletions('r', 11)) + ' unactivated relics and ' + challengeCompletions('r', 11) + ' activated relics';
                 } else {
-                    text = 'you have <h2 class="layer-r">' + player.r.points.sub(challengeCompletions('r', 11)) + '</h2> unactivated relics and <h2 class="layer-r">' + challengeCompletions('r', 11) + '</h2> activated relics';
+                    text += 'you have <h2 class="layer-r">' + player.r.points.sub(challengeCompletions('r', 11)) + '</h2> unactivated relics and <h2 class="layer-r">' + challengeCompletions('r', 11) + '</h2> activated relics';
                 };
                 return text;
             }],
@@ -4180,7 +4181,7 @@ addLayer("r", {
         11: {
             cost(x = 0) { return new Decimal(10).pow(getBuyableAmount('r', 11).add(x).add(1).mul(50)).mul(1e50) },
             title() {
-                return '<h3 class="layer-s' + getdark(this, "title-buyable") + 'Worship';
+                return '<h3 class="layer-s' + getdark(this, "title-buyable") + 'Worship<br>';
             },
             canAfford() {
                 return player.p.points.gte(this.cost());
@@ -4190,7 +4191,7 @@ addLayer("r", {
                 setBuyableAmount('r', 11, getBuyableAmount('r', 11).add(1));
             },
             display() {
-                return 'use some prayers to worship the gods. you will be rewarded with 0.1 devotion per worship.<br>Currently: ' + format(getBuyableAmount('r', 11).mul(0.1)) + '<br><br>Cost: ' + formatWhole(this.cost()) + ' prayers<br><br>Bought: ' + formatWhole(getBuyableAmount('r', 11));
+                return 'use prayers to worship the gods. you will gain 0.1 devotion per worship.<br><br>Total Reward: ' + format(getBuyableAmount('r', 11).mul(0.1)) + '<br><br>Cost: ' + formatWhole(this.cost()) + ' prayers<br><br>Times Worshipped: ' + formatWhole(getBuyableAmount('r', 11));
             },
             style() {
                 backcolor = '224400';
