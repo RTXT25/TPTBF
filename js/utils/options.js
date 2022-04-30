@@ -76,6 +76,7 @@ function color_display() {
 };
 
 function milestoneShown(layer, id) {
+	if (layers[layer].milestones[id] === undefined) return false;
 	complete = player[layer].milestones.includes(id);
 	auto = layers[layer].milestones[id].toggles;
 	switch (options.msDisplay) {

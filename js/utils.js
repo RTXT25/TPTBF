@@ -234,7 +234,12 @@ function toNumber(x) {
 function updateMilestones(layer) {
 	if (tmp[layer].deactivated) return;
 	for (id in layers[layer].milestones) {
-		if (!(hasMilestone(layer, id)) && layers[layer].milestones[id].done()) {
+		if (layers[layer].milestones[id] === undefined) return;
+		if (layers[layer].milestones[id].done === undefined) {
+			layers[layer].milestones[id] = undefined;
+			return;
+		};
+		if (!(hasMilestone(layer, id)) && layers[layer].milestones[id].done) {
 			player[layer].milestones.push(id);
 			if (layers[layer].milestones[id].onComplete) layers[layer].milestones[id].onComplete();
 			if (tmp[layer].milestonePopups || tmp[layer].milestonePopups === undefined) doPopup("milestone", tmp[layer].milestones[id].requirementDescription, "Milestone Gotten!", 3, tmp[layer].color);
