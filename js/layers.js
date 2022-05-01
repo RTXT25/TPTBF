@@ -675,7 +675,7 @@ addLayer("e", {
                 return eff;
             },
             effectDisplay() {
-                if (this.effect().gte(new Decimal("1e1750").mul(tmp.r.effect))) text = format(this.effect()) + "x<br>.(hardcapped)";
+                if (this.effect().gte(new Decimal("1e1750").mul(tmp.r.effect))) text = format(this.effect()) + "x<br>(hardcapped)";
                 else text = format(this.effect()) + 'x';
                 if (player.nerdMode) text += ' <br>formula: (x+1)^0.5';
                 return text;
@@ -3898,7 +3898,7 @@ addLayer("s", {
         return 5;
     },
     canBuyMax() {
-        if (hasMilestone('s', 0)) return true;
+        if (hasMilestone('s', 0) || player.r.points.gt(0)) return true;
         return false;
     },
     gainMult() {
@@ -4213,7 +4213,7 @@ addLayer("r", {
     baseResource: "sanctums",
     baseAmount() {return player.s.points},
     type: "static",
-    exponent: 1,
+    exponent: 0.66,
     canBuyMax() {
         return true;
     },
@@ -4232,16 +4232,21 @@ addLayer("r", {
     layerShown(){return player.p.unlocked},
     effect() {
         effBoost1 = new Decimal(1);
+        effex1 = new Decimal(1);
         effBoost2 = new Decimal(1);
         effBoost3 = new Decimal(1);
         if (getBuyableAmount('d', 12).gt(0)) effBoost1 = effBoost1.mul(new Decimal(1.5).pow(getBuyableAmount('d', 12)));
+        if (challengeCompletions('r', 11) >= 3) {
+            effBoost1 = effBoost1.mul(100);
+            effex1 = new Decimal(2);
+        };
         if (challengeCompletions('r', 11) >= 1) {
             effBoost2 = effBoost2.mul(player.r.relic_effects[0]);
             effBoost3 = effBoost3.mul(player.r.relic_effects[0]);
         };
         player.r.sanctummult = player.r.points.add(1).pow(0.5).mul(effBoost2);
         player.r.essencemult = player.r.points.mul(100).add(1).pow(0.25).mul(effBoost3);
-        return player.r.points.mul(effBoost1).add(1).pow(1.1);
+        return player.r.points.mul(effBoost1).add(1).pow(1.1).pow(effex1);
     },
     effectDescription() {
         text = '';
@@ -4271,7 +4276,7 @@ addLayer("r", {
         "blank",
         ["display-text",
             function() {
-                text = 'relic resets reset everything on lower layers exept prayer milestones.<br><br>';
+                text = 'relic resets reset everything on lower layers exept prayer milestones. also, you can still buy max sanctums.<br><br>';
                 if (colorvalue[1] == "none") {
                     text += 'you have ' + player.r.points.sub(challengeCompletions('r', 11)) + ' unactivated relics and ' + challengeCompletions('r', 11) + ' activated relics';
                 } else {
@@ -4301,7 +4306,8 @@ addLayer("r", {
                 if (challengeCompletions('r', 11) == 0) text += 'nothing currently<br><br>Next reward: multiply relic\'s second and third effects based on your light<br>Currently: ' + format(player.r.relic_effects[0]) + 'x';
                 if (challengeCompletions('r', 11) >= 1) text += 'multiply relic\'s second and third effects based on your light<br>Currently: ' + format(player.r.relic_effects[0]) + 'x<br>';
                 if (challengeCompletions('r', 11) == 1) text += '<br>Next reward: relic\'s third effect also effects point gain';
-                if (challengeCompletions('r', 11) == 2) text += '<br>Next reward: square relic\'s first effect (doesn\'t actually work yet)';
+                if (challengeCompletions('r', 11) == 2) text += '<br>Next reward: multiply relic\'s first effect by 100 and square it';
+                if (challengeCompletions('r', 11) == 3) text += '<br>Next reward: undefined';
                 return text;
             },
             canComplete() {
