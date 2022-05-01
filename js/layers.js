@@ -627,6 +627,7 @@ addLayer("e", {
     },
     doReset(resettingLayer) {
         let keep = [];
+            if (hasMilestone("s", 20) && resettingLayer == "s") return;
             if (hasMilestone("c", 0) && resettingLayer == "c") keep.push("upgrades");
             if (hasMilestone("c", 2) && resettingLayer == "c") keep.push("buyables");
             if (hasMilestone("q", 1) && resettingLayer == "q") keep.push("upgrades");
@@ -2759,6 +2760,10 @@ addLayer("a", {
         if (hasChallenge('ds', 22)) gain = gain.mul(1.5);
         return gain;
     },
+    autoPrestige() {
+        if (hasMilestone('a', 15)) return true;
+        return false;
+    },
     row: 3,
     hotkeys: [
         {key: "a", description: "A: Reset for atoms", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
@@ -2897,6 +2902,12 @@ addLayer("a", {
             requirementDescription: "10,000 atoms and 1e600 prayers",
             effectDescription: "atoms reset nothing",
             done() { return player.a.points.gte(10000) && player.p.points.gte("1e600") },
+            unlocked() { return hasMilestone('a', 13) && player.r.points.gt(0) }
+        },
+        15: {
+            requirementDescription: "19,000 atoms and 40 sanctums",
+            effectDescription: "perform atom resets automatically",
+            done() { return player.a.points.gte(19000) && player.s.points.gte(40) },
             unlocked() { return hasMilestone('a', 13) && player.r.points.gt(0) }
         },
     },
@@ -3881,6 +3892,7 @@ addLayer("s", {
         total: new Decimal(0),
         devotion: new Decimal(0),
         devotion_effect: new Decimal(1),
+        auto_worship: false,
     }},
     color() {
         if (player.p.points.gte(1e15) || player.s.unlocked) return "#AAFF00";
@@ -4079,6 +4091,49 @@ addLayer("s", {
             done() { return player.s.points.gte(27) },
             unlocked() { return hasMilestone('s', 13) },
         },
+        19: {
+            requirementDescription: "30 sanctums",
+            effectDescription() {
+                if (!colorvalue[0][2] || colorvalue[1] == "none") return 'you can auto Worship';
+                return 'you can auto <b class="layer-s' + getdark(this, "ref", true, true) + 'Worship';
+            },
+            done() { return player.s.points.gte(30) },
+            toggles: [["s", "auto_worship"]],
+            unlocked() { return hasMilestone('s', 13) },
+        },
+        20: {
+            requirementDescription: "31 sanctums",
+            effectDescription: 'sanctum resets don\'t reset essence',
+            done() { return player.s.points.gte(31) },
+            unlocked() { return hasMilestone('s', 13) },
+        },
+        21: {
+            requirementDescription: "32 sanctums",
+            effectDescription() {
+                if (!colorvalue[0][2] || colorvalue[1] == "none") return 'increase Devotion effect exponent<br>0.375 --> 0.45';
+                return 'increase <b class="layer-s' + getdark(this, "ref", true, true) + 'Devotion</b> effect exponent<br>0.375 --> 0.45';
+            },
+            done() { return player.s.points.gte(32) },
+            unlocked() { return hasMilestone('s', 13) },
+        },
+        22: {
+            requirementDescription: "35 sanctums",
+            effectDescription() {
+                if (!colorvalue[0][2] || colorvalue[1] == "none") return 'increase Devotion effect exponent<br>0.45 --> 0.55';
+                return 'increase <b class="layer-s' + getdark(this, "ref", true, true) + 'Devotion</b> effect exponent<br>0.45 --> 0.55';
+            },
+            done() { return player.s.points.gte(35) },
+            unlocked() { return hasMilestone('s', 13) },
+        },
+        23: {
+            requirementDescription: "39 sanctums",
+            effectDescription() {
+                if (!colorvalue[0][2] || colorvalue[1] == "none") return 'divide Worship cost scaling by 2';
+                return 'divide <b class="layer-s' + getdark(this, "ref", true, true) + 'Worship</b> cost scaling by 2';
+            },
+            done() { return player.s.points.gte(39) },
+            unlocked() { return hasMilestone('s', 13) },
+        },
     },
 });
 
@@ -4088,13 +4143,20 @@ addLayer("d", {
     position: 3,
     row: 2,
     layerShown() {return false},
+    automate() {
+        if (player.s.auto_worship && layers.d.buyables[11].canAfford()) {
+            layers.d.buyables[11].buy();
+        };
+    },
     update(diff) {
         eff = new Decimal(0);
         eff = eff.add(getBuyableAmount('d', 11).mul(0.1));
         eff = eff.add(getBuyableAmount('d', 12).mul(0.5));
         eff = eff.add(getBuyableAmount('d', 21).mul(0.75));
         player.s.devotion = eff;
-        if (hasMilestone('s', 18)) player.s.devotion_effect = player.s.devotion.add(1).pow(0.375);
+        if (hasMilestone('s', 22)) player.s.devotion_effect = player.s.devotion.add(1).pow(0.55);
+        else if (hasMilestone('s', 21)) player.s.devotion_effect = player.s.devotion.add(1).pow(0.45);
+        else if (hasMilestone('s', 18)) player.s.devotion_effect = player.s.devotion.add(1).pow(0.375);
         else player.s.devotion_effect = player.s.devotion.add(1).pow(0.3);
     },
     buyables: {
@@ -4103,6 +4165,7 @@ addLayer("d", {
                 div = new Decimal(1e25).pow(getBuyableAmount('d', 21));
                 scale = new Decimal(50);
                 if (hasMilestone('s', 17)) scale = scale.div(15);
+                if (hasMilestone('s', 23)) scale = scale.div(2);
                 if (x == 0) return new Decimal(10).pow(getBuyableAmount('d', 11).add(1).mul(scale)).mul(1e50).div(div);
                 return new Decimal(10).pow(getBuyableAmount('d', 11).add(x).add(1).mul(scale)).mul(1e50).div(div);
             },
@@ -4126,6 +4189,7 @@ addLayer("d", {
                 if (colorvalue[1] == "none") textcolor = 'DFDFDF';
                 return {'background-image':'radial-gradient('+backcolors+')','color':'#'+textcolor,'border-radius':'50%'};
             },
+            unlocked() { return hasMilestone('s', 13) },
         },
         12: {
             cost(x = 0) {
@@ -4152,6 +4216,7 @@ addLayer("d", {
                 if (colorvalue[1] == "none") textcolor = 'DFDFDF';
                 return {'background-image':'radial-gradient('+backcolors+')','color':'#'+textcolor,'border-radius':'50%'};
             },
+            unlocked() { return hasMilestone('s', 13) },
         },
         21: {
             cost_h(x = 0) {
@@ -4237,9 +4302,10 @@ addLayer("r", {
         effBoost3 = new Decimal(1);
         if (getBuyableAmount('d', 12).gt(0)) effBoost1 = effBoost1.mul(new Decimal(1.5).pow(getBuyableAmount('d', 12)));
         if (challengeCompletions('r', 11) >= 3) {
-            effBoost1 = effBoost1.mul(100);
-            effex1 = new Decimal(2);
+            effBoost1 = effBoost1.mul(10000);
+            effex1 = new Decimal(3.5);
         };
+        if (challengeCompletions('r', 11) >= 4) effex1 = effex1.mul(player.r.relic_effects[1]);
         if (challengeCompletions('r', 11) >= 1) {
             effBoost2 = effBoost2.mul(player.r.relic_effects[0]);
             effBoost3 = effBoost3.mul(player.r.relic_effects[0]);
@@ -4262,6 +4328,7 @@ addLayer("r", {
     update(diff) {
         player.r.lightreq = new Decimal(20000).mul(new Decimal(5).pow(challengeCompletions('r', 11)));
         player.r.relic_effects[0] = player.r.light.mul(10).add(1).pow(0.15);
+        player.r.relic_effects[1] = player.r.light.mul(1000).add(1).pow(0.05);
         if (inChallenge('r', 11)) {
             gain = getPointGen(true).pow(0.001).div(10);
             if (getBuyableAmount('d', 21).gt(0)) gain = gain.mul(getBuyableAmount('d', 21));
@@ -4305,9 +4372,11 @@ addLayer("r", {
                 text = '';
                 if (challengeCompletions('r', 11) == 0) text += 'nothing currently<br><br>Next reward: multiply relic\'s second and third effects based on your light<br>Currently: ' + format(player.r.relic_effects[0]) + 'x';
                 if (challengeCompletions('r', 11) >= 1) text += 'multiply relic\'s second and third effects based on your light<br>Currently: ' + format(player.r.relic_effects[0]) + 'x<br>';
+                if (challengeCompletions('r', 11) >= 4) text += '<br>also exponentially increase relic\'s first effect based on your light<br>Currently: ^' + format(player.r.relic_effects[1]);
                 if (challengeCompletions('r', 11) == 1) text += '<br>Next reward: relic\'s third effect also effects point gain';
-                if (challengeCompletions('r', 11) == 2) text += '<br>Next reward: multiply relic\'s first effect by 100 and square it';
-                if (challengeCompletions('r', 11) == 3) text += '<br>Next reward: undefined';
+                if (challengeCompletions('r', 11) == 2) text += '<br>Next reward: multiply relic\'s first effect by 10,000 and raise it to ^3.5';
+                if (challengeCompletions('r', 11) == 3) text += '<br>Next reward: exponentially increase relic\'s first effect based on your light<br>Currently: ^' + format(player.r.relic_effects[1]);
+                if (challengeCompletions('r', 11) == 4) text += '<br>Next reward: undefined';
                 return text;
             },
             canComplete() {
