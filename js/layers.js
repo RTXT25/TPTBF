@@ -4369,6 +4369,12 @@ addLayer("s", {
             done() { return player.s.points.gte(175) },
             unlocked() { return hasMilestone('s', 13) },
         },
+        50: {
+            requirementDescription: "190 sanctums",
+            effectDescription: 'triple light gain',
+            done() { return player.s.points.gte(190) },
+            unlocked() { return hasMilestone('s', 13) },
+        },
     },
 });
 
@@ -4602,6 +4608,7 @@ addLayer("r", {
     },
     doReset(resettingLayer) {
         let keep = [];
+            if (hasMilestone("m", 0) && resettingLayer == "m") return;
             if (layers[resettingLayer].row > this.row) layerDataReset("r", keep);
         },
     update(diff) {
@@ -4617,6 +4624,7 @@ addLayer("r", {
             if (getBuyableAmount('d', 21).gt(0)) gain = gain.mul(getBuyableAmount('d', 21));
             if (hasMilestone('s', 30)) gain = gain.mul(2);
             if (hasMilestone('s', 41)) gain = gain.mul(3);
+            if (hasMilestone('s', 50)) gain = gain.mul(3);
             player.r.lightgain = gain;
             player.r.light = player.r.light.add(player.r.lightgain.mul(diff));
         } else player.r.lightgain = new Decimal(0);
@@ -4666,7 +4674,11 @@ addLayer("r", {
                 if (challengeCompletions('r', 11) == 6) text += '<br>Next reward: quadruple the third activated relic effect';
                 if (challengeCompletions('r', 11) == 7) text += '<br>Next reward: double the third activated relic effect';
                 if (challengeCompletions('r', 11) == 8) text += '<br>Next reward: keep sanctum milestones on relic resets';
-                if (challengeCompletions('r', 11) == 9) text += '<br>Next reward: coming soon!';
+                if (challengeCompletions('r', 11) == 9 && !player.m.unlocked) {
+                    if (player.m.unlocked) text += '<br>Next reward: unlock Molecules (already unlocked)';
+                    text += '<br>Next reward: unlock Molecules';
+                };
+                if (challengeCompletions('r', 11) >= 10) text += '<br>Next reward: N/A - wait for future updates!';
                 return text;
             },
             canComplete() {
@@ -4691,6 +4703,71 @@ addLayer("r", {
                 if (colorvalue[1] == "none") textcolor = 'DFDFDF';
                 return {'background-color':'#'+color,'color':'#'+textcolor,'border-radius':'25px','height':'400px','width':'400px'};
             },
+        },
+    },
+});
+
+addLayer("m", {
+    name: "Molecules",
+    symbol: "M",
+    position: 2,
+    startData() { return {
+        unlocked: false,
+        points: new Decimal(0),
+        best: new Decimal(0),
+        total: new Decimal(0),
+    }},
+    color() {
+        if (player.a.points.gte(30000) || player.m.unlocked) return "#00E0E0";
+        return "#666666";
+    },
+    requires: 30000,
+    resource: "molecules",
+    baseResource: "atoms",
+    baseAmount() {return player.a.points},
+    type: "normal",
+    exponent: 5,
+    gainMult() {
+        mult = new Decimal(1);
+        return mult;
+    },
+    gainExp() {
+        return new Decimal(1);
+    },
+    row: 4,
+    hotkeys: [
+        {key: "m", description: "M: Reset for molecules", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
+    ],
+    layerShown(){return challengeCompletions('r', 11) >= 10 || player.m.points.gt(0)},
+    doReset(resettingLayer) {
+        let keep = [];
+            if (layers[resettingLayer].row > this.row) layerDataReset("a", keep);
+        },
+    tabFormat: {
+        "Microscope": {
+            content: [
+                "main-display",
+                "prestige-button",
+                "resource-display",
+                "blank",
+                "milestones",
+            ],
+        },
+        "Constructor": {
+            content: [
+                "main-display",
+                "prestige-button",
+                "resource-display",
+                "blank",
+                "upgrades",
+            ],
+        },
+    },
+    milestones: {
+        0: {
+            requirementDescription: '1 molecule',
+            effectDescription: 'molecules don\'t reset relics',
+            done() { return player.m.points.gte(1) }
         },
     },
 });
