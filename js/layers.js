@@ -3896,6 +3896,7 @@ addLayer("s", {
         devotion: new Decimal(0),
         devotion_effect: new Decimal(1),
         auto_worship: false,
+        auto_sacrifice: false,
         auto_sacrificial_ceremony: false,
     }},
     color() {
@@ -3927,6 +3928,10 @@ addLayer("s", {
         if (player.s.devotion_effect.gt(1)) gain = gain.mul(player.s.devotion_effect);
         return gain;
     },
+    autoPrestige() {
+        if (hasMilestone('s', 48)) return true;
+        return false;
+    },
     row: 2,
     hotkeys: [
         {key: "s", description: "S: Reset for sanctums", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
@@ -3944,8 +3949,13 @@ addLayer("s", {
     doReset(resettingLayer) {
         let keep = [];
             if (hasMilestone('s', 12) && resettingLayer == 'a') keep.push("points", "best", "total", "milestones");
-            if (layers[resettingLayer].row > this.row) layerDataReset("s", keep);
+            if (challengeCompletions('r', 11) >= 9 && resettingLayer == 'r') keep.push("milestones");
+            if (layers[resettingLayer].row > this.row) layerDataReset('s', keep);
         },
+    resetsNothing() {
+        if (hasMilestone('s', 47)) return true;
+        return false;
+    },
     tabFormat: {
         "Landmarks": {
             content: [
@@ -4073,7 +4083,7 @@ addLayer("s", {
         },
         16: {
             requirementDescription: "25 sanctums",
-            effectDescription: "gain +2.3% of holiness and hymn gain per second",
+            effectDescription: "gain +2.3% of holiness & hymn gain per second",
             done() { return player.s.points.gte(25) },
             unlocked() { return hasMilestone('s', 13) },
         },
@@ -4241,6 +4251,124 @@ addLayer("s", {
             done() { return player.s.points.gte(72) },
             unlocked() { return hasMilestone('s', 13) },
         },
+        36: {
+            requirementDescription: "77 sanctums",
+            effectDescription() {
+                if (!colorvalue[0][2] || colorvalue[1] == "none") return 'increase Devotion effect exponent<br>0.575 --> 0.6';
+                return 'increase <b class="layer-s' + getdark(this, "ref", true, true) + 'Devotion</b> effect exponent<br>0.575 --> 0.6';
+            },
+            done() { return player.s.points.gte(77) },
+            unlocked() { return hasMilestone('s', 13) },
+        },
+        37: {
+            requirementDescription: "80 sanctums",
+            effectDescription() {
+                if (!colorvalue[0][2] || colorvalue[1] == "none") return 'divide Sacrifice<br>cost scaling by 2';
+                return 'divide <b class="layer-s' + getdark(this, "ref", true, true) + 'Sacrifice</b><br>cost scaling by 2';
+            },
+            done() { return player.s.points.gte(80) },
+            unlocked() { return hasMilestone('s', 13) },
+        },
+        38: {
+            requirementDescription: "85 sanctums",
+            effectDescription() {
+                if (!colorvalue[0][2] || colorvalue[1] == "none") return 'you can auto Sacrifice';
+                return 'you can auto <b class="layer-s' + getdark(this, "ref", true, true) + 'Sacrifice';
+            },
+            done() { return player.s.points.gte(85) },
+            toggles: [["s", "auto_sacrifice"]],
+            unlocked() { return hasMilestone('s', 13) },
+        },
+        39: {
+            requirementDescription: "87 sanctums",
+            effectDescription() {
+                if (!colorvalue[0][2] || colorvalue[1] == "none") return 'divide Sacrifice<br>cost scaling by 2';
+                return 'divide <b class="layer-s' + getdark(this, "ref", true, true) + 'Sacrifice</b><br>cost scaling by 2';
+            },
+            done() { return player.s.points.gte(87) },
+            unlocked() { return hasMilestone('s', 13) },
+        },
+        40: {
+            requirementDescription: "96 sanctums",
+            effectDescription() {
+                if (!colorvalue[0][2] || colorvalue[1] == "none") return 'divide Worship<br>cost scaling by 1.5';
+                return 'divide <b class="layer-s' + getdark(this, "ref", true, true) + 'Worship</b><br>cost scaling by 1.5';
+            },
+            done() { return player.s.points.gte(96) },
+            unlocked() { return hasMilestone('s', 13) },
+        },
+        41: {
+            requirementDescription: "100 sanctums",
+            effectDescription: 'triple light gain',
+            done() { return player.s.points.gte(100) },
+            unlocked() { return hasMilestone('s', 13) },
+        },
+        42: {
+            requirementDescription: "110 sanctums",
+            effectDescription() {
+                if (!colorvalue[0][2] || colorvalue[1] == "none") return 'divide Sacrificial Ceremony<br>cost scaling by 1.5';
+                return 'divide <b class="layer-s' + getdark(this, "ref", true, true) + 'Sacrificial Ceremony</b><br>cost scaling by 1.5';
+            },
+            done() { return player.s.points.gte(110) },
+            unlocked() { return hasMilestone('s', 13) },
+        },
+        43: {
+            requirementDescription: "112 sanctums",
+            effectDescription() {
+                if (!colorvalue[0][2] || colorvalue[1] == "none") return 'divide Sacrificial Ceremony<br>hex cost scaling by 3';
+                return 'divide <b class="layer-s' + getdark(this, "ref", true, true) + 'Sacrificial Ceremony</b><br>hex cost scaling by 3';
+            },
+            done() { return player.s.points.gte(112) },
+            unlocked() { return hasMilestone('s', 13) },
+        },
+        44: {
+            requirementDescription: "120 sanctums",
+            effectDescription() {
+                if (!colorvalue[0][2] || colorvalue[1] == "none") return 'auto Worship<br>works twice as fast';
+                return 'auto <b class="layer-s' + getdark(this, "ref", true, true) + 'Worship</b><br>works twice as fast';
+            },
+            done() { return player.s.points.gte(120) },
+            unlocked() { return hasMilestone('s', 13) },
+        },
+        45: {
+            requirementDescription: "125 sanctums",
+            effectDescription() {
+                if (!colorvalue[0][2] || colorvalue[1] == "none") return 'divide Sacrificial Ceremony<br>hex cost scaling by 4';
+                return 'divide <b class="layer-s' + getdark(this, "ref", true, true) + 'Sacrificial Ceremony</b><br>hex cost scaling by 4';
+            },
+            done() { return player.s.points.gte(125) },
+            unlocked() { return hasMilestone('s', 13) },
+        },
+        46: {
+            requirementDescription: "140 sanctums",
+            effectDescription() {
+                if (!colorvalue[0][2] || colorvalue[1] == "none") return 'auto Worship<br>works twice as fast (4x total)';
+                return 'auto <b class="layer-s' + getdark(this, "ref", true, true) + 'Worship</b><br>works twice as fast (4x total)';
+            },
+            done() { return player.s.points.gte(140) },
+            unlocked() { return hasMilestone('s', 13) },
+        },
+        47: {
+            requirementDescription: "161 sanctums",
+            effectDescription: 'sanctums reset nothing',
+            done() { return player.s.points.gte(161) },
+            unlocked() { return hasMilestone('s', 13) },
+        },
+        48: {
+            requirementDescription: "164 sanctums",
+            effectDescription: 'perform sanctum resets automatically',
+            done() { return player.s.points.gte(164) },
+            unlocked() { return hasMilestone('s', 13) },
+        },
+        49: {
+            requirementDescription: "175 sanctums",
+            effectDescription() {
+                if (!colorvalue[0][2] || colorvalue[1] == "none") return 'increase Devotion effect exponent<br>0.6 --> 0.625';
+                return 'increase <b class="layer-s' + getdark(this, "ref", true, true) + 'Devotion</b> effect exponent<br>0.6 --> 0.625';
+            },
+            done() { return player.s.points.gte(175) },
+            unlocked() { return hasMilestone('s', 13) },
+        },
     },
 });
 
@@ -4253,6 +4381,15 @@ addLayer("d", {
     automate() {
         if (player.s.auto_worship && layers.d.buyables[11].canAfford()) {
             layers.d.buyables[11].buy();
+            if (hasMilestone('s', 44) && layers.d.buyables[11].canAfford()) {
+                layers.d.buyables[11].buy();
+                if (hasMilestone('s', 46) && layers.d.buyables[11].canAfford()) {
+                    layers.d.buyables[11].buy();
+                    if (hasMilestone('s', 46) && layers.d.buyables[11].canAfford()) {
+                        layers.d.buyables[11].buy();
+        }}}};
+        if (player.s.auto_sacrifice && layers.d.buyables[12].canAfford()) {
+            layers.d.buyables[12].buy();
         };
         if (player.s.auto_sacrificial_ceremony && layers.d.buyables[21].canAfford()) {
             layers.d.buyables[21].buy();
@@ -4265,7 +4402,9 @@ addLayer("d", {
         else eff = eff.add(getBuyableAmount('d', 12).mul(0.5));
         eff = eff.add(getBuyableAmount('d', 21).mul(0.75));
         player.s.devotion = eff;
-        if (hasMilestone('s', 35)) player.s.devotion_effect = player.s.devotion.add(1).pow(0.575);
+        if (hasMilestone('s', 49)) player.s.devotion_effect = player.s.devotion.add(1).pow(0.625);
+        else if (hasMilestone('s', 36)) player.s.devotion_effect = player.s.devotion.add(1).pow(0.6);
+        else if (hasMilestone('s', 35)) player.s.devotion_effect = player.s.devotion.add(1).pow(0.575);
         else if (hasMilestone('s', 22)) player.s.devotion_effect = player.s.devotion.add(1).pow(0.55);
         else if (hasMilestone('s', 21)) player.s.devotion_effect = player.s.devotion.add(1).pow(0.45);
         else if (hasMilestone('s', 18)) player.s.devotion_effect = player.s.devotion.add(1).pow(0.375);
@@ -4280,6 +4419,7 @@ addLayer("d", {
                 scale = new Decimal(50);
                 if (hasMilestone('s', 17)) scale = scale.div(15);
                 if (hasMilestone('s', 23)) scale = scale.div(2);
+                if (hasMilestone('s', 40)) scale = scale.div(1.5);
                 if (x == 0) return new Decimal(10).pow(getBuyableAmount('d', 11).add(1).mul(scale)).mul(1e50).div(div);
                 return new Decimal(10).pow(getBuyableAmount('d', 11).add(x).add(1).mul(scale)).mul(1e50).div(div);
             },
@@ -4310,6 +4450,8 @@ addLayer("d", {
                 scale = new Decimal(1);
                 if (hasMilestone('s', 26)) scale = scale.div(2);
                 if (hasMilestone('s', 33)) scale = scale.div(1.6);
+                if (hasMilestone('s', 37)) scale = scale.div(2);
+                if (hasMilestone('s', 39)) scale = scale.div(2);
                 if (x == 0) return getBuyableAmount('d', 12).mul(scale).add(20).floor();
                 return getBuyableAmount('d', 12).add(x).mul(scale).add(20).floor();
             },
@@ -4343,6 +4485,9 @@ addLayer("d", {
                 if (hasMilestone('s', 27)) scale = scale.div(2);
                 if (hasMilestone('s', 29)) scale = scale.div(1.5);
                 if (hasMilestone('s', 31)) scale = scale.div(1.2);
+                if (hasMilestone('s', 42)) scale = scale.div(1.5);
+                if (hasMilestone('s', 43)) scale = scale.div(3);
+                if (hasMilestone('s', 45)) scale = scale.div(4);
                 if (x == 0) return new Decimal(10).pow(getBuyableAmount('d', 21).mul(scale)).mul(1e50);
                 return new Decimal(10).pow(getBuyableAmount('d', 21).add(x).mul(scale)).mul(1e50);
             },
@@ -4351,6 +4496,7 @@ addLayer("d", {
                 if (hasMilestone('s', 27)) scale = scale.div(2);
                 if (hasMilestone('s', 29)) scale = scale.div(1.5);
                 if (hasMilestone('s', 31)) scale = scale.div(1.2);
+                if (hasMilestone('s', 42)) scale = scale.div(1.5);
                 if (x == 0) return getBuyableAmount('d', 21).mul(scale).add(1).mul(1e15).floor();
                 return getBuyableAmount('d', 21).add(x).mul(scale).add(1).mul(1e15).floor();
             },
@@ -4368,7 +4514,7 @@ addLayer("d", {
             display() {
                 lasteff = new Decimal(1e25);
                 if (challengeCompletions('r', 11) >= 5) lasteff = lasteff.mul(player.r.relic_effects[2]);
-                return 'use hexes and subatomic particles in a sacrificial ceremony to worship the gods. you will gain 0.75 devotion per sacrificial ceremony. each sacrificial ceremony also multiplies subatomic particle and light gain by 1.2 and divides worship cost by 1e25<br>Currently: ' + format(new Decimal(1.2).pow(getBuyableAmount('d', 21))) + 'x<br>and /' + format(lasteff.pow(getBuyableAmount('d', 21))) + '<br><br>Devotion Reward: ' + format(getBuyableAmount('d', 21).mul(0.75)) + '<br><br>Cost: ' + formatWhole(this.cost_h()) + ' hexes,<br>' + formatWhole(this.cost_sp()) + ' subatomic particles<br><br>Ceremonies Performed: ' + formatWhole(getBuyableAmount('d', 21));
+                return 'use hexes and subatomic particles in a sacrificial ceremony to worship the gods. you will gain 0.75 devotion per sacrificial ceremony. each sacrificial ceremony also multiplies subatomic particle gain by 1.2, light gain by 1, and divides worship cost by 1e25<br>Currently: ' + format(new Decimal(1.2).pow(getBuyableAmount('d', 21))) + 'x,<br>' + format(getBuyableAmount('d', 21)) + 'x,<br>and /' + format(lasteff.pow(getBuyableAmount('d', 21))) + '<br><br>Devotion Reward: ' + format(getBuyableAmount('d', 21).mul(0.75)) + '<br><br>Cost: ' + formatWhole(this.cost_h()) + ' hexes,<br>' + formatWhole(this.cost_sp()) + ' subatomic particles<br><br>Ceremonies Performed: ' + formatWhole(getBuyableAmount('d', 21));
             },
             style() {
                 backcolors = '#224400, #336600';
@@ -4462,11 +4608,15 @@ addLayer("r", {
         player.r.lightreq = new Decimal(20000).mul(new Decimal(5).pow(challengeCompletions('r', 11)));
         player.r.relic_effects[0] = player.r.light.mul(10).add(1).pow(0.15);
         player.r.relic_effects[1] = player.r.light.mul(1000).add(1).pow(0.05);
-        player.r.relic_effects[2] = player.r.light.div(1000).add(1).pow(0.25);
+        mult2 = new Decimal(1);
+        if (challengeCompletions('r', 11) >= 7) mult2 = mult2.mul(4);
+        if (challengeCompletions('r', 11) >= 8) mult2 = mult2.mul(2);
+        player.r.relic_effects[2] = player.r.light.div(1000).add(1).pow(0.25).mul(mult2);
         if (inChallenge('r', 11)) {
             gain = getPointGen(true).pow(0.001).div(10);
             if (getBuyableAmount('d', 21).gt(0)) gain = gain.mul(getBuyableAmount('d', 21));
             if (hasMilestone('s', 30)) gain = gain.mul(2);
+            if (hasMilestone('s', 41)) gain = gain.mul(3);
             player.r.lightgain = gain;
             player.r.light = player.r.light.add(player.r.lightgain.mul(diff));
         } else player.r.lightgain = new Decimal(0);
@@ -4513,7 +4663,10 @@ addLayer("r", {
                 if (challengeCompletions('r', 11) == 3) text += '<br>Next reward: exponentially increase relic\'s first effect based on your light<br>Currently: ^' + format(player.r.relic_effects[1]);
                 if (challengeCompletions('r', 11) == 4) text += 'multiply relic\'s second and third effects based on your light, and also exponentially increase relic\'s first effect based on your light<br>Currently: ' + format(player.r.relic_effects[0]) + 'x<br>and ^' + format(player.r.relic_effects[1]) + '<br><br>Next reward: multiply Sacrificial Ceremony\'s last effect based on your light<br>Currently: ' + format(player.r.relic_effects[2]) + 'x';
                 if (challengeCompletions('r', 11) == 5) text += '<br>Next reward: raise relic\'s first effect to ^5';
-                if (challengeCompletions('r', 11) == 6) text += '<br>Next reward: undefined';
+                if (challengeCompletions('r', 11) == 6) text += '<br>Next reward: quadruple the third activated relic effect';
+                if (challengeCompletions('r', 11) == 7) text += '<br>Next reward: double the third activated relic effect';
+                if (challengeCompletions('r', 11) == 8) text += '<br>Next reward: keep sanctum milestones on relic resets';
+                if (challengeCompletions('r', 11) == 9) text += '<br>Next reward: coming soon!';
                 return text;
             },
             canComplete() {
