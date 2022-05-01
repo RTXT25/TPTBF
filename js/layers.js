@@ -4047,16 +4047,37 @@ addLayer("s", {
                 return 'unlock <b class="layer-s' + getdark(this, "ref", true, true) + 'Sacrificial Ceremonies';
             },
             done() { return player.s.points.gte(22) },
+            unlocked() { return hasMilestone('s', 13) },
         },
         15: {
             requirementDescription: "24 sanctums",
             effectDescription: "gain +4.5% of prayer gain per second",
             done() { return player.s.points.gte(24) },
+            unlocked() { return hasMilestone('s', 13) },
         },
         16: {
             requirementDescription: "25 sanctums",
             effectDescription: "gain +2.3% of holiness and hymn gain per second",
             done() { return player.s.points.gte(25) },
+            unlocked() { return hasMilestone('s', 13) },
+        },
+        17: {
+            requirementDescription: "26 sanctums",
+            effectDescription() {
+                if (!colorvalue[0][2] || colorvalue[1] == "none") return 'divide Worship cost scaling by 15';
+                return 'divide <b class="layer-s' + getdark(this, "ref", true, true) + 'Worship</b> cost scaling by 15';
+            },
+            done() { return player.s.points.gte(26) },
+            unlocked() { return hasMilestone('s', 13) },
+        },
+        18: {
+            requirementDescription: "27 sanctums",
+            effectDescription() {
+                if (!colorvalue[0][2] || colorvalue[1] == "none") return 'increase Devotion effect exponent<br>0.3 --> 0.4';
+                return 'increase <b class="layer-s' + getdark(this, "ref", true, true) + 'Devotion</b> effect exponent<br>0.3 --> 0.375';
+            },
+            done() { return player.s.points.gte(27) },
+            unlocked() { return hasMilestone('s', 13) },
         },
     },
 });
@@ -4073,13 +4094,17 @@ addLayer("d", {
         eff = eff.add(getBuyableAmount('d', 12).mul(0.5));
         eff = eff.add(getBuyableAmount('d', 21).mul(0.75));
         player.s.devotion = eff;
-        player.s.devotion_effect = player.s.devotion.add(1).pow(0.3);
+        if (hasMilestone('s', 18)) player.s.devotion_effect = player.s.devotion.add(1).pow(0.375);
+        else player.s.devotion_effect = player.s.devotion.add(1).pow(0.3);
     },
     buyables: {
         11: {
             cost(x = 0) {
-                if (x == 0) return new Decimal(10).pow(getBuyableAmount('d', 11).add(1).mul(50)).mul(1e50);
-                return new Decimal(10).pow(getBuyableAmount('d', 11).add(x).add(1).mul(50)).mul(1e50);
+                div = new Decimal(1e25).pow(getBuyableAmount('d', 21));
+                scale = new Decimal(50);
+                if (hasMilestone('s', 17)) scale = scale.div(15);
+                if (x == 0) return new Decimal(10).pow(getBuyableAmount('d', 11).add(1).mul(scale)).mul(1e50).div(div);
+                return new Decimal(10).pow(getBuyableAmount('d', 11).add(x).add(1).mul(scale)).mul(1e50).div(div);
             },
             title() {
                 return '<h3 class="layer-s' + getdark(this, "title-buyable") + 'Worship<br>';
@@ -4118,7 +4143,7 @@ addLayer("d", {
                 setBuyableAmount('d', 12, getBuyableAmount('d', 12).add(1));
             },
             display() {
-                return 'use sanctums as a sacrifice to worship the gods. you will gain<br>0.5 devotion per sacrifice.<br>each sacrifice also multiplies relic\'s first effect by 1.5<br>Currently: ' + format(new Decimal(1.5).pow(getBuyableAmount('d', 12))) + '<br><br>Devotion Reward: ' + format(getBuyableAmount('d', 12).mul(0.5)) + '<br><br>Cost: ' + formatWhole(this.cost()) + ' sanctums<br><br>Times Sacrificed: ' + formatWhole(getBuyableAmount('d', 12));
+                return 'use sanctums as a sacrifice to worship the gods. you will gain<br>0.5 devotion per sacrifice.<br>each sacrifice also multiplies relic\'s first effect by 1.5<br>Currently: ' + format(new Decimal(1.5).pow(getBuyableAmount('d', 12))) + 'x<br><br>Devotion Reward: ' + format(getBuyableAmount('d', 12).mul(0.5)) + '<br><br>Cost: ' + formatWhole(this.cost()) + ' sanctums<br><br>Times Sacrificed: ' + formatWhole(getBuyableAmount('d', 12));
             },
             style() {
                 backcolors = '#224400, #336600';
@@ -4149,7 +4174,7 @@ addLayer("d", {
                 setBuyableAmount('d', 21, getBuyableAmount('d', 21).add(1));
             },
             display() {
-                return 'use hexes and subatomic particles in a sacrificial ceremony to worship the gods. you will gain 0.75 devotion per sacrificial ceremony. each sacrifice also multiplies subatomic particle and light gain by 1.2<br>Currently: ' + format(new Decimal(1.2).pow(getBuyableAmount('d', 21))) + '<br><br>Devotion Reward: ' + format(getBuyableAmount('d', 21).mul(0.75)) + '<br><br>Cost: ' + formatWhole(this.cost_h()) + ' hexes<br>and ' + formatWhole(this.cost_sp()) + ' subatomic particles<br><br>Ceremonies Performed: ' + formatWhole(getBuyableAmount('d', 21));
+                return 'use hexes and subatomic particles in a sacrificial ceremony to worship the gods. you will gain 0.75 devotion per sacrificial ceremony. each sacrificial ceremony also multiplies subatomic particle and light gain by 1.2 and divides worship cost by 1e25<br>Currently: ' + format(new Decimal(1.2).pow(getBuyableAmount('d', 21))) + 'x<br>and /' + format(new Decimal(1e25).pow(getBuyableAmount('d', 21))) + '<br><br>Devotion Reward: ' + format(getBuyableAmount('d', 21).mul(0.75)) + '<br><br>Cost: ' + formatWhole(this.cost_h()) + ' hexes,<br>' + formatWhole(this.cost_sp()) + ' subatomic particles<br><br>Ceremonies Performed: ' + formatWhole(getBuyableAmount('d', 21));
             },
             style() {
                 backcolors = '#224400, #336600';
