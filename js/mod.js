@@ -18,7 +18,7 @@ let changelog = `<h1>Changelog:</h1><br>
 	<br><h3>v2.1: Relics of Light</h3><br>
 		- Added relics.<br>
 		- Added one custom challenge to relics.<br>
-		- Added twelve milestones to sanctums.<br>
+		- Added twenty-one milestones to sanctums.<br>
 		- Added three custom buyables to sanctums.<br>
 		- Added two milestones to atoms.<br>
 		- Added four achievements.<br>
