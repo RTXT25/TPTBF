@@ -12,39 +12,45 @@ addLayer("A", {
     layerShown() {return true},
     tooltip() {return "Achievements"},
     effectDescription() {
-        text = ["<br>", "", ""];
+        text = ["<br>which are multiplying your point ", "", ""];
         if (colorvalue[1] == "none") {
             if (hasUpgrade("ds", 21)) {
-                if (hasUpgrade('ds', 24)) text[0] += 'which are multiplying your point and essence gain by ' + format(player.A.points.mul(0.2)) + 'x';
-                else text[1] += 'and also multiplying essence gain by ' + format(player.A.points.mul(0.2)) + 'x';
-                if (hasUpgrade("ds", 23) && !hasUpgrade("ds", 24) && !hasUpgrade("p", 31)) text[2] += 'addtionally, also multiplying core and quark gain by ' + format(player.A.points.pow(2).div(100)) + 'x';
-                if (hasUpgrade("ds", 23) && hasUpgrade("ds", 24) && !hasUpgrade("p", 31)) text[1] += 'and also multiplying core and quark gain by ' + format(player.A.points.pow(2).div(100)) + 'x';
-                if (hasUpgrade("ds", 23) && hasUpgrade("ds", 24) && hasUpgrade("p", 31)) text[1] += 'and also multiplying core, prayer, and quark gain by ' + format(player.A.points.pow(2).div(100)) + 'x';
-            } else text[0] += 'which are multiplying your point gain by ' + format(player.A.points.mul(0.1).add(1)) + 'x';
-            if (hasUpgrade('a', 51)) text[2] += 'additionally, also multiplying subatomic particle gain by ' + format(player.A.points.pow(1.25)) + 'x';
+                if (hasUpgrade('ds', 24)) text[0] += 'and essence gain by ' + format(player.A.points.mul(0.2)) + 'x';
+                else text[1] += 'essence gain by ' + format(player.A.points.mul(0.2)) + 'x';
+                if (hasUpgrade("ds", 23) && !hasUpgrade("ds", 24) && !hasUpgrade("p", 31)) text[2] += 'core and quark gain by ' + format(player.A.points.pow(2).div(100)) + 'x';
+                if (hasUpgrade("ds", 23) && hasUpgrade("ds", 24) && !hasUpgrade("p", 31)) text[1] += 'core and quark gain by ' + format(player.A.points.pow(2).div(100)) + 'x';
+                if (hasUpgrade("ds", 23) && hasUpgrade("ds", 24) && hasUpgrade("p", 31)) text[1] += 'core, prayer, and quark gain by ' + format(player.A.points.pow(2).div(100)) + 'x';
+            } else text[0] += 'gain by ' + format(player.A.points.mul(0.1).add(1)) + 'x';
+            if (hasUpgrade('a', 51)) text[2] += 'subatomic particle gain by ' + format(player.A.points.pow(1.25)) + 'x';
         } else {
             if (hasUpgrade("ds", 21)) {
-                if (hasUpgrade('ds', 24)) text[0] += 'which are multiplying your point and essence gain by <h2 class="layer-A">' + format(player.A.points.mul(0.2)) + '</h2>x';
-                else text[1] += 'and also multiplying essence gain by <h2 class="layer-A">' + format(player.A.points.mul(0.2)) + '</h2>x';
-                if (hasUpgrade("ds", 23) && !hasUpgrade("ds", 24) && !hasUpgrade("p", 31)) text[2] += 'addtionally, also multiplying core and quark gain by <h2 class="layer-A">' + format(player.A.points.pow(2).div(100)) + '</h2>x';
-                if (hasUpgrade("ds", 23) && hasUpgrade("ds", 24) && !hasUpgrade("p", 31)) text[1] += 'and also multiplying core and quark gain by <h2 class="layer-A">' + format(player.A.points.pow(2).div(100)) + '</h2>x';
-                if (hasUpgrade("ds", 23) && hasUpgrade("ds", 24) && hasUpgrade("p", 31)) text[1] += 'and also multiplying core, prayer, and quark gain by <h2 class="layer-A">' + format(player.A.points.pow(2).div(100)) + '</h2>x';
-            } else text[0] += 'which are multiplying your point gain by <h2 class="layer-A">' + format(player.A.points.mul(0.1).add(1)) + '</h2>x';
-            if (hasUpgrade('a', 51))text[2] += 'additionally, also multiplying subatomic particle gain by <h2 class="layer-A">' + format(player.A.points.pow(1.25)) + '</h2>x';
+                if (hasUpgrade('ds', 24)) text[0] += 'and essence gain by <h2 class="layer-A">' + format(player.A.points.mul(0.2)) + '</h2>x';
+                else {
+                    text[0] += 'gain by <h2 class="layer-A">' + format(player.A.points.mul(0.1).add(1)) + '</h2>x';
+                    text[1] += 'essence gain by <h2 class="layer-A">' + format(player.A.points.mul(0.2)) + '</h2>x';
+                };
+                if (hasUpgrade("ds", 23) && !hasUpgrade("ds", 24) && !hasUpgrade("p", 31)) text[2] += 'core and quark gain by <h2 class="layer-A">' + format(player.A.points.pow(2).div(100)) + '</h2>x';
+                if (hasUpgrade("ds", 23) && hasUpgrade("ds", 24) && !hasUpgrade("p", 31)) text[1] += 'core and quark gain by <h2 class="layer-A">' + format(player.A.points.pow(2).div(100)) + '</h2>x';
+                if (hasUpgrade("ds", 23) && hasUpgrade("ds", 24) && hasUpgrade("p", 31)) text[1] += 'core, prayer, and quark gain by <h2 class="layer-A">' + format(player.A.points.pow(2).div(100)) + '</h2>x';
+            } else text[0] += 'gain by <h2 class="layer-A">' + format(player.A.points.mul(0.1).add(1)) + '</h2>x';
+            if (hasUpgrade('a', 51)) text[2] += 'subatomic particle gain by <h2 class="layer-A">' + format(player.A.points.pow(1.25)) + '</h2>x';
         };
         if (player.nerdMode) {
             if (hasUpgrade("ds", 21)) {
                 if (hasUpgrade('ds', 24)) text[0] += ' (formula: x*0.2)';
-                else text[1] += ' (formula: x*0.2)';
+                else {
+                    text[0] += ' (formula: x*0.1+1)';
+                    text[1] += ' (formula: x*0.2)';
+                };
                 if (hasUpgrade("ds", 23) && !hasUpgrade("ds", 24) && !hasUpgrade("p", 31)) text[2] += ' (formula: x^2/100)';
                 if (hasUpgrade("ds", 23) && hasUpgrade("ds", 24)) text[1] += ' (formula: x^2/100)';
             } else text[0] += ' (formula: x*0.1+1)';
             if (hasUpgrade('a', 51)) text[2] += ' (formula: x^1.25)';
         };
         fintext = text[0];
-        if (text[1]) fintext += "<br>";
+        if (text[1]) fintext += ",<br>and also multiplying ";
         fintext += text[1];
-        if (text[2]) fintext += "<br>";
+        if (text[2]) fintext += ",<br>additionally, also multiplying ";
         fintext += text[2];
         return fintext;
     },
@@ -249,8 +255,8 @@ addLayer("A", {
         },
         55: {
             name: "Anti Dark Matter",
-            done() {return player.sp.points.gte(1e10)},
-            tooltip: "obtain 1e10 subatomic particles.",
+            done() {return player.sp.points.gte(1e11)},
+            tooltip: "obtain 1e11 subatomic particles.",
             unlocked() { if (hasAchievement("A", 54)) return true },
             image() { if (hasAchievement("A", 55)) return "images/achievements/55.png" },
         },
@@ -310,21 +316,21 @@ addLayer("A", {
         },
         72: {
             name: "Demonic Ruin",
-            done() {return player.ds.points.gte(1e9)},
-            tooltip: "obtain 1e9 demon souls.",
+            done() {return player.ds.points.gte(1e8)},
+            tooltip: "obtain 1e8 demon souls.",
             unlocked() { if (hasAchievement("A", 71)) return true },
             image() { if (hasAchievement("A", 72)) return "images/achievements/72.png" },
         },
         73: {
             name: "Demonic Origin",
-            done() {return player.ds.points.gte(1e80)},
-            tooltip: "obtain 1e80 demon souls.",
+            done() {return player.ds.points.gte(1e60)},
+            tooltip: "obtain 1e60 demon souls.",
             unlocked() { if (hasAchievement("A", 72)) return true },
         },
         74: {
             name: "Demon Dimension",
-            done() {return player.ds.points.gte("1e700")},
-            tooltip: "obtain 1e700 demon souls.",
+            done() {return player.ds.points.gte("1e400")},
+            tooltip: "obtain 1e400 demon souls.",
             unlocked() { if (hasAchievement("A", 73)) return true },
         },
         76: {
@@ -420,6 +426,12 @@ addLayer("A", {
             tooltip: "obtain 100 sanctums.",
             unlocked() { if (hasAchievement("A", 102)) return true },
         },
+        104: {
+            name: "The World is Sanctum",
+            done() {return player.s.points.gte(1000)},
+            tooltip: "obtain 1,000 sanctums.",
+            unlocked() { if (hasAchievement("A", 103)) return true },
+        },
         111: {
             name: "Ancient Relic",
             done() {return player.r.points.gte(1)},
@@ -431,6 +443,24 @@ addLayer("A", {
             done() {return player.r.points.gte(10)},
             tooltip: "obtain 10 relics.",
             unlocked() { if (hasAchievement("A", 111)) return true },
+        },
+        113: {
+            name: "Treasure Hoard",
+            done() {return player.r.points.gte(100)},
+            tooltip: "obtain 100 relics.",
+            unlocked() { if (hasAchievement("A", 112)) return true },
+        },
+        121: {
+            name: "Atom Combination",
+            done() {return player.m.points.gte(1)},
+            tooltip: "obtain 1 molecule.",
+            unlocked() { if (hasAchievement("A", 121)) return true },
+        },
+        122: {
+            name: "Varied Molecules",
+            done() {return player.m.points.gte(10)},
+            tooltip: "obtain 10 molecules.",
+            unlocked() { if (hasAchievement("A", 121)) return true },
         },
     },
 });
