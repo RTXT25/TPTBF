@@ -667,10 +667,10 @@ addLayer("e", {
             if (hasUpgrade('e', 21)) buyUpgrade('e', 22);
             if (hasUpgrade('e', 22)) buyUpgrade('e', 23);
             if (hasUpgrade('e', 23)) buyUpgrade('e', 31);
-            if (hasUpgrade('e', 31)) buyUpgrade('e', 32);
-            if (hasUpgrade('e', 32)) buyUpgrade('e', 33);
-            if (hasUpgrade('e', 33)) buyUpgrade('e', 41);
-            if (hasUpgrade('e', 41)) buyUpgrade('e', 42);
+            if (hasMilestone("q", 0) && hasUpgrade('e', 31)) buyUpgrade('e', 32);
+            if (hasMilestone("q", 0) && hasUpgrade('e', 32)) buyUpgrade('e', 33);
+            if (hasMilestone("q", 0) && hasUpgrade('e', 33)) buyUpgrade('e', 41);
+            if (hasMilestone("q", 0) && hasUpgrade('e', 41)) buyUpgrade('e', 42);
         };
         if (player.e.auto_buyables) {
             if (layers.e.buyables[11].canAfford()) {
@@ -684,6 +684,7 @@ addLayer("e", {
     doReset(resettingLayer) {
         let keep = [];
             if (hasMilestone("s", 20) && resettingLayer == "s") return;
+            if (hasMilestone("m", 2) && resettingLayer == "m") return;
             if (hasMilestone("c", 0) && resettingLayer == "c") keep.push("upgrades");
             if (hasMilestone("c", 2) && resettingLayer == "c") keep.push("buyables");
             if (hasMilestone("q", 1) && resettingLayer == "q") keep.push("upgrades");
@@ -695,6 +696,7 @@ addLayer("e", {
             if (hasMilestone("ds", 3)) keep.push("upgrades");
             if (hasMilestone("ds", 4)) keep.push("buyables");
             if (hasMilestone("m", 0)) keep.push("auto_buyables");
+            if (hasMilestone("m", 2)) keep.push("auto_upgrades");
             if (layers[resettingLayer].row > this.row) layerDataReset("e", keep);
         },
     tabFormat: [
@@ -1799,6 +1801,8 @@ addLayer("sp", {
         points: new Decimal(0),
         best: new Decimal(0),
         total: new Decimal(0),
+        auto_upgrades: false,
+        auto_buyables: false,
     }},
     color() {
         if (player.q.points.gte(1e15) || player.sp.unlocked) return "#710CC4";
@@ -1842,6 +1846,24 @@ addLayer("sp", {
         {key: "S", description: "Shift-S: Reset for subatomic particles", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
     layerShown(){return player.q.unlocked},
+    automate() {
+        if (player.sp.auto_upgrades && hasUpgrade('h', 53)) {
+            buyUpgrade('sp', 11);
+            buyUpgrade('sp', 12);
+            buyUpgrade('sp', 13);
+        };
+        if (player.sp.auto_buyables) {
+            if (layers.sp.buyables[11].canAfford()) {
+                layers.sp.buyables[11].buy();
+            };
+            if (layers.sp.buyables[12].canAfford()) {
+                layers.sp.buyables[12].buy();
+            };
+            if (layers.sp.buyables[21].canAfford()) {
+                layers.sp.buyables[21].buy();
+            };
+        };
+    },
     doReset(resettingLayer) {
         let keep = [];
             if (hasMilestone("ds", 0) && resettingLayer == "ds") keep.push("buyables");
@@ -1849,6 +1871,7 @@ addLayer("sp", {
             if (hasMilestone("a", 0) && resettingLayer == "a") keep.push("buyables");
             if (hasMilestone("a", 3) && resettingLayer == "a") keep.push("upgrades");
             if (hasMilestone("a", 13) && resettingLayer == "a") keep.push("milestones");
+            if (hasMilestone("m", 4)) keep.push("auto_upgrades", "auto_buyables");
             if (layers[resettingLayer].row > this.row) layerDataReset("sp", keep);
         },
     resetsNothing() {
@@ -1906,7 +1929,7 @@ addLayer("sp", {
                 return 'squares the positive effect of <b class="layer-sp' + getdark(this, "ref") + 'Protons';
             },
             cost: 6,
-            unlocked() { return (hasMilestone("h", 8)) && hasUpgrade("h", 53) },
+            unlocked() { return hasUpgrade("h", 53) },
         },
         12: {
             title() {
@@ -1916,7 +1939,7 @@ addLayer("sp", {
                 return 'squares the positive effect of <b class="layer-sp' + getdark(this, "ref") + 'Neutrons';
             },
             cost: 6,
-            unlocked() { return (hasMilestone("h", 8)) && hasUpgrade("h", 53) },
+            unlocked() { return hasUpgrade("h", 53) },
         },
         13: {
             title() {
@@ -1926,7 +1949,7 @@ addLayer("sp", {
                 return 'squares the positive effect of <b class="layer-sp' + getdark(this, "ref") + 'Electrons';
             },
             cost: 6,
-            unlocked() { return (hasMilestone("h", 8)) && hasUpgrade("h", 53) },
+            unlocked() { return hasUpgrade("h", 53) },
         },
     },
     buyables: {
@@ -2102,6 +2125,7 @@ addLayer("h", {
             if (hasMilestone("ds", 8) && resettingLayer == "ds") keep.push("milestones");
             if (hasMilestone("a", 6) && resettingLayer == "a") keep.push("milestones");
             if (hasMilestone("a", 11) && (resettingLayer == "a" || resettingLayer == "ds")) keep.push("upgrades");
+            if (hasMilestone("m", 1)) keep.push("auto_upgrades");
             if (layers[resettingLayer].row > this.row) layerDataReset("h", keep);
         },
     tabFormat: [
@@ -3029,7 +3053,7 @@ addLayer("a", {
             requirementDescription: "18,000 atoms and 40 sanctums",
             effectDescription: "perform atom resets automatically",
             done() { return player.a.points.gte(18000) && player.s.points.gte(40) },
-            unlocked() { return hasMilestone('a', 13) && player.r.points.gt(0) }
+            unlocked() { return hasMilestone('a', 14) && player.r.points.gt(0) }
         },
     },
     upgrades: {
@@ -4067,12 +4091,14 @@ addLayer("s", {
     },
     doReset(resettingLayer) {
         let keep = [];
-            if (hasMilestone('s', 12) && resettingLayer == 'a') keep.push("points", "best", "total", "milestones");
+            if (hasMilestone('s', 12) && resettingLayer == 'a') return;
+            if (layers[resettingLayer].row == this.row) keep.push("points", "best", "total", "milestones", "buyables");
             if (hasMilestone('s', 19)) keep.push("auto_worship");
             if (hasMilestone('s', 28)) keep.push("auto_sacrificial_ceremony");
             if (hasMilestone('s', 38)) keep.push("auto_sacrifice");
             if (challengeCompletions('r', 11) >= 9 && resettingLayer == 'r') keep.push("milestones");
-            if (layers[resettingLayer].row > this.row) layerDataReset('s', keep);
+            if (layers[resettingLayer].row >= this.row) layerDataReset('s', keep);
+            if (layers[resettingLayer].row >= this.row) layerDataReset('d', keep);
         },
     resetsNothing() {
         if (hasMilestone('s', 47)) return true;
@@ -4177,7 +4203,7 @@ addLayer("s", {
         },
         12: {
             requirementDescription: "18 sanctums",
-            effectDescription: "keep sanctums on atom resets",
+            effectDescription: "atoms don\'t reset sanctums",
             done() { return player.s.points.gte(18) },
         },
         13: {
@@ -4668,6 +4694,7 @@ addLayer("r", {
         lightreq: new Decimal(20000),
         light: new Decimal(0),
         lightgain: new Decimal(0),
+        lightgainbest: new Decimal(0),
         relic_effects: [new Decimal(1), new Decimal(1), new Decimal(1)],
         sanctummult: new Decimal(1),
         essencemult: new Decimal(1),
@@ -4748,8 +4775,10 @@ addLayer("r", {
             if (hasMilestone('s', 41)) gain = gain.mul(3);
             if (hasMilestone('s', 50)) gain = gain.mul(3);
             player.r.lightgain = gain;
-            player.r.light = player.r.light.add(player.r.lightgain.mul(diff));
-        } else player.r.lightgain = new Decimal(0);
+        } else if (hasMilestone('m', 3)) player.r.lightgain = player.r.lightgainbest.mul(0.001);
+        else player.r.lightgain = new Decimal(0);
+        player.r.light = player.r.light.add(player.r.lightgain.mul(diff));
+        if (player.r.lightgain.gt(player.r.lightgainbest)) player.r.lightgainbest = player.r.lightgain;
     },
     tabFormat: [
         "main-display",
@@ -4780,8 +4809,10 @@ addLayer("r", {
                 return 'Converts all point production into light production. Get enough light, and you can activate your relics for rewards.<br>';
             },
             goalDescription() {
-                if (maxedChallenge('r', 11)) return 'You have ' + format(player.r.light) + ' light.<br>(' + format(player.r.lightgain) + '/sec)<br>';
-                return 'You have ' + format(player.r.light) + '/' + format(player.r.lightreq) + ' light.<br>(' + format(player.r.lightgain) + '/sec)<br>';
+                if (maxedChallenge('r', 11)) text = 'You have ' + format(player.r.light) + ' light.<br>(' + format(player.r.lightgain) + '/sec)<br>';
+                else text = 'You have ' + format(player.r.light) + '/' + format(player.r.lightreq) + ' light.<br>(' + format(player.r.lightgain) + '/sec)<br>';
+                if (player.nerdMode) text += 'Best: (' + format(player.r.lightgainbest) + '/sec)<br>';
+                return text;
             },
             rewardDescription() {
                 text = '';
@@ -4905,6 +4936,23 @@ addLayer("m", {
             effectDescription: 'keep demon soul challenges and<br><b class="layer-ds' + getdark(this, "ref", true, true) + 'Demonic Key</b> on molecule resets,<br>and you can autobuy hex upgrades',
             done() { return player.m.total.gte(2) },
             toggles: [["h", "auto_upgrades"]],
+        },
+        2: {
+            requirementDescription: '3 total molecules',
+            effectDescription: 'molecules don\'t reset essence, and<br>you can autobuy essence upgrades',
+            done() { return player.m.total.gte(3) },
+            toggles: [["e", "auto_upgrades"]],
+        },
+        3: {
+            requirementDescription: '4 total molecules',
+            effectDescription: 'gain 0.1% of best light gain per second',
+            done() { return player.m.total.gte(4) },
+        },
+        4: {
+            requirementDescription: '5 total molecules',
+            effectDescription: 'molecules don\'t reset cores, and<br>you can autobuy subatomic<br>particle upgrades and buyables',
+            done() { return player.m.total.gte(5) },
+            toggles: [["sp", "auto_upgrades"], ["sp", "auto_buyables"]],
         },
     },
     upgrades: {
