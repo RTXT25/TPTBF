@@ -10,11 +10,16 @@ let modInfo = {
 };
 
 let VERSION = {
-	num: "2.1",
-	name: "Relics of Light",
+	num: "2.2",
+	name: "Advances in Science",
 };
 
 let changelog = `<h1>Changelog:</h1><br>
+	<br><h3>v2.2: Advances in Science</h3><br>
+		- Added molecules.<br>
+		- Added one milestone to molecules.<br>
+		- Added one upgrade to molecules.<br>
+		- More things coming soon!<br>
 	<br><h3>v2.1: Relics of Light</h3><br>
 		- Added relics.<br>
 		- Added one custom challenge to relics.<br>
@@ -24,7 +29,6 @@ let changelog = `<h1>Changelog:</h1><br>
 		- Added four achievements.<br>
 		- Added eight achievement images.<br>
 		- Added nerd mode.<br>
-		- More things coming soon!<br>
 	<br><h3>v2.0: Sanctums of Color</h3><br>
 		- Added sanctums.<br>
 		- Added ten milestones to sanctums.<br>
