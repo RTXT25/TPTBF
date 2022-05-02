@@ -561,6 +561,8 @@ addLayer("e", {
         points: new Decimal(0),
         best: new Decimal(0),
         total: new Decimal(0),
+        auto_upgrades: false,
+        auto_buyables: false,
     }},
     color: "#4CED13",
     branches: ["c", "q", "p"],
@@ -587,6 +589,7 @@ addLayer("e", {
         if (hasUpgrade('q', 32)) mult = mult.mul(upgradeEffect('q', 32));
         if (hasUpgrade('a', 73)) mult = mult.mul(upgradeEffect('a', 73));
         if (hasUpgrade('p', 11)) mult = mult.mul(upgradeEffect('p', 11));
+        if (hasUpgrade('m', 11)) mult = mult.mul(upgradeEffect('m', 11));
         if (getBuyableAmount('e', 11).gt(0)) mult = mult.mul(getBuyableAmount('e', 11).mul(2.5).add(1));
         if (getBuyableAmount('e', 12).gt(0)) mult = mult.mul(getBuyableAmount('e', 12).mul(0.25).add(1));
         if (getBuyableAmount('c', 12).gt(0)) mult = mult.mul(new Decimal(2).pow(getBuyableAmount('c', 12)));
@@ -625,6 +628,29 @@ addLayer("e", {
         }}}}};
         return gen;
     },
+    automate() {
+        if (player.e.auto_upgrades) {
+            buyUpgrade('e', 11);
+            if (hasUpgrade('e', 11)) buyUpgrade('e', 12);
+            if (hasUpgrade('e', 12)) buyUpgrade('e', 13);
+            if (hasUpgrade('e', 13)) buyUpgrade('e', 21);
+            if (hasUpgrade('e', 21)) buyUpgrade('e', 22);
+            if (hasUpgrade('e', 22)) buyUpgrade('e', 23);
+            if (hasUpgrade('e', 23)) buyUpgrade('e', 31);
+            if (hasUpgrade('e', 31)) buyUpgrade('e', 32);
+            if (hasUpgrade('e', 32)) buyUpgrade('e', 33);
+            if (hasUpgrade('e', 33)) buyUpgrade('e', 41);
+            if (hasUpgrade('e', 41)) buyUpgrade('e', 42);
+        };
+        if (player.e.auto_buyables) {
+            if (layers.e.buyables[11].canAfford()) {
+                layers.e.buyables[11].buy();
+            };
+            if (layers.e.buyables[12].canAfford()) {
+                layers.e.buyables[12].buy();
+            };
+        };
+    },
     doReset(resettingLayer) {
         let keep = [];
             if (hasMilestone("s", 20) && resettingLayer == "s") return;
@@ -638,6 +664,7 @@ addLayer("e", {
             if (hasMilestone("h", 1) && resettingLayer == "h") keep.push("buyables");
             if (hasMilestone("ds", 3)) keep.push("upgrades");
             if (hasMilestone("ds", 4)) keep.push("buyables");
+            if (hasMilestone("m", 0)) keep.push("auto_buyables");
             if (layers[resettingLayer].row > this.row) layerDataReset("e", keep);
         },
     tabFormat: [
@@ -848,11 +875,14 @@ addLayer("e", {
     },
     buyables: {
         11: {
-            cost(x = 0) { return new Decimal(12).pow(getBuyableAmount('e', 11)).add(x).add(20) },
+            cost(x = 0) {
+                if (x == 0) return new Decimal(12).pow(getBuyableAmount('e', 11)).add(20);
+                return new Decimal(12).pow(getBuyableAmount('e', 11)).add(x).add(20);
+            },
             title() {
                 return '<b class="layer-e' + getdark(this, "title-buyable") + 'Purer Essence';
             },
-            canAfford() { return player.e.points.gte(this.cost()) },
+            canAfford() { return player.e.points.gte(this.cost()) && getBuyableAmount(this.layer, this.id).lt(this.purchaseLimit) },
             purchaseLimit: 14,
             buy() {
                 player.e.points = player.e.points.sub(this.cost());
@@ -864,11 +894,14 @@ addLayer("e", {
             },
         },
         12: {
-            cost(x = 0) { return new Decimal(44).pow(getBuyableAmount('e', 12)).add(x).mul(10).add(85184) },
+            cost(x = 0) {
+                if (x == 0) return new Decimal(44).pow(getBuyableAmount('e', 12)).mul(10).add(85184);
+                return new Decimal(44).pow(getBuyableAmount('e', 12)).add(x).mul(10).add(85184);
+            },
             title() {
                 return '<b class="layer-e' + getdark(this, "title-buyable") + 'Radiant Essence';
             },
-            canAfford() { return player.e.points.gte(this.cost()) },
+            canAfford() { return player.e.points.gte(this.cost()) && getBuyableAmount(this.layer, this.id).lt(this.purchaseLimit) },
             purchaseLimit: 99,
             buy() {
                 player.e.points = player.e.points.sub(this.cost());
@@ -964,13 +997,11 @@ addLayer("c", {
             if (hasUpgrade("h", 53) && hasUpgrade("c", 32)) buyUpgrade('c', 33);
         };
         if (player.c.auto_buyables) {
-            if (getBuyableAmount('c', 11).lt(99) && player.c.points.gte(getBuyableAmount('c', 11).mul(2).add(1))) {
-                player.c.points = player.c.points.sub(getBuyableAmount('c', 11).mul(2).add(1));
-                setBuyableAmount('c', 11, getBuyableAmount('c', 11).add(1));
+            if (layers.c.buyables[11].canAfford()) {
+                layers.c.buyables[11].buy();
             };
-            if (getBuyableAmount('c', 12).lt(49) && player.c.points.gte(new Decimal(6).pow(getBuyableAmount('c', 12)))) {
-                player.c.points = player.c.points.sub(new Decimal(6).pow(getBuyableAmount('c', 12)));
-                setBuyableAmount('c', 12, getBuyableAmount('c', 12).add(1));
+            if (layers.c.buyables[12].canAfford()) {
+                layers.c.buyables[12].buy();
             };
         };
     },
@@ -1184,11 +1215,14 @@ addLayer("c", {
     },
     buyables: {
         11: {
-            cost(x = 0) { return getBuyableAmount('c', 11).add(x).mul(2).add(1) },
+            cost(x = 0) {
+                if (x == 0) return getBuyableAmount('c', 11).mul(2).add(1);
+                return getBuyableAmount('c', 11).add(x).mul(2).add(1);
+            },
             title() {
                 return '<b class="layer-c' + getdark(this, "title-buyable") + 'Empowered Points';
             },
-            canAfford() { return player.c.points.gte(this.cost()) },
+            canAfford() { return player.c.points.gte(this.cost()) && getBuyableAmount(this.layer, this.id).lt(this.purchaseLimit) },
             purchaseLimit: 99,
             buy() {
                 player.c.points = player.c.points.sub(this.cost());
@@ -1202,11 +1236,14 @@ addLayer("c", {
             },
         },
         12: {
-            cost(x = 0) { return new Decimal(6).pow(getBuyableAmount('c', 12).add(x)) },
+            cost(x = 0) {
+                if (x == 0) return new Decimal(6).pow(getBuyableAmount('c', 12));
+                return new Decimal(6).pow(getBuyableAmount('c', 12).add(x));
+            },
             title() {
                 return '<b class="layer-c' + getdark(this, "title-buyable") + 'Empowered Essence';
             },
-            canAfford() { return player.c.points.gte(this.cost()) },
+            canAfford() { return player.c.points.gte(this.cost()) && getBuyableAmount(this.layer, this.id).lt(this.purchaseLimit) },
             purchaseLimit: 49,
             buy() {
                 player.c.points = player.c.points.sub(this.cost());
@@ -1868,7 +1905,7 @@ addLayer("sp", {
             title() {
                 return '<b class="layer-sp' + getdark(this, "title-buyable") + 'Protons';
             },
-            canAfford() { return player.sp.points.gte(this.cost()) },
+            canAfford() { return player.sp.points.gte(this.cost()) && getBuyableAmount(this.layer, this.id).lt(this.purchaseLimit) },
             purchaseLimit: 9,
             buy() {
                 player.sp.points = player.sp.points.sub(this.cost());
@@ -1890,7 +1927,7 @@ addLayer("sp", {
             title() {
                 return '<b class="layer-sp' + getdark(this, "title-buyable") + 'Neutrons';
             },
-            canAfford() { return player.sp.points.gte(this.cost()) },
+            canAfford() { return player.sp.points.gte(this.cost()) && getBuyableAmount(this.layer, this.id).lt(this.purchaseLimit) },
             purchaseLimit: 9,
             buy() {
                 player.sp.points = player.sp.points.sub(this.cost());
@@ -1912,7 +1949,7 @@ addLayer("sp", {
             title() {
                 return '<b class="layer-sp' + getdark(this, "title-buyable") + 'Electrons';
             },
-            canAfford() { return player[this.layer].points.gte(this.cost()) },
+            canAfford() { return player[this.layer].points.gte(this.cost()) && getBuyableAmount(this.layer, this.id).lt(this.purchaseLimit) },
             purchaseLimit: 9,
             buy() {
                 player[this.layer].points = player[this.layer].points.sub(this.cost());
@@ -2537,7 +2574,7 @@ addLayer("ds", {
                 return '<b class="layer-ds' + getdark(this, "title") + 'Mad Hexes';
             },
             description() {
-                return 'you can explore 2 further hex upgrades, and <b class="layer-h' + getdark(this, "ref") + 'Hex Leak</b> also applies to hex gain (and not any other upgrades in the chain)';
+                return 'you can explore 2 further hex upgrades, and <b class="layer-h' + getdark(this, "ref", true, true) + 'Hex Leak</b> also applies to hex gain (and not any other upgrades in the chain)';
             },
             cost: 10,
         },
@@ -2546,7 +2583,7 @@ addLayer("ds", {
                 return '<b class="layer-ds' + getdark(this, "title") + 'Hex Mania';
             },
             description() {
-                return 'you can explore 2 further hex upgrades, and <b class="layer-h' + getdark(this, "ref") + 'Stronger Hexes</b>\' effect is squared';
+                return 'you can explore 2 further hex upgrades, and <b class="layer-h' + getdark(this, "ref", true, true) + 'Stronger Hexes</b>\' effect is squared';
             },
             cost: 75,
         },
@@ -2599,12 +2636,15 @@ addLayer("ds", {
     },
     buyables: {
         11: {
-            cost(x = 0) { return new Decimal(2).pow(getBuyableAmount('ds', 11).add(x)).add(1) },
+            cost(x = 0) {
+                if (x == 0) return new Decimal(2).pow(getBuyableAmount('ds', 11)).add(1);
+                return new Decimal(2).pow(getBuyableAmount('ds', 11).add(x)).add(1);
+            },
             title() {
                 return '<h3 class="layer-ds' + getdark(this, "title-buyable") + 'Demonic Energy';
             },
             canAfford() {
-                return player.ds.points.gte(this.cost());
+                return player.ds.points.gte(this.cost()) && getBuyableAmount(this.layer, this.id).lt(this.purchaseLimit);
             },
             purchaseLimit: 22,
             buy() {
@@ -2740,6 +2780,7 @@ addLayer("a", {
         if (player.sp.points.gte(10000) || player.a.unlocked) return "#4D2FE0";
         return "#666666";
     },
+    branches: ["m"],
     requires: 1000,
     resource: "atoms",
     baseResource: "subatomic particles",
@@ -3949,6 +3990,9 @@ addLayer("s", {
     doReset(resettingLayer) {
         let keep = [];
             if (hasMilestone('s', 12) && resettingLayer == 'a') keep.push("points", "best", "total", "milestones");
+            if (hasMilestone('s', 19)) keep.push("auto_worship");
+            if (hasMilestone('s', 28)) keep.push("auto_sacrificial_ceremony");
+            if (hasMilestone('s', 38)) keep.push("auto_sacrifice");
             if (challengeCompletions('r', 11) >= 9 && resettingLayer == 'r') keep.push("milestones");
             if (layers[resettingLayer].row > this.row) layerDataReset('s', keep);
         },
@@ -3982,7 +4026,7 @@ addLayer("s", {
                 "blank",
             ],
             unlocked() {
-                if (hasMilestone("s", 13)) return true;
+                if (hasMilestone('s', 13)) return true;
                 return false;
             },
         },
@@ -4726,7 +4770,7 @@ addLayer("m", {
     baseResource: "atoms",
     baseAmount() {return player.a.points},
     type: "normal",
-    exponent: 5,
+    exponent: 10,
     gainMult() {
         mult = new Decimal(1);
         return mult;
@@ -4766,8 +4810,28 @@ addLayer("m", {
     milestones: {
         0: {
             requirementDescription: '1 molecule',
-            effectDescription: 'molecules don\'t reset relics',
-            done() { return player.m.points.gte(1) }
+            effectDescription: 'molecules don\'t reset relics, and<br>you can autobuy essence buyables',
+            done() { return player.m.points.gte(1) },
+            toggles: [["e", "auto_buyables"]],
+        },
+    },
+    upgrades: {
+        11: {
+            title() {
+                return '<b class="layer-m' + getdark(this, "title") + 'Oxygen Gas';
+            },
+            description() {
+                return 'multiplies essence gain based on your total molecules';
+            },
+            cost: 1,
+            effect() {
+                return player.m.best.mul(100).add(1).pow(0.5);
+            },
+            effectDisplay() {
+                text = format(this.effect()) + 'x';
+                if (player.nerdMode) text += ' <br>formula: (x+1)^0.5';
+                return text;
+            },
         },
     },
 });
