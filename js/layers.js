@@ -2831,6 +2831,7 @@ addLayer("a", {
         if (hasUpgrade('a', 62)) gain = gain.mul(upgradeEffect('a', 62));
         if (hasUpgrade('a', 72)) gain = gain.mul(upgradeEffect('a', 72));
         if (hasChallenge('ds', 22)) gain = gain.mul(1.5);
+        if (tmp.m.effect.gt(1)) gain = gain.mul(tmp.m.effect)
         return gain;
     },
     autoPrestige() {
@@ -2978,9 +2979,9 @@ addLayer("a", {
             unlocked() { return hasMilestone('a', 13) && player.r.points.gt(0) }
         },
         15: {
-            requirementDescription: "19,000 atoms and 40 sanctums",
+            requirementDescription: "18,000 atoms and 40 sanctums",
             effectDescription: "perform atom resets automatically",
-            done() { return player.a.points.gte(19000) && player.s.points.gte(40) },
+            done() { return player.a.points.gte(18000) && player.s.points.gte(40) },
             unlocked() { return hasMilestone('a', 13) && player.r.points.gt(0) }
         },
     },
@@ -4813,6 +4814,14 @@ addLayer("m", {
         {key: "m", description: "M: Reset for molecules", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
     layerShown(){return challengeCompletions('r', 11) >= 10 || player.m.points.gt(0)},
+    effect() {
+        effBoost = new Decimal(0.5);
+        return player.m.best.mul(effBoost).add(1);
+    },
+    effectDescription() {
+        if (colorvalue[1] == "none") return 'which multiplies atom gain by ' + format(tmp.m.effect) + 'x (based on best)';
+        return 'which multiplies atom gain by <h2 class="layer-m">' + format(tmp.m.effect) + '</h2>x (based on best)';
+    },
     doReset(resettingLayer) {
         let keep = [];
             if (layers[resettingLayer].row > this.row) layerDataReset("a", keep);
