@@ -2848,7 +2848,7 @@ addLayer("a", {
                 keep.push("milestones", "points", "best", "total");
                 if (hasMilestone('a', 12)) keep.push("upgrades");
             };
-            if (layers[resettingLayer].row > this.row) layerDataReset("a", keep);
+            if (layers[resettingLayer].row >= this.row) layerDataReset("a", keep);
         },
     resetsNothing() {
         if (hasMilestone('a', 14)) return true;
