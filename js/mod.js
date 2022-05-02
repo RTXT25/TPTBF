@@ -184,7 +184,7 @@ function getPointGen(forced = false) {
 		if (hasUpgrade('sp', 13)) gain = gain.mul(5 ** getBuyableAmount('sp', 21));
 	};
 	if (getBuyableAmount('sp', 12).gt(0)) gain = gain.mul(getBuyableAmount('sp', 12).add(1).pow(-1));
-	if (hasMilestone('p', 1)) gain = gain.mul(player.p.divinity.add(1).pow(0.1));
+	if (player.p.divinity.gt(0)) gain = gain.mul(player.p.divinity.add(1).pow(0.1));
 	if (challengeCompletions('r', 11) >= 2) gain = gain.mul(player.r.essencemult);
 	if (hasUpgrade('ds', 21) && hasUpgrade('ds', 24)) gain = gain.mul(player.A.points.mul(0.2));
 	else gain = gain.mul(player.A.points.mul(0.1).add(1));
