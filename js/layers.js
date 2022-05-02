@@ -12,7 +12,7 @@ addLayer("A", {
     layerShown() {return true},
     tooltip() {return "Achievements"},
     effectDescription() {
-        text = ["<br>which are multiplying your point ", "", ""];
+        text = ["<br>which are multiplying your point ", "", "", ""];
         if (colorvalue[1] == "none") {
             if (hasUpgrade("ds", 21)) {
                 if (hasUpgrade('ds', 24)) text[0] += 'and essence gain by ' + format(player.A.points.mul(0.2)) + 'x';
@@ -33,7 +33,7 @@ addLayer("A", {
                 if (hasUpgrade("ds", 23) && hasUpgrade("ds", 24) && !hasUpgrade("p", 31)) text[1] += 'core and quark gain by <h2 class="layer-A">' + format(player.A.points.pow(2).div(100)) + '</h2>x';
                 if (hasUpgrade("ds", 23) && hasUpgrade("ds", 24) && hasUpgrade("p", 31)) text[1] += 'core, prayer, and quark gain by <h2 class="layer-A">' + format(player.A.points.pow(2).div(100)) + '</h2>x';
             } else text[0] += 'gain by <h2 class="layer-A">' + format(player.A.points.mul(0.1).add(1)) + '</h2>x';
-            if (hasUpgrade('a', 51)) text[2] += 'subatomic particle gain by <h2 class="layer-A">' + format(player.A.points.pow(1.25)) + '</h2>x';
+            if (hasUpgrade('a', 51)) text[3] += 'subatomic particle gain by <h2 class="layer-A">' + format(player.A.points.pow(1.25)) + '</h2>x';
         };
         if (player.nerdMode) {
             if (hasUpgrade("ds", 21)) {
@@ -45,13 +45,15 @@ addLayer("A", {
                 if (hasUpgrade("ds", 23) && !hasUpgrade("ds", 24) && !hasUpgrade("p", 31)) text[2] += ' (formula: x^2/100)';
                 if (hasUpgrade("ds", 23) && hasUpgrade("ds", 24)) text[1] += ' (formula: x^2/100)';
             } else text[0] += ' (formula: x*0.1+1)';
-            if (hasUpgrade('a', 51)) text[2] += ' (formula: x^1.25)';
+            if (hasUpgrade('a', 51)) text[3] += ' (formula: x^1.25)';
         };
         fintext = text[0];
-        if (text[1]) fintext += ",<br>and also multiplying ";
+        if (text[1]) fintext += "<br>and also multiplying ";
         fintext += text[1];
-        if (text[2]) fintext += ",<br>additionally, also multiplying ";
+        if (text[2]) fintext += "<br>additionally, also multiplying ";
         fintext += text[2];
+        if (text[3]) fintext += "<br>and lastly, also multiplying ";
+        fintext += text[3];
         return fintext;
     },
     update(diff) {
@@ -306,6 +308,7 @@ addLayer("A", {
             done() {return player.h.points.gte(1e10) && getBuyableAmount("c", 11).eq(0) && getBuyableAmount("c", 12).eq(0) && player.sp.total.eq(0)},
             tooltip: "obtain 1e10 hexes with no subatomic particles and core buyables.",
             unlocked() { if (hasAchievement("A", 62) && hasAchievement("A", 71)) return true },
+            image() { if (hasAchievement("A", 66)) return "images/achievements/66.png" },
         },
         71: {
             name: "Demon Spirits",
@@ -326,6 +329,7 @@ addLayer("A", {
             done() {return player.ds.points.gte(1e60)},
             tooltip: "obtain 1e60 demon souls.",
             unlocked() { if (hasAchievement("A", 72)) return true },
+            image() { if (hasAchievement("A", 73)) return "images/achievements/73.png" },
         },
         74: {
             name: "Demon Dimension",
@@ -338,6 +342,7 @@ addLayer("A", {
             done() {return player.ds.points.gte(1e10) && getBuyableAmount("ds", 11).eq(0) && player.a.total.eq(0)},
             tooltip: "obtain 1e10 demon souls with no demon soul buyables and atoms.",
             unlocked() { if (hasAchievement("A", 72) && hasAchievement("A", 81)) return true },
+            image() { if (hasAchievement("A", 76)) return "images/achievements/76.png" },
         },
         81: {
             name: "Atomic Mass",
@@ -361,10 +366,11 @@ addLayer("A", {
             image() { if (hasAchievement("A", 83)) return "images/achievements/83.png" },
         },
         84: {
-            name: "Atom Grams (as seen on TV!)",
+            name: "Atom Dance",
             done() {return player.a.points.gte(10000)},
             tooltip: "obtain 10,000 atoms.",
             unlocked() { if (hasAchievement("A", 83)) return true },
+            image() { if (hasAchievement("A", 84)) return "images/achievements/84.png" },
         },
         85: {
             name: "Atoms Made of Atoms",
@@ -377,6 +383,7 @@ addLayer("A", {
             done() {return player.a.points.gte(10) && player.ds.total.eq(0)},
             tooltip: "obtain 10 atoms with no demon souls.",
             unlocked() { if (hasAchievement("A", 82) && hasAchievement("A", 91)) return true },
+            image() { if (hasAchievement("A", 86)) return "images/achievements/86.png" },
         },
         91: {
             name: "Praise the Lord",
