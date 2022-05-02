@@ -2008,6 +2008,7 @@ addLayer("h", {
         points: new Decimal(0),
         best: new Decimal(0),
         total: new Decimal(0),
+        auto_upgrades: false,
     }},
     color() {
         if (player.c.points.gte(1e60) || player.h.unlocked) return "#E36409";
@@ -2057,6 +2058,44 @@ addLayer("h", {
             gen += 0.001;
         };
         return gen;
+    },
+    automate() {
+        if (player.h.auto_upgrades) {
+            buyUpgrade('h', 11);
+            buyUpgrade('h', 12);
+            buyUpgrade('h', 13);
+            buyUpgrade('h', 14);
+            if (hasUpgrade('h', 11) && hasUpgrade('h', 12) && hasUpgrade('h', 13) && hasUpgrade('h', 14)) {
+                buyUpgrade('h', 21);
+                buyUpgrade('h', 22);
+                buyUpgrade('h', 23);
+                buyUpgrade('h', 24);
+            };
+            if (hasUpgrade('h', 21) && hasUpgrade('h', 22) && hasUpgrade('h', 23) && hasUpgrade('h', 24)) {
+                buyUpgrade('h', 31);
+                buyUpgrade('h', 32);
+                buyUpgrade('h', 33);
+                buyUpgrade('h', 34);
+            };
+            if (hasUpgrade('h', 31) && hasUpgrade('h', 32) && hasUpgrade('h', 33) && hasUpgrade('h', 34)) {
+                buyUpgrade('h', 41);
+                buyUpgrade('h', 42);
+                buyUpgrade('h', 43);
+                buyUpgrade('h', 44);
+            };
+            if (hasUpgrade('h', 41) && hasUpgrade('h', 42) && hasUpgrade('h', 43) && hasUpgrade('h', 44)) {
+                if (hasUpgrade('ds', 11)) buyUpgrade('h', 51);
+                buyUpgrade('h', 52);
+                buyUpgrade('h', 53);
+                if (hasUpgrade('ds', 11)) buyUpgrade('h', 54);
+            };
+            if (hasUpgrade('h', 52) && hasUpgrade('h', 53)) {
+                if (hasUpgrade('ds', 11) && hasUpgrade('h', 51) && hasUpgrade('h', 54)) buyUpgrade('h', 61);
+                buyUpgrade('h', 62);
+                buyUpgrade('h', 63);
+                if (hasUpgrade('ds', 11) && hasUpgrade('h', 51) && hasUpgrade('h', 54)) buyUpgrade('h', 64);
+            };
+        };
     },
     doReset(resettingLayer) {
         let keep = [];
@@ -2520,7 +2559,15 @@ addLayer("ds", {
     },
     doReset(resettingLayer) {
         let keep = [];
-            if (layers[resettingLayer].row > this.row) layerDataReset("ds", keep);
+        let saveupg = [];
+            if (hasMilestone('m', 1)) {
+                keep.push("challenges");
+                saveupg.push(22);
+            };
+            if (layers[resettingLayer].row > this.row) {
+                layerDataReset("ds", keep);
+                player[this.layer].upgrades = saveupg;
+            };
         },
     tabFormat: {
         "Demonic Curses": {
@@ -2604,7 +2651,7 @@ addLayer("ds", {
                 return '<b class="layer-ds' + getdark(this, "title") + 'Mad Hexes';
             },
             description() {
-                return 'you can explore 2 further hex upgrades, and <b class="layer-h' + getdark(this, "ref") + 'Hex Leak</b> also applies to hex gain (and not any other upgrades in the chain)';
+                return 'you can explore 2 further hex upgrades, and <b class="layer-h' + getdark(this, "ref", true, true) + 'Hex Leak</b> also applies to hex gain (and not any other upgrades in the chain)';
             },
             cost: 10,
         },
@@ -2613,7 +2660,7 @@ addLayer("ds", {
                 return '<b class="layer-ds' + getdark(this, "title") + 'Hex Mania';
             },
             description() {
-                return 'you can explore 2 further hex upgrades, and <b class="layer-h' + getdark(this, "ref") + 'Stronger Hexes</b>\' effect is squared';
+                return 'you can explore 2 further hex upgrades, and <b class="layer-h' + getdark(this, "ref", true, true) + 'Stronger Hexes</b>\' effect is squared';
             },
             cost: 75,
         },
@@ -4801,7 +4848,7 @@ addLayer("m", {
     baseResource: "atoms",
     baseAmount() {return player.a.points},
     type: "normal",
-    exponent: 10,
+    exponent: 1,
     gainMult() {
         mult = new Decimal(1);
         return mult;
@@ -4852,6 +4899,12 @@ addLayer("m", {
             effectDescription: 'molecules don\'t reset relics, and<br>you can autobuy essence buyables',
             done() { return player.m.points.gte(1) },
             toggles: [["e", "auto_buyables"]],
+        },
+        1: {
+            requirementDescription: '2 total molecules',
+            effectDescription: 'keep demon soul challenges and<br><b class="layer-ds' + getdark(this, "ref", true, true) + 'Demonic Key</b> on molecule resets,<br>and you can autobuy hex upgrades',
+            done() { return player.m.total.gte(2) },
+            toggles: [["h", "auto_upgrades"]],
         },
     },
     upgrades: {
