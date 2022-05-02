@@ -2615,15 +2615,15 @@ addLayer("ds", {
             buyUpgrade('ds', 11);
             buyUpgrade('ds', 12);
             if (hasUpgrade('ds', 11) && hasUpgrade('ds', 12)) {
-                buyUpgrade('h', 21);
-                buyUpgrade('h', 22);
-                if (hasUpgrade('ds', 21)) buyUpgrade('h', 23);
-                if (hasUpgrade('ds', 23)) buyUpgrade('h', 24);
+                buyUpgrade('ds', 21);
+                buyUpgrade('ds', 22);
+                if (hasUpgrade('ds', 21)) buyUpgrade('ds', 23);
+                if (hasUpgrade('ds', 23)) buyUpgrade('ds', 24);
             };
         };
-        if (player.c.auto_buyables) {
-            if (layers.c.buyables[11].canAfford()) {
-                layers.c.buyables[11].buy();
+        if (player.ds.auto_buyables) {
+            if (layers.ds.buyables[11].canAfford()) {
+                layers.ds.buyables[11].buy();
             };
         };
     },
