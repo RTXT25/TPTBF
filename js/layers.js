@@ -1039,6 +1039,7 @@ addLayer("c", {
     },
     doReset(resettingLayer) {
         let keep = [];
+            if (hasMilestone("m", 4) && resettingLayer == "m") return;
             if (hasMilestone("h", 2) && resettingLayer == "h") keep.push("upgrades");
             if (hasMilestone("h", 3) && resettingLayer == "h") keep.push("buyables");
             if (hasMilestone("h", 4) && resettingLayer == "sp") keep.push("upgrades");
@@ -1389,6 +1390,7 @@ addLayer("q", {
     },
     doReset(resettingLayer) {
         let keep = [];
+            if (hasMilestone("m", 5) && resettingLayer == "m") return;
             if (hasMilestone("sp", 3) && resettingLayer == "sp") keep.push("milestones");
             if (hasMilestone("sp", 5) && resettingLayer == "sp") keep.push("upgrades");
             if (hasMilestone("h", 5) && resettingLayer == "h") keep.push("milestones");
@@ -2546,6 +2548,8 @@ addLayer("ds", {
         points: new Decimal(0),
         best: new Decimal(0),
         total: new Decimal(0),
+        auto_upgrades: false,
+        auto_buyables: false,
     }},
     color() {
         if (player.h.points.gte(1e60) || player.ds.unlocked) return "#BA0035";
@@ -2581,6 +2585,23 @@ addLayer("ds", {
         };
         return gen;
     },
+    automate() {
+        if (player.ds.auto_upgrades) {
+            buyUpgrade('ds', 11);
+            buyUpgrade('ds', 12);
+            if (hasUpgrade('ds', 11) && hasUpgrade('ds', 12)) {
+                buyUpgrade('h', 21);
+                buyUpgrade('h', 22);
+                if (hasUpgrade('ds', 21)) buyUpgrade('h', 23);
+                if (hasUpgrade('ds', 23)) buyUpgrade('h', 24);
+            };
+        };
+        if (player.c.auto_buyables) {
+            if (layers.c.buyables[11].canAfford()) {
+                layers.c.buyables[11].buy();
+            };
+        };
+    },
     doReset(resettingLayer) {
         let keep = [];
         let saveupg = [];
@@ -2588,6 +2609,8 @@ addLayer("ds", {
                 keep.push("challenges");
                 saveupg.push(22);
             };
+            if (hasMilestone('m', 5)) keep.push("auto_upgrades");
+            if (hasMilestone('m', 6)) keep.push("auto_buyables");
             if (layers[resettingLayer].row > this.row) {
                 layerDataReset("ds", keep);
                 player[this.layer].upgrades = saveupg;
@@ -4879,7 +4902,7 @@ addLayer("m", {
     baseResource: "atoms",
     baseAmount() {return player.a.points},
     type: "normal",
-    exponent: 1,
+    exponent: 0.9,
     gainMult() {
         mult = new Decimal(1);
         return mult;
@@ -4894,7 +4917,7 @@ addLayer("m", {
     layerShown(){return challengeCompletions('r', 11) >= 10 || player.m.points.gt(0)},
     effect() {
         effBoost = new Decimal(0.5);
-        return player.m.best.mul(effBoost).add(1);
+        return player.m.best.mul(effBoost).add(1).pow(0.99);
     },
     effectDescription() {
         if (colorvalue[1] == "none") return 'which multiplies atom gain by ' + format(tmp.m.effect) + 'x (based on best)';
@@ -4953,6 +4976,18 @@ addLayer("m", {
             effectDescription: 'molecules don\'t reset cores, and<br>you can autobuy subatomic<br>particle upgrades and buyables',
             done() { return player.m.total.gte(5) },
             toggles: [["sp", "auto_upgrades"], ["sp", "auto_buyables"]],
+        },
+        5: {
+            requirementDescription: '7 total molecules',
+            effectDescription: 'molecules don\'t reset quarks, and<br>you can autobuy demon soul upgrades',
+            done() { return player.m.total.gte(7) },
+            toggles: [["ds", "auto_upgrades"]],
+        },
+        6: {
+            requirementDescription: '9 total molecules',
+            effectDescription: 'you can autobuy demon soul buyables',
+            done() { return player.m.total.gte(9) },
+            toggles: [["ds", "auto_buyables"]],
         },
     },
     upgrades: {
