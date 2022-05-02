@@ -2604,7 +2604,7 @@ addLayer("ds", {
                 return '<b class="layer-ds' + getdark(this, "title") + 'Mad Hexes';
             },
             description() {
-                return 'you can explore 2 further hex upgrades, and <b class="layer-h' + getdark(this, "ref", true, true) + 'Hex Leak</b> also applies to hex gain (and not any other upgrades in the chain)';
+                return 'you can explore 2 further hex upgrades, and <b class="layer-h' + getdark(this, "ref") + 'Hex Leak</b> also applies to hex gain (and not any other upgrades in the chain)';
             },
             cost: 10,
         },
@@ -2613,7 +2613,7 @@ addLayer("ds", {
                 return '<b class="layer-ds' + getdark(this, "title") + 'Hex Mania';
             },
             description() {
-                return 'you can explore 2 further hex upgrades, and <b class="layer-h' + getdark(this, "ref", true, true) + 'Stronger Hexes</b>\' effect is squared';
+                return 'you can explore 2 further hex upgrades, and <b class="layer-h' + getdark(this, "ref") + 'Stronger Hexes</b>\' effect is squared';
             },
             cost: 75,
         },
