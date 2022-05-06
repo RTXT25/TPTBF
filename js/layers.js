@@ -3173,7 +3173,7 @@ addLayer('a', {
         15: {
             requirementDescription: '18,000 atoms and 40 sanctums',
             effectDescription: 'perform atom resets automatically',
-            done() { return player.a.points.gte(18000) && player.s.points.gte(40) },
+            done() { return player.a.points.gte(18000) && player.s.points.gte(40) && hasMilestone('a', 14) },
             unlocked() { return hasMilestone('a', 14) && player.r.points.gt(0) }
         },
     },
