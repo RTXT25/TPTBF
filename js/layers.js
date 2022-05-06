@@ -715,7 +715,7 @@ addLayer('e', {
         if (hasUpgrade('a', 73)) mult = mult.mul(upgradeEffect('a', 73));
         if (hasUpgrade('p', 11)) mult = mult.mul(upgradeEffect('p', 11));
         if (hasUpgrade('m', 11)) mult = mult.mul(upgradeEffect('m', 11));
-        if (hasUpgrade('m', 21)) mult = mult.mul(upgradeEffect('m', 21));
+        if (hasUpgrade('m', 22)) mult = mult.mul(upgradeEffect('m', 22));
         if (getBuyableAmount('e', 11).gt(0)) mult = mult.mul(getBuyableAmount('e', 11).mul(2.5).add(1));
         if (getBuyableAmount('e', 12).gt(0)) mult = mult.mul(getBuyableAmount('e', 12).mul(0.25).add(1));
         if (getBuyableAmount('c', 12).gt(0)) mult = mult.mul(new Decimal(2).pow(getBuyableAmount('c', 12)));
@@ -1083,6 +1083,7 @@ addLayer('c', {
                 if (hasUpgrade('h', 33)) mult = mult.mul(upgradeEffect('h', 33));
         }};
         if (hasUpgrade('h', 24)) mult = mult.mul(3);
+        if (hasUpgrade('m', 21)) mult = mult.mul(upgradeEffect('m', 21));
         if (getBuyableAmount('e', 12).gt(0)) mult = mult.mul(getBuyableAmount('e', 12).add(1));
         if (hasUpgrade('ds', 21) && hasUpgrade('ds', 23)) mult = mult.mul(player.A.points.pow(2).div(100));
         if (inChallenge('ds', 11)) mult = mult.mul(0.01);
@@ -2157,6 +2158,7 @@ addLayer('h', {
         if (hasUpgrade('h', 62)) mult = mult.mul(upgradeEffect('h', 62));
         if (hasUpgrade('h', 11) && hasUpgrade('ds', 11)) mult = mult.mul(upgradeEffect('h', 11));
         if (hasUpgrade('p', 12)) mult = mult.mul(1.02);
+        if (hasUpgrade('m', 23)) mult = mult.mul(upgradeEffect('m', 23));
         if (getBuyableAmount('ds', 11).gt(0)) mult = mult.mul(new Decimal(2).pow(getBuyableAmount('ds', 11)));
         if (hasChallenge('ds', 11)) mult = mult.mul(player.ds.points.add(1).pow(0.25));
         if (inChallenge('ds', 11)) mult = mult.mul(0.001);
@@ -4211,14 +4213,15 @@ addLayer('s', {
     doReset(resettingLayer) {
         let keep = [];
             if (hasMilestone('s', 12) && resettingLayer == 'a') return;
-            if (layers[resettingLayer].row == this.row) keep.push("points", "best", "total", "milestones", "buyables");
             if (hasMilestone('s', 19)) keep.push("auto_worship");
             if (hasMilestone('s', 28)) keep.push("auto_sacrificial_ceremony");
             if (hasMilestone('s', 38)) keep.push("auto_sacrifice");
             if (challengeCompletions('r', 11) >= 9 && resettingLayer == 'r') keep.push("milestones");
-            if (layers[resettingLayer].row >= this.row) layerDataReset('s', keep);
-            if (layers[resettingLayer].row >= this.row) layerDataReset('d', keep);
-            if (hasMilestone('m', 9)) player.s.milestones = ['0'];
+            if (layers[resettingLayer].row >= this.row) {
+                layerDataReset('s', keep);
+                layerDataReset('d', keep);
+                if (hasMilestone('m', 9)) player.s.milestones = ['0'];
+            };
         },
     resetsNothing() {
         if (hasMilestone('s', 47)) return true;
@@ -5198,6 +5201,20 @@ addLayer('m', {
             },
         },
         21: {
+            fullDisplay() {
+                text = '<h3 class="layer-m' + getdark(this, "title", true) + 'Hydrogen Gas</h3><br>multiplies core gain based on your best molecules<br>Currently: ' + format(this.effect()) + 'x<br><br>Cost: 360,000 atoms';
+                //if (player.nerdMode) text += ' <br>formula: (x*25+1)^0.3';
+                return text;
+            },
+            canAfford() {
+                if (player.a.points.gte(360000)) return true;
+                return false;
+            },
+            effect() {
+                return player.m.best.mul(25).add(1).pow(0.3);
+            },
+        },
+        22: {
             title() {
                 return '<b class="layer-m' + getdark(this, "title") + 'H<tag style="font-size:10px;">2</tag>O, aka Water';
             },
@@ -5212,6 +5229,20 @@ addLayer('m', {
                 text = format(this.effect()) + 'x';
                 if (player.nerdMode) text += ' <br>formula: (x+1)*5';
                 return text;
+            },
+        },
+        23: {
+            fullDisplay() {
+                text = '<h3 class="layer-m' + getdark(this, "title", true) + 'Ammonia</h3><br>multiplies hex gain based on your best molecules<br>Currently: ' + format(this.effect()) + 'x<br><br>Cost: 390,000 atoms';
+                //if (player.nerdMode) text += ' <br>formula: (x*250+1)^0.1';
+                return text;
+            },
+            canAfford() {
+                if (player.a.points.gte(360000)) return true;
+                return false;
+            },
+            effect() {
+                return player.m.best.mul(250).add(1).pow(0.1);
             },
         },
     },
