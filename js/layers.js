@@ -4217,10 +4217,15 @@ addLayer('s', {
             if (hasMilestone('s', 28)) keep.push("auto_sacrificial_ceremony");
             if (hasMilestone('s', 38)) keep.push("auto_sacrifice");
             if (challengeCompletions('r', 11) >= 9 && resettingLayer == 'r') keep.push("milestones");
-            if (layers[resettingLayer].row >= this.row) {
+            if (layers[resettingLayer].row > this.row) {
                 layerDataReset('s', keep);
                 layerDataReset('d', keep);
-                if (hasMilestone('m', 9)) player.s.milestones = ['0'];
+                if (hasMilestone('m', 9) && resettingLayer == 'm') player.s.milestones = ['0'];
+                if (hasMilestone('m', 10) && resettingLayer == 'm') {
+                    player.s.points = new Decimal(2);
+                    player.s.best = new Decimal(2);
+                    player.s.total = new Decimal(2);
+                };
             };
         },
     resetsNothing() {
@@ -5146,6 +5151,11 @@ addLayer('m', {
                 return 'keep the <b class="layer-s' + getdark(this, "ref", true, true) + '1st sanctum milestone</b><br>on molecule resets';
             },
             done() { return player.m.total.gte(45) },
+        },
+        10: {
+            requirementDescription: '75 total molecules',
+            effectDescription: 'keep 2 sanctums on molecule resets',
+            done() { return player.m.total.gte(75) },
         },
     },
     upgrades: {
