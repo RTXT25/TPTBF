@@ -4824,16 +4824,17 @@ addLayer("r", {
         if (challengeCompletions('r', 11) >= 7) mult2 = mult2.mul(4);
         if (challengeCompletions('r', 11) >= 8) mult2 = mult2.mul(2);
         player.r.relic_effects[2] = player.r.light.div(1000).add(1).pow(0.25).mul(mult2);
+        lightboost = new Decimal(0);
+        if (hasMilestone('m', 7)) lightboost = player.r.lightgainbest.mul(0.01);
+        else if (hasMilestone('m', 3)) lightboost = player.r.lightgainbest.mul(0.001);
         if (inChallenge('r', 11)) {
             gain = getPointGen(true).pow(0.001).div(10);
             if (getBuyableAmount('d', 21).gt(0)) gain = gain.mul(getBuyableAmount('d', 21));
             if (hasMilestone('s', 30)) gain = gain.mul(2);
             if (hasMilestone('s', 41)) gain = gain.mul(3);
             if (hasMilestone('s', 50)) gain = gain.mul(3);
-            player.r.lightgain = gain;
-        } else if (hasMilestone('m', 7)) player.r.lightgain = player.r.lightgainbest.mul(0.01);
-        else if (hasMilestone('m', 3)) player.r.lightgain = player.r.lightgainbest.mul(0.001);
-        else player.r.lightgain = new Decimal(0);
+            player.r.lightgain = gain.add(lightboost);
+        } else player.r.lightgain = new Decimal(0).add(lightboost);
         player.r.light = player.r.light.add(player.r.lightgain.mul(diff));
         if (player.r.lightgain.gt(player.r.lightgainbest)) player.r.lightgainbest = player.r.lightgain;
     },
