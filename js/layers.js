@@ -1430,6 +1430,7 @@ addLayer('q', {
         if (hasUpgrade('q', 45)) mult = mult.mul(upgradeEffect('q', 45));
         if (hasUpgrade('h', 34)) mult = mult.mul(2);
         if (hasUpgrade('a', 41)) mult = mult.mul(upgradeEffect('a', 41));
+        if (hasUpgrade('m', 13)) mult = mult.mul(upgradeEffect('m', 13));
         if (getBuyableAmount('sp', 11).gt(0)) {
             mult = mult.mul(new Decimal(5).pow(getBuyableAmount('sp', 11)));
             if (hasUpgrade('sp', 11)) mult = mult.mul(new Decimal(5).pow(getBuyableAmount('sp', 11)));
@@ -4607,8 +4608,8 @@ addLayer('s', {
         46: {
             requirementDescription: '140 sanctums',
             effectDescription() {
-                if (!colorvalue[0][2] || colorvalue[1] == 'none') return 'auto Worship<br>works twice as fast (4x total)';
-                return 'auto <b class="layer-s' + getdark(this, "ref", true, true) + 'Worship</b><br>works twice as fast (4x total)';
+                if (!colorvalue[0][2] || colorvalue[1] == 'none') return 'auto Worship works<br>twice as fast (4x total)';
+                return 'auto <b class="layer-s' + getdark(this, "ref", true, true) + 'Worship</b> works<br>twice as fast (4x total)';
             },
             done() { return player.s.points.gte(140) },
             unlocked() { return hasMilestone('s', 13) },
@@ -4640,6 +4641,30 @@ addLayer('s', {
             done() { return player.s.points.gte(190) },
             unlocked() { return hasMilestone('s', 13) },
         },
+        51: {
+            requirementDescription: '200 sanctums',
+            effectDescription() {
+                if (!colorvalue[0][2] || colorvalue[1] == 'none') return 'auto Worship works<br>twice as fast (8x total)';
+                return 'auto <b class="layer-s' + getdark(this, "ref", true, true) + 'Worship</b> works<br>twice as fast (8x total)';
+            },
+            done() { return player.s.points.gte(200) && hasMilestone('m', 8) },
+            unlocked() { return hasMilestone('s', 13) && hasMilestone('m', 8) },
+        },
+        52: {
+            requirementDescription: '210 sanctums',
+            effectDescription: 'triple light gain',
+            done() { return player.s.points.gte(210) && hasMilestone('m', 8) },
+            unlocked() { return hasMilestone('s', 13) && hasMilestone('m', 8) },
+        },
+        53: {
+            requirementDescription: '215 sanctums',
+            effectDescription() {
+                if (!colorvalue[0][2] || colorvalue[1] == 'none') return 'increase Devotion effect exponent<br>0.625 --> 0.666';
+                return 'increase <b class="layer-s' + getdark(this, "ref", true, true) + 'Devotion</b> effect exponent<br>0.625 --> 0.666';
+            },
+            done() { return player.s.points.gte(215) && hasMilestone('m', 8) },
+            unlocked() { return hasMilestone('s', 13) && hasMilestone('m', 8) },
+        },
     },
 });
 
@@ -4650,15 +4675,20 @@ addLayer('d', {
     row: 2,
     layerShown() {return false},
     automate() {
-        if (player.s.auto_worship && layers.d.buyables[11].canAfford()) {
-            layers.d.buyables[11].buy();
-            if (hasMilestone('s', 44) && layers.d.buyables[11].canAfford()) {
-                layers.d.buyables[11].buy();
-                if (hasMilestone('s', 46) && layers.d.buyables[11].canAfford()) {
-                    layers.d.buyables[11].buy();
-                    if (hasMilestone('s', 46) && layers.d.buyables[11].canAfford()) {
-                        layers.d.buyables[11].buy();
-        }}}};
+        if (player.s.auto_worship) {
+            if (layers.d.buyables[11].canAfford()) layers.d.buyables[11].buy();
+            if (hasMilestone('s', 44) && layers.d.buyables[11].canAfford()) layers.d.buyables[11].buy();
+            if (hasMilestone('s', 46)) {
+                if (layers.d.buyables[11].canAfford()) layers.d.buyables[11].buy();
+                if (layers.d.buyables[11].canAfford()) layers.d.buyables[11].buy();
+            };
+            if (hasMilestone('s', 51)) {
+                if (layers.d.buyables[11].canAfford()) layers.d.buyables[11].buy();
+                if (layers.d.buyables[11].canAfford()) layers.d.buyables[11].buy();
+                if (layers.d.buyables[11].canAfford()) layers.d.buyables[11].buy();
+                if (layers.d.buyables[11].canAfford()) layers.d.buyables[11].buy();
+            };
+        };
         if (player.s.auto_sacrifice && layers.d.buyables[12].canAfford()) {
             layers.d.buyables[12].buy();
         };
@@ -4673,7 +4703,8 @@ addLayer('d', {
         else eff = eff.add(getBuyableAmount('d', 12).mul(0.5));
         eff = eff.add(getBuyableAmount('d', 21).mul(0.75));
         player.s.devotion = eff;
-        if (hasMilestone('s', 49)) player.s.devotion_effect = player.s.devotion.add(1).pow(0.625);
+        if (hasMilestone('s', 53)) player.s.devotion_effect = player.s.devotion.add(1).pow(0.666);
+        else if (hasMilestone('s', 49)) player.s.devotion_effect = player.s.devotion.add(1).pow(0.625);
         else if (hasMilestone('s', 36)) player.s.devotion_effect = player.s.devotion.add(1).pow(0.6);
         else if (hasMilestone('s', 35)) player.s.devotion_effect = player.s.devotion.add(1).pow(0.575);
         else if (hasMilestone('s', 22)) player.s.devotion_effect = player.s.devotion.add(1).pow(0.55);
@@ -4895,6 +4926,7 @@ addLayer('r', {
             if (hasMilestone('s', 30)) gain = gain.mul(2);
             if (hasMilestone('s', 41)) gain = gain.mul(3);
             if (hasMilestone('s', 50)) gain = gain.mul(3);
+            if (hasMilestone('s', 52)) gain = gain.mul(3);
             player.r.lightgain = gain.add(lightboost);
         } else player.r.lightgain = new Decimal(0).add(lightboost);
         player.r.light = player.r.light.add(player.r.lightgain.mul(diff));
@@ -5091,6 +5123,11 @@ addLayer('m', {
             effectDescription: 'gain +0.9% of best light gain per second',
             done() { return player.m.total.gte(15) },
         },
+        8: {
+            requirementDescription: '21 total molecules',
+            effectDescription: 'unlock 3 more sanctum milestones',
+            done() { return player.m.total.gte(21) },
+        },
     },
     upgrades: {
         11: {
@@ -5124,6 +5161,23 @@ addLayer('m', {
             effectDisplay() {
                 text = format(this.effect()) + 'x';
                 if (player.nerdMode) text += ' <br>formula: (x*10+1)^0.2';
+                return text;
+            },
+        },
+        13: {
+            title() {
+                return '<b class="layer-m' + getdark(this, "title") + 'Carbon Dioxide';
+            },
+            description() {
+                return 'multiplies quark gain based on your best molecules';
+            },
+            cost: 10,
+            effect() {
+                return player.m.best.mul(50).add(1).pow(0.4);
+            },
+            effectDisplay() {
+                text = format(this.effect()) + 'x';
+                if (player.nerdMode) text += ' <br>formula: (x*50+1)^0.4';
                 return text;
             },
         },
