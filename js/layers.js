@@ -715,6 +715,7 @@ addLayer('e', {
         if (hasUpgrade('a', 73)) mult = mult.mul(upgradeEffect('a', 73));
         if (hasUpgrade('p', 11)) mult = mult.mul(upgradeEffect('p', 11));
         if (hasUpgrade('m', 11)) mult = mult.mul(upgradeEffect('m', 11));
+        if (hasUpgrade('m', 21)) mult = mult.mul(upgradeEffect('m', 21));
         if (getBuyableAmount('e', 11).gt(0)) mult = mult.mul(getBuyableAmount('e', 11).mul(2.5).add(1));
         if (getBuyableAmount('e', 12).gt(0)) mult = mult.mul(getBuyableAmount('e', 12).mul(0.25).add(1));
         if (getBuyableAmount('c', 12).gt(0)) mult = mult.mul(new Decimal(2).pow(getBuyableAmount('c', 12)));
@@ -5200,6 +5201,23 @@ addLayer('m', {
             effectDisplay() {
                 text = format(this.effect()) + 'x';
                 if (player.nerdMode) text += ' <br>formula: (x*50+1)^0.4';
+                return text;
+            },
+        },
+        21: {
+            title() {
+                return '<b class="layer-m' + getdark(this, "title") + 'H<tag style="font-size:10px;">2</tag>O, aka Water';
+            },
+            description() {
+                return 'multiplies essence gain based on your total unique molecules';
+            },
+            cost: 25,
+            effect() {
+                return new Decimal(player.m.upgrades.length).add(1).mul(5);
+            },
+            effectDisplay() {
+                text = format(this.effect()) + 'x';
+                if (player.nerdMode) text += ' <br>formula: (x+1)*5';
                 return text;
             },
         },
