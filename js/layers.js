@@ -10,7 +10,6 @@ addLayer('A', {
     resource: 'achievements',
     row: 'side',
     layerShown() {return true},
-    tooltip() {return 'Achievements'},
     effectDescription() {
         text = ['<br>which are multiplying your point ', '', '', ''];
         if (colorvalue[1] == 'none') {
@@ -89,7 +88,7 @@ addLayer('A', {
         },
         14: {
             name: 'Cosmic Point',
-            done() {return player.points.gte("1e1000")},
+            done() {return player.points.gte('1e1000')},
             tooltip: 'obtain 1e1,000 points.',
             unlocked() { if (hasAchievement('A', 13)) return true },
             image() { if (hasAchievement('A', 14)) return "images/achievements/14.png" },
@@ -97,7 +96,7 @@ addLayer('A', {
         },
         15: {
             name: 'The Point of Everything',
-            done() {return player.points.gte("1e10000")},
+            done() {return player.points.gte('1e10000')},
             tooltip: 'obtain 1e10,000 points.',
             unlocked() { if (hasAchievement('A', 14)) return true },
             color: '#DFDFDF',
@@ -136,7 +135,7 @@ addLayer('A', {
         },
         24: {
             name: 'Essence of the Universe',
-            done() {return player.e.points.gte("1e1000")},
+            done() {return player.e.points.gte('1e1000')},
             tooltip: 'obtain 1e1,000 essence.',
             unlocked() { if (hasAchievement('A', 23)) return true },
             image() { if (hasAchievement('A', 24)) return "images/achievements/24.png" },
@@ -144,7 +143,7 @@ addLayer('A', {
         },
         25: {
             name: 'Essence of all Essence',
-            done() {return player.e.points.gte("1e10000")},
+            done() {return player.e.points.gte('1e10000')},
             tooltip: 'obtain 1e10,000 essence.',
             unlocked() { if (hasAchievement('A', 24)) return true },
             color: '#4CED13',
@@ -183,7 +182,7 @@ addLayer('A', {
         },
         34: {
             name: 'Core of the Sun',
-            done() {return player.c.points.gte("1e1000")},
+            done() {return player.c.points.gte('1e1000')},
             tooltip: 'obtain 1e1,000 cores.',
             unlocked() { if (hasAchievement('A', 33)) return true },
             image() { if (hasAchievement('A', 34)) return "images/achievements/34.png" },
@@ -191,7 +190,7 @@ addLayer('A', {
         },
         35: {
             name: 'Core of Truth',
-            done() {return player.c.points.gte("1e10000")},
+            done() {return player.c.points.gte('1e10000')},
             tooltip: 'obtain 1e10,000 cores.',
             unlocked() { if (hasAchievement('A', 34)) return true },
             color: '#D2D237',
@@ -230,7 +229,7 @@ addLayer('A', {
         },
         44: {
             name: 'Quirky Quarks',
-            done() {return player.q.points.gte("1e1000")},
+            done() {return player.q.points.gte('1e1000')},
             tooltip: 'obtain 1e1,000 quarks.',
             unlocked() { if (hasAchievement('A', 43)) return true },
             image() { if (hasAchievement('A', 44)) return "images/achievements/44.png" },
@@ -238,7 +237,7 @@ addLayer('A', {
         },
         45: {
             name: 'Impossible Quarks',
-            done() {return player.q.points.gte("1e10000")},
+            done() {return player.q.points.gte('1e10000')},
             tooltip: 'obtain 1e10,000 quarks.',
             unlocked() { if (hasAchievement('A', 44)) return true },
             color: '#DB5196',
@@ -325,7 +324,7 @@ addLayer('A', {
         },
         64: {
             name: 'The Advent of the End',
-            done() {return player.h.points.gte("1e1000")},
+            done() {return player.h.points.gte('1e1000')},
             tooltip: 'obtain 1e1,000 hexes.',
             unlocked() { if (hasAchievement('A', 63)) return true },
             image() { if (hasAchievement('A', 64)) return "images/achievements/64.png" },
@@ -333,7 +332,7 @@ addLayer('A', {
         },
         65: {
             name: 'Nihilism: Nothing is There',
-            done() {return player.h.points.gte("1e10000")},
+            done() {return player.h.points.gte('1e10000')},
             tooltip: 'obtain 1e10,000 hexes.',
             unlocked() { if (hasAchievement('A', 64)) return true },
             color: '#E36409',
@@ -372,7 +371,7 @@ addLayer('A', {
         },
         74: {
             name: 'Demon Dimension',
-            done() {return player.ds.points.gte("1e400")},
+            done() {return player.ds.points.gte('1e400')},
             tooltip: 'obtain 1e400 demon souls.',
             unlocked() { if (hasAchievement('A', 73)) return true },
             color: '#BA0035',
@@ -455,14 +454,14 @@ addLayer('A', {
         },
         94: {
             name: 'Global Prayers',
-            done() {return player.p.points.gte("1e1000")},
+            done() {return player.p.points.gte('1e1000')},
             tooltip: 'obtain 1e1,000 prayers.',
             unlocked() { if (hasAchievement('A', 93)) return true },
             color: '#FDBBFF',
         },
         95: {
             name: 'Everything is Prayers',
-            done() {return player.p.points.gte("1e10000")},
+            done() {return player.p.points.gte('1e10000')},
             tooltip: 'obtain 1e10,000 prayers.',
             unlocked() { if (hasAchievement('A', 94)) return true },
             color: '#FDBBFF',
@@ -555,7 +554,7 @@ addLayer('A', {
             name: 'Molecule Dictionary',
             done() {return player.m.points.gte(10000)},
             tooltip: 'obtain 10,000 molecules.',
-            unlocked() { if (hasAchievement('A', 121)) return true },
+            unlocked() { if (hasAchievement('A', 122)) return true },
             color: '#00E0E0',
         },
     },
@@ -580,7 +579,7 @@ addLayer('SC', {
     resource: 'discovered softcaps',
     row: 'side',
     layerShown() {return player.SC.points > 0},
-    tooltip() {return 'Softcaps'},
+    tooltip() {return player.SC.points + ' softcaps'},
     effectDescription() {
         core = 0;
         quark = 0;
@@ -2166,7 +2165,7 @@ addLayer('h', {
     gainExp() {
         return new Decimal(1);
     },
-    softcap: new Decimal("1e1000"),
+    softcap: new Decimal('1e1000'),
     softcapPower: 0.5,
     row: 2,
     hotkeys: [
@@ -3479,11 +3478,11 @@ addLayer('p', {
         smart_auto_upgrades: false,
     }},
     color() {
-        if (player.e.points.gte(new Decimal("1e1000")) || player.p.unlocked) return "#FDBBFF";
+        if (player.e.points.gte(new Decimal('1e1000')) || player.p.unlocked) return "#FDBBFF";
         return '#666666';
     },
     branches: ['s'],
-    requires: new Decimal("1e1000"),
+    requires: new Decimal('1e1000'),
     resource: 'prayers',
     baseResource: 'essence',
     baseAmount() {return player.e.points},
