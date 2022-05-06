@@ -5002,20 +5002,13 @@ addLayer('r', {
                 return player.r.points;
             },
             style() {
-                num = player.r.light.log(2).div(player.r.lightreq.log(2)).mul(100);
-                if (num.lt(12)) color = '000033';
-                else if (num.lt(24)) color = '111144';
-                else if (num.lt(36)) color = '222255';
-                else if (num.lt(48)) color = '333366';
-                else if (num.lt(60)) color = '444477';
-                else if (num.lt(72)) color = '555588';
-                else if (num.lt(84)) color = '666699';
-                else if (num.lt(96)) color = '7777AA';
-                else color = '8888BB';
-                if (maxedChallenge('r', 11)) color = '000033';
-                textcolor = 'B9A975';
-                if (colorvalue[1] == 'none') textcolor = 'DFDFDF';
-                return {'background-color':'#'+color,'color':'#'+textcolor,'border-radius':'25px','height':'400px','width':'400px'};
+                num = player.r.light.log(2).div(player.r.lightreq.log(2)).mul(100).floor();
+                color = 'rgb(' + num + ',' + num + ',' + (num + 50) + ')';
+                if (maxedChallenge('r', 11)) color = 'rgb(0,0,50)';
+                if (num > 205) color = 'rgb(205,205,255)';
+                textcolor = '#B9A975';
+                if (colorvalue[1] == 'none') textcolor = '#DFDFDF';
+                return {'background-color':color,'color':textcolor,'border-radius':'25px','height':'400px','width':'400px'};
             },
         },
     },
