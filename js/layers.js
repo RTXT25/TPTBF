@@ -3851,9 +3851,9 @@ addLayer('p', {
                 return '<b class="layer-p' + getdark(this, "title") + 'Divine Recursion';
             },
             description() {
-            return 'multiplies divinity gain based on your divinity';
+                return 'multiplies divinity gain based on your divinity';
             },
-            cost: 750,
+            cost: 1000,
             effect() {
                 return player.p.divinity.add(1).pow(0.2);
             },
@@ -3877,8 +3877,7 @@ addLayer('p', {
             unlocked() { return hasMilestone('s', 0) && hasUpgrade('p', 22) && !hasUpgrade('p', 34) },
         },
         35: {
-            fullDisplay() { return '<h3 class="layer-p' + getdark(this, "title", true) + 'Holy Shift</h3><br>increases efficiency of holiness conversion if you own <b class="layer-p' + getdark(this, "ref", true) + 'Holy Conversion</b> and all subsequent upgrades<br>0.08x --> 0.11x<br><br>Cost: 500 holiness';
-            },
+            fullDisplay() { return '<h3 class="layer-p' + getdark(this, "title", true) + 'Holy Shift</h3><br>increases efficiency of holiness conversion if you own <b class="layer-p' + getdark(this, "ref", true) + 'Holy Conversion</b> and all subsequent upgrades<br>0.08x --> 0.11x<br><br>Cost: 500 holiness' },
             canAfford() {
                 if (player.p.holiness.gte(500)) return true;
                 return false;
@@ -3889,8 +3888,7 @@ addLayer('p', {
             unlocked() { return hasUpgrade('p', 34) },
         },
         41: {
-            fullDisplay() { return '<h3 class="layer-p' + getdark(this, "title", true) + 'Written hymns</h3><br>unlocks <b class="layer-p' + getdark(this, "ref", true) + 'hymns</b><br><br>Cost: 2,000 divinity,<br>450 holiness';
-            },
+            fullDisplay() { return '<h3 class="layer-p' + getdark(this, "title", true) + 'Written hymns</h3><br>unlocks <b class="layer-p' + getdark(this, "ref", true) + 'hymns</b><br><br>Cost: 2,000 divinity,<br>450 holiness' },
             canAfford() {
                 if (player.p.divinity.gte(2000) && player.p.holiness.gte(450)) return true;
                 return false;
