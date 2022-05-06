@@ -3,26 +3,26 @@ var particleID = 0;
 var mouseX = 0;
 var mouseY = 0;
 
-function makeParticles(data, amount=1, type = "normal") {
+function makeParticles(data, amount = 1, type = "normal") {
     for (let x = 0; x < amount; x++) {
-        let particle = newParticles[type]()
+        let particle = newParticles[type]();
         for (thing in data) {
-            switch(thing) {
+            switch (thing) {
                 case 'onClick': // Functions that should be copied over
                 case 'onMouseEnter':
                 case 'onMouseLeave':
                 case 'update':
-                    particle[thing] = data[thing]
+                    particle[thing] = data[thing];
                     break;
                 default:
-                    particle[thing]=run(data[thing], data, x)  
+                    particle[thing] = run(data[thing], data, x);
             };
         };
         if (data.dir === undefined) {
-            particle.dir = particle.angle
+            particle.dir = particle.angle;
         };
-        particle.dir = particle.dir + (particle.spread * (x- amount/2 + 0.5));
-        if(particle.offset) {
+        particle.dir = particle.dir + (particle.spread * (x - amount/2 + 0.5));
+        if (particle.offset) {
             particle.x += particle.offset * sin(particle.dir);
             particle.y += particle.offset * cos(particle.dir) * -1;
         };
@@ -79,7 +79,7 @@ const newParticles = {
             y: mouseY,
             width: 35,
             height: 35,
-            image: "resources/genericParticle.png",
+            image: "images/particle.png",
             angle: 0,
             spread: 30,
             offset: 10,
@@ -102,7 +102,7 @@ const newParticles = {
             y: Math.random() * (tmp.other.screenHeight - 100) + 50,
             width: 50,
             height: 50,
-            image: "resources/genericParticle.png",
+            image: "images/particle.png",
             angle: 0,
             spread: 0,
             offset: 0,
@@ -161,13 +161,8 @@ function clearParticles(check) {
 
 // Trig with degrees
 function sin(x) {return Math.sin(x*Math.PI/180)}
-
 function cos(x) {return Math.cos(x*Math.PI/180)}
-
 function tan(x) {return Math.tan(x*Math.PI/180)}
-
 function asin(x) {return Math.asin(x)*180/Math.PI}
-
 function acos(x) {return Math.acos(x)*180/Math.PI}
-
 function atan(x) {return Math.atan(x)*180/Math.PI}
