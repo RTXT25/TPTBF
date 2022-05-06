@@ -1,5 +1,5 @@
 addLayer("A", {
-    name: "Achievements",
+    name: 'Achievements',
     symbol: "A",
     position: 0,
     startData() { return {
@@ -65,430 +65,430 @@ addLayer("A", {
     ],
     achievements: {
         11: {
-            name: "The Point",
+            name: 'The Point',
             done() {return player.points.gte(1)},
             tooltip: "obtain 1 point.",
             image() { if (hasAchievement("A", 11)) return "images/achievements/11.png" },
         },
         12: {
-            name: "Very Pointy",
+            name: 'Very Pointy',
             done() {return player.points.gte(1e10)},
             tooltip: "obtain 1e10 points.",
             unlocked() { if (hasAchievement("A", 11)) return true },
             image() { if (hasAchievement("A", 12)) return "images/achievements/12.png" },
         },
         13: {
-            name: "Now That's Really Pointy",
+            name: 'Now That\'s Really Pointy',
             done() {return player.points.gte(1e100)},
             tooltip: "obtain 1e100 points.",
             unlocked() { if (hasAchievement("A", 12)) return true },
             image() { if (hasAchievement("A", 13)) return "images/achievements/13.png" },
         },
         14: {
-            name: "Cosmic Point",
+            name: 'Cosmic Point',
             done() {return player.points.gte("1e1000")},
             tooltip: "obtain 1e1,000 points.",
             unlocked() { if (hasAchievement("A", 13)) return true },
             image() { if (hasAchievement("A", 14)) return "images/achievements/14.png" },
         },
         15: {
-            name: "The Point of Everything",
+            name: 'The Point of Everything',
             done() {return player.points.gte("1e10000")},
             tooltip: "obtain 1e10,000 points.",
             unlocked() { if (hasAchievement("A", 14)) return true },
         },
         16: {
-            name: "Dull Points",
+            name: 'Dull Points',
             done() {return player.points.gte(1e10) && player.e.total.eq(0)},
             tooltip: "obtain 1e10 points with no essence.",
             unlocked() { if (hasAchievement("A", 12) && hasAchievement("A", 21)) return true },
             image() { if (hasAchievement("A", 16)) return "images/achievements/16.png" },
         },
         21: {
-            name: "Essence of Rat",
+            name: 'Essence of Rat',
             done() {return player.e.points.gte(1)},
             tooltip: "obtain 1 essence.",
             unlocked() { if (hasAchievement("A", 21)) return true },
             image() { if (hasAchievement("A", 21)) return "images/achievements/21.png" },
         },
         22: {
-            name: "Essence Cluster",
+            name: 'Essence Cluster',
             done() {return player.e.points.gte(1e10)},
             tooltip: "obtain 1e10 essence.",
             unlocked() { if (hasAchievement("A", 21)) return true },
             image() { if (hasAchievement("A", 22)) return "images/achievements/22.png" },
         },
         23: {
-            name: "Gleaming, Golden Essence",
+            name: 'Gleaming, Golden Essence',
             done() {return player.e.points.gte(1e100)},
             tooltip: "obtain 1e100 essence.",
             unlocked() { if (hasAchievement("A", 22)) return true },
             image() { if (hasAchievement("A", 23)) return "images/achievements/23.png" },
         },
         24: {
-            name: "Essence of the Universe",
+            name: 'Essence of the Universe',
             done() {return player.e.points.gte("1e1000")},
             tooltip: "obtain 1e1,000 essence.",
             unlocked() { if (hasAchievement("A", 23)) return true },
             image() { if (hasAchievement("A", 24)) return "images/achievements/24.png" },
         },
         25: {
-            name: "Essence of all Essence",
+            name: 'Essence of all Essence',
             done() {return player.e.points.gte("1e10000")},
             tooltip: "obtain 1e10,000 essence.",
             unlocked() { if (hasAchievement("A", 24)) return true },
         },
         26: {
-            name: "Empty Soul",
+            name: 'Empty Soul',
             done() {return player.e.points .gte(1e10) && getBuyableAmount("e", 11).eq(0) && getBuyableAmount("e", 12).eq(0)},
             tooltip: "obtain 1e10 essence with no essence buyables.",
             unlocked() {if (hasAchievement("A", 22) && hasAchievement("A", 31)) return true },
             image() { if (hasAchievement("A", 26)) return "images/achievements/26.png" },
         },
         31: {
-            name: "Cracked Core",
+            name: 'Cracked Core',
             done() {return player.c.points.gte(1)},
             tooltip: "obtain 1 core.",
             unlocked() { if (hasAchievement("A", 31)) return true },
             image() { if (hasAchievement("A", 31)) return "images/achievements/31.png" },
         },
         32: {
-            name: "Mountainous Core",
+            name: 'Mountainous Core',
             done() {return player.c.points.gte(1e10)},
             tooltip: "obtain 1e10 cores.",
             unlocked() { if (hasAchievement("A", 31)) return true },
             image() { if (hasAchievement("A", 32)) return "images/achievements/32.png" },
         },
         33: {
-            name: "Core of the Earth",
+            name: 'Core of the Earth',
             done() {return player.c.points.gte(1e100)},
             tooltip: "obtain 1e100 cores.",
             unlocked() { if (hasAchievement("A", 32)) return true },
             image() { if (hasAchievement("A", 33)) return "images/achievements/33.png" },
         },
         34: {
-            name: "Core of the Sun",
+            name: 'Core of the Sun',
             done() {return player.c.points.gte("1e1000")},
             tooltip: "obtain 1e1,000 cores.",
             unlocked() { if (hasAchievement("A", 33)) return true },
             image() { if (hasAchievement("A", 34)) return "images/achievements/34.png" },
         },
         35: {
-            name: "Core of Truth",
+            name: 'Core of Truth',
             done() {return player.c.points.gte("1e10000")},
             tooltip: "obtain 1e10,000 cores.",
             unlocked() { if (hasAchievement("A", 34)) return true },
         },
         36: {
-            name: "Pointless Core",
+            name: 'Pointless Core',
             done() {return player.c.points.gte(1e10) && getBuyableAmount("c", 11).eq(0) && getBuyableAmount("c", 12).eq(0) && player.q.total.eq(0)},
             tooltip: "obtain 1e10 cores with no core buyables and quarks.",
             unlocked() { if (hasAchievement("A", 32) && hasAchievement("A", 41)) return true },
             image() { if (hasAchievement("A", 36)) return "images/achievements/36.png" },
         },
         41: {
-            name: "The Smallest Quark",
+            name: 'The Smallest Quark',
             done() {return player.q.points.gte(1)},
             tooltip: "obtain 1 quark.",
             unlocked() { if (hasAchievement("A", 41)) return true },
             image() { if (hasAchievement("A", 41)) return "images/achievements/41.png" },
         },
         42: {
-            name: "Quark Field",
+            name: 'Quark Field',
             done() {return player.q.points .gte(1e10)},
             tooltip: "obtain 1e10 quarks.",
             unlocked() { if (hasAchievement("A", 41)) return true },
             image() { if (hasAchievement("A", 42)) return "images/achievements/42.png" },
         },
         43: {
-            name: "Oh, the Quark of it all",
+            name: 'Oh, the Quark of it all',
             done() {return player.q.points.gte(1e100)},
             tooltip: "obtain 1e100 quarks.",
             unlocked() { if (hasAchievement("A", 42)) return true },
             image() { if (hasAchievement("A", 43)) return "images/achievements/43.png" },
         },
         44: {
-            name: "Quirky Quarks",
+            name: 'Quirky Quarks',
             done() {return player.q.points.gte("1e1000")},
             tooltip: "obtain 1e1,000 quarks.",
             unlocked() { if (hasAchievement("A", 43)) return true },
             image() { if (hasAchievement("A", 44)) return "images/achievements/44.png" },
         },
         45: {
-            name: "Impossible Quarks",
+            name: 'Impossible Quarks',
             done() {return player.q.points.gte("1e10000")},
             tooltip: "obtain 1e10,000 quarks.",
             unlocked() { if (hasAchievement("A", 44)) return true },
         },
         46: {
-            name: "The Outside",
+            name: 'The Outside',
             done() {return player.q.points.gte(1e10) && player.c.total.eq(0)},
             tooltip: "obtain 1e10 quarks with no cores.",
             unlocked() { if (hasAchievement("A", 42) && hasAchievement("A", 51)) return true },
             image() { if (hasAchievement("A", 46)) return "images/achievements/46.png" },
         },
         51: {
-            name: "Submarine, Subatomic",
+            name: 'Submarine, Subatomic',
             done() {return player.sp.points.gte(1)},
             tooltip: "obtain 1 subatomic particle.",
             unlocked() { if (hasAchievement("A", 51)) return true },
             image() { if (hasAchievement("A", 51)) return "images/achievements/51.png" },
         },
         52: {
-            name: "Variant Particles",
+            name: 'Variant Particles',
             done() {return player.sp.points.gte(100)},
             tooltip: "obtain 100 subatomic particles.",
             unlocked() { if (hasAchievement("A", 51)) return true },
             image() { if (hasAchievement("A", 52)) return "images/achievements/52.png" },
         },
         53: {
-            name: "Periodic Particles",
+            name: 'Periodic Particles',
             done() {return player.sp.points.gte(10000)},
             tooltip: "obtain 10,000 subatomic particles.",
             unlocked() { if (hasAchievement("A", 52)) return true },
             image() { if (hasAchievement("A", 53)) return "images/achievements/53.png" },
         },
         54: {
-            name: "That's no Particle no More",
+            name: 'That\'s no Particle no More',
             done() {return player.sp.points.gte(1000000)},
             tooltip: "obtain 1,000,000 subatomic particles.",
             unlocked() { if (hasAchievement("A", 53)) return true },
             image() { if (hasAchievement("A", 54)) return "images/achievements/54.png" },
         },
         55: {
-            name: "Anti Dark Matter",
+            name: 'Anti Dark Matter',
             done() {return player.sp.points.gte(1e11)},
             tooltip: "obtain 1e11 subatomic particles.",
             unlocked() { if (hasAchievement("A", 54)) return true },
             image() { if (hasAchievement("A", 55)) return "images/achievements/55.png" },
         },
         56: {
-            name: "Hollow Particles",
+            name: 'Hollow Particles',
             done() {return player.sp.points.gte(10) && getBuyableAmount("sp", 11).eq(0) && getBuyableAmount("sp", 12).eq(0) && getBuyableAmount("sp", 21).eq(0) && player.h.total.eq(0)},
             tooltip: "obtain 10 subatomic particles with no subatomic particle buyables and hexes.",
             unlocked() { if (hasAchievement("A", 52) && hasAchievement("A", 61)) return true },
             image() { if (hasAchievement("A", 56)) return "images/achievements/56.png" },
         },
         61: {
-            name: "The Hex Game",
+            name: 'The Hex Game',
             done() {return player.h.points.gte(1)},
             tooltip: "obtain 1 hex.",
             unlocked() { if (hasAchievement("A", 61)) return true },
             image() { if (hasAchievement("A", 61)) return "images/achievements/61.png" },
         },
         62: {
-            name: "Cursed into Oblivion",
+            name: 'Cursed into Oblivion',
             done() {return player.h.points.gte(1e10)},
             tooltip: "obtain 1e10 hexes.",
             unlocked() { if (hasAchievement("A", 61)) return true },
             image() { if (hasAchievement("A", 62)) return "images/achievements/62.png" },
         },
         63: {
-            name: "The Prophecy of Doom",
+            name: 'The Prophecy of Doom',
             done() {return player.h.points.gte(1e100)},
             tooltip: "obtain 1e100 hexes.",
             unlocked() { if (hasAchievement("A", 62)) return true },
             image() { if (hasAchievement("A", 63)) return "images/achievements/63.png" },
         },
         64: {
-            name: "The Advent of the End",
+            name: 'The Advent of the End',
             done() {return player.h.points.gte("1e1000")},
             tooltip: "obtain 1e1,000 hexes.",
             unlocked() { if (hasAchievement("A", 63)) return true },
             image() { if (hasAchievement("A", 64)) return "images/achievements/64.png" },
         },
         65: {
-            name: "Nihilism: Nothing is There",
+            name: 'Nihilism: Nothing is There',
             done() {return player.h.points.gte("1e10000")},
             tooltip: "obtain 1e10,000 hexes.",
             unlocked() { if (hasAchievement("A", 64)) return true },
         },
         66: {
-            name: "Same Old Tricks",
+            name: 'Same Old Tricks',
             done() {return player.h.points.gte(1e10) && getBuyableAmount("c", 11).eq(0) && getBuyableAmount("c", 12).eq(0) && player.sp.total.eq(0)},
             tooltip: "obtain 1e10 hexes with no subatomic particles and core buyables.",
             unlocked() { if (hasAchievement("A", 62) && hasAchievement("A", 71)) return true },
             image() { if (hasAchievement("A", 66)) return "images/achievements/66.png" },
         },
         71: {
-            name: "Demon Spirits",
+            name: 'Demon Spirits',
             done() {return player.ds.points.gte(1)},
             tooltip: "obtain 1 demon soul.",
             unlocked() { if (hasAchievement("A", 71)) return true },
             image() { if (hasAchievement("A", 71)) return "images/achievements/71.png" },
         },
         72: {
-            name: "Demonic Ruin",
+            name: 'Demonic Ruin',
             done() {return player.ds.points.gte(1e8)},
             tooltip: "obtain 1e8 demon souls.",
             unlocked() { if (hasAchievement("A", 71)) return true },
             image() { if (hasAchievement("A", 72)) return "images/achievements/72.png" },
         },
         73: {
-            name: "Demonic Origin",
+            name: 'Demonic Origin',
             done() {return player.ds.points.gte(1e60)},
             tooltip: "obtain 1e60 demon souls.",
             unlocked() { if (hasAchievement("A", 72)) return true },
             image() { if (hasAchievement("A", 73)) return "images/achievements/73.png" },
         },
         74: {
-            name: "Demon Dimension",
+            name: 'Demon Dimension',
             done() {return player.ds.points.gte("1e400")},
             tooltip: "obtain 1e400 demon souls.",
             unlocked() { if (hasAchievement("A", 73)) return true },
         },
         76: {
-            name: "Occult Uprising",
+            name: 'Occult Uprising',
             done() {return player.ds.points.gte(1e10) && getBuyableAmount("ds", 11).eq(0) && player.a.total.eq(0)},
             tooltip: "obtain 1e10 demon souls with no demon soul buyables and atoms.",
             unlocked() { if (hasAchievement("A", 72) && hasAchievement("A", 81)) return true },
             image() { if (hasAchievement("A", 76)) return "images/achievements/76.png" },
         },
         81: {
-            name: "Atomic Mass",
+            name: 'Atomic Mass',
             done() {return player.a.points.gte(1)},
             tooltip: "obtain 1 atom.",
             unlocked() { if (hasAchievement("A", 81)) return true },
             image() { if (hasAchievement("A", 81)) return "images/achievements/81.png" },
         },
         82: {
-            name: "Atomic Movement",
+            name: 'Atomic Movement',
             done() {return player.a.points.gte(10)},
             tooltip: "obtain 10 atoms.",
             unlocked() { if (hasAchievement("A", 81)) return true },
             image() { if (hasAchievement("A", 82)) return "images/achievements/82.png" },
         },
         83: {
-            name: "Masses of Atoms",
+            name: 'Masses of Atoms',
             done() {return player.a.points.gte(1000)},
             tooltip: "obtain 1,000 atoms.",
             unlocked() { if (hasAchievement("A", 82)) return true },
             image() { if (hasAchievement("A", 83)) return "images/achievements/83.png" },
         },
         84: {
-            name: "Atom Dance",
+            name: 'Atom Dance',
             done() {return player.a.points.gte(10000)},
             tooltip: "obtain 10,000 atoms.",
             unlocked() { if (hasAchievement("A", 83)) return true },
             image() { if (hasAchievement("A", 84)) return "images/achievements/84.png" },
         },
         85: {
-            name: "Atoms Made of Atoms",
+            name: 'Atoms Made of Atoms',
             done() {return player.a.points.gte(1000000)},
             tooltip: "obtain 1,000,000 atoms.",
             unlocked() { if (hasAchievement("A", 84)) return true },
         },
         86: {
-            name: "For Science!",
+            name: 'For Science!',
             done() {return player.a.points.gte(10) && player.ds.total.eq(0)},
             tooltip: "obtain 10 atoms with no demon souls.",
             unlocked() { if (hasAchievement("A", 82) && hasAchievement("A", 91)) return true },
             image() { if (hasAchievement("A", 86)) return "images/achievements/86.png" },
         },
         91: {
-            name: "Praise the Lord",
+            name: 'Praise the Lord',
             done() {return player.p.points.gte(1)},
             tooltip: "obtain 1 prayer.",
             unlocked() { if (hasAchievement("A", 91)) return true },
         },
         92: {
-            name: "Church Prayer Circle",
+            name: 'Church Prayer Circle',
             done() {return player.p.points.gte(1e10)},
             tooltip: "obtain 1e10 prayers.",
             unlocked() { if (hasAchievement("A", 91)) return true },
         },
         93: {
-            name: "Prayers all around",
+            name: 'Prayers all around',
             done() {return player.p.points.gte(1e100)},
             tooltip: "obtain 1e100 prayers.",
             unlocked() { if (hasAchievement("A", 92)) return true },
         },
         94: {
-            name: "Global Prayers",
+            name: 'Global Prayers',
             done() {return player.p.points.gte("1e1000")},
             tooltip: "obtain 1e1,000 prayers.",
             unlocked() { if (hasAchievement("A", 93)) return true },
         },
         95: {
-            name: "Everything is Prayers",
+            name: 'Everything is Prayers',
             done() {return player.p.points.gte("1e10000")},
             tooltip: "obtain 1e10,000 prayers.",
             unlocked() { if (hasAchievement("A", 94)) return true },
         },
         96: {
-            name: "Persistence",
+            name: 'Persistence',
             done() {return player.p.points.gte(1e10) && player.h.total.eq(0) && player.sp.total.eq(0) && player.s.total.eq(0)},
             tooltip: "obtain 1e10 prayers with no hexes, subatomic particles, and sanctums.",
             unlocked() { if (hasAchievement("A", 92) && hasAchievement("A", 101)) return true },
         },
         101: {
-            name: "Church Sanctum",
+            name: 'Church Sanctum',
             done() {return player.s.points.gte(1)},
             tooltip: "obtain 1 sanctum.",
             unlocked() { if (hasAchievement("A", 101)) return true },
         },
         102: {
-            name: "Shrine Blessings",
+            name: 'Shrine Blessings',
             done() {return player.s.points.gte(10)},
             tooltip: "obtain 10 sanctums.",
             unlocked() { if (hasAchievement("A", 101)) return true },
         },
         103: {
-            name: "Greatest Sanctum",
+            name: 'Greatest Sanctum',
             done() {return player.s.points.gte(100)},
             tooltip: "obtain 100 sanctums.",
             unlocked() { if (hasAchievement("A", 102)) return true },
         },
         104: {
-            name: "The World is Sanctum",
+            name: 'The World is Sanctum',
             done() {return player.s.points.gte(1000)},
             tooltip: "obtain 1,000 sanctums.",
             unlocked() { if (hasAchievement("A", 103)) return true },
         },
         106: {
-            name: "Still Sanctum",
+            name: 'Still Sanctum',
             done() {return player.s.points.gte(10) && player.ds.total.eq(0) && player.a.total.eq(0)},
             tooltip: "obtain 10 sanctums with no demon souls and atoms.",
             unlocked() { if (hasAchievement("A", 102) && hasAchievement("A", 111)) return true },
         },
         111: {
-            name: "Ancient Relic",
+            name: 'Ancient Relic',
             done() {return player.r.points.gte(1)},
             tooltip: "obtain 1 relic.",
             unlocked() { if (hasAchievement("A", 111)) return true },
         },
         112: {
-            name: "Relic Stash",
+            name: 'Relic Stash',
             done() {return player.r.points.gte(10)},
             tooltip: "obtain 10 relics.",
             unlocked() { if (hasAchievement("A", 111)) return true },
         },
         113: {
-            name: "Treasure Hoard",
+            name: 'Treasure Hoard',
             done() {return player.r.points.gte(100)},
             tooltip: "obtain 100 relics.",
             unlocked() { if (hasAchievement("A", 112)) return true },
         },
         116: {
-            name: "Broken Relics",
+            name: 'Broken Relics',
             done() {return player.r.points.gte(10) && player.m.total.eq(0)},
             tooltip: "obtain 10 relics with no molecules.",
             unlocked() { if (hasAchievement("A", 112) && hasAchievement("A", 121)) return true },
         },
         121: {
-            name: "Atom Combination",
+            name: 'Atom Combination',
             done() {return player.m.points.gte(1)},
             tooltip: "obtain 1 molecule.",
             unlocked() { if (hasAchievement("A", 121)) return true },
         },
         122: {
-            name: "Varied Molecules",
+            name: 'Varied Molecules',
             done() {return player.m.points.gte(100)},
             tooltip: "obtain 100 molecules.",
             unlocked() { if (hasAchievement("A", 121)) return true },
         },
         123: {
-            name: "Molecule Dictionary",
+            name: 'Molecule Dictionary',
             done() {return player.m.points.gte(10000)},
             tooltip: "obtain 10,000 molecules.",
             unlocked() { if (hasAchievement("A", 121)) return true },
@@ -498,12 +498,12 @@ addLayer("A", {
 
 addLayer("ghost0", {
     position: 1,
-    row: "side",
-    layerShown() {return "ghost"},
+    row: 'side',
+    layerShown() {return 'ghost'},
 });
 
 addLayer("SC", {
-    name: "Softcaps",
+    name: 'Softcaps',
     symbol: "SC",
     position: 2,
     startData() { return {
@@ -614,7 +614,7 @@ addLayer("SC", {
 });
 
 addLayer("e", {
-    name: "Essence",
+    name: 'Essence',
     symbol: "E",
     position: 0,
     startData() { return {
@@ -980,7 +980,7 @@ addLayer("e", {
 });
 
 addLayer("c", {
-    name: "Cores",
+    name: 'Cores',
     symbol: "C",
     position: 0,
     startData() { return {
@@ -1100,23 +1100,23 @@ addLayer("c", {
     ],
     milestones: {
         0: {
-            requirementDescription: "10 cores",
-            effectDescription: "keep essence upgrades on core resets",
+            requirementDescription: '10 cores',
+            effectDescription: 'keep essence upgrades on core resets',
             done() { return player.c.points.gte(10) },
         },
         1: {
-            requirementDescription: "25 cores",
-            effectDescription: "unlock core upgrades",
+            requirementDescription: '25 cores',
+            effectDescription: 'unlock core upgrades',
             done() { return player.c.points.gte(25) },
         },
         2: {
-            requirementDescription: "500 cores",
-            effectDescription: "keep essence buyables on core resets",
+            requirementDescription: '500 cores',
+            effectDescription: 'keep essence buyables on core resets',
             done() { return player.c.points.gte(500) },
         },
         3: {
-            requirementDescription: "1e64 cores",
-            effectDescription: "gain 50% of essence gain per second",
+            requirementDescription: '1e64 cores',
+            effectDescription: 'gain 50% of essence gain per second',
             done() { return player.c.points.gte(1e64) },
             unlocked() { if (player.c.points.gte(1e60)) return true },
         },
@@ -1324,7 +1324,7 @@ addLayer("c", {
 });
 
 addLayer("q", {
-    name: "Quarks",
+    name: 'Quarks',
     symbol: "Q",
     position: 2,
     startData() { return {
@@ -1447,18 +1447,18 @@ addLayer("q", {
     ],
     milestones: {
         0: {
-            requirementDescription: "5 quarks",
-            effectDescription: "you can explore 5 further essence upgrades",
+            requirementDescription: '5 quarks',
+            effectDescription: 'you can explore 5 further essence upgrades',
             done() { return player.q.points.gte(5) }
         },
         1: {
-            requirementDescription: "50,000 quarks",
-            effectDescription: "keep essence upgrades on quark resets",
+            requirementDescription: '50,000 quarks',
+            effectDescription: 'keep essence upgrades on quark resets',
             done() { return player.q.points.gte(50000) }
         },
         2: {
-            requirementDescription: "250,000,000 quarks",
-            effectDescription: "keep essence buyables on quark resets",
+            requirementDescription: '250,000,000 quarks',
+            effectDescription: 'keep essence buyables on quark resets',
             done() { return player.q.points.gte(250000000) }
         },
     },
@@ -1826,7 +1826,7 @@ addLayer("q", {
 });
 
 addLayer("sp", {
-    name: "Subatomic Particles",
+    name: 'Subatomic Particles',
     symbol: "SP",
     position: 2,
     startData() { return {
@@ -1923,33 +1923,33 @@ addLayer("sp", {
     ],
     milestones: {
         0: {
-            requirementDescription: "1 subatomic particle",
-            effectDescription: "you can buy max subatomic particles",
+            requirementDescription: '1 subatomic particle',
+            effectDescription: 'you can buy max subatomic particles',
             done() { return player.sp.points.gte(1) }
         },
         1: {
-            requirementDescription: "2 subatomic particles",
-            effectDescription: "keep essence upgrades on subatomic particle resets",
+            requirementDescription: '2 subatomic particles',
+            effectDescription: 'keep essence upgrades on subatomic particle resets',
             done() { return player.sp.points.gte(2) }
         },
         2: {
-            requirementDescription: "3 subatomic particles",
-            effectDescription: "you can explore 5 further quark upgrades",
+            requirementDescription: '3 subatomic particles',
+            effectDescription: 'you can explore 5 further quark upgrades',
             done() { return player.sp.points.gte(3) }
         },
         3: {
-            requirementDescription: "4 subatomic particles",
-            effectDescription: "keep quark milestones on subatomic particle resets",
+            requirementDescription: '4 subatomic particles',
+            effectDescription: 'keep quark milestones on subatomic particle resets',
             done() { return player.sp.points.gte(4) }
         },
         4: {
-            requirementDescription: "5 subatomic particles",
-            effectDescription: "keep essence buyables on subatomic particle resets",
+            requirementDescription: '5 subatomic particles',
+            effectDescription: 'keep essence buyables on subatomic particle resets',
             done() { return player.sp.points.gte(5) }
         },
         5: {
-            requirementDescription: "6 subatomic particles",
-            effectDescription: "keep quark upgrades on subatomic particle resets",
+            requirementDescription: '6 subatomic particles',
+            effectDescription: 'keep quark upgrades on subatomic particle resets',
             done() { return player.sp.points.gte(6) }
         },
     },
@@ -2056,7 +2056,7 @@ addLayer("sp", {
 });
 
 addLayer("h", {
-    name: "Hexes",
+    name: 'Hexes',
     symbol: "H",
     position: 0,
     startData() { return {
@@ -2171,48 +2171,48 @@ addLayer("h", {
     ],
     milestones: {
         0: {
-            requirementDescription: "5 hexes",
-            effectDescription: "keep essence upgrades on hex resets",
+            requirementDescription: '5 hexes',
+            effectDescription: 'keep essence upgrades on hex resets',
             done() { return player.h.points.gte(5) }
         },
         1: {
-            requirementDescription: "25 hexes",
-            effectDescription: "keep essence buyables on hex resets",
+            requirementDescription: '25 hexes',
+            effectDescription: 'keep essence buyables on hex resets',
             done() { return player.h.points.gte(25) }
         },
         2: {
-            requirementDescription: "125 hexes",
-            effectDescription: "keep core upgrades on hex resets",
+            requirementDescription: '125 hexes',
+            effectDescription: 'keep core upgrades on hex resets',
             done() { return player.h.points.gte(125) }
         },
         3: {
-            requirementDescription: "625 hexes",
-            effectDescription: "keep core buyables on hex resets",
+            requirementDescription: '625 hexes',
+            effectDescription: 'keep core buyables on hex resets',
             done() { return player.h.points.gte(625) }
         },
         4: {
-            requirementDescription: "3,125 hexes",
-            effectDescription: "keep core upgrades and buyables on subatomic particle resets",
+            requirementDescription: '3,125 hexes',
+            effectDescription: 'keep core upgrades and buyables on subatomic particle resets',
             done() { return player.h.points.gte(3125) }
         },
         5: {
-            requirementDescription: "15,625 hexes",
-            effectDescription: "keep all row 2 milestones on row 3 resets",
+            requirementDescription: '15,625 hexes',
+            effectDescription: 'keep all row 2 milestones on row 3 resets',
             done() { return player.h.points.gte(15625) }
         },
         6: {
-            requirementDescription: "78,125 hexes",
-            effectDescription: "keep quark upgrades on subatomic particle resets",
+            requirementDescription: '78,125 hexes',
+            effectDescription: 'keep quark upgrades on subatomic particle resets',
             done() { return player.h.points.gte(78125) }
         },
         7: {
-            requirementDescription: "390,625 hexes",
-            effectDescription: "keep quark upgrades on hex resets",
+            requirementDescription: '390,625 hexes',
+            effectDescription: 'keep quark upgrades on hex resets',
             done() { return player.h.points.gte(390625) }
         },
         8: {
-            requirementDescription: "1,953,125 hexes",
-            effectDescription: "you can explore 3 further core upgrades",
+            requirementDescription: '1,953,125 hexes',
+            effectDescription: 'you can explore 3 further core upgrades',
             done() { return player.h.points.gte(1953125) }
         },
     },
@@ -2571,7 +2571,7 @@ addLayer("h", {
 });
 
 addLayer("ds", {
-    name: "Demon Souls",
+    name: 'Demon Souls',
     symbol: "DS",
     position: 0,
     startData() { return {
@@ -2679,48 +2679,48 @@ addLayer("ds", {
     },
     milestones: {
         0: {
-            requirementDescription: "1 demon soul",
-            effectDescription: "keep subatomic particle buyables on demon soul resets",
+            requirementDescription: '1 demon soul',
+            effectDescription: 'keep subatomic particle buyables on demon soul resets',
             done() { return player.ds.points.gte(1) }
         },
         1: {
-            requirementDescription: "5 demon souls",
-            effectDescription: "keep subatomic particle upgrades on demon soul resets",
+            requirementDescription: '5 demon souls',
+            effectDescription: 'keep subatomic particle upgrades on demon soul resets',
             done() { return player.ds.points.gte(5) }
         },
         2: {
-            requirementDescription: "15 demon souls",
-            effectDescription: "keep row 2 milestones on demon soul resets",
+            requirementDescription: '15 demon souls',
+            effectDescription: 'keep row 2 milestones on demon soul resets',
             done() { return player.ds.points.gte(15) }
         },
         3: {
-            requirementDescription: "50 demon souls",
-            effectDescription: "keep essence upgrades on all resets",
+            requirementDescription: '50 demon souls',
+            effectDescription: 'keep essence upgrades on all resets',
             done() { return player.ds.points.gte(50) }
         },
         4: {
-            requirementDescription: "125 demon souls",
-            effectDescription: "keep essence buyables on all resets",
+            requirementDescription: '125 demon souls',
+            effectDescription: 'keep essence buyables on all resets',
             done() { return player.ds.points.gte(125) }
         },
         5: {
-            requirementDescription: "625 demon souls",
-            effectDescription: "keep core upgrades on demon soul resets",
+            requirementDescription: '625 demon souls',
+            effectDescription: 'keep core upgrades on demon soul resets',
             done() { return player.ds.points.gte(625) }
         },
         6: {
-            requirementDescription: "3,125 demon souls",
-            effectDescription: "keep core buyables on demon soul resets",
+            requirementDescription: '3,125 demon souls',
+            effectDescription: 'keep core buyables on demon soul resets',
             done() { return player.ds.points.gte(3125) }
         },
         7: {
-            requirementDescription: "1e10 demon souls",
-            effectDescription: "keep quark upgrades on demon soul resets",
+            requirementDescription: '1e10 demon souls',
+            effectDescription: 'keep quark upgrades on demon soul resets',
             done() { return player.ds.points.gte(1e10) }
         },
         8: {
-            requirementDescription: "1e14 demon souls",
-            effectDescription: "keep hex milestones on demon soul resets",
+            requirementDescription: '1e14 demon souls',
+            effectDescription: 'keep hex milestones on demon soul resets',
             done() { return player.ds.points.gte(1e14) }
         },
     },
@@ -2923,7 +2923,7 @@ addLayer("ds", {
 });
 
 addLayer("a", {
-    name: "Atoms",
+    name: 'Atoms',
     symbol: "A",
     position: 2,
     startData() { return {
@@ -3029,84 +3029,84 @@ addLayer("a", {
     },
     milestones: {
         0: {
-            requirementDescription: "1 atom",
-            effectDescription: "keep subatomic particle buyables on atom resets",
+            requirementDescription: '1 atom',
+            effectDescription: 'keep subatomic particle buyables on atom resets',
             done() { return player.a.points.gte(1) }
         },
         1: {
-            requirementDescription: "2 atoms",
-            effectDescription: "keep core buyables on atom resets",
+            requirementDescription: '2 atoms',
+            effectDescription: 'keep core buyables on atom resets',
             done() { return player.a.points.gte(2) }
         },
         2: {
-            requirementDescription: "3 atoms",
-            effectDescription: "keep core upgrades on atom resets",
+            requirementDescription: '3 atoms',
+            effectDescription: 'keep core upgrades on atom resets',
             done() { return player.a.points.gte(3) }
         },
         3: {
-            requirementDescription: "4 atoms",
-            effectDescription: "keep subatomic particle upgrades on atom resets",
+            requirementDescription: '4 atoms',
+            effectDescription: 'keep subatomic particle upgrades on atom resets',
             done() { return player.a.points.gte(4) }
         },
         4: {
-            requirementDescription: "5 atoms",
-            effectDescription: "keep core milestones on atom resets",
+            requirementDescription: '5 atoms',
+            effectDescription: 'keep core milestones on atom resets',
             done() { return player.a.points.gte(5) }
         },
         5: {
-            requirementDescription: "6 atoms",
-            effectDescription: "keep quark milestones on atom resets",
+            requirementDescription: '6 atoms',
+            effectDescription: 'keep quark milestones on atom resets',
             done() { return player.a.points.gte(6) }
         },
         6: {
-            requirementDescription: "7 atoms",
-            effectDescription: "keep hex milestones on atom resets",
+            requirementDescription: '7 atoms',
+            effectDescription: 'keep hex milestones on atom resets',
             done() { return player.a.points.gte(7) }
         },
         7: {
-            requirementDescription: "8 atoms & 45 total atoms",
-            effectDescription: "unlock a new demon soul challenge",
+            requirementDescription: '8 atoms & 45 total atoms',
+            effectDescription: 'unlock a new demon soul challenge',
             done() { return player.a.points.gte(8) && player.a.total.gte(45) }
         },
         8: {
-            requirementDescription: "10 atoms &  75 total atoms",
-            effectDescription: "gain 1% of quark gain per second",
+            requirementDescription: '10 atoms &  75 total atoms',
+            effectDescription: 'gain 1% of quark gain per second',
             done() { return player.a.points.gte(10) && player.a.total.gte(75) }
         },
         9: {
-            requirementDescription: "25 atoms &  125 total atoms",
-            effectDescription: "gain +9% of quark gain per second (total: 10%)",
+            requirementDescription: '25 atoms &  125 total atoms',
+            effectDescription: 'gain +9% of quark gain per second (total: 10%)',
             done() { return player.a.points.gte(25) && player.a.total.gte(125) }
         },
         10: {
-            requirementDescription: "40 atoms & 175 total atoms",
-            effectDescription: "you can buy upgrades that are not on the other's paths",
+            requirementDescription: '40 atoms & 175 total atoms',
+            effectDescription: 'you can buy upgrades that are not on the other\'s paths',
             done() { return player.a.points.gte(40) && player.a.total.gte(175) }
         },
         11: {
-            requirementDescription: "200 atoms & 500 total atoms",
-            effectDescription: "keep hex upgrades on row 4 resets",
+            requirementDescription: '200 atoms & 500 total atoms',
+            effectDescription: 'keep hex upgrades on row 4 resets',
             done() { return player.a.points.gte(200) && player.a.total.gte(500) }
         },
         12: {
-            requirementDescription: "750 atoms and 1,000 total atoms",
-            effectDescription: "keep atom upgrades on row 4 resets",
+            requirementDescription: '750 atoms and 1,000 total atoms',
+            effectDescription: 'keep atom upgrades on row 4 resets',
             done() { return player.a.points.gte(750) && player.a.total.gte(1000) }
         },
         13: {
-            requirementDescription: "1,000 atoms and 1,500 total atoms",
-            effectDescription: "keep subatomic particle milestones on atom resets",
+            requirementDescription: '1,000 atoms and 1,500 total atoms',
+            effectDescription: 'keep subatomic particle milestones on atom resets',
             done() { return player.a.points.gte(1000) && player.a.total.gte(1500) }
         },
         14: {
-            requirementDescription: "10,000 atoms and 1e600 prayers",
-            effectDescription: "atoms reset nothing",
+            requirementDescription: '10,000 atoms and 1e600 prayers',
+            effectDescription: 'atoms reset nothing',
             done() { return player.a.points.gte(10000) && player.p.points.gte("1e600") },
             unlocked() { return hasMilestone('a', 13) && player.r.points.gt(0) }
         },
         15: {
-            requirementDescription: "18,000 atoms and 40 sanctums",
-            effectDescription: "perform atom resets automatically",
+            requirementDescription: '18,000 atoms and 40 sanctums',
+            effectDescription: 'perform atom resets automatically',
             done() { return player.a.points.gte(18000) && player.s.points.gte(40) },
             unlocked() { return hasMilestone('a', 14) && player.r.points.gt(0) }
         },
@@ -3396,7 +3396,7 @@ addLayer("a", {
 });
 
 addLayer("p", {
-    name: "Prayers",
+    name: 'Prayers',
     symbol: "P",
     position: 1,
     startData() { return {
@@ -3601,24 +3601,24 @@ addLayer("p", {
     ],
     milestones: {
         0: {
-            requirementDescription: "1 prayer",
-            effectDescription: "hex and subatomic particle resets only reset<br>prayer upgrades and special resources<br>out of the things in the prayer layer",
+            requirementDescription: '1 prayer',
+            effectDescription: 'hex and subatomic particle resets only reset<br>prayer upgrades and special resources<br>out of the things in the prayer layer',
             done() { return player.p.points.gte(1) },
         },
         1: {
-            requirementDescription: "20 prayers",
-            effectDescription: "prayers generate twice as much divinity",
+            requirementDescription: '20 prayers',
+            effectDescription: 'prayers generate twice as much divinity',
             done() { return player.p.points.gte(20) },
         },
         2: {
-            requirementDescription: "2,500 prayers & 250 hymns",
-            effectDescription: "divinity gain is raised to the power of 1.5",
+            requirementDescription: '2,500 prayers & 250 hymns',
+            effectDescription: 'divinity gain is raised to the power of 1.5',
             done() { return player.p.points.gte(2500) && player.p.hymn.gte(250)},
             unlocked() { if (hasUpgrade('p', 41)) return true },
         },
         3: {
-            requirementDescription: "1.00e55 prayers",
-            effectDescription: "divinity gain is raised to the power<br>of 1.6 instead of 1.5",
+            requirementDescription: '1.00e55 prayers',
+            effectDescription: 'divinity gain is raised to the power<br>of 1.6 instead of 1.5',
             done() { return player.p.points.gte(1e55)},
             unlocked() { if (player.p.points.gte(1e50) || (hasMilestone('p', 2) && player.s.points.gt(3))) return true },
         },
@@ -4083,7 +4083,7 @@ addLayer("p", {
 });
 
 addLayer("s", {
-    name: "Sanctums",
+    name: 'Sanctums',
     symbol: "S",
     position: 1,
     startData() { return {
@@ -4192,77 +4192,77 @@ addLayer("s", {
     },
     milestones: {
         0: {
-            requirementDescription: "1 sanctum",
-            effectDescription: "you can buy max sanctums and<br><b>research</b> 6 new prayer upgrades",
+            requirementDescription: '1 sanctum',
+            effectDescription: 'you can buy max sanctums and<br><b>research</b> 6 new prayer upgrades',
             done() { return player.s.points.gte(1) },
         },
         1: {
-            requirementDescription: "2 sanctums",
-            effectDescription: "you can autobuy core upgrades",
+            requirementDescription: '2 sanctums',
+            effectDescription: 'you can autobuy core upgrades',
             done() { return player.s.points.gte(2) },
             toggles: [["c", "auto_upgrades"]],
         },
         2: {
-            requirementDescription: "3 sanctums",
-            effectDescription: "you can autobuy core buyables",
+            requirementDescription: '3 sanctums',
+            effectDescription: 'you can autobuy core buyables',
             done() { return player.s.points.gte(3) },
             toggles: [["c", "auto_buyables"]],
         },
         3: {
-            requirementDescription: "4 sanctums",
-            effectDescription: "you can explore 4 further prayer upgrades",
+            requirementDescription: '4 sanctums',
+            effectDescription: 'you can explore 4 further prayer upgrades',
             done() { return player.s.points.gte(4) },
         },
         4: {
-            requirementDescription: "5 sanctums",
-            effectDescription: "you can autobuy quark upgrades",
+            requirementDescription: '5 sanctums',
+            effectDescription: 'you can autobuy quark upgrades',
             done() { return player.s.points.gte(5) },
             toggles: [["q", "auto_upgrades"]],
         },
         5: {
-            requirementDescription: "6 sanctums",
-            effectDescription: "you can autobuy prayer upgrades",
+            requirementDescription: '6 sanctums',
+            effectDescription: 'you can autobuy prayer upgrades',
             done() { return player.s.points.gte(6) },
             toggles: [["p", "auto_upgrades"]],
         },
         6: {
-            requirementDescription: "7 sanctums",
-            effectDescription: "you can have autobuy prayer upgrades<br>option be smart (toggle on or off)",
+            requirementDescription: '7 sanctums',
+            effectDescription: 'you can have autobuy prayer upgrades<br>option be smart (toggle on or off)',
             done() { return player.s.points.gte(7) },
             toggles: [["p", "smart_auto_upgrades"]],
         },
         7: {
-            requirementDescription: "8 sanctums",
-            effectDescription: "gain 0.5% of prayer gain per second",
+            requirementDescription: '8 sanctums',
+            effectDescription: 'gain 0.5% of prayer gain per second',
             done() { return player.s.points.gte(8) },
         },
         8: {
-            requirementDescription: "9 sanctums",
-            effectDescription: "gain 0.2% of holiness and hymn gain per second",
+            requirementDescription: '9 sanctums',
+            effectDescription: 'gain 0.2% of holiness and hymn gain per second',
             done() { return player.s.points.gte(9) },
         },
         9: {
-            requirementDescription: "10 sanctums",
-            effectDescription: "gain 0.1% of hex gain per second",
+            requirementDescription: '10 sanctums',
+            effectDescription: 'gain 0.1% of hex gain per second',
             done() { return player.s.points.gte(10) },
         },
         10: {
-            requirementDescription: "14 sanctums",
-            effectDescription: "gain 0.001% of demon soul gain per second",
+            requirementDescription: '14 sanctums',
+            effectDescription: 'gain 0.001% of demon soul gain per second',
             done() { return player.s.points.gte(14) },
         },
         11: {
-            requirementDescription: "16 sanctums",
-            effectDescription: "subatomic particles reset nothing,<br>and perform subatomic particle<br>resets automatically",
+            requirementDescription: '16 sanctums',
+            effectDescription: 'subatomic particles reset nothing,<br>and perform subatomic particle<br>resets automatically',
             done() { return player.s.points.gte(16) },
         },
         12: {
-            requirementDescription: "18 sanctums",
-            effectDescription: "atoms don\'t reset sanctums",
+            requirementDescription: '18 sanctums',
+            effectDescription: 'atoms don\'t reset sanctums',
             done() { return player.s.points.gte(18) },
         },
         13: {
-            requirementDescription: "19 sanctums",
+            requirementDescription: '19 sanctums',
             effectDescription() {
                 if (!colorvalue[0][2] || colorvalue[1] == "none") return 'unlock Devotion';
                 return 'unlock <b class="layer-s' + getdark(this, "ref", true, true) + 'Devotion';
@@ -4270,7 +4270,7 @@ addLayer("s", {
             done() { return player.s.points.gte(19) },
         },
         14: {
-            requirementDescription: "22 sanctums",
+            requirementDescription: '22 sanctums',
             effectDescription() {
                 if (!colorvalue[0][2] || colorvalue[1] == "none") return 'unlock Sacrificial Ceremonies';
                 return 'unlock <b class="layer-s' + getdark(this, "ref", true, true) + 'Sacrificial Ceremonies';
@@ -4279,19 +4279,19 @@ addLayer("s", {
             unlocked() { return hasMilestone('s', 13) },
         },
         15: {
-            requirementDescription: "24 sanctums",
-            effectDescription: "gain +4.5% of prayer gain per second",
+            requirementDescription: '24 sanctums',
+            effectDescription: 'gain +4.5% of prayer gain per second',
             done() { return player.s.points.gte(24) },
             unlocked() { return hasMilestone('s', 13) },
         },
         16: {
-            requirementDescription: "25 sanctums",
-            effectDescription: "gain +2.3% of holiness & hymn gain per second",
+            requirementDescription: '25 sanctums',
+            effectDescription: 'gain +2.3% of holiness & hymn gain per second',
             done() { return player.s.points.gte(25) },
             unlocked() { return hasMilestone('s', 13) },
         },
         17: {
-            requirementDescription: "26 sanctums",
+            requirementDescription: '26 sanctums',
             effectDescription() {
                 if (!colorvalue[0][2] || colorvalue[1] == "none") return 'divide Worship cost scaling by 15';
                 return 'divide <b class="layer-s' + getdark(this, "ref", true, true) + 'Worship</b> cost scaling by 15';
@@ -4300,7 +4300,7 @@ addLayer("s", {
             unlocked() { return hasMilestone('s', 13) },
         },
         18: {
-            requirementDescription: "27 sanctums",
+            requirementDescription: '27 sanctums',
             effectDescription() {
                 if (!colorvalue[0][2] || colorvalue[1] == "none") return 'increase Devotion effect exponent<br>0.3 --> 0.4';
                 return 'increase <b class="layer-s' + getdark(this, "ref", true, true) + 'Devotion</b> effect exponent<br>0.3 --> 0.375';
@@ -4309,7 +4309,7 @@ addLayer("s", {
             unlocked() { return hasMilestone('s', 13) },
         },
         19: {
-            requirementDescription: "30 sanctums",
+            requirementDescription: '30 sanctums',
             effectDescription() {
                 if (!colorvalue[0][2] || colorvalue[1] == "none") return 'you can auto Worship';
                 return 'you can auto <b class="layer-s' + getdark(this, "ref", true, true) + 'Worship';
@@ -4319,13 +4319,13 @@ addLayer("s", {
             unlocked() { return hasMilestone('s', 13) },
         },
         20: {
-            requirementDescription: "31 sanctums",
+            requirementDescription: '31 sanctums',
             effectDescription: 'sanctum resets don\'t reset essence',
             done() { return player.s.points.gte(31) },
             unlocked() { return hasMilestone('s', 13) },
         },
         21: {
-            requirementDescription: "32 sanctums",
+            requirementDescription: '32 sanctums',
             effectDescription() {
                 if (!colorvalue[0][2] || colorvalue[1] == "none") return 'increase Devotion effect exponent<br>0.375 --> 0.45';
                 return 'increase <b class="layer-s' + getdark(this, "ref", true, true) + 'Devotion</b> effect exponent<br>0.375 --> 0.45';
@@ -4334,7 +4334,7 @@ addLayer("s", {
             unlocked() { return hasMilestone('s', 13) },
         },
         22: {
-            requirementDescription: "35 sanctums",
+            requirementDescription: '35 sanctums',
             effectDescription() {
                 if (!colorvalue[0][2] || colorvalue[1] == "none") return 'increase Devotion effect exponent<br>0.45 --> 0.55';
                 return 'increase <b class="layer-s' + getdark(this, "ref", true, true) + 'Devotion</b> effect exponent<br>0.45 --> 0.55';
@@ -4343,7 +4343,7 @@ addLayer("s", {
             unlocked() { return hasMilestone('s', 13) },
         },
         23: {
-            requirementDescription: "39 sanctums",
+            requirementDescription: '39 sanctums',
             effectDescription() {
                 if (!colorvalue[0][2] || colorvalue[1] == "none") return 'divide Worship cost scaling by 2';
                 return 'divide <b class="layer-s' + getdark(this, "ref", true, true) + 'Worship</b> cost scaling by 2';
@@ -4352,7 +4352,7 @@ addLayer("s", {
             unlocked() { return hasMilestone('s', 13) },
         },
         24: {
-            requirementDescription: "42 sanctums",
+            requirementDescription: '42 sanctums',
             effectDescription() {
                 if (!colorvalue[0][2] || colorvalue[1] == "none") return 'double Sacrifice\'s effect';
                 return 'double <b class="layer-s' + getdark(this, "ref", true, true) + 'Sacrifice</b>\'s effect';
@@ -4361,13 +4361,13 @@ addLayer("s", {
             unlocked() { return hasMilestone('s', 13) },
         },
         25: {
-            requirementDescription: "43 sanctums",
+            requirementDescription: '43 sanctums',
             effectDescription: 'keep row 2 milestones on sanctum resets',
             done() { return player.s.points.gte(43) },
             unlocked() { return hasMilestone('s', 13) },
         },
         26: {
-            requirementDescription: "44 sanctums",
+            requirementDescription: '44 sanctums',
             effectDescription() {
                 if (!colorvalue[0][2] || colorvalue[1] == "none") return 'divide Sacrifice cost scaling by 2';
                 return 'divide <b class="layer-s' + getdark(this, "ref", true, true) + 'Sacrifice</b> cost scaling by 2';
@@ -4376,7 +4376,7 @@ addLayer("s", {
             unlocked() { return hasMilestone('s', 13) },
         },
         27: {
-            requirementDescription: "46 sanctums",
+            requirementDescription: '46 sanctums',
             effectDescription() {
                 if (!colorvalue[0][2] || colorvalue[1] == "none") return 'divide Sacrificial Ceremony<br>cost scaling by 2';
                 return 'divide <b class="layer-s' + getdark(this, "ref", true, true) + 'Sacrificial Ceremony</b><br>cost scaling by 2';
@@ -4385,7 +4385,7 @@ addLayer("s", {
             unlocked() { return hasMilestone('s', 13) },
         },
         28: {
-            requirementDescription: "49 sanctums",
+            requirementDescription: '49 sanctums',
             effectDescription() {
                 if (!colorvalue[0][2] || colorvalue[1] == "none") return 'you can auto perform<br>Sacrificial Ceremonies';
                 return 'you can auto perform<br><b class="layer-s' + getdark(this, "ref", true, true) + 'Sacrificial Ceremonies';
@@ -4395,7 +4395,7 @@ addLayer("s", {
             unlocked() { return hasMilestone('s', 13) },
         },
         29: {
-            requirementDescription: "50 sanctums",
+            requirementDescription: '50 sanctums',
             effectDescription() {
                 if (!colorvalue[0][2] || colorvalue[1] == "none") return 'divide Sacrificial Ceremony<br>cost scaling by 1.5';
                 return 'divide <b class="layer-s' + getdark(this, "ref", true, true) + 'Sacrificial Ceremony</b><br>cost scaling by 1.5';
@@ -4404,13 +4404,13 @@ addLayer("s", {
             unlocked() { return hasMilestone('s', 13) },
         },
         30: {
-            requirementDescription: "53 sanctums",
+            requirementDescription: '53 sanctums',
             effectDescription: 'double light gain',
             done() { return player.s.points.gte(53) },
             unlocked() { return hasMilestone('s', 13) },
         },
         31: {
-            requirementDescription: "66 sanctums",
+            requirementDescription: '66 sanctums',
             effectDescription() {
                 if (!colorvalue[0][2] || colorvalue[1] == "none") return 'divide Sacrificial Ceremony<br>cost scaling by 1.2';
                 return 'divide <b class="layer-s' + getdark(this, "ref", true, true) + 'Sacrificial Ceremony</b><br>cost scaling by 1.2';
@@ -4419,7 +4419,7 @@ addLayer("s", {
             unlocked() { return hasMilestone('s', 13) },
         },
         32: {
-            requirementDescription: "69 sanctums",
+            requirementDescription: '69 sanctums',
             effectDescription() {
                 if (!colorvalue[0][2] || colorvalue[1] == "none") return 'divide Worship<br>cost by 1e100';
                 return 'divide <b class="layer-s' + getdark(this, "ref", true, true) + 'Worship</b><br>cost by 1e100';
@@ -4428,7 +4428,7 @@ addLayer("s", {
             unlocked() { return hasMilestone('s', 13) },
         },
         33: {
-            requirementDescription: "70 sanctums",
+            requirementDescription: '70 sanctums',
             effectDescription() {
                 if (!colorvalue[0][2] || colorvalue[1] == "none") return 'divide Sacrifice<br>cost scaling by 1.6';
                 return 'divide <b class="layer-s' + getdark(this, "ref", true, true) + 'Sacrifice</b><br>cost scaling by 1.6';
@@ -4437,7 +4437,7 @@ addLayer("s", {
             unlocked() { return hasMilestone('s', 13) },
         },
         34: {
-            requirementDescription: "71 sanctums",
+            requirementDescription: '71 sanctums',
             effectDescription() {
                 if (!colorvalue[0][2] || colorvalue[1] == "none") return 'change Sacrifice\'s cost<br>to a requirement';
                 return 'change <b class="layer-s' + getdark(this, "ref", true, true) + 'Sacrifice</b>\'s cost<br>to a requirement';
@@ -4446,7 +4446,7 @@ addLayer("s", {
             unlocked() { return hasMilestone('s', 13) },
         },
         35: {
-            requirementDescription: "72 sanctums",
+            requirementDescription: '72 sanctums',
             effectDescription() {
                 if (!colorvalue[0][2] || colorvalue[1] == "none") return 'increase Devotion effect exponent<br>0.55 --> 0.575';
                 return 'increase <b class="layer-s' + getdark(this, "ref", true, true) + 'Devotion</b> effect exponent<br>0.55 --> 0.575';
@@ -4455,7 +4455,7 @@ addLayer("s", {
             unlocked() { return hasMilestone('s', 13) },
         },
         36: {
-            requirementDescription: "77 sanctums",
+            requirementDescription: '77 sanctums',
             effectDescription() {
                 if (!colorvalue[0][2] || colorvalue[1] == "none") return 'increase Devotion effect exponent<br>0.575 --> 0.6';
                 return 'increase <b class="layer-s' + getdark(this, "ref", true, true) + 'Devotion</b> effect exponent<br>0.575 --> 0.6';
@@ -4464,7 +4464,7 @@ addLayer("s", {
             unlocked() { return hasMilestone('s', 13) },
         },
         37: {
-            requirementDescription: "80 sanctums",
+            requirementDescription: '80 sanctums',
             effectDescription() {
                 if (!colorvalue[0][2] || colorvalue[1] == "none") return 'divide Sacrifice<br>cost scaling by 2';
                 return 'divide <b class="layer-s' + getdark(this, "ref", true, true) + 'Sacrifice</b><br>cost scaling by 2';
@@ -4473,7 +4473,7 @@ addLayer("s", {
             unlocked() { return hasMilestone('s', 13) },
         },
         38: {
-            requirementDescription: "85 sanctums",
+            requirementDescription: '85 sanctums',
             effectDescription() {
                 if (!colorvalue[0][2] || colorvalue[1] == "none") return 'you can auto Sacrifice';
                 return 'you can auto <b class="layer-s' + getdark(this, "ref", true, true) + 'Sacrifice';
@@ -4483,7 +4483,7 @@ addLayer("s", {
             unlocked() { return hasMilestone('s', 13) },
         },
         39: {
-            requirementDescription: "87 sanctums",
+            requirementDescription: '87 sanctums',
             effectDescription() {
                 if (!colorvalue[0][2] || colorvalue[1] == "none") return 'divide Sacrifice<br>cost scaling by 2';
                 return 'divide <b class="layer-s' + getdark(this, "ref", true, true) + 'Sacrifice</b><br>cost scaling by 2';
@@ -4492,7 +4492,7 @@ addLayer("s", {
             unlocked() { return hasMilestone('s', 13) },
         },
         40: {
-            requirementDescription: "96 sanctums",
+            requirementDescription: '96 sanctums',
             effectDescription() {
                 if (!colorvalue[0][2] || colorvalue[1] == "none") return 'divide Worship<br>cost scaling by 1.5';
                 return 'divide <b class="layer-s' + getdark(this, "ref", true, true) + 'Worship</b><br>cost scaling by 1.5';
@@ -4501,13 +4501,13 @@ addLayer("s", {
             unlocked() { return hasMilestone('s', 13) },
         },
         41: {
-            requirementDescription: "100 sanctums",
+            requirementDescription: '100 sanctums',
             effectDescription: 'triple light gain',
             done() { return player.s.points.gte(100) },
             unlocked() { return hasMilestone('s', 13) },
         },
         42: {
-            requirementDescription: "110 sanctums",
+            requirementDescription: '110 sanctums',
             effectDescription() {
                 if (!colorvalue[0][2] || colorvalue[1] == "none") return 'divide Sacrificial Ceremony<br>cost scaling by 1.5';
                 return 'divide <b class="layer-s' + getdark(this, "ref", true, true) + 'Sacrificial Ceremony</b><br>cost scaling by 1.5';
@@ -4516,7 +4516,7 @@ addLayer("s", {
             unlocked() { return hasMilestone('s', 13) },
         },
         43: {
-            requirementDescription: "112 sanctums",
+            requirementDescription: '112 sanctums',
             effectDescription() {
                 if (!colorvalue[0][2] || colorvalue[1] == "none") return 'divide Sacrificial Ceremony<br>hex cost scaling by 3';
                 return 'divide <b class="layer-s' + getdark(this, "ref", true, true) + 'Sacrificial Ceremony</b><br>hex cost scaling by 3';
@@ -4525,7 +4525,7 @@ addLayer("s", {
             unlocked() { return hasMilestone('s', 13) },
         },
         44: {
-            requirementDescription: "120 sanctums",
+            requirementDescription: '120 sanctums',
             effectDescription() {
                 if (!colorvalue[0][2] || colorvalue[1] == "none") return 'auto Worship<br>works twice as fast';
                 return 'auto <b class="layer-s' + getdark(this, "ref", true, true) + 'Worship</b><br>works twice as fast';
@@ -4534,7 +4534,7 @@ addLayer("s", {
             unlocked() { return hasMilestone('s', 13) },
         },
         45: {
-            requirementDescription: "125 sanctums",
+            requirementDescription: '125 sanctums',
             effectDescription() {
                 if (!colorvalue[0][2] || colorvalue[1] == "none") return 'divide Sacrificial Ceremony<br>hex cost scaling by 4';
                 return 'divide <b class="layer-s' + getdark(this, "ref", true, true) + 'Sacrificial Ceremony</b><br>hex cost scaling by 4';
@@ -4543,7 +4543,7 @@ addLayer("s", {
             unlocked() { return hasMilestone('s', 13) },
         },
         46: {
-            requirementDescription: "140 sanctums",
+            requirementDescription: '140 sanctums',
             effectDescription() {
                 if (!colorvalue[0][2] || colorvalue[1] == "none") return 'auto Worship<br>works twice as fast (4x total)';
                 return 'auto <b class="layer-s' + getdark(this, "ref", true, true) + 'Worship</b><br>works twice as fast (4x total)';
@@ -4552,19 +4552,19 @@ addLayer("s", {
             unlocked() { return hasMilestone('s', 13) },
         },
         47: {
-            requirementDescription: "161 sanctums",
+            requirementDescription: '161 sanctums',
             effectDescription: 'sanctums reset nothing',
             done() { return player.s.points.gte(161) },
             unlocked() { return hasMilestone('s', 13) },
         },
         48: {
-            requirementDescription: "164 sanctums",
+            requirementDescription: '164 sanctums',
             effectDescription: 'perform sanctum resets automatically',
             done() { return player.s.points.gte(164) },
             unlocked() { return hasMilestone('s', 13) },
         },
         49: {
-            requirementDescription: "175 sanctums",
+            requirementDescription: '175 sanctums',
             effectDescription() {
                 if (!colorvalue[0][2] || colorvalue[1] == "none") return 'increase Devotion effect exponent<br>0.6 --> 0.625';
                 return 'increase <b class="layer-s' + getdark(this, "ref", true, true) + 'Devotion</b> effect exponent<br>0.6 --> 0.625';
@@ -4573,7 +4573,7 @@ addLayer("s", {
             unlocked() { return hasMilestone('s', 13) },
         },
         50: {
-            requirementDescription: "190 sanctums",
+            requirementDescription: '190 sanctums',
             effectDescription: 'triple light gain',
             done() { return player.s.points.gte(190) },
             unlocked() { return hasMilestone('s', 13) },
@@ -4582,7 +4582,7 @@ addLayer("s", {
 });
 
 addLayer("d", {
-    name: "Devotion",
+    name: 'Devotion',
     symbol: "D",
     position: 3,
     row: 2,
@@ -4739,7 +4739,7 @@ addLayer("d", {
 });
 
 addLayer("r", {
-    name: "Relics",
+    name: 'Relics',
     symbol: "R",
     position: 1,
     startData() { return {
@@ -4919,7 +4919,7 @@ addLayer("r", {
 });
 
 addLayer("m", {
-    name: "Molecules",
+    name: 'Molecules',
     symbol: "M",
     position: 2,
     startData() { return {
