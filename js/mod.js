@@ -18,6 +18,7 @@ let changelog = `<h1>Changelog:</h1><br>
 		- Added molecules.<br>
 		- Added seven milestones to molecules.<br>
 		- Added one upgrade to molecules.<br>
+		- Added achievement colors.<br>
 		- Added eight achievements.<br>
 		- Added five achievement images.<br>
 		- More things coming soon!<br>
