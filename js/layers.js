@@ -3309,11 +3309,11 @@ addLayer('a', {
             },
             cost: 2,
             effect() {
-                return player.a.total.sub(player.a.points).pow(0.75);
+                return player.a.total.sub(player.a.points).add(1).pow(0.75);
             },
             effectDisplay() {
                 text = format(this.effect()) + 'x';
-                if (player.nerdMode) text += ' <br>formula: (x-y)^0.75';
+                if (player.nerdMode) text += ' <br>formula: (x-y+1)^0.75';
                 return text;
             },
             branches: [51],
@@ -3368,7 +3368,7 @@ addLayer('a', {
             },
             effectDisplay() {
                 text = format(this.effect()) + 'x';
-                if (player.nerdMode) text += ' <br>formula: (x-y)^0.2';
+                if (player.nerdMode) text += ' <br>formula: (x-y+1)^0.2';
                 return text;
             },
             branches: [71, 72],
@@ -5079,6 +5079,12 @@ addLayer('m', {
                 "main-display",
                 "prestige-button",
                 "resource-display",
+                "blank",
+                ["display-text",
+                    function () {
+                        if (colorvalue[1] == 'none') return 'You have ' + formatWhole(player.m.upgrades.length) + ' total unique molecules';
+                        return 'You have <h2 class="layer-m">' + formatWhole(player.m.upgrades.length) + '</h2> total unique molecules';
+                    }],
                 "blank",
                 "upgrades",
             ],
