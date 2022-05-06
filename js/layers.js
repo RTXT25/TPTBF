@@ -163,6 +163,7 @@ addLayer('A', {
             tooltip: 'obtain 1 core.',
             unlocked() { if (hasAchievement('A', 31)) return true },
             image() { if (hasAchievement('A', 31)) return "images/achievements/31.png" },
+            color: '#D2D237',
         },
         32: {
             name: 'Mountainous Core',
@@ -170,6 +171,7 @@ addLayer('A', {
             tooltip: 'obtain 1e10 cores.',
             unlocked() { if (hasAchievement('A', 31)) return true },
             image() { if (hasAchievement('A', 32)) return "images/achievements/32.png" },
+            color: '#D2D237',
         },
         33: {
             name: 'Core of the Earth',
@@ -177,6 +179,7 @@ addLayer('A', {
             tooltip: 'obtain 1e100 cores.',
             unlocked() { if (hasAchievement('A', 32)) return true },
             image() { if (hasAchievement('A', 33)) return "images/achievements/33.png" },
+            color: '#D2D237',
         },
         34: {
             name: 'Core of the Sun',
@@ -184,12 +187,14 @@ addLayer('A', {
             tooltip: 'obtain 1e1,000 cores.',
             unlocked() { if (hasAchievement('A', 33)) return true },
             image() { if (hasAchievement('A', 34)) return "images/achievements/34.png" },
+            color: '#D2D237',
         },
         35: {
             name: 'Core of Truth',
             done() {return player.c.points.gte("1e10000")},
             tooltip: 'obtain 1e10,000 cores.',
             unlocked() { if (hasAchievement('A', 34)) return true },
+            color: '#D2D237',
         },
         36: {
             name: 'Pointless Core',
@@ -197,6 +202,7 @@ addLayer('A', {
             tooltip: 'obtain 1e10 cores with no core buyables and quarks.',
             unlocked() { if (hasAchievement('A', 32) && hasAchievement('A', 41)) return true },
             image() { if (hasAchievement('A', 36)) return "images/achievements/36.png" },
+            color: '#D2D237',
         },
         41: {
             name: 'The Smallest Quark',
@@ -204,6 +210,7 @@ addLayer('A', {
             tooltip: 'obtain 1 quark.',
             unlocked() { if (hasAchievement('A', 41)) return true },
             image() { if (hasAchievement('A', 41)) return "images/achievements/41.png" },
+            color: '#DB5196',
         },
         42: {
             name: 'Quark Field',
@@ -211,6 +218,7 @@ addLayer('A', {
             tooltip: 'obtain 1e10 quarks.',
             unlocked() { if (hasAchievement('A', 41)) return true },
             image() { if (hasAchievement('A', 42)) return "images/achievements/42.png" },
+            color: '#DB5196',
         },
         43: {
             name: 'Oh, the Quark of it all',
@@ -218,6 +226,7 @@ addLayer('A', {
             tooltip: 'obtain 1e100 quarks.',
             unlocked() { if (hasAchievement('A', 42)) return true },
             image() { if (hasAchievement('A', 43)) return "images/achievements/43.png" },
+            color: '#DB5196',
         },
         44: {
             name: 'Quirky Quarks',
@@ -225,12 +234,14 @@ addLayer('A', {
             tooltip: 'obtain 1e1,000 quarks.',
             unlocked() { if (hasAchievement('A', 43)) return true },
             image() { if (hasAchievement('A', 44)) return "images/achievements/44.png" },
+            color: '#DB5196',
         },
         45: {
             name: 'Impossible Quarks',
             done() {return player.q.points.gte("1e10000")},
             tooltip: 'obtain 1e10,000 quarks.',
             unlocked() { if (hasAchievement('A', 44)) return true },
+            color: '#DB5196',
         },
         46: {
             name: 'The Outside',
@@ -238,6 +249,7 @@ addLayer('A', {
             tooltip: 'obtain 1e10 quarks with no cores.',
             unlocked() { if (hasAchievement('A', 42) && hasAchievement('A', 51)) return true },
             image() { if (hasAchievement('A', 46)) return "images/achievements/46.png" },
+            color: '#DB5196',
         },
         51: {
             name: 'Submarine, Subatomic',
@@ -245,6 +257,7 @@ addLayer('A', {
             tooltip: 'obtain 1 subatomic particle.',
             unlocked() { if (hasAchievement('A', 51)) return true },
             image() { if (hasAchievement('A', 51)) return "images/achievements/51.png" },
+            color: '#710CC4',
         },
         52: {
             name: 'Variant Particles',
@@ -252,6 +265,7 @@ addLayer('A', {
             tooltip: 'obtain 100 subatomic particles.',
             unlocked() { if (hasAchievement('A', 51)) return true },
             image() { if (hasAchievement('A', 52)) return "images/achievements/52.png" },
+            color: '#710CC4',
         },
         53: {
             name: 'Periodic Particles',
@@ -259,6 +273,7 @@ addLayer('A', {
             tooltip: 'obtain 10,000 subatomic particles.',
             unlocked() { if (hasAchievement('A', 52)) return true },
             image() { if (hasAchievement('A', 53)) return "images/achievements/53.png" },
+            color: '#710CC4',
         },
         54: {
             name: 'That\'s no Particle no More',
@@ -266,6 +281,7 @@ addLayer('A', {
             tooltip: 'obtain 1,000,000 subatomic particles.',
             unlocked() { if (hasAchievement('A', 53)) return true },
             image() { if (hasAchievement('A', 54)) return "images/achievements/54.png" },
+            color: '#710CC4',
         },
         55: {
             name: 'Anti Dark Matter',
@@ -273,6 +289,7 @@ addLayer('A', {
             tooltip: 'obtain 1e11 subatomic particles.',
             unlocked() { if (hasAchievement('A', 54)) return true },
             image() { if (hasAchievement('A', 55)) return "images/achievements/55.png" },
+            color: '#710CC4',
         },
         56: {
             name: 'Hollow Particles',
@@ -280,6 +297,7 @@ addLayer('A', {
             tooltip: 'obtain 10 subatomic particles with no subatomic particle buyables and hexes.',
             unlocked() { if (hasAchievement('A', 52) && hasAchievement('A', 61)) return true },
             image() { if (hasAchievement('A', 56)) return "images/achievements/56.png" },
+            color: '#710CC4',
         },
         61: {
             name: 'The Hex Game',
@@ -287,6 +305,7 @@ addLayer('A', {
             tooltip: 'obtain 1 hex.',
             unlocked() { if (hasAchievement('A', 61)) return true },
             image() { if (hasAchievement('A', 61)) return "images/achievements/61.png" },
+            color: '#E36409',
         },
         62: {
             name: 'Cursed into Oblivion',
@@ -294,6 +313,7 @@ addLayer('A', {
             tooltip: 'obtain 1e10 hexes.',
             unlocked() { if (hasAchievement('A', 61)) return true },
             image() { if (hasAchievement('A', 62)) return "images/achievements/62.png" },
+            color: '#E36409',
         },
         63: {
             name: 'The Prophecy of Doom',
@@ -301,6 +321,7 @@ addLayer('A', {
             tooltip: 'obtain 1e100 hexes.',
             unlocked() { if (hasAchievement('A', 62)) return true },
             image() { if (hasAchievement('A', 63)) return "images/achievements/63.png" },
+            color: '#E36409',
         },
         64: {
             name: 'The Advent of the End',
@@ -308,12 +329,14 @@ addLayer('A', {
             tooltip: 'obtain 1e1,000 hexes.',
             unlocked() { if (hasAchievement('A', 63)) return true },
             image() { if (hasAchievement('A', 64)) return "images/achievements/64.png" },
+            color: '#E36409',
         },
         65: {
             name: 'Nihilism: Nothing is There',
             done() {return player.h.points.gte("1e10000")},
             tooltip: 'obtain 1e10,000 hexes.',
             unlocked() { if (hasAchievement('A', 64)) return true },
+            color: '#E36409',
         },
         66: {
             name: 'Same Old Tricks',
@@ -321,6 +344,7 @@ addLayer('A', {
             tooltip: 'obtain 1e10 hexes with no subatomic particles and core buyables.',
             unlocked() { if (hasAchievement('A', 62) && hasAchievement('A', 71)) return true },
             image() { if (hasAchievement('A', 66)) return "images/achievements/66.png" },
+            color: '#E36409',
         },
         71: {
             name: 'Demon Spirits',
@@ -328,6 +352,7 @@ addLayer('A', {
             tooltip: 'obtain 1 demon soul.',
             unlocked() { if (hasAchievement('A', 71)) return true },
             image() { if (hasAchievement('A', 71)) return "images/achievements/71.png" },
+            color: '#BA0035',
         },
         72: {
             name: 'Demonic Ruin',
@@ -335,6 +360,7 @@ addLayer('A', {
             tooltip: 'obtain 1e8 demon souls.',
             unlocked() { if (hasAchievement('A', 71)) return true },
             image() { if (hasAchievement('A', 72)) return "images/achievements/72.png" },
+            color: '#BA0035',
         },
         73: {
             name: 'Demonic Origin',
@@ -342,12 +368,14 @@ addLayer('A', {
             tooltip: 'obtain 1e60 demon souls.',
             unlocked() { if (hasAchievement('A', 72)) return true },
             image() { if (hasAchievement('A', 73)) return "images/achievements/73.png" },
+            color: '#BA0035',
         },
         74: {
             name: 'Demon Dimension',
             done() {return player.ds.points.gte("1e400")},
             tooltip: 'obtain 1e400 demon souls.',
             unlocked() { if (hasAchievement('A', 73)) return true },
+            color: '#BA0035',
         },
         76: {
             name: 'Occult Uprising',
@@ -355,6 +383,7 @@ addLayer('A', {
             tooltip: 'obtain 1e10 demon souls with no demon soul buyables and atoms.',
             unlocked() { if (hasAchievement('A', 72) && hasAchievement('A', 81)) return true },
             image() { if (hasAchievement('A', 76)) return "images/achievements/76.png" },
+            color: '#BA0035',
         },
         81: {
             name: 'Atomic Mass',
@@ -362,6 +391,7 @@ addLayer('A', {
             tooltip: 'obtain 1 atom.',
             unlocked() { if (hasAchievement('A', 81)) return true },
             image() { if (hasAchievement('A', 81)) return "images/achievements/81.png" },
+            color: '#4D2FE0',
         },
         82: {
             name: 'Atomic Movement',
@@ -369,6 +399,7 @@ addLayer('A', {
             tooltip: 'obtain 10 atoms.',
             unlocked() { if (hasAchievement('A', 81)) return true },
             image() { if (hasAchievement('A', 82)) return "images/achievements/82.png" },
+            color: '#4D2FE0',
         },
         83: {
             name: 'Masses of Atoms',
@@ -376,6 +407,7 @@ addLayer('A', {
             tooltip: 'obtain 1,000 atoms.',
             unlocked() { if (hasAchievement('A', 82)) return true },
             image() { if (hasAchievement('A', 83)) return "images/achievements/83.png" },
+            color: '#4D2FE0',
         },
         84: {
             name: 'Atom Dance',
@@ -383,12 +415,14 @@ addLayer('A', {
             tooltip: 'obtain 10,000 atoms.',
             unlocked() { if (hasAchievement('A', 83)) return true },
             image() { if (hasAchievement('A', 84)) return "images/achievements/84.png" },
+            color: '#4D2FE0',
         },
         85: {
             name: 'Atoms Made of Atoms',
             done() {return player.a.points.gte(1000000)},
             tooltip: 'obtain 1,000,000 atoms.',
             unlocked() { if (hasAchievement('A', 84)) return true },
+            color: '#4D2FE0',
         },
         86: {
             name: 'For Science!',
@@ -396,114 +430,133 @@ addLayer('A', {
             tooltip: 'obtain 10 atoms with no demon souls.',
             unlocked() { if (hasAchievement('A', 82) && hasAchievement('A', 91)) return true },
             image() { if (hasAchievement('A', 86)) return "images/achievements/86.png" },
+            color: '#4D2FE0',
         },
         91: {
             name: 'Praise the Lord',
             done() {return player.p.points.gte(1)},
             tooltip: 'obtain 1 prayer.',
             unlocked() { if (hasAchievement('A', 91)) return true },
+            color: '#FDBBFF',
         },
         92: {
             name: 'Church Prayer Circle',
             done() {return player.p.points.gte(1e10)},
             tooltip: 'obtain 1e10 prayers.',
             unlocked() { if (hasAchievement('A', 91)) return true },
+            color: '#FDBBFF',
         },
         93: {
             name: 'Prayers all around',
             done() {return player.p.points.gte(1e100)},
             tooltip: 'obtain 1e100 prayers.',
             unlocked() { if (hasAchievement('A', 92)) return true },
+            color: '#FDBBFF',
         },
         94: {
             name: 'Global Prayers',
             done() {return player.p.points.gte("1e1000")},
             tooltip: 'obtain 1e1,000 prayers.',
             unlocked() { if (hasAchievement('A', 93)) return true },
+            color: '#FDBBFF',
         },
         95: {
             name: 'Everything is Prayers',
             done() {return player.p.points.gte("1e10000")},
             tooltip: 'obtain 1e10,000 prayers.',
             unlocked() { if (hasAchievement('A', 94)) return true },
+            color: '#FDBBFF',
         },
         96: {
             name: 'Persistence',
             done() {return player.p.points.gte(1e10) && player.h.total.eq(0) && player.sp.total.eq(0) && player.s.total.eq(0)},
             tooltip: 'obtain 1e10 prayers with no hexes, subatomic particles, and sanctums.',
             unlocked() { if (hasAchievement('A', 92) && hasAchievement('A', 101)) return true },
+            color: '#FDBBFF',
         },
         101: {
             name: 'Church Sanctum',
             done() {return player.s.points.gte(1)},
             tooltip: 'obtain 1 sanctum.',
             unlocked() { if (hasAchievement('A', 101)) return true },
+            color: '#AAFF00',
         },
         102: {
             name: 'Shrine Blessings',
             done() {return player.s.points.gte(10)},
             tooltip: 'obtain 10 sanctums.',
             unlocked() { if (hasAchievement('A', 101)) return true },
+            color: '#AAFF00',
         },
         103: {
             name: 'Greatest Sanctum',
             done() {return player.s.points.gte(100)},
             tooltip: 'obtain 100 sanctums.',
             unlocked() { if (hasAchievement('A', 102)) return true },
+            color: '#AAFF00',
         },
         104: {
             name: 'The World is Sanctum',
             done() {return player.s.points.gte(1000)},
             tooltip: 'obtain 1,000 sanctums.',
             unlocked() { if (hasAchievement('A', 103)) return true },
+            color: '#AAFF00',
         },
         106: {
             name: 'Still Sanctum',
             done() {return player.s.points.gte(10) && player.ds.total.eq(0) && player.a.total.eq(0)},
             tooltip: 'obtain 10 sanctums with no demon souls and atoms.',
             unlocked() { if (hasAchievement('A', 102) && hasAchievement('A', 111)) return true },
+            color: '#AAFF00',
         },
         111: {
             name: 'Ancient Relic',
             done() {return player.r.points.gte(1)},
             tooltip: 'obtain 1 relic.',
             unlocked() { if (hasAchievement('A', 111)) return true },
+            color: '#B9A975',
         },
         112: {
             name: 'Relic Stash',
             done() {return player.r.points.gte(10)},
             tooltip: 'obtain 10 relics.',
             unlocked() { if (hasAchievement('A', 111)) return true },
+            color: '#B9A975',
         },
         113: {
             name: 'Treasure Hoard',
             done() {return player.r.points.gte(100)},
             tooltip: 'obtain 100 relics.',
             unlocked() { if (hasAchievement('A', 112)) return true },
+            color: '#B9A975',
         },
         116: {
             name: 'Broken Relics',
             done() {return player.r.points.gte(10) && player.m.total.eq(0)},
             tooltip: 'obtain 10 relics with no molecules.',
             unlocked() { if (hasAchievement('A', 112) && hasAchievement('A', 121)) return true },
+            color: '#B9A975',
         },
         121: {
             name: 'Atom Combination',
             done() {return player.m.points.gte(1)},
             tooltip: 'obtain 1 molecule.',
             unlocked() { if (hasAchievement('A', 121)) return true },
+            color: '#00E0E0',
         },
         122: {
             name: 'Varied Molecules',
             done() {return player.m.points.gte(100)},
             tooltip: 'obtain 100 molecules.',
             unlocked() { if (hasAchievement('A', 121)) return true },
+            color: '#00E0E0',
         },
         123: {
             name: 'Molecule Dictionary',
             done() {return player.m.points.gte(10000)},
             tooltip: 'obtain 10,000 molecules.',
             unlocked() { if (hasAchievement('A', 121)) return true },
+            color: '#00E0E0',
         },
     },
 });
@@ -4250,7 +4303,7 @@ addLayer('s', {
         },
         8: {
             requirementDescription: '9 sanctums',
-            effectDescription: 'gain 0.2% of holiness and hymn gain per second',
+            effectDescription: 'gain 0.2% of holiness & hymn gain per second',
             done() { return player.s.points.gte(9) },
         },
         9: {
