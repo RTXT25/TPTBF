@@ -1,49 +1,49 @@
-addLayer("A", {
+addLayer('A', {
     name: 'Achievements',
-    symbol: "A",
+    symbol: 'A',
     position: 0,
     startData() { return {
         unlocked: true,
         points: new Decimal(0),
     }},
     color: "#A5BCC2",
-    resource: "achievements",
-    row: "side",
+    resource: 'achievements',
+    row: 'side',
     layerShown() {return true},
     tooltip() {return "Achievements"},
     effectDescription() {
         text = ["<br>which are multiplying your point ", "", "", ""];
         if (colorvalue[1] == "none") {
-            if (hasUpgrade("ds", 21)) {
+            if (hasUpgrade('ds', 21)) {
                 if (hasUpgrade('ds', 24)) text[0] += 'and essence gain by ' + format(player.A.points.mul(0.2)) + 'x';
                 else text[1] += 'essence gain by ' + format(player.A.points.mul(0.2)) + 'x';
-                if (hasUpgrade("ds", 23) && !hasUpgrade("ds", 24) && !hasUpgrade("p", 31)) text[2] += 'core and quark gain by ' + format(player.A.points.pow(2).div(100)) + 'x';
-                if (hasUpgrade("ds", 23) && hasUpgrade("ds", 24) && !hasUpgrade("p", 31)) text[1] += 'core and quark gain by ' + format(player.A.points.pow(2).div(100)) + 'x';
-                if (hasUpgrade("ds", 23) && hasUpgrade("ds", 24) && hasUpgrade("p", 31)) text[1] += 'core, prayer, and quark gain by ' + format(player.A.points.pow(2).div(100)) + 'x';
+                if (hasUpgrade('ds', 23) && !hasUpgrade('ds', 24) && !hasUpgrade('p', 31)) text[2] += 'core and quark gain by ' + format(player.A.points.pow(2).div(100)) + 'x';
+                if (hasUpgrade('ds', 23) && hasUpgrade('ds', 24) && !hasUpgrade('p', 31)) text[1] += 'core and quark gain by ' + format(player.A.points.pow(2).div(100)) + 'x';
+                if (hasUpgrade('ds', 23) && hasUpgrade('ds', 24) && hasUpgrade('p', 31)) text[1] += 'core, prayer, and quark gain by ' + format(player.A.points.pow(2).div(100)) + 'x';
             } else text[0] += 'gain by ' + format(player.A.points.mul(0.1).add(1)) + 'x';
             if (hasUpgrade('a', 51)) text[2] += 'subatomic particle gain by ' + format(player.A.points.pow(1.25)) + 'x';
         } else {
-            if (hasUpgrade("ds", 21)) {
+            if (hasUpgrade('ds', 21)) {
                 if (hasUpgrade('ds', 24)) text[0] += 'and essence gain by <h2 class="layer-A">' + format(player.A.points.mul(0.2)) + '</h2>x';
                 else {
                     text[0] += 'gain by <h2 class="layer-A">' + format(player.A.points.mul(0.1).add(1)) + '</h2>x';
                     text[1] += 'essence gain by <h2 class="layer-A">' + format(player.A.points.mul(0.2)) + '</h2>x';
                 };
-                if (hasUpgrade("ds", 23) && !hasUpgrade("ds", 24) && !hasUpgrade("p", 31)) text[2] += 'core and quark gain by <h2 class="layer-A">' + format(player.A.points.pow(2).div(100)) + '</h2>x';
-                if (hasUpgrade("ds", 23) && hasUpgrade("ds", 24) && !hasUpgrade("p", 31)) text[1] += 'core and quark gain by <h2 class="layer-A">' + format(player.A.points.pow(2).div(100)) + '</h2>x';
-                if (hasUpgrade("ds", 23) && hasUpgrade("ds", 24) && hasUpgrade("p", 31)) text[1] += 'core, prayer, and quark gain by <h2 class="layer-A">' + format(player.A.points.pow(2).div(100)) + '</h2>x';
+                if (hasUpgrade('ds', 23) && !hasUpgrade('ds', 24) && !hasUpgrade('p', 31)) text[2] += 'core and quark gain by <h2 class="layer-A">' + format(player.A.points.pow(2).div(100)) + '</h2>x';
+                if (hasUpgrade('ds', 23) && hasUpgrade('ds', 24) && !hasUpgrade('p', 31)) text[1] += 'core and quark gain by <h2 class="layer-A">' + format(player.A.points.pow(2).div(100)) + '</h2>x';
+                if (hasUpgrade('ds', 23) && hasUpgrade('ds', 24) && hasUpgrade('p', 31)) text[1] += 'core, prayer, and quark gain by <h2 class="layer-A">' + format(player.A.points.pow(2).div(100)) + '</h2>x';
             } else text[0] += 'gain by <h2 class="layer-A">' + format(player.A.points.mul(0.1).add(1)) + '</h2>x';
             if (hasUpgrade('a', 51)) text[3] += 'subatomic particle gain by <h2 class="layer-A">' + format(player.A.points.pow(1.25)) + '</h2>x';
         };
         if (player.nerdMode) {
-            if (hasUpgrade("ds", 21)) {
+            if (hasUpgrade('ds', 21)) {
                 if (hasUpgrade('ds', 24)) text[0] += ' (formula: x*0.2)';
                 else {
                     text[0] += ' (formula: x*0.1+1)';
                     text[1] += ' (formula: x*0.2)';
                 };
-                if (hasUpgrade("ds", 23) && !hasUpgrade("ds", 24) && !hasUpgrade("p", 31)) text[2] += ' (formula: x^2/100)';
-                if (hasUpgrade("ds", 23) && hasUpgrade("ds", 24)) text[1] += ' (formula: x^2/100)';
+                if (hasUpgrade('ds', 23) && !hasUpgrade('ds', 24) && !hasUpgrade('p', 31)) text[2] += ' (formula: x^2/100)';
+                if (hasUpgrade('ds', 23) && hasUpgrade('ds', 24)) text[1] += ' (formula: x^2/100)';
             } else text[0] += ' (formula: x*0.1+1)';
             if (hasUpgrade('a', 51)) text[3] += ' (formula: x^1.25)';
         };
@@ -67,442 +67,442 @@ addLayer("A", {
         11: {
             name: 'The Point',
             done() {return player.points.gte(1)},
-            tooltip: "obtain 1 point.",
-            image() { if (hasAchievement("A", 11)) return "images/achievements/11.png" },
+            tooltip: 'obtain 1 point.',
+            image() { if (hasAchievement('A', 11)) return "images/achievements/11.png" },
         },
         12: {
             name: 'Very Pointy',
             done() {return player.points.gte(1e10)},
-            tooltip: "obtain 1e10 points.",
-            unlocked() { if (hasAchievement("A", 11)) return true },
-            image() { if (hasAchievement("A", 12)) return "images/achievements/12.png" },
+            tooltip: 'obtain 1e10 points.',
+            unlocked() { if (hasAchievement('A', 11)) return true },
+            image() { if (hasAchievement('A', 12)) return "images/achievements/12.png" },
         },
         13: {
             name: 'Now That\'s Really Pointy',
             done() {return player.points.gte(1e100)},
-            tooltip: "obtain 1e100 points.",
-            unlocked() { if (hasAchievement("A", 12)) return true },
-            image() { if (hasAchievement("A", 13)) return "images/achievements/13.png" },
+            tooltip: 'obtain 1e100 points.',
+            unlocked() { if (hasAchievement('A', 12)) return true },
+            image() { if (hasAchievement('A', 13)) return "images/achievements/13.png" },
         },
         14: {
             name: 'Cosmic Point',
             done() {return player.points.gte("1e1000")},
-            tooltip: "obtain 1e1,000 points.",
-            unlocked() { if (hasAchievement("A", 13)) return true },
-            image() { if (hasAchievement("A", 14)) return "images/achievements/14.png" },
+            tooltip: 'obtain 1e1,000 points.',
+            unlocked() { if (hasAchievement('A', 13)) return true },
+            image() { if (hasAchievement('A', 14)) return "images/achievements/14.png" },
         },
         15: {
             name: 'The Point of Everything',
             done() {return player.points.gte("1e10000")},
-            tooltip: "obtain 1e10,000 points.",
-            unlocked() { if (hasAchievement("A", 14)) return true },
+            tooltip: 'obtain 1e10,000 points.',
+            unlocked() { if (hasAchievement('A', 14)) return true },
         },
         16: {
             name: 'Dull Points',
             done() {return player.points.gte(1e10) && player.e.total.eq(0)},
-            tooltip: "obtain 1e10 points with no essence.",
-            unlocked() { if (hasAchievement("A", 12) && hasAchievement("A", 21)) return true },
-            image() { if (hasAchievement("A", 16)) return "images/achievements/16.png" },
+            tooltip: 'obtain 1e10 points with no essence.',
+            unlocked() { if (hasAchievement('A', 12) && hasAchievement('A', 21)) return true },
+            image() { if (hasAchievement('A', 16)) return "images/achievements/16.png" },
         },
         21: {
             name: 'Essence of Rat',
             done() {return player.e.points.gte(1)},
-            tooltip: "obtain 1 essence.",
-            unlocked() { if (hasAchievement("A", 21)) return true },
-            image() { if (hasAchievement("A", 21)) return "images/achievements/21.png" },
+            tooltip: 'obtain 1 essence.',
+            unlocked() { if (hasAchievement('A', 21)) return true },
+            image() { if (hasAchievement('A', 21)) return "images/achievements/21.png" },
         },
         22: {
             name: 'Essence Cluster',
             done() {return player.e.points.gte(1e10)},
-            tooltip: "obtain 1e10 essence.",
-            unlocked() { if (hasAchievement("A", 21)) return true },
-            image() { if (hasAchievement("A", 22)) return "images/achievements/22.png" },
+            tooltip: 'obtain 1e10 essence.',
+            unlocked() { if (hasAchievement('A', 21)) return true },
+            image() { if (hasAchievement('A', 22)) return "images/achievements/22.png" },
         },
         23: {
             name: 'Gleaming, Golden Essence',
             done() {return player.e.points.gte(1e100)},
-            tooltip: "obtain 1e100 essence.",
-            unlocked() { if (hasAchievement("A", 22)) return true },
-            image() { if (hasAchievement("A", 23)) return "images/achievements/23.png" },
+            tooltip: 'obtain 1e100 essence.',
+            unlocked() { if (hasAchievement('A', 22)) return true },
+            image() { if (hasAchievement('A', 23)) return "images/achievements/23.png" },
         },
         24: {
             name: 'Essence of the Universe',
             done() {return player.e.points.gte("1e1000")},
-            tooltip: "obtain 1e1,000 essence.",
-            unlocked() { if (hasAchievement("A", 23)) return true },
-            image() { if (hasAchievement("A", 24)) return "images/achievements/24.png" },
+            tooltip: 'obtain 1e1,000 essence.',
+            unlocked() { if (hasAchievement('A', 23)) return true },
+            image() { if (hasAchievement('A', 24)) return "images/achievements/24.png" },
         },
         25: {
             name: 'Essence of all Essence',
             done() {return player.e.points.gte("1e10000")},
-            tooltip: "obtain 1e10,000 essence.",
-            unlocked() { if (hasAchievement("A", 24)) return true },
+            tooltip: 'obtain 1e10,000 essence.',
+            unlocked() { if (hasAchievement('A', 24)) return true },
         },
         26: {
             name: 'Empty Soul',
-            done() {return player.e.points .gte(1e10) && getBuyableAmount("e", 11).eq(0) && getBuyableAmount("e", 12).eq(0)},
-            tooltip: "obtain 1e10 essence with no essence buyables.",
-            unlocked() {if (hasAchievement("A", 22) && hasAchievement("A", 31)) return true },
-            image() { if (hasAchievement("A", 26)) return "images/achievements/26.png" },
+            done() {return player.e.points .gte(1e10) && getBuyableAmount('e', 11).eq(0) && getBuyableAmount('e', 12).eq(0)},
+            tooltip: 'obtain 1e10 essence with no essence buyables.',
+            unlocked() {if (hasAchievement('A', 22) && hasAchievement('A', 31)) return true },
+            image() { if (hasAchievement('A', 26)) return "images/achievements/26.png" },
         },
         31: {
             name: 'Cracked Core',
             done() {return player.c.points.gte(1)},
-            tooltip: "obtain 1 core.",
-            unlocked() { if (hasAchievement("A", 31)) return true },
-            image() { if (hasAchievement("A", 31)) return "images/achievements/31.png" },
+            tooltip: 'obtain 1 core.',
+            unlocked() { if (hasAchievement('A', 31)) return true },
+            image() { if (hasAchievement('A', 31)) return "images/achievements/31.png" },
         },
         32: {
             name: 'Mountainous Core',
             done() {return player.c.points.gte(1e10)},
-            tooltip: "obtain 1e10 cores.",
-            unlocked() { if (hasAchievement("A", 31)) return true },
-            image() { if (hasAchievement("A", 32)) return "images/achievements/32.png" },
+            tooltip: 'obtain 1e10 cores.',
+            unlocked() { if (hasAchievement('A', 31)) return true },
+            image() { if (hasAchievement('A', 32)) return "images/achievements/32.png" },
         },
         33: {
             name: 'Core of the Earth',
             done() {return player.c.points.gte(1e100)},
-            tooltip: "obtain 1e100 cores.",
-            unlocked() { if (hasAchievement("A", 32)) return true },
-            image() { if (hasAchievement("A", 33)) return "images/achievements/33.png" },
+            tooltip: 'obtain 1e100 cores.',
+            unlocked() { if (hasAchievement('A', 32)) return true },
+            image() { if (hasAchievement('A', 33)) return "images/achievements/33.png" },
         },
         34: {
             name: 'Core of the Sun',
             done() {return player.c.points.gte("1e1000")},
-            tooltip: "obtain 1e1,000 cores.",
-            unlocked() { if (hasAchievement("A", 33)) return true },
-            image() { if (hasAchievement("A", 34)) return "images/achievements/34.png" },
+            tooltip: 'obtain 1e1,000 cores.',
+            unlocked() { if (hasAchievement('A', 33)) return true },
+            image() { if (hasAchievement('A', 34)) return "images/achievements/34.png" },
         },
         35: {
             name: 'Core of Truth',
             done() {return player.c.points.gte("1e10000")},
-            tooltip: "obtain 1e10,000 cores.",
-            unlocked() { if (hasAchievement("A", 34)) return true },
+            tooltip: 'obtain 1e10,000 cores.',
+            unlocked() { if (hasAchievement('A', 34)) return true },
         },
         36: {
             name: 'Pointless Core',
-            done() {return player.c.points.gte(1e10) && getBuyableAmount("c", 11).eq(0) && getBuyableAmount("c", 12).eq(0) && player.q.total.eq(0)},
-            tooltip: "obtain 1e10 cores with no core buyables and quarks.",
-            unlocked() { if (hasAchievement("A", 32) && hasAchievement("A", 41)) return true },
-            image() { if (hasAchievement("A", 36)) return "images/achievements/36.png" },
+            done() {return player.c.points.gte(1e10) && getBuyableAmount('c', 11).eq(0) && getBuyableAmount('c', 12).eq(0) && player.q.total.eq(0)},
+            tooltip: 'obtain 1e10 cores with no core buyables and quarks.',
+            unlocked() { if (hasAchievement('A', 32) && hasAchievement('A', 41)) return true },
+            image() { if (hasAchievement('A', 36)) return "images/achievements/36.png" },
         },
         41: {
             name: 'The Smallest Quark',
             done() {return player.q.points.gte(1)},
-            tooltip: "obtain 1 quark.",
-            unlocked() { if (hasAchievement("A", 41)) return true },
-            image() { if (hasAchievement("A", 41)) return "images/achievements/41.png" },
+            tooltip: 'obtain 1 quark.',
+            unlocked() { if (hasAchievement('A', 41)) return true },
+            image() { if (hasAchievement('A', 41)) return "images/achievements/41.png" },
         },
         42: {
             name: 'Quark Field',
             done() {return player.q.points .gte(1e10)},
-            tooltip: "obtain 1e10 quarks.",
-            unlocked() { if (hasAchievement("A", 41)) return true },
-            image() { if (hasAchievement("A", 42)) return "images/achievements/42.png" },
+            tooltip: 'obtain 1e10 quarks.',
+            unlocked() { if (hasAchievement('A', 41)) return true },
+            image() { if (hasAchievement('A', 42)) return "images/achievements/42.png" },
         },
         43: {
             name: 'Oh, the Quark of it all',
             done() {return player.q.points.gte(1e100)},
-            tooltip: "obtain 1e100 quarks.",
-            unlocked() { if (hasAchievement("A", 42)) return true },
-            image() { if (hasAchievement("A", 43)) return "images/achievements/43.png" },
+            tooltip: 'obtain 1e100 quarks.',
+            unlocked() { if (hasAchievement('A', 42)) return true },
+            image() { if (hasAchievement('A', 43)) return "images/achievements/43.png" },
         },
         44: {
             name: 'Quirky Quarks',
             done() {return player.q.points.gte("1e1000")},
-            tooltip: "obtain 1e1,000 quarks.",
-            unlocked() { if (hasAchievement("A", 43)) return true },
-            image() { if (hasAchievement("A", 44)) return "images/achievements/44.png" },
+            tooltip: 'obtain 1e1,000 quarks.',
+            unlocked() { if (hasAchievement('A', 43)) return true },
+            image() { if (hasAchievement('A', 44)) return "images/achievements/44.png" },
         },
         45: {
             name: 'Impossible Quarks',
             done() {return player.q.points.gte("1e10000")},
-            tooltip: "obtain 1e10,000 quarks.",
-            unlocked() { if (hasAchievement("A", 44)) return true },
+            tooltip: 'obtain 1e10,000 quarks.',
+            unlocked() { if (hasAchievement('A', 44)) return true },
         },
         46: {
             name: 'The Outside',
             done() {return player.q.points.gte(1e10) && player.c.total.eq(0)},
-            tooltip: "obtain 1e10 quarks with no cores.",
-            unlocked() { if (hasAchievement("A", 42) && hasAchievement("A", 51)) return true },
-            image() { if (hasAchievement("A", 46)) return "images/achievements/46.png" },
+            tooltip: 'obtain 1e10 quarks with no cores.',
+            unlocked() { if (hasAchievement('A', 42) && hasAchievement('A', 51)) return true },
+            image() { if (hasAchievement('A', 46)) return "images/achievements/46.png" },
         },
         51: {
             name: 'Submarine, Subatomic',
             done() {return player.sp.points.gte(1)},
-            tooltip: "obtain 1 subatomic particle.",
-            unlocked() { if (hasAchievement("A", 51)) return true },
-            image() { if (hasAchievement("A", 51)) return "images/achievements/51.png" },
+            tooltip: 'obtain 1 subatomic particle.',
+            unlocked() { if (hasAchievement('A', 51)) return true },
+            image() { if (hasAchievement('A', 51)) return "images/achievements/51.png" },
         },
         52: {
             name: 'Variant Particles',
             done() {return player.sp.points.gte(100)},
-            tooltip: "obtain 100 subatomic particles.",
-            unlocked() { if (hasAchievement("A", 51)) return true },
-            image() { if (hasAchievement("A", 52)) return "images/achievements/52.png" },
+            tooltip: 'obtain 100 subatomic particles.',
+            unlocked() { if (hasAchievement('A', 51)) return true },
+            image() { if (hasAchievement('A', 52)) return "images/achievements/52.png" },
         },
         53: {
             name: 'Periodic Particles',
             done() {return player.sp.points.gte(10000)},
-            tooltip: "obtain 10,000 subatomic particles.",
-            unlocked() { if (hasAchievement("A", 52)) return true },
-            image() { if (hasAchievement("A", 53)) return "images/achievements/53.png" },
+            tooltip: 'obtain 10,000 subatomic particles.',
+            unlocked() { if (hasAchievement('A', 52)) return true },
+            image() { if (hasAchievement('A', 53)) return "images/achievements/53.png" },
         },
         54: {
             name: 'That\'s no Particle no More',
             done() {return player.sp.points.gte(1000000)},
-            tooltip: "obtain 1,000,000 subatomic particles.",
-            unlocked() { if (hasAchievement("A", 53)) return true },
-            image() { if (hasAchievement("A", 54)) return "images/achievements/54.png" },
+            tooltip: 'obtain 1,000,000 subatomic particles.',
+            unlocked() { if (hasAchievement('A', 53)) return true },
+            image() { if (hasAchievement('A', 54)) return "images/achievements/54.png" },
         },
         55: {
             name: 'Anti Dark Matter',
             done() {return player.sp.points.gte(1e11)},
-            tooltip: "obtain 1e11 subatomic particles.",
-            unlocked() { if (hasAchievement("A", 54)) return true },
-            image() { if (hasAchievement("A", 55)) return "images/achievements/55.png" },
+            tooltip: 'obtain 1e11 subatomic particles.',
+            unlocked() { if (hasAchievement('A', 54)) return true },
+            image() { if (hasAchievement('A', 55)) return "images/achievements/55.png" },
         },
         56: {
             name: 'Hollow Particles',
-            done() {return player.sp.points.gte(10) && getBuyableAmount("sp", 11).eq(0) && getBuyableAmount("sp", 12).eq(0) && getBuyableAmount("sp", 21).eq(0) && player.h.total.eq(0)},
-            tooltip: "obtain 10 subatomic particles with no subatomic particle buyables and hexes.",
-            unlocked() { if (hasAchievement("A", 52) && hasAchievement("A", 61)) return true },
-            image() { if (hasAchievement("A", 56)) return "images/achievements/56.png" },
+            done() {return player.sp.points.gte(10) && getBuyableAmount('sp', 11).eq(0) && getBuyableAmount('sp', 12).eq(0) && getBuyableAmount('sp', 21).eq(0) && player.h.total.eq(0)},
+            tooltip: 'obtain 10 subatomic particles with no subatomic particle buyables and hexes.',
+            unlocked() { if (hasAchievement('A', 52) && hasAchievement('A', 61)) return true },
+            image() { if (hasAchievement('A', 56)) return "images/achievements/56.png" },
         },
         61: {
             name: 'The Hex Game',
             done() {return player.h.points.gte(1)},
-            tooltip: "obtain 1 hex.",
-            unlocked() { if (hasAchievement("A", 61)) return true },
-            image() { if (hasAchievement("A", 61)) return "images/achievements/61.png" },
+            tooltip: 'obtain 1 hex.',
+            unlocked() { if (hasAchievement('A', 61)) return true },
+            image() { if (hasAchievement('A', 61)) return "images/achievements/61.png" },
         },
         62: {
             name: 'Cursed into Oblivion',
             done() {return player.h.points.gte(1e10)},
-            tooltip: "obtain 1e10 hexes.",
-            unlocked() { if (hasAchievement("A", 61)) return true },
-            image() { if (hasAchievement("A", 62)) return "images/achievements/62.png" },
+            tooltip: 'obtain 1e10 hexes.',
+            unlocked() { if (hasAchievement('A', 61)) return true },
+            image() { if (hasAchievement('A', 62)) return "images/achievements/62.png" },
         },
         63: {
             name: 'The Prophecy of Doom',
             done() {return player.h.points.gte(1e100)},
-            tooltip: "obtain 1e100 hexes.",
-            unlocked() { if (hasAchievement("A", 62)) return true },
-            image() { if (hasAchievement("A", 63)) return "images/achievements/63.png" },
+            tooltip: 'obtain 1e100 hexes.',
+            unlocked() { if (hasAchievement('A', 62)) return true },
+            image() { if (hasAchievement('A', 63)) return "images/achievements/63.png" },
         },
         64: {
             name: 'The Advent of the End',
             done() {return player.h.points.gte("1e1000")},
-            tooltip: "obtain 1e1,000 hexes.",
-            unlocked() { if (hasAchievement("A", 63)) return true },
-            image() { if (hasAchievement("A", 64)) return "images/achievements/64.png" },
+            tooltip: 'obtain 1e1,000 hexes.',
+            unlocked() { if (hasAchievement('A', 63)) return true },
+            image() { if (hasAchievement('A', 64)) return "images/achievements/64.png" },
         },
         65: {
             name: 'Nihilism: Nothing is There',
             done() {return player.h.points.gte("1e10000")},
-            tooltip: "obtain 1e10,000 hexes.",
-            unlocked() { if (hasAchievement("A", 64)) return true },
+            tooltip: 'obtain 1e10,000 hexes.',
+            unlocked() { if (hasAchievement('A', 64)) return true },
         },
         66: {
             name: 'Same Old Tricks',
-            done() {return player.h.points.gte(1e10) && getBuyableAmount("c", 11).eq(0) && getBuyableAmount("c", 12).eq(0) && player.sp.total.eq(0)},
-            tooltip: "obtain 1e10 hexes with no subatomic particles and core buyables.",
-            unlocked() { if (hasAchievement("A", 62) && hasAchievement("A", 71)) return true },
-            image() { if (hasAchievement("A", 66)) return "images/achievements/66.png" },
+            done() {return player.h.points.gte(1e10) && getBuyableAmount('c', 11).eq(0) && getBuyableAmount('c', 12).eq(0) && player.sp.total.eq(0)},
+            tooltip: 'obtain 1e10 hexes with no subatomic particles and core buyables.',
+            unlocked() { if (hasAchievement('A', 62) && hasAchievement('A', 71)) return true },
+            image() { if (hasAchievement('A', 66)) return "images/achievements/66.png" },
         },
         71: {
             name: 'Demon Spirits',
             done() {return player.ds.points.gte(1)},
-            tooltip: "obtain 1 demon soul.",
-            unlocked() { if (hasAchievement("A", 71)) return true },
-            image() { if (hasAchievement("A", 71)) return "images/achievements/71.png" },
+            tooltip: 'obtain 1 demon soul.',
+            unlocked() { if (hasAchievement('A', 71)) return true },
+            image() { if (hasAchievement('A', 71)) return "images/achievements/71.png" },
         },
         72: {
             name: 'Demonic Ruin',
             done() {return player.ds.points.gte(1e8)},
-            tooltip: "obtain 1e8 demon souls.",
-            unlocked() { if (hasAchievement("A", 71)) return true },
-            image() { if (hasAchievement("A", 72)) return "images/achievements/72.png" },
+            tooltip: 'obtain 1e8 demon souls.',
+            unlocked() { if (hasAchievement('A', 71)) return true },
+            image() { if (hasAchievement('A', 72)) return "images/achievements/72.png" },
         },
         73: {
             name: 'Demonic Origin',
             done() {return player.ds.points.gte(1e60)},
-            tooltip: "obtain 1e60 demon souls.",
-            unlocked() { if (hasAchievement("A", 72)) return true },
-            image() { if (hasAchievement("A", 73)) return "images/achievements/73.png" },
+            tooltip: 'obtain 1e60 demon souls.',
+            unlocked() { if (hasAchievement('A', 72)) return true },
+            image() { if (hasAchievement('A', 73)) return "images/achievements/73.png" },
         },
         74: {
             name: 'Demon Dimension',
             done() {return player.ds.points.gte("1e400")},
-            tooltip: "obtain 1e400 demon souls.",
-            unlocked() { if (hasAchievement("A", 73)) return true },
+            tooltip: 'obtain 1e400 demon souls.',
+            unlocked() { if (hasAchievement('A', 73)) return true },
         },
         76: {
             name: 'Occult Uprising',
-            done() {return player.ds.points.gte(1e10) && getBuyableAmount("ds", 11).eq(0) && player.a.total.eq(0)},
-            tooltip: "obtain 1e10 demon souls with no demon soul buyables and atoms.",
-            unlocked() { if (hasAchievement("A", 72) && hasAchievement("A", 81)) return true },
-            image() { if (hasAchievement("A", 76)) return "images/achievements/76.png" },
+            done() {return player.ds.points.gte(1e10) && getBuyableAmount('ds', 11).eq(0) && player.a.total.eq(0)},
+            tooltip: 'obtain 1e10 demon souls with no demon soul buyables and atoms.',
+            unlocked() { if (hasAchievement('A', 72) && hasAchievement('A', 81)) return true },
+            image() { if (hasAchievement('A', 76)) return "images/achievements/76.png" },
         },
         81: {
             name: 'Atomic Mass',
             done() {return player.a.points.gte(1)},
-            tooltip: "obtain 1 atom.",
-            unlocked() { if (hasAchievement("A", 81)) return true },
-            image() { if (hasAchievement("A", 81)) return "images/achievements/81.png" },
+            tooltip: 'obtain 1 atom.',
+            unlocked() { if (hasAchievement('A', 81)) return true },
+            image() { if (hasAchievement('A', 81)) return "images/achievements/81.png" },
         },
         82: {
             name: 'Atomic Movement',
             done() {return player.a.points.gte(10)},
-            tooltip: "obtain 10 atoms.",
-            unlocked() { if (hasAchievement("A", 81)) return true },
-            image() { if (hasAchievement("A", 82)) return "images/achievements/82.png" },
+            tooltip: 'obtain 10 atoms.',
+            unlocked() { if (hasAchievement('A', 81)) return true },
+            image() { if (hasAchievement('A', 82)) return "images/achievements/82.png" },
         },
         83: {
             name: 'Masses of Atoms',
             done() {return player.a.points.gte(1000)},
-            tooltip: "obtain 1,000 atoms.",
-            unlocked() { if (hasAchievement("A", 82)) return true },
-            image() { if (hasAchievement("A", 83)) return "images/achievements/83.png" },
+            tooltip: 'obtain 1,000 atoms.',
+            unlocked() { if (hasAchievement('A', 82)) return true },
+            image() { if (hasAchievement('A', 83)) return "images/achievements/83.png" },
         },
         84: {
             name: 'Atom Dance',
             done() {return player.a.points.gte(10000)},
-            tooltip: "obtain 10,000 atoms.",
-            unlocked() { if (hasAchievement("A", 83)) return true },
-            image() { if (hasAchievement("A", 84)) return "images/achievements/84.png" },
+            tooltip: 'obtain 10,000 atoms.',
+            unlocked() { if (hasAchievement('A', 83)) return true },
+            image() { if (hasAchievement('A', 84)) return "images/achievements/84.png" },
         },
         85: {
             name: 'Atoms Made of Atoms',
             done() {return player.a.points.gte(1000000)},
-            tooltip: "obtain 1,000,000 atoms.",
-            unlocked() { if (hasAchievement("A", 84)) return true },
+            tooltip: 'obtain 1,000,000 atoms.',
+            unlocked() { if (hasAchievement('A', 84)) return true },
         },
         86: {
             name: 'For Science!',
             done() {return player.a.points.gte(10) && player.ds.total.eq(0)},
-            tooltip: "obtain 10 atoms with no demon souls.",
-            unlocked() { if (hasAchievement("A", 82) && hasAchievement("A", 91)) return true },
-            image() { if (hasAchievement("A", 86)) return "images/achievements/86.png" },
+            tooltip: 'obtain 10 atoms with no demon souls.',
+            unlocked() { if (hasAchievement('A', 82) && hasAchievement('A', 91)) return true },
+            image() { if (hasAchievement('A', 86)) return "images/achievements/86.png" },
         },
         91: {
             name: 'Praise the Lord',
             done() {return player.p.points.gte(1)},
-            tooltip: "obtain 1 prayer.",
-            unlocked() { if (hasAchievement("A", 91)) return true },
+            tooltip: 'obtain 1 prayer.',
+            unlocked() { if (hasAchievement('A', 91)) return true },
         },
         92: {
             name: 'Church Prayer Circle',
             done() {return player.p.points.gte(1e10)},
-            tooltip: "obtain 1e10 prayers.",
-            unlocked() { if (hasAchievement("A", 91)) return true },
+            tooltip: 'obtain 1e10 prayers.',
+            unlocked() { if (hasAchievement('A', 91)) return true },
         },
         93: {
             name: 'Prayers all around',
             done() {return player.p.points.gte(1e100)},
-            tooltip: "obtain 1e100 prayers.",
-            unlocked() { if (hasAchievement("A", 92)) return true },
+            tooltip: 'obtain 1e100 prayers.',
+            unlocked() { if (hasAchievement('A', 92)) return true },
         },
         94: {
             name: 'Global Prayers',
             done() {return player.p.points.gte("1e1000")},
-            tooltip: "obtain 1e1,000 prayers.",
-            unlocked() { if (hasAchievement("A", 93)) return true },
+            tooltip: 'obtain 1e1,000 prayers.',
+            unlocked() { if (hasAchievement('A', 93)) return true },
         },
         95: {
             name: 'Everything is Prayers',
             done() {return player.p.points.gte("1e10000")},
-            tooltip: "obtain 1e10,000 prayers.",
-            unlocked() { if (hasAchievement("A", 94)) return true },
+            tooltip: 'obtain 1e10,000 prayers.',
+            unlocked() { if (hasAchievement('A', 94)) return true },
         },
         96: {
             name: 'Persistence',
             done() {return player.p.points.gte(1e10) && player.h.total.eq(0) && player.sp.total.eq(0) && player.s.total.eq(0)},
-            tooltip: "obtain 1e10 prayers with no hexes, subatomic particles, and sanctums.",
-            unlocked() { if (hasAchievement("A", 92) && hasAchievement("A", 101)) return true },
+            tooltip: 'obtain 1e10 prayers with no hexes, subatomic particles, and sanctums.',
+            unlocked() { if (hasAchievement('A', 92) && hasAchievement('A', 101)) return true },
         },
         101: {
             name: 'Church Sanctum',
             done() {return player.s.points.gte(1)},
-            tooltip: "obtain 1 sanctum.",
-            unlocked() { if (hasAchievement("A", 101)) return true },
+            tooltip: 'obtain 1 sanctum.',
+            unlocked() { if (hasAchievement('A', 101)) return true },
         },
         102: {
             name: 'Shrine Blessings',
             done() {return player.s.points.gte(10)},
-            tooltip: "obtain 10 sanctums.",
-            unlocked() { if (hasAchievement("A", 101)) return true },
+            tooltip: 'obtain 10 sanctums.',
+            unlocked() { if (hasAchievement('A', 101)) return true },
         },
         103: {
             name: 'Greatest Sanctum',
             done() {return player.s.points.gte(100)},
-            tooltip: "obtain 100 sanctums.",
-            unlocked() { if (hasAchievement("A", 102)) return true },
+            tooltip: 'obtain 100 sanctums.',
+            unlocked() { if (hasAchievement('A', 102)) return true },
         },
         104: {
             name: 'The World is Sanctum',
             done() {return player.s.points.gte(1000)},
-            tooltip: "obtain 1,000 sanctums.",
-            unlocked() { if (hasAchievement("A", 103)) return true },
+            tooltip: 'obtain 1,000 sanctums.',
+            unlocked() { if (hasAchievement('A', 103)) return true },
         },
         106: {
             name: 'Still Sanctum',
             done() {return player.s.points.gte(10) && player.ds.total.eq(0) && player.a.total.eq(0)},
-            tooltip: "obtain 10 sanctums with no demon souls and atoms.",
-            unlocked() { if (hasAchievement("A", 102) && hasAchievement("A", 111)) return true },
+            tooltip: 'obtain 10 sanctums with no demon souls and atoms.',
+            unlocked() { if (hasAchievement('A', 102) && hasAchievement('A', 111)) return true },
         },
         111: {
             name: 'Ancient Relic',
             done() {return player.r.points.gte(1)},
-            tooltip: "obtain 1 relic.",
-            unlocked() { if (hasAchievement("A", 111)) return true },
+            tooltip: 'obtain 1 relic.',
+            unlocked() { if (hasAchievement('A', 111)) return true },
         },
         112: {
             name: 'Relic Stash',
             done() {return player.r.points.gte(10)},
-            tooltip: "obtain 10 relics.",
-            unlocked() { if (hasAchievement("A", 111)) return true },
+            tooltip: 'obtain 10 relics.',
+            unlocked() { if (hasAchievement('A', 111)) return true },
         },
         113: {
             name: 'Treasure Hoard',
             done() {return player.r.points.gte(100)},
-            tooltip: "obtain 100 relics.",
-            unlocked() { if (hasAchievement("A", 112)) return true },
+            tooltip: 'obtain 100 relics.',
+            unlocked() { if (hasAchievement('A', 112)) return true },
         },
         116: {
             name: 'Broken Relics',
             done() {return player.r.points.gte(10) && player.m.total.eq(0)},
-            tooltip: "obtain 10 relics with no molecules.",
-            unlocked() { if (hasAchievement("A", 112) && hasAchievement("A", 121)) return true },
+            tooltip: 'obtain 10 relics with no molecules.',
+            unlocked() { if (hasAchievement('A', 112) && hasAchievement('A', 121)) return true },
         },
         121: {
             name: 'Atom Combination',
             done() {return player.m.points.gte(1)},
-            tooltip: "obtain 1 molecule.",
-            unlocked() { if (hasAchievement("A", 121)) return true },
+            tooltip: 'obtain 1 molecule.',
+            unlocked() { if (hasAchievement('A', 121)) return true },
         },
         122: {
             name: 'Varied Molecules',
             done() {return player.m.points.gte(100)},
-            tooltip: "obtain 100 molecules.",
-            unlocked() { if (hasAchievement("A", 121)) return true },
+            tooltip: 'obtain 100 molecules.',
+            unlocked() { if (hasAchievement('A', 121)) return true },
         },
         123: {
             name: 'Molecule Dictionary',
             done() {return player.m.points.gte(10000)},
-            tooltip: "obtain 10,000 molecules.",
-            unlocked() { if (hasAchievement("A", 121)) return true },
+            tooltip: 'obtain 10,000 molecules.',
+            unlocked() { if (hasAchievement('A', 121)) return true },
         },
     },
 });
 
-addLayer("ghost0", {
+addLayer('ghost0', {
     position: 1,
     row: 'side',
     layerShown() {return 'ghost'},
 });
 
-addLayer("SC", {
+addLayer('SC', {
     name: 'Softcaps',
     symbol: "SC",
     position: 2,
@@ -512,8 +512,8 @@ addLayer("SC", {
         softcaps: [],
     }},
     color: "#DFDFDF",
-    resource: "discovered softcaps",
-    row: "side",
+    resource: 'discovered softcaps',
+    row: 'side',
     layerShown() {return player.SC.points > 0},
     tooltip() {return "Softcaps"},
     effectDescription() {
@@ -613,9 +613,9 @@ addLayer("SC", {
     ],
 });
 
-addLayer("e", {
+addLayer('e', {
     name: 'Essence',
-    symbol: "E",
+    symbol: 'E',
     position: 0,
     startData() { return {
         unlocked: true,
@@ -626,12 +626,12 @@ addLayer("e", {
         auto_buyables: false,
     }},
     color: "#4CED13",
-    branches: ["c", "q", "p"],
+    branches: ['c', 'q', 'p'],
     requires: new Decimal(5),
-    resource: "essence",
-    baseResource: "points",
+    resource: 'essence',
+    baseResource: 'points',
     baseAmount() {return player.points},
-    type: "normal",
+    type: 'normal',
     exponent: 0.5,
     gainMult() {
         mult = new Decimal(1);
@@ -671,20 +671,20 @@ addLayer("e", {
     },
     row: 0,
     hotkeys: [
-        {key: "e", description: "E: Reset for essence", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
+        {key: 'e', description: "E: Reset for essence", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
     layerShown(){return true},
     passiveGeneration() {
         let gen = 0;
-        if (hasMilestone("c", 3)) {
+        if (hasMilestone('c', 3)) {
             gen += 0.5;
-            if (hasUpgrade("h", 51)) {
+            if (hasUpgrade('h', 51)) {
                 gen += 0.25;
-                if (hasUpgrade("h", 54)) {
+                if (hasUpgrade('h', 54)) {
                     gen += 0.25;
-                    if (hasUpgrade("h", 61)) {
+                    if (hasUpgrade('h', 61)) {
                         gen += 0.25;
-                        if (hasUpgrade("h", 64)) {
+                        if (hasUpgrade('h', 64)) {
                             gen += 0.25;
         }}}}};
         return gen;
@@ -698,10 +698,10 @@ addLayer("e", {
             if (hasUpgrade('e', 21)) buyUpgrade('e', 22);
             if (hasUpgrade('e', 22)) buyUpgrade('e', 23);
             if (hasUpgrade('e', 23)) buyUpgrade('e', 31);
-            if (hasMilestone("q", 0) && hasUpgrade('e', 31)) buyUpgrade('e', 32);
-            if (hasMilestone("q", 0) && hasUpgrade('e', 32)) buyUpgrade('e', 33);
-            if (hasMilestone("q", 0) && hasUpgrade('e', 33)) buyUpgrade('e', 41);
-            if (hasMilestone("q", 0) && hasUpgrade('e', 41)) buyUpgrade('e', 42);
+            if (hasMilestone('q', 0) && hasUpgrade('e', 31)) buyUpgrade('e', 32);
+            if (hasMilestone('q', 0) && hasUpgrade('e', 32)) buyUpgrade('e', 33);
+            if (hasMilestone('q', 0) && hasUpgrade('e', 33)) buyUpgrade('e', 41);
+            if (hasMilestone('q', 0) && hasUpgrade('e', 41)) buyUpgrade('e', 42);
         };
         if (player.e.auto_buyables) {
             if (layers.e.buyables[11].canAfford()) {
@@ -714,21 +714,21 @@ addLayer("e", {
     },
     doReset(resettingLayer) {
         let keep = [];
-            if (hasMilestone("s", 20) && resettingLayer == "s") return;
-            if (hasMilestone("m", 2) && resettingLayer == "m") return;
-            if (hasMilestone("c", 0) && resettingLayer == "c") keep.push("upgrades");
-            if (hasMilestone("c", 2) && resettingLayer == "c") keep.push("buyables");
-            if (hasMilestone("q", 1) && resettingLayer == "q") keep.push("upgrades");
-            if (hasMilestone("q", 2) && resettingLayer == "q") keep.push("buyables");
-            if (hasMilestone("sp", 1) && resettingLayer == "sp") keep.push("upgrades");
-            if (hasMilestone("sp", 4) && resettingLayer == "sp") keep.push("buyables");
-            if (hasMilestone("h", 0) && resettingLayer == "h") keep.push("upgrades");
-            if (hasMilestone("h", 1) && resettingLayer == "h") keep.push("buyables");
-            if (hasMilestone("ds", 3)) keep.push("upgrades");
-            if (hasMilestone("ds", 4)) keep.push("buyables");
-            if (hasMilestone("m", 0)) keep.push("auto_buyables");
-            if (hasMilestone("m", 2)) keep.push("auto_upgrades");
-            if (layers[resettingLayer].row > this.row) layerDataReset("e", keep);
+            if (hasMilestone('s', 20) && resettingLayer == 's') return;
+            if (hasMilestone('m', 2) && resettingLayer == 'm') return;
+            if (hasMilestone('c', 0) && resettingLayer == 'c') keep.push("upgrades");
+            if (hasMilestone('c', 2) && resettingLayer == 'c') keep.push("buyables");
+            if (hasMilestone('q', 1) && resettingLayer == 'q') keep.push("upgrades");
+            if (hasMilestone('q', 2) && resettingLayer == 'q') keep.push("buyables");
+            if (hasMilestone('sp', 1) && resettingLayer == 'sp') keep.push("upgrades");
+            if (hasMilestone('sp', 4) && resettingLayer == 'sp') keep.push("buyables");
+            if (hasMilestone('h', 0) && resettingLayer == 'h') keep.push("upgrades");
+            if (hasMilestone('h', 1) && resettingLayer == 'h') keep.push("buyables");
+            if (hasMilestone('ds', 3)) keep.push("upgrades");
+            if (hasMilestone('ds', 4)) keep.push("buyables");
+            if (hasMilestone('m', 0)) keep.push("auto_buyables");
+            if (hasMilestone('m', 2)) keep.push("auto_upgrades");
+            if (layers[resettingLayer].row > this.row) layerDataReset('e', keep);
         },
     tabFormat: [
         "main-display",
@@ -771,7 +771,7 @@ addLayer("e", {
                 if (player.nerdMode) text += ' <br>formula: (x+1)^0.5';
                 return text;
             },
-            unlocked() { return hasUpgrade("e", 11) },
+            unlocked() { return hasUpgrade('e', 11) },
         },
         13: {
             title() {
@@ -789,7 +789,7 @@ addLayer("e", {
                 if (player.nerdMode) text += ' <br>formula: (x+1)^0.15';
                 return text;
             },
-            unlocked() { return hasUpgrade("e", 12) },
+            unlocked() { return hasUpgrade('e', 12) },
         },
         21: {
             title() {
@@ -807,7 +807,7 @@ addLayer("e", {
                 if (player.nerdMode) text += ' <br>formula: (x+1)^0.075';
                 return text;
             },
-            unlocked() { return hasUpgrade("e", 13) },
+            unlocked() { return hasUpgrade('e', 13) },
         },
         22: {
             title() {
@@ -825,7 +825,7 @@ addLayer("e", {
                 if (player.nerdMode) text += ' <br>formula: (x+1)^0.11111111111';
                 return text;
             },
-            unlocked() { return hasUpgrade("e", 21) },
+            unlocked() { return hasUpgrade('e', 21) },
         },
         23: {
             title() {
@@ -843,7 +843,7 @@ addLayer("e", {
                 if (player.nerdMode) text += ' <br>formula: (x+1)^0.25';
                 return text;
             },
-            unlocked() { return hasUpgrade("e", 22) },
+            unlocked() { return hasUpgrade('e', 22) },
         },
         31: {
             title() {
@@ -861,7 +861,7 @@ addLayer("e", {
                 if (player.nerdMode) text += ' <br>formula: (x+1)^0.01';
                 return text;
             },
-            unlocked() { return hasMilestone("q", 0) && hasUpgrade("e", 23) },
+            unlocked() { return hasMilestone('q', 0) && hasUpgrade('e', 23) },
         },
         32: {
             title() {
@@ -879,7 +879,7 @@ addLayer("e", {
                 if (player.nerdMode) text += ' <br>formula: (x+1)^0.001';
                 return text;
             },
-            unlocked() { return hasMilestone("q", 0) && hasUpgrade("e", 31) },
+            unlocked() { return hasMilestone('q', 0) && hasUpgrade('e', 31) },
         },
         33: {
             title() {
@@ -897,7 +897,7 @@ addLayer("e", {
                 if (player.nerdMode) text += ' <br>formula: (x+1)^0.025';
                 return text;
             },
-            unlocked() { return hasMilestone("q", 0) && hasUpgrade("e", 32) },
+            unlocked() { return hasMilestone('q', 0) && hasUpgrade('e', 32) },
         },
         41: {
             title() {
@@ -915,7 +915,7 @@ addLayer("e", {
                 if (player.nerdMode) text += ' <br>formula: (x+1)^0.001';
                 return text;
             },
-            unlocked() { return hasMilestone("q", 0) && hasUpgrade("e", 33) },
+            unlocked() { return hasMilestone('q', 0) && hasUpgrade('e', 33) },
         },
         42: {
             title() {
@@ -933,7 +933,7 @@ addLayer("e", {
                 if (player.nerdMode) text += ' <br>formula: (x+1)^0.01';
                 return text;
             },
-            unlocked() { return hasMilestone("q", 0) && hasUpgrade("e", 41) },
+            unlocked() { return hasMilestone('q', 0) && hasUpgrade('e', 41) },
         },
     },
     buyables: {
@@ -979,9 +979,9 @@ addLayer("e", {
     },
 });
 
-addLayer("c", {
+addLayer('c', {
     name: 'Cores',
-    symbol: "C",
+    symbol: 'C',
     position: 0,
     startData() { return {
         unlocked: false,
@@ -993,14 +993,14 @@ addLayer("c", {
     }},
     color() {
         if (player.e.points.gte(10000) || player.c.unlocked) return "#D2D237";
-        return "#666666";
+        return '#666666';
     },
-    branches: ["h"],
+    branches: ['h'],
     requires: 10000,
-    resource: "cores",
-    baseResource: "essence",
+    resource: 'cores',
+    baseResource: 'essence',
     baseAmount() {return player.e.points},
-    type: "normal",
+    type: 'normal',
     exponent: 0.3,
     gainMult() {
         mult = new Decimal(1);
@@ -1031,33 +1031,33 @@ addLayer("c", {
     softcapPower: 0.7,
     row: 1,
     hotkeys: [
-        {key: "c", description: "C: Reset for cores", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
+        {key: 'c', description: "C: Reset for cores", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
     layerShown(){return true},
     passiveGeneration() {
         let gen = 0;
-        if (hasUpgrade("h", 43)) {
+        if (hasUpgrade('h', 43)) {
             gen += 0.01;
-            if (hasUpgrade("h", 44)) {
+            if (hasUpgrade('h', 44)) {
                 gen += 0.09;
-                if (hasUpgrade("h", 52)) {
+                if (hasUpgrade('h', 52)) {
                     gen += 0.15;
-                    if (hasUpgrade("c", 33)) {
+                    if (hasUpgrade('c', 33)) {
                         gen += 0.25;
         }}}};
         return gen;
     },
     automate() {
         if (player.c.auto_upgrades) {
-            if (hasMilestone("c", 1)) buyUpgrade('c', 11);
-            if (hasMilestone("c", 1) && hasUpgrade("c", 11)) buyUpgrade('c', 12);
-            if (hasMilestone("c", 1) && hasUpgrade("c", 12)) buyUpgrade('c', 13);
-            if (hasMilestone("h", 8) && hasUpgrade("c", 13)) buyUpgrade('c', 21);
-            if (hasMilestone("h", 8) && hasUpgrade("c", 21)) buyUpgrade('c', 22);
-            if (hasMilestone("h", 8) && hasUpgrade("c", 22)) buyUpgrade('c', 23);
-            if (hasUpgrade("h", 53) && hasUpgrade("c", 23)) buyUpgrade('c', 31);
-            if (hasUpgrade("h", 53) && hasUpgrade("c", 31)) buyUpgrade('c', 32);
-            if (hasUpgrade("h", 53) && hasUpgrade("c", 32)) buyUpgrade('c', 33);
+            if (hasMilestone('c', 1)) buyUpgrade('c', 11);
+            if (hasMilestone('c', 1) && hasUpgrade('c', 11)) buyUpgrade('c', 12);
+            if (hasMilestone('c', 1) && hasUpgrade('c', 12)) buyUpgrade('c', 13);
+            if (hasMilestone('h', 8) && hasUpgrade('c', 13)) buyUpgrade('c', 21);
+            if (hasMilestone('h', 8) && hasUpgrade('c', 21)) buyUpgrade('c', 22);
+            if (hasMilestone('h', 8) && hasUpgrade('c', 22)) buyUpgrade('c', 23);
+            if (hasUpgrade('h', 53) && hasUpgrade('c', 23)) buyUpgrade('c', 31);
+            if (hasUpgrade('h', 53) && hasUpgrade('c', 31)) buyUpgrade('c', 32);
+            if (hasUpgrade('h', 53) && hasUpgrade('c', 32)) buyUpgrade('c', 33);
         };
         if (player.c.auto_buyables) {
             if (layers.c.buyables[11].canAfford()) {
@@ -1070,23 +1070,23 @@ addLayer("c", {
     },
     doReset(resettingLayer) {
         let keep = [];
-            if (hasMilestone("m", 4) && resettingLayer == "m") return;
-            if (hasMilestone("h", 2) && resettingLayer == "h") keep.push("upgrades");
-            if (hasMilestone("h", 3) && resettingLayer == "h") keep.push("buyables");
-            if (hasMilestone("h", 4) && resettingLayer == "sp") keep.push("upgrades");
-            if (hasMilestone("h", 4) && resettingLayer == "sp") keep.push("buyables");
-            if (hasMilestone("h", 5) && resettingLayer == "h") keep.push("milestones");
-            if (hasMilestone("h", 5) && resettingLayer == "sp") keep.push("milestones");
-            if (hasMilestone("ds", 2) && resettingLayer == "ds") keep.push("milestones");
-            if (hasMilestone("ds", 5) && resettingLayer == "ds") keep.push("upgrades");
-            if (hasMilestone("ds", 6) && resettingLayer == "ds") keep.push("buyables");
-            if (hasMilestone("a", 1) && resettingLayer == "a") keep.push("buyables");
-            if (hasMilestone("a", 2) && resettingLayer == "a") keep.push("upgrades");
-            if (hasMilestone("a", 4) && resettingLayer == "a") keep.push("milestones");
-            if (hasMilestone("s", 1)) keep.push("auto_upgrades");
-            if (hasMilestone("s", 2)) keep.push("auto_buyables");
-            if (hasMilestone("s", 25) && resettingLayer == "s") keep.push("milestones");
-            if (layers[resettingLayer].row > this.row) layerDataReset("c", keep);
+            if (hasMilestone('m', 4) && resettingLayer == 'm') return;
+            if (hasMilestone('h', 2) && resettingLayer == 'h') keep.push("upgrades");
+            if (hasMilestone('h', 3) && resettingLayer == 'h') keep.push("buyables");
+            if (hasMilestone('h', 4) && resettingLayer == 'sp') keep.push("upgrades");
+            if (hasMilestone('h', 4) && resettingLayer == 'sp') keep.push("buyables");
+            if (hasMilestone('h', 5) && resettingLayer == 'h') keep.push("milestones");
+            if (hasMilestone('h', 5) && resettingLayer == 'sp') keep.push("milestones");
+            if (hasMilestone('ds', 2) && resettingLayer == 'ds') keep.push("milestones");
+            if (hasMilestone('ds', 5) && resettingLayer == 'ds') keep.push("upgrades");
+            if (hasMilestone('ds', 6) && resettingLayer == 'ds') keep.push("buyables");
+            if (hasMilestone('a', 1) && resettingLayer == 'a') keep.push("buyables");
+            if (hasMilestone('a', 2) && resettingLayer == 'a') keep.push("upgrades");
+            if (hasMilestone('a', 4) && resettingLayer == 'a') keep.push("milestones");
+            if (hasMilestone('s', 1)) keep.push("auto_upgrades");
+            if (hasMilestone('s', 2)) keep.push("auto_buyables");
+            if (hasMilestone('s', 25) && resettingLayer == 's') keep.push("milestones");
+            if (layers[resettingLayer].row > this.row) layerDataReset('c', keep);
         },
     tabFormat: [
         "main-display",
@@ -1138,7 +1138,7 @@ addLayer("c", {
                 if (player.nerdMode) text += ' <br>formula: (x+1)^0.2';
                 return text;
             },
-            unlocked() { return hasMilestone("c", 1) },
+            unlocked() { return hasMilestone('c', 1) },
         },
         12: {
             title() {
@@ -1156,7 +1156,7 @@ addLayer("c", {
                 if (player.nerdMode) text += ' <br>formula: (x+1)^0.01';
                 return text;
             },
-            unlocked() { return hasUpgrade("c", 11) },
+            unlocked() { return hasUpgrade('c', 11) },
         },
         13: {
             title() {
@@ -1174,7 +1174,7 @@ addLayer("c", {
                 if (player.nerdMode) text += ' <br>formula: (x+1)^0.1';
                 return text;
             },
-            unlocked() { return hasUpgrade("c", 12) },
+            unlocked() { return hasUpgrade('c', 12) },
         },
         21: {
             title() {
@@ -1192,7 +1192,7 @@ addLayer("c", {
                 if (player.nerdMode) text += ' <br>formula: (x+1)^0.005';
                 return text;
             },
-            unlocked() { return hasMilestone("h", 8) && hasUpgrade("c", 13) },
+            unlocked() { return hasMilestone('h', 8) && hasUpgrade('c', 13) },
         },
         22: {
             title() {
@@ -1210,7 +1210,7 @@ addLayer("c", {
                 if (player.nerdMode) text += ' <br>formula: (x+1)^0.002';
                 return text;
             },
-            unlocked() { return hasMilestone("h", 8) && hasUpgrade("c", 21) },
+            unlocked() { return hasMilestone('h', 8) && hasUpgrade('c', 21) },
         },
         23: {
             title() {
@@ -1228,7 +1228,7 @@ addLayer("c", {
                 if (player.nerdMode) text += ' <br>formula: (x+1)^0.01';
                 return text;
             },
-            unlocked() { return hasMilestone("h", 8) && hasUpgrade("c", 22) },
+            unlocked() { return hasMilestone('h', 8) && hasUpgrade('c', 22) },
         },
         31: {
             title() {
@@ -1246,7 +1246,7 @@ addLayer("c", {
                 if (player.nerdMode) text += ' <br>formula: (x+1)^0.0025';
                 return text;
             },
-            unlocked() { return hasUpgrade("h", 53) && hasUpgrade("c", 23) },
+            unlocked() { return hasUpgrade('h', 53) && hasUpgrade('c', 23) },
         },
         32: {
             title() {
@@ -1264,7 +1264,7 @@ addLayer("c", {
                 if (player.nerdMode) text += ' <br>formula: (x+1)^0.001';
                 return text;
             },
-            unlocked() { return hasUpgrade("h", 53) && hasUpgrade("c", 31) },
+            unlocked() { return hasUpgrade('h', 53) && hasUpgrade('c', 31) },
         },
         33: {
             title() {
@@ -1274,7 +1274,7 @@ addLayer("c", {
                 return 'if you own <b class="layer-h' + getdark(this, "ref") + 'Core Production Line</b> and all subsequent upgrades, gain +25% of your core gain per second';
             },
             cost: 1e80,
-            unlocked() { return hasUpgrade("h", 53) && hasUpgrade("c", 32) },
+            unlocked() { return hasUpgrade('h', 53) && hasUpgrade('c', 32) },
         },
     },
     buyables: {
@@ -1323,9 +1323,9 @@ addLayer("c", {
     },
 });
 
-addLayer("q", {
+addLayer('q', {
     name: 'Quarks',
-    symbol: "Q",
+    symbol: 'Q',
     position: 2,
     startData() { return {
         unlocked: false,
@@ -1336,14 +1336,14 @@ addLayer("q", {
     }},
     color() {
         if (player.e.points.gte(1e9) || player.q.unlocked) return "#DB5196";
-        return "#666666";
+        return '#666666';
     },
-    branches: ["sp"],
+    branches: ['sp'],
     requires: 1e9,
-    resource: "quarks",
-    baseResource: "essence",
+    resource: 'quarks',
+    baseResource: 'essence',
     baseAmount() {return player.e.points},
-    type: "normal",
+    type: 'normal',
     exponent: 0.1,
     gainMult() {
         mult = new Decimal(1);
@@ -1383,14 +1383,14 @@ addLayer("q", {
     softcapPower: 0.6,
     row: 1,
     hotkeys: [
-        {key: "q", description: "Q: Reset for quarks", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
+        {key: 'q', description: "Q: Reset for quarks", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
     layerShown(){return player.c.unlocked},
     passiveGeneration() {
         gen = 0;
-        if (hasMilestone("a", 8)) {
+        if (hasMilestone('a', 8)) {
             gen += 0.01;
-            if (hasMilestone("a", 9)) {
+            if (hasMilestone('a', 9)) {
                 gen += 0.09;
         }};
         return gen;
@@ -1398,44 +1398,44 @@ addLayer("q", {
     automate() {
         if (player.q.auto_upgrades) {
             buyUpgrade('q', 11);
-            if (hasUpgrade("q", 11)) buyUpgrade('q', 12);
-            if (hasUpgrade("q", 12)) buyUpgrade('q', 13);
-            if (hasUpgrade("q", 13)) buyUpgrade('q', 14);
-            if (hasUpgrade("q", 14)) buyUpgrade('q', 15);
-            if (hasUpgrade("q", 15)) buyUpgrade('q', 21);
-            if (hasUpgrade("q", 21)) buyUpgrade('q', 22);
-            if (hasUpgrade("q", 22)) buyUpgrade('q', 23);
-            if (hasUpgrade("q", 23)) buyUpgrade('q', 24);
-            if (hasUpgrade("q", 24)) buyUpgrade('q', 25);
-            if (hasUpgrade("q", 25)) buyUpgrade('q', 31);
-            if (hasUpgrade("q", 31)) buyUpgrade('q', 32);
-            if (hasUpgrade("q", 32)) buyUpgrade('q', 33);
-            if (hasUpgrade("q", 33)) buyUpgrade('q', 34);
-            if (hasUpgrade("q", 34)) buyUpgrade('q', 35);
-            if (hasMilestone("sp", 2) && hasUpgrade("q", 35)) buyUpgrade('q', 41);
-            if (hasMilestone("sp", 2) && hasUpgrade("q", 41)) buyUpgrade('q', 42);
-            if (hasMilestone("sp", 2) && hasUpgrade("q", 42)) buyUpgrade('q', 43);
-            if (hasMilestone("sp", 2) && hasUpgrade("q", 43)) buyUpgrade('q', 44);
-            if (hasMilestone("sp", 2) && hasUpgrade("q", 44)) buyUpgrade('q', 45);
+            if (hasUpgrade('q', 11)) buyUpgrade('q', 12);
+            if (hasUpgrade('q', 12)) buyUpgrade('q', 13);
+            if (hasUpgrade('q', 13)) buyUpgrade('q', 14);
+            if (hasUpgrade('q', 14)) buyUpgrade('q', 15);
+            if (hasUpgrade('q', 15)) buyUpgrade('q', 21);
+            if (hasUpgrade('q', 21)) buyUpgrade('q', 22);
+            if (hasUpgrade('q', 22)) buyUpgrade('q', 23);
+            if (hasUpgrade('q', 23)) buyUpgrade('q', 24);
+            if (hasUpgrade('q', 24)) buyUpgrade('q', 25);
+            if (hasUpgrade('q', 25)) buyUpgrade('q', 31);
+            if (hasUpgrade('q', 31)) buyUpgrade('q', 32);
+            if (hasUpgrade('q', 32)) buyUpgrade('q', 33);
+            if (hasUpgrade('q', 33)) buyUpgrade('q', 34);
+            if (hasUpgrade('q', 34)) buyUpgrade('q', 35);
+            if (hasMilestone('sp', 2) && hasUpgrade('q', 35)) buyUpgrade('q', 41);
+            if (hasMilestone('sp', 2) && hasUpgrade('q', 41)) buyUpgrade('q', 42);
+            if (hasMilestone('sp', 2) && hasUpgrade('q', 42)) buyUpgrade('q', 43);
+            if (hasMilestone('sp', 2) && hasUpgrade('q', 43)) buyUpgrade('q', 44);
+            if (hasMilestone('sp', 2) && hasUpgrade('q', 44)) buyUpgrade('q', 45);
         };
     },
     doReset(resettingLayer) {
         let keep = [];
-            if (hasMilestone("m", 5) && resettingLayer == "m") return;
-            if (hasMilestone("sp", 3) && resettingLayer == "sp") keep.push("milestones");
-            if (hasMilestone("sp", 5) && resettingLayer == "sp") keep.push("upgrades");
-            if (hasMilestone("h", 5) && resettingLayer == "h") keep.push("milestones");
-            if (hasMilestone("h", 5) && resettingLayer == "sp") keep.push("milestones");
-            if (hasMilestone("h", 6) && resettingLayer == "sp") keep.push("upgrades");
-            if (hasMilestone("h", 7) && resettingLayer == "h") keep.push("upgrades");
-            if (hasMilestone("ds", 2) && resettingLayer == "ds") keep.push("milestones");
-            if (hasMilestone('ds', 7) && resettingLayer == "ds") keep.push("upgrades");
-            if (hasMilestone("a", 0) && resettingLayer == "a") keep.push("buyables");
-            if (hasMilestone("a", 1) && resettingLayer == "a") keep.push("upgrades");
-            if (hasMilestone("a", 5) && resettingLayer == "a") keep.push("milestones");
-            if (hasMilestone("s", 4)) keep.push("auto_upgrades");
-            if (hasMilestone("s", 25) && resettingLayer == "s") keep.push("milestones");
-            if (layers[resettingLayer].row > this.row) layerDataReset("q", keep);
+            if (hasMilestone('m', 5) && resettingLayer == 'm') return;
+            if (hasMilestone('sp', 3) && resettingLayer == 'sp') keep.push("milestones");
+            if (hasMilestone('sp', 5) && resettingLayer == 'sp') keep.push("upgrades");
+            if (hasMilestone('h', 5) && resettingLayer == 'h') keep.push("milestones");
+            if (hasMilestone('h', 5) && resettingLayer == 'sp') keep.push("milestones");
+            if (hasMilestone('h', 6) && resettingLayer == 'sp') keep.push("upgrades");
+            if (hasMilestone('h', 7) && resettingLayer == 'h') keep.push("upgrades");
+            if (hasMilestone('ds', 2) && resettingLayer == 'ds') keep.push("milestones");
+            if (hasMilestone('ds', 7) && resettingLayer == 'ds') keep.push("upgrades");
+            if (hasMilestone('a', 0) && resettingLayer == 'a') keep.push("buyables");
+            if (hasMilestone('a', 1) && resettingLayer == 'a') keep.push("upgrades");
+            if (hasMilestone('a', 5) && resettingLayer == 'a') keep.push("milestones");
+            if (hasMilestone('s', 4)) keep.push("auto_upgrades");
+            if (hasMilestone('s', 25) && resettingLayer == 's') keep.push("milestones");
+            if (layers[resettingLayer].row > this.row) layerDataReset('q', keep);
     },
     tabFormat: [
         "main-display",
@@ -1496,7 +1496,7 @@ addLayer("q", {
                 if (player.nerdMode) text += ' <br>formula: (x+1)^0.09';
                 return text;
             },
-            unlocked() { return hasUpgrade("q", 11) },
+            unlocked() { return hasUpgrade('q', 11) },
         },
         13: {
             title() {
@@ -1514,7 +1514,7 @@ addLayer("q", {
                 if (player.nerdMode) text += ' <br>formula: (x+1)^0.0025';
                 return text;
             },
-            unlocked() { return hasUpgrade("q", 12) },
+            unlocked() { return hasUpgrade('q', 12) },
         },
         14: {
             title() {
@@ -1532,7 +1532,7 @@ addLayer("q", {
                 if (player.nerdMode) text += ' <br>formula: (x+1)^0.2';
                 return text;
             },
-            unlocked() { return hasUpgrade("q", 13) },
+            unlocked() { return hasUpgrade('q', 13) },
         },
         15: {
             title() {
@@ -1550,7 +1550,7 @@ addLayer("q", {
                 if (player.nerdMode) text += ' <br>formula: (x+1)^0.02';
                 return text;
             },
-            unlocked() { return hasUpgrade("q", 14) },
+            unlocked() { return hasUpgrade('q', 14) },
         },
         21: {
             title() {
@@ -1568,7 +1568,7 @@ addLayer("q", {
                 if (player.nerdMode) text += ' <br>formula: (x+1)^0.05';
                 return text;
             },
-            unlocked() { return hasUpgrade("q", 15) },
+            unlocked() { return hasUpgrade('q', 15) },
         },
         22: {
             title() {
@@ -1586,7 +1586,7 @@ addLayer("q", {
                 if (player.nerdMode) text += ' <br>formula: (x+1)^0.02';
                 return text;
             },
-            unlocked() { return hasUpgrade("q", 21) },
+            unlocked() { return hasUpgrade('q', 21) },
         },
         23: {
             title() {
@@ -1604,7 +1604,7 @@ addLayer("q", {
                 if (player.nerdMode) text += ' <br>formula: (x+1)^0.1';
                 return text;
             },
-            unlocked() { return hasUpgrade("q", 22) },
+            unlocked() { return hasUpgrade('q', 22) },
         },
         24: {
             title() {
@@ -1622,7 +1622,7 @@ addLayer("q", {
                 if (player.nerdMode) text += ' <br>formula: (x+1)^0.2';
                 return text;
             },
-            unlocked() { return hasUpgrade("q", 23) },
+            unlocked() { return hasUpgrade('q', 23) },
         },
         25: {
             title() {
@@ -1640,7 +1640,7 @@ addLayer("q", {
                 if (player.nerdMode) text += ' <br>formula: (x+1)^0.05';
                 return text;
             },
-            unlocked() { return hasUpgrade("q", 24) },
+            unlocked() { return hasUpgrade('q', 24) },
         },
         31: {
             title() {
@@ -1658,7 +1658,7 @@ addLayer("q", {
                 if (player.nerdMode) text += ' <br>formula: (x+1)^0.01';
                 return text;
             },
-            unlocked() { return hasUpgrade("q", 25) },
+            unlocked() { return hasUpgrade('q', 25) },
         },
         32: {
             title() {
@@ -1676,7 +1676,7 @@ addLayer("q", {
                 if (player.nerdMode) text += ' <br>formula: (x+1)^0.15';
                 return text;
             },
-            unlocked() { return hasUpgrade("q", 31) },
+            unlocked() { return hasUpgrade('q', 31) },
         },
         33: {
             title() {
@@ -1694,7 +1694,7 @@ addLayer("q", {
                 if (player.nerdMode) text += ' <br>formula: (x+1)^0.075';
                 return text;
             },
-            unlocked() { return hasUpgrade("q", 32) },
+            unlocked() { return hasUpgrade('q', 32) },
         },
         34: {
             title() {
@@ -1712,7 +1712,7 @@ addLayer("q", {
                 if (player.nerdMode) text += ' <br>formula: (x+1)^0.01';
                 return text;
             },
-            unlocked() { return hasUpgrade("q", 33) },
+            unlocked() { return hasUpgrade('q', 33) },
         },
         35: {
             title() {
@@ -1730,7 +1730,7 @@ addLayer("q", {
                 if (player.nerdMode) text += ' <br>formula: (x+1)^0.015';
                 return text;
             },
-            unlocked() { return hasUpgrade("q", 34) },
+            unlocked() { return hasUpgrade('q', 34) },
         },
         41: {
             title() {
@@ -1748,7 +1748,7 @@ addLayer("q", {
                 if (player.nerdMode) text += ' <br>formula: (x+1)^0.005';
                 return text;
             },
-            unlocked() { return hasMilestone("sp", 2) && hasUpgrade("q", 35) },
+            unlocked() { return hasMilestone('sp', 2) && hasUpgrade('q', 35) },
         },
         42: {
             title() {
@@ -1766,7 +1766,7 @@ addLayer("q", {
                 if (player.nerdMode) text += ' <br>formula: (x+1)^0.5';
                 return text;
             },
-            unlocked() { return hasMilestone("sp", 2) && hasUpgrade("q", 41) },
+            unlocked() { return hasMilestone('sp', 2) && hasUpgrade('q', 41) },
         },
         43: {
             title() {
@@ -1784,7 +1784,7 @@ addLayer("q", {
                 if (player.nerdMode) text += ' <br>formula: (x+1)^0.01';
                 return text;
             },
-            unlocked() { return hasMilestone("sp", 2) && hasUpgrade("q", 42) },
+            unlocked() { return hasMilestone('sp', 2) && hasUpgrade('q', 42) },
         },
         44: {
             title() {
@@ -1802,7 +1802,7 @@ addLayer("q", {
                 if (player.nerdMode) text += ' <br>formula: (x+1)^0.005';
                 return text;
             },
-            unlocked() { return hasMilestone("sp", 2) && hasUpgrade("q", 43) },
+            unlocked() { return hasMilestone('sp', 2) && hasUpgrade('q', 43) },
         },
         45: {
             title() {
@@ -1820,14 +1820,14 @@ addLayer("q", {
                 if (player.nerdMode) text += ' <br>formula: (x+1)^0.125';
                 return text;
             },
-            unlocked() { return hasMilestone("sp", 2) && hasUpgrade("q", 44) },
+            unlocked() { return hasMilestone('sp', 2) && hasUpgrade('q', 44) },
         },
     },
 });
 
-addLayer("sp", {
+addLayer('sp', {
     name: 'Subatomic Particles',
-    symbol: "SP",
+    symbol: 'SP',
     position: 2,
     startData() { return {
         unlocked: false,
@@ -1839,17 +1839,17 @@ addLayer("sp", {
     }},
     color() {
         if (player.q.points.gte(1e15) || player.sp.unlocked) return "#710CC4";
-        return "#666666";
+        return '#666666';
     },
-    branches: ["a"],
+    branches: ['a'],
     requires: 1e15,
-    resource: "subatomic particles",
-    baseResource: "quarks",
+    resource: 'subatomic particles',
+    baseResource: 'quarks',
     baseAmount() {return player.q.points},
-    type: "static",
+    type: 'static',
     exponent: 4.25,
     canBuyMax() {
-        if (hasMilestone("sp", 0)) return true;
+        if (hasMilestone('sp', 0)) return true;
         return false;
     },
     gainMult() {
@@ -1876,7 +1876,7 @@ addLayer("sp", {
     },
     row: 2,
     hotkeys: [
-        {key: "S", description: "Shift-S: Reset for subatomic particles", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
+        {key: 'S', description: "Shift-S: Reset for subatomic particles", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
     layerShown(){return player.q.unlocked},
     automate() {
@@ -1899,13 +1899,13 @@ addLayer("sp", {
     },
     doReset(resettingLayer) {
         let keep = [];
-            if (hasMilestone("ds", 0) && resettingLayer == "ds") keep.push("buyables");
-            if (hasMilestone("ds", 1) && resettingLayer == "ds") keep.push("upgrades");
-            if (hasMilestone("a", 0) && resettingLayer == "a") keep.push("buyables");
-            if (hasMilestone("a", 3) && resettingLayer == "a") keep.push("upgrades");
-            if (hasMilestone("a", 13) && resettingLayer == "a") keep.push("milestones");
-            if (hasMilestone("m", 4)) keep.push("auto_upgrades", "auto_buyables");
-            if (layers[resettingLayer].row > this.row) layerDataReset("sp", keep);
+            if (hasMilestone('ds', 0) && resettingLayer == 'ds') keep.push("buyables");
+            if (hasMilestone('ds', 1) && resettingLayer == 'ds') keep.push("upgrades");
+            if (hasMilestone('a', 0) && resettingLayer == 'a') keep.push("buyables");
+            if (hasMilestone('a', 3) && resettingLayer == 'a') keep.push("upgrades");
+            if (hasMilestone('a', 13) && resettingLayer == 'a') keep.push("milestones");
+            if (hasMilestone('m', 4)) keep.push("auto_upgrades", "auto_buyables");
+            if (layers[resettingLayer].row > this.row) layerDataReset('sp', keep);
         },
     resetsNothing() {
         if (hasMilestone('s', 11)) return true;
@@ -1962,7 +1962,7 @@ addLayer("sp", {
                 return 'squares the positive effect of <b class="layer-sp' + getdark(this, "ref") + 'Protons';
             },
             cost: 6,
-            unlocked() { return hasUpgrade("h", 53) },
+            unlocked() { return hasUpgrade('h', 53) },
         },
         12: {
             title() {
@@ -1972,7 +1972,7 @@ addLayer("sp", {
                 return 'squares the positive effect of <b class="layer-sp' + getdark(this, "ref") + 'Neutrons';
             },
             cost: 6,
-            unlocked() { return hasUpgrade("h", 53) },
+            unlocked() { return hasUpgrade('h', 53) },
         },
         13: {
             title() {
@@ -1982,7 +1982,7 @@ addLayer("sp", {
                 return 'squares the positive effect of <b class="layer-sp' + getdark(this, "ref") + 'Electrons';
             },
             cost: 6,
-            unlocked() { return hasUpgrade("h", 53) },
+            unlocked() { return hasUpgrade('h', 53) },
         },
     },
     buyables: {
@@ -2055,9 +2055,9 @@ addLayer("sp", {
     },
 });
 
-addLayer("h", {
+addLayer('h', {
     name: 'Hexes',
-    symbol: "H",
+    symbol: 'H',
     position: 0,
     startData() { return {
         unlocked: false,
@@ -2068,14 +2068,14 @@ addLayer("h", {
     }},
     color() {
         if (player.c.points.gte(1e60) || player.h.unlocked) return "#E36409";
-        return "#666666";
+        return '#666666';
     },
-    branches: ["ds"],
+    branches: ['ds'],
     requires: 1e60,
-    resource: "hexes",
-    baseResource: "cores",
+    resource: 'hexes',
+    baseResource: 'cores',
     baseAmount() {return player.c.points},
-    type: "normal",
+    type: 'normal',
     exponent: 0.5,
     gainMult() {
         mult = new Decimal(1);
@@ -2105,12 +2105,12 @@ addLayer("h", {
     softcapPower: 0.5,
     row: 2,
     hotkeys: [
-        {key: "h", description: "H: Reset for hexes", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
+        {key: 'h', description: "H: Reset for hexes", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
     layerShown(){return player.sp.unlocked},
     passiveGeneration() {
         let gen = 0;
-        if (hasMilestone("s", 9)) {
+        if (hasMilestone('s', 9)) {
             gen += 0.001;
         };
         return gen;
@@ -2155,11 +2155,11 @@ addLayer("h", {
     },
     doReset(resettingLayer) {
         let keep = [];
-            if (hasMilestone("ds", 8) && resettingLayer == "ds") keep.push("milestones");
-            if (hasMilestone("a", 6) && resettingLayer == "a") keep.push("milestones");
-            if (hasMilestone("a", 11) && (resettingLayer == "a" || resettingLayer == "ds")) keep.push("upgrades");
-            if (hasMilestone("m", 1)) keep.push("auto_upgrades");
-            if (layers[resettingLayer].row > this.row) layerDataReset("h", keep);
+            if (hasMilestone('ds', 8) && resettingLayer == 'ds') keep.push("milestones");
+            if (hasMilestone('a', 6) && resettingLayer == 'a') keep.push("milestones");
+            if (hasMilestone('a', 11) && (resettingLayer == 'a' || resettingLayer == 'ds')) keep.push("upgrades");
+            if (hasMilestone('m', 1)) keep.push("auto_upgrades");
+            if (layers[resettingLayer].row > this.row) layerDataReset('h', keep);
         },
     tabFormat: [
         "main-display",
@@ -2303,7 +2303,7 @@ addLayer("h", {
                 if (player.nerdMode) text += ' <br>formula: (x+1)^0.025';
                 return text;
             },
-            unlocked() { return hasUpgrade("h", 11) && hasUpgrade("h", 12) && hasUpgrade("h", 13) && hasUpgrade("h", 14) },
+            unlocked() { return hasUpgrade('h', 11) && hasUpgrade('h', 12) && hasUpgrade('h', 13) && hasUpgrade('h', 14) },
         },
         22: {
             title() {
@@ -2321,7 +2321,7 @@ addLayer("h", {
                 if (player.nerdMode) text += ' <br>formula: (x+1)^0.05';
                 return text;
             },
-            unlocked() { return hasUpgrade("h", 11) && hasUpgrade("h", 12) && hasUpgrade("h", 13) && hasUpgrade("h", 14) },
+            unlocked() { return hasUpgrade('h', 11) && hasUpgrade('h', 12) && hasUpgrade('h', 13) && hasUpgrade('h', 14) },
         },
         23: {
             title() {
@@ -2339,7 +2339,7 @@ addLayer("h", {
                 if (player.nerdMode) text += ' <br>formula: (x+1)^0.15';
                 return text;
             },
-            unlocked() { return hasUpgrade("h", 11) && hasUpgrade("h", 12) && hasUpgrade("h", 13) && hasUpgrade("h", 14) },
+            unlocked() { return hasUpgrade('h', 11) && hasUpgrade('h', 12) && hasUpgrade('h', 13) && hasUpgrade('h', 14) },
         },
         24: {
             title() {
@@ -2349,7 +2349,7 @@ addLayer("h", {
                 return 'Core gain is tripled';
             },
             cost: 25000,
-            unlocked() { return hasUpgrade("h", 11) && hasUpgrade("h", 12) && hasUpgrade("h", 13) && hasUpgrade("h", 14) },
+            unlocked() { return hasUpgrade('h', 11) && hasUpgrade('h', 12) && hasUpgrade('h', 13) && hasUpgrade('h', 14) },
         },
         31: {
             title() {
@@ -2367,7 +2367,7 @@ addLayer("h", {
                 if (player.nerdMode) text += ' <br>formula: (x+1)^0.002';
                 return text;
             },
-            unlocked() { return hasUpgrade("h", 21) && hasUpgrade("h", 22) && hasUpgrade("h", 23) && hasUpgrade("h", 24) },
+            unlocked() { return hasUpgrade('h', 21) && hasUpgrade('h', 22) && hasUpgrade('h', 23) && hasUpgrade('h', 24) },
         },
         32: {
             title() {
@@ -2385,7 +2385,7 @@ addLayer("h", {
                 if (player.nerdMode) text += ' <br>formula: (x+1)^0.01';
                 return text;
             },
-            unlocked() { return hasUpgrade("h", 21) && hasUpgrade("h", 22) && hasUpgrade("h", 23) && hasUpgrade("h", 24) },
+            unlocked() { return hasUpgrade('h', 21) && hasUpgrade('h', 22) && hasUpgrade('h', 23) && hasUpgrade('h', 24) },
         },
         33: {
             title() {
@@ -2403,7 +2403,7 @@ addLayer("h", {
                 if (player.nerdMode) text += ' <br>formula: (x+1)^0.025';
                 return text;
             },
-            unlocked() { return hasUpgrade("h", 21) && hasUpgrade("h", 22) && hasUpgrade("h", 23) && hasUpgrade("h", 24) },
+            unlocked() { return hasUpgrade('h', 21) && hasUpgrade('h', 22) && hasUpgrade('h', 23) && hasUpgrade('h', 24) },
         },
         34: {
             title() {
@@ -2413,7 +2413,7 @@ addLayer("h", {
                 return 'Quark gain is doubled';
             },
             cost: 2500000,
-            unlocked() { return hasUpgrade("h", 21) && hasUpgrade("h", 22) && hasUpgrade("h", 23) && hasUpgrade("h", 24) },
+            unlocked() { return hasUpgrade('h', 21) && hasUpgrade('h', 22) && hasUpgrade('h', 23) && hasUpgrade('h', 24) },
         },
         41: {
             title() {
@@ -2431,7 +2431,7 @@ addLayer("h", {
                 if (player.nerdMode) text += ' <br>formula: (x+1)^0.0001';
                 return text;
             },
-            unlocked() { return hasUpgrade("h", 31) && hasUpgrade("h", 32) && hasUpgrade("h", 33) && hasUpgrade("h", 34) },
+            unlocked() { return hasUpgrade('h', 31) && hasUpgrade('h', 32) && hasUpgrade('h', 33) && hasUpgrade('h', 34) },
         },
         42: {
             title() {
@@ -2449,7 +2449,7 @@ addLayer("h", {
                 if (player.nerdMode) text += ' <br>formula: (x+1)^0.001';
                 return text;
             },
-            unlocked() { return hasUpgrade("h", 31) && hasUpgrade("h", 32) && hasUpgrade("h", 33) && hasUpgrade("h", 34) },
+            unlocked() { return hasUpgrade('h', 31) && hasUpgrade('h', 32) && hasUpgrade('h', 33) && hasUpgrade('h', 34) },
         },
         43: {
             title() {
@@ -2459,7 +2459,7 @@ addLayer("h", {
                 return 'Gain 1% of core gain per second';
             },
             cost: 45000000,
-            unlocked() { return hasUpgrade("h", 31) && hasUpgrade("h", 32) && hasUpgrade("h", 33) && hasUpgrade("h", 34) },
+            unlocked() { return hasUpgrade('h', 31) && hasUpgrade('h', 32) && hasUpgrade('h', 33) && hasUpgrade('h', 34) },
         },
         44: {
             title() {
@@ -2469,7 +2469,7 @@ addLayer("h", {
                 return 'Increase the effect of <b class="layer-h' + getdark(this, "ref") + 'Core Continuation</b> by 9% (total: 10%)';
             },
             cost: 75000000,
-            unlocked() { return hasUpgrade("h", 31) && hasUpgrade("h", 32) && hasUpgrade("h", 33) && hasUpgrade("h", 34) },
+            unlocked() { return hasUpgrade('h', 31) && hasUpgrade('h', 32) && hasUpgrade('h', 33) && hasUpgrade('h', 34) },
         },
         51: {
             title() {
@@ -2479,7 +2479,7 @@ addLayer("h", {
                 return 'Increase essence gain per second by 25% if you have the <b class="layer-c' + getdark(this, "ref") + '4th core milestone</b> (total: 75%)';
             },
             cost: 9e90,
-            unlocked() { return hasUpgrade("ds", 11) && hasUpgrade("h", 41) && hasUpgrade("h", 42) && hasUpgrade("h", 43) && hasUpgrade("h", 44) },
+            unlocked() { return hasUpgrade('ds', 11) && hasUpgrade('h', 41) && hasUpgrade('h', 42) && hasUpgrade('h', 43) && hasUpgrade('h', 44) },
         },
         52: {
             title() {
@@ -2489,7 +2489,7 @@ addLayer("h", {
                 return 'Increase the effect of <b class="layer-h' + getdark(this, "ref") + 'Rapid Cores</b> by 15% (total: 25%)';
             },
             cost: 250000000,
-            unlocked() { return hasUpgrade("h", 41) && hasUpgrade("h", 42) && hasUpgrade("h", 43) && hasUpgrade("h", 44) },
+            unlocked() { return hasUpgrade('h', 41) && hasUpgrade('h', 42) && hasUpgrade('h', 43) && hasUpgrade('h', 44) },
         },
         53: {
             title() {
@@ -2499,7 +2499,7 @@ addLayer("h", {
                 return 'you can explore 3 new core upgrades and 3 new subatomic particle upgrades';
             },
             cost: 7.5e9,
-            unlocked() { return hasUpgrade("h", 41) && hasUpgrade("h", 42) && hasUpgrade("h", 43) && hasUpgrade("h", 44) },
+            unlocked() { return hasUpgrade('h', 41) && hasUpgrade('h', 42) && hasUpgrade('h', 43) && hasUpgrade('h', 44) },
         },
         54: {
             title() {
@@ -2509,7 +2509,7 @@ addLayer("h", {
                 return 'Increase the effect of <b class="layer-h' + getdark(this, "ref") + 'Faster Essence</b> by 25% (total: 100%)';
             },
             cost: 9.5e95,
-            unlocked() { return hasUpgrade("ds", 11) && hasUpgrade("h", 41) && hasUpgrade("h", 42) && hasUpgrade("h", 43) && hasUpgrade("h", 44) },
+            unlocked() { return hasUpgrade('ds', 11) && hasUpgrade('h', 41) && hasUpgrade('h', 42) && hasUpgrade('h', 43) && hasUpgrade('h', 44) },
         },
         61: {
             title() {
@@ -2519,7 +2519,7 @@ addLayer("h", {
                 return 'Increase the effect of <b class="layer-h' + getdark(this, "ref") + 'Fastest Essence</b> by 25% (total: 125%)';
             },
             cost: 1e100,
-            unlocked() { return hasUpgrade("ds", 12) && hasUpgrade("h", 51) && hasUpgrade("h", 52) && hasUpgrade("h", 53) && hasUpgrade("h", 54) },
+            unlocked() { return hasUpgrade('ds', 12) && hasUpgrade('h', 51) && hasUpgrade('h', 52) && hasUpgrade('h', 53) && hasUpgrade('h', 54) },
         },
         62: {
             title() {
@@ -2537,7 +2537,7 @@ addLayer("h", {
                 if (player.nerdMode) text += ' <br>formula: (x+1)^2.5';
                 return text;
             },
-            unlocked() { return hasUpgrade("h", 52) && hasUpgrade("h", 53) },
+            unlocked() { return hasUpgrade('h', 52) && hasUpgrade('h', 53) },
         },
         63: {
             title() {
@@ -2555,7 +2555,7 @@ addLayer("h", {
                 if (player.nerdMode) text += ' <br>formula: (x+1)^0.02';
                 return text;
             },
-            unlocked() { return hasUpgrade("h", 52) && hasUpgrade("h", 53) },
+            unlocked() { return hasUpgrade('h', 52) && hasUpgrade('h', 53) },
         },
         64: {
             title() {
@@ -2565,14 +2565,14 @@ addLayer("h", {
                 return 'Increase the effect of <b class="layer-h' + getdark(this, "ref") + 'Essence Overdrive</b> by 25% (total: 150%)';
             },
             cost: 1.11e111,
-            unlocked() { return hasUpgrade("ds", 12) && hasUpgrade("h", 51) && hasUpgrade("h", 52) && hasUpgrade("h", 53) && hasUpgrade("h", 54) },
+            unlocked() { return hasUpgrade('ds', 12) && hasUpgrade('h', 51) && hasUpgrade('h', 52) && hasUpgrade('h', 53) && hasUpgrade('h', 54) },
         },
     },
 });
 
-addLayer("ds", {
+addLayer('ds', {
     name: 'Demon Souls',
-    symbol: "DS",
+    symbol: 'DS',
     position: 0,
     startData() { return {
         unlocked: false,
@@ -2584,13 +2584,13 @@ addLayer("ds", {
     }},
     color() {
         if (player.h.points.gte(1e60) || player.ds.unlocked) return "#BA0035";
-        return "#666666";
+        return '#666666';
     },
     requires: 1e60,
-    resource: "demon souls",
-    baseResource: "hexes",
+    resource: 'demon souls',
+    baseResource: 'hexes',
     baseAmount() {return player.h.points},
-    type: "normal",
+    type: 'normal',
     exponent: 0.05,
     gainMult() {
         mult = new Decimal(1);
@@ -2607,12 +2607,12 @@ addLayer("ds", {
     },
     row: 3,
     hotkeys: [
-        {key: "d", description: "D: Reset for demon souls", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
+        {key: 'd', description: "D: Reset for demon souls", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
     layerShown(){return player.h.unlocked},
     passiveGeneration() {
         let gen = 0;
-        if (hasMilestone("s", 10)) {
+        if (hasMilestone('s', 10)) {
             gen += 0.00001;
         };
         return gen;
@@ -2644,7 +2644,7 @@ addLayer("ds", {
             if (hasMilestone('m', 5)) keep.push("auto_upgrades");
             if (hasMilestone('m', 6)) keep.push("auto_buyables");
             if (layers[resettingLayer].row > this.row) {
-                layerDataReset("ds", keep);
+                layerDataReset('ds', keep);
                 player[this.layer].upgrades = saveupg;
             };
         },
@@ -2672,7 +2672,7 @@ addLayer("ds", {
                 "blank",
             ],
             unlocked() {
-                if (hasUpgrade("ds", 22)) return true;
+                if (hasUpgrade('ds', 22)) return true;
                 return false;
             },
         },
@@ -2753,7 +2753,7 @@ addLayer("ds", {
                 return text;
             },
             cost: 5000,
-            unlocked() { return hasUpgrade("ds", 11) && hasUpgrade("ds", 12) }
+            unlocked() { return hasUpgrade('ds', 11) && hasUpgrade('ds', 12) }
         },
         22: {
             title() {
@@ -2763,7 +2763,7 @@ addLayer("ds", {
                 return 'unlocks the <b class="layer-ds' + getdark(this, "ref") + 'Demon Gateway</b>';
             },
             cost: 100000,
-            unlocked() { return hasUpgrade("ds", 11) && hasUpgrade("ds", 12) }
+            unlocked() { return hasUpgrade('ds', 11) && hasUpgrade('ds', 12) }
         },
         23: {
             title() {
@@ -2775,7 +2775,7 @@ addLayer("ds", {
                 return text;
             },
             cost: 2500000,
-            unlocked() { return hasUpgrade("ds", 11) && hasUpgrade("ds", 12) && hasUpgrade("ds", 21) }
+            unlocked() { return hasUpgrade('ds', 11) && hasUpgrade('ds', 12) && hasUpgrade('ds', 21) }
         },
         24: {
             title() {
@@ -2787,7 +2787,7 @@ addLayer("ds", {
                 return text;
             },
             cost: 1.11e11,
-            unlocked() { return hasUpgrade("ds", 11) && hasUpgrade("ds", 12) && hasUpgrade("ds", 23) }
+            unlocked() { return hasUpgrade('ds', 11) && hasUpgrade('ds', 12) && hasUpgrade('ds', 23) }
         },
     },
     buyables: {
@@ -2831,7 +2831,7 @@ addLayer("ds", {
                 return false;
             },
             onEnter() {
-                doReset("ds");
+                doReset('ds');
             },
             rewardDescription: "multiplies hex and demon soul gain based on your demon souls",
             rewardDisplay() {
@@ -2855,7 +2855,7 @@ addLayer("ds", {
                 return false;
             },
             onEnter() {
-                doReset("ds");
+                doReset('ds');
             },
             unlocked() {
                 if (hasChallenge('ds', 11)) return true;
@@ -2883,7 +2883,7 @@ addLayer("ds", {
                 return false;
             },
             onEnter() {
-                doReset("ds");
+                doReset('ds');
             },
             unlocked() {
                 if (hasChallenge('ds', 12)) return true;
@@ -2911,7 +2911,7 @@ addLayer("ds", {
                 return false;
             },
             onEnter() {
-                doReset("ds");
+                doReset('ds');
             },
             unlocked() {
                 if (hasMilestone('a', 7)) return true;
@@ -2922,9 +2922,9 @@ addLayer("ds", {
     },
 });
 
-addLayer("a", {
+addLayer('a', {
     name: 'Atoms',
-    symbol: "A",
+    symbol: 'A',
     position: 2,
     startData() { return {
         unlocked: false,
@@ -2934,14 +2934,14 @@ addLayer("a", {
     }},
     color() {
         if (player.sp.points.gte(10000) || player.a.unlocked) return "#4D2FE0";
-        return "#666666";
+        return '#666666';
     },
-    branches: ["m"],
+    branches: ['m'],
     requires: 1000,
-    resource: "atoms",
-    baseResource: "subatomic particles",
+    resource: 'atoms',
+    baseResource: 'subatomic particles',
     baseAmount() {return player.sp.points},
-    type: "static",
+    type: 'static',
     exponent: 1,
     canBuyMax() { return true },
     gainMult() {
@@ -2966,7 +2966,7 @@ addLayer("a", {
     },
     row: 3,
     hotkeys: [
-        {key: "a", description: "A: Reset for atoms", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
+        {key: 'a', description: "A: Reset for atoms", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
     layerShown(){return player.ds.unlocked},
     doReset(resettingLayer) {
@@ -2975,7 +2975,7 @@ addLayer("a", {
                 keep.push("milestones", "points", "best", "total");
                 if (hasMilestone('a', 12)) keep.push("upgrades");
             };
-            if (layers[resettingLayer].row >= this.row) layerDataReset("a", keep);
+            if (layers[resettingLayer].row >= this.row) layerDataReset('a', keep);
         },
     resetsNothing() {
         if (hasMilestone('a', 14)) return true;
@@ -3395,9 +3395,9 @@ addLayer("a", {
     },
 });
 
-addLayer("p", {
+addLayer('p', {
     name: 'Prayers',
-    symbol: "P",
+    symbol: 'P',
     position: 1,
     startData() { return {
         unlocked: false,
@@ -3415,14 +3415,14 @@ addLayer("p", {
     }},
     color() {
         if (player.e.points.gte(new Decimal("1e1000")) || player.p.unlocked) return "#FDBBFF";
-        return "#666666";
+        return '#666666';
     },
-    branches: ["s"],
+    branches: ['s'],
     requires: new Decimal("1e1000"),
-    resource: "prayers",
-    baseResource: "essence",
+    resource: 'prayers',
+    baseResource: 'essence',
     baseAmount() {return player.e.points},
-    type: "normal",
+    type: 'normal',
     exponent: 0.012,
     gainMult() {
         mult = new Decimal(1);
@@ -3442,14 +3442,14 @@ addLayer("p", {
     },
     row: 1,
     hotkeys: [
-        {key: "p", description: "P: Reset for prayers", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
+        {key: 'p', description: "P: Reset for prayers", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
     layerShown(){return player.a.unlocked},
     passiveGeneration() {
         let gen = 0;
-        if (hasMilestone("s", 7)) {
+        if (hasMilestone('s', 7)) {
             gen += 0.005;
-            if (hasMilestone("s", 15)) gen = gen + 0.045;
+            if (hasMilestone('s', 15)) gen = gen + 0.045;
         };
         return gen;
     },
@@ -3524,27 +3524,27 @@ addLayer("p", {
     },
     doReset(resettingLayer) {
         let keep = [];
-            if (resettingLayer == "h") keep.push("points", "best", "total", "milestones");
-            if (resettingLayer == "sp") keep.push("points", "best", "total", "milestones");
-            if (resettingLayer == "r") keep.push("milestones");
+            if (resettingLayer == 'h') keep.push("points", "best", "total", "milestones");
+            if (resettingLayer == 'sp') keep.push("points", "best", "total", "milestones");
+            if (resettingLayer == 'r') keep.push("milestones");
             if (hasMilestone('s', 5)) keep.push("auto_upgrades");
             if (hasMilestone('s', 6)) keep.push("smart_auto_upgrades");
-            if (hasMilestone('s', 25) && resettingLayer == "s") keep.push("milestones");
-            if (hasUpgrade('p', 22) && resettingLayer == "p") {
+            if (hasMilestone('s', 25) && resettingLayer == 's') keep.push("milestones");
+            if (hasUpgrade('p', 22) && resettingLayer == 'p') {
                 mult = new Decimal(1);
                 if (hasUpgrade('p', 61)) mult = mult.mul(upgradeEffect('p', 61));
                 if (hasUpgrade('p', 23) && hasUpgrade('p', 25)) player.p.holiness = player.p.holiness.add(player.p.divinity.mul(0.08).mul(mult));
                 else if (hasUpgrade('p', 23)) player.p.holiness = player.p.holiness.add(player.p.divinity.mul(0.06).mul(mult));
                 else player.p.holiness = player.p.holiness.add(player.p.divinity.mul(0.04).mul(mult));
             };
-            if (hasUpgrade('p', 41) && resettingLayer == "p") {
+            if (hasUpgrade('p', 41) && resettingLayer == 'p') {
                 if (hasUpgrade('p', 51) && hasUpgrade('p', 55)) player.p.hymn = player.p.hymn.add(player.p.holiness.div(175).floor());
                 else if (hasUpgrade('p', 51)) player.p.hymn = player.p.hymn.add(player.p.holiness.div(200).floor());
                 else player.p.hymn = player.p.hymn.add(player.p.holiness.div(250).floor());
             };
             if (layers[resettingLayer].row >= this.row) player.p.divinity = new Decimal(0);
             if (layers[resettingLayer].row > this.row) {
-                layerDataReset("p", keep);
+                layerDataReset('p', keep);
                 if (!keep.includes("holiness")) player.p.holiness = new Decimal(0);
                 if (!keep.includes("hymn")) player.p.hymn = new Decimal(0);
             };
@@ -4082,9 +4082,9 @@ addLayer("p", {
     },
 });
 
-addLayer("s", {
+addLayer('s', {
     name: 'Sanctums',
-    symbol: "S",
+    symbol: 'S',
     position: 1,
     startData() { return {
         unlocked: false,
@@ -4099,14 +4099,14 @@ addLayer("s", {
     }},
     color() {
         if (player.p.points.gte(1e15) || player.s.unlocked) return "#AAFF00";
-        return "#666666";
+        return '#666666';
     },
-    branches: ["r"],
+    branches: ['r'],
     requires: 1e15,
-    resource: "sanctums",
-    baseResource: "prayers",
+    resource: 'sanctums',
+    baseResource: 'prayers',
     baseAmount() {return player.p.points},
-    type: "static",
+    type: 'static',
     exponent() {
         if (hasUpgrade('p', 65) && hasUpgrade('p', 74)) return 3.48;
         if (hasUpgrade('p', 65)) return 4;
@@ -4132,7 +4132,7 @@ addLayer("s", {
     },
     row: 2,
     hotkeys: [
-        {key: "s", description: "S: Reset for sanctums", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
+        {key: 's', description: "S: Reset for sanctums", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
     layerShown(){return player.p.unlocked},
     effect() {
@@ -4180,7 +4180,7 @@ addLayer("s", {
                         return 'you have <h2 class="layer-s">' + format(player.s.devotion) + '</h2> devotion, which multiplies sanctum gain by <h2 class="layer-s">' + format(player.s.devotion_effect);
                     }],
                 "blank",
-                ["layer-proxy", ["d", ["buyables"]]],
+                ["layer-proxy", ['d', ["buyables"]]],
                 "blank",
                 "blank",
             ],
@@ -4200,13 +4200,13 @@ addLayer("s", {
             requirementDescription: '2 sanctums',
             effectDescription: 'you can autobuy core upgrades',
             done() { return player.s.points.gte(2) },
-            toggles: [["c", "auto_upgrades"]],
+            toggles: [['c', "auto_upgrades"]],
         },
         2: {
             requirementDescription: '3 sanctums',
             effectDescription: 'you can autobuy core buyables',
             done() { return player.s.points.gte(3) },
-            toggles: [["c", "auto_buyables"]],
+            toggles: [['c', "auto_buyables"]],
         },
         3: {
             requirementDescription: '4 sanctums',
@@ -4217,19 +4217,19 @@ addLayer("s", {
             requirementDescription: '5 sanctums',
             effectDescription: 'you can autobuy quark upgrades',
             done() { return player.s.points.gte(5) },
-            toggles: [["q", "auto_upgrades"]],
+            toggles: [['q', "auto_upgrades"]],
         },
         5: {
             requirementDescription: '6 sanctums',
             effectDescription: 'you can autobuy prayer upgrades',
             done() { return player.s.points.gte(6) },
-            toggles: [["p", "auto_upgrades"]],
+            toggles: [['p', "auto_upgrades"]],
         },
         6: {
             requirementDescription: '7 sanctums',
             effectDescription: 'you can have autobuy prayer upgrades<br>option be smart (toggle on or off)',
             done() { return player.s.points.gte(7) },
-            toggles: [["p", "smart_auto_upgrades"]],
+            toggles: [['p', "smart_auto_upgrades"]],
         },
         7: {
             requirementDescription: '8 sanctums',
@@ -4315,7 +4315,7 @@ addLayer("s", {
                 return 'you can auto <b class="layer-s' + getdark(this, "ref", true, true) + 'Worship';
             },
             done() { return player.s.points.gte(30) },
-            toggles: [["s", "auto_worship"]],
+            toggles: [['s', "auto_worship"]],
             unlocked() { return hasMilestone('s', 13) },
         },
         20: {
@@ -4391,7 +4391,7 @@ addLayer("s", {
                 return 'you can auto perform<br><b class="layer-s' + getdark(this, "ref", true, true) + 'Sacrificial Ceremonies';
             },
             done() { return player.s.points.gte(49) },
-            toggles: [["s", "auto_sacrificial_ceremony"]],
+            toggles: [['s', "auto_sacrificial_ceremony"]],
             unlocked() { return hasMilestone('s', 13) },
         },
         29: {
@@ -4479,7 +4479,7 @@ addLayer("s", {
                 return 'you can auto <b class="layer-s' + getdark(this, "ref", true, true) + 'Sacrifice';
             },
             done() { return player.s.points.gte(85) },
-            toggles: [["s", "auto_sacrifice"]],
+            toggles: [['s', "auto_sacrifice"]],
             unlocked() { return hasMilestone('s', 13) },
         },
         39: {
@@ -4581,9 +4581,9 @@ addLayer("s", {
     },
 });
 
-addLayer("d", {
+addLayer('d', {
     name: 'Devotion',
-    symbol: "D",
+    symbol: 'D',
     position: 3,
     row: 2,
     layerShown() {return false},
@@ -4738,9 +4738,9 @@ addLayer("d", {
     },
 });
 
-addLayer("r", {
+addLayer('r', {
     name: 'Relics',
-    symbol: "R",
+    symbol: 'R',
     position: 1,
     startData() { return {
         unlocked: false,
@@ -4757,13 +4757,13 @@ addLayer("r", {
     }},
     color() {
         if (player.s.points.gte(10) || player.r.unlocked) return "#B9A975";
-        return "#666666";
+        return '#666666';
     },
     requires: 10,
-    resource: "relics",
-    baseResource: "sanctums",
+    resource: 'relics',
+    baseResource: 'sanctums',
     baseAmount() {return player.s.points},
-    type: "static",
+    type: 'static',
     exponent: 0.66,
     canBuyMax() {
         return true;
@@ -4778,7 +4778,7 @@ addLayer("r", {
     },
     row: 3,
     hotkeys: [
-        {key: "r", description: "R: Reset for relics", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
+        {key: 'r', description: "R: Reset for relics", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
     layerShown(){return player.p.unlocked},
     effect() {
@@ -4813,8 +4813,8 @@ addLayer("r", {
     },
     doReset(resettingLayer) {
         let keep = [];
-            if (hasMilestone("m", 0) && resettingLayer == "m") return;
-            if (layers[resettingLayer].row > this.row) layerDataReset("r", keep);
+            if (hasMilestone('m', 0) && resettingLayer == 'm') return;
+            if (layers[resettingLayer].row > this.row) layerDataReset('r', keep);
         },
     update(diff) {
         player.r.lightreq = new Decimal(20000).mul(new Decimal(5).pow(challengeCompletions('r', 11)));
@@ -4918,9 +4918,9 @@ addLayer("r", {
     },
 });
 
-addLayer("m", {
+addLayer('m', {
     name: 'Molecules',
-    symbol: "M",
+    symbol: 'M',
     position: 2,
     startData() { return {
         unlocked: false,
@@ -4930,13 +4930,13 @@ addLayer("m", {
     }},
     color() {
         if (player.a.points.gte(30000) || player.m.unlocked) return "#00E0E0";
-        return "#666666";
+        return '#666666';
     },
     requires: 30000,
-    resource: "molecules",
-    baseResource: "atoms",
+    resource: 'molecules',
+    baseResource: 'atoms',
     baseAmount() {return player.a.points},
-    type: "normal",
+    type: 'normal',
     exponent: 0.9,
     gainMult() {
         mult = new Decimal(1);
@@ -4947,7 +4947,7 @@ addLayer("m", {
     },
     row: 4,
     hotkeys: [
-        {key: "m", description: "M: Reset for molecules", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
+        {key: 'm', description: "M: Reset for molecules", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
     layerShown(){return challengeCompletions('r', 11) >= 10 || player.m.points.gt(0)},
     effect() {
@@ -4960,7 +4960,7 @@ addLayer("m", {
     },
     doReset(resettingLayer) {
         let keep = [];
-            if (layers[resettingLayer].row > this.row) layerDataReset("a", keep);
+            if (layers[resettingLayer].row > this.row) layerDataReset('a', keep);
         },
     tabFormat: {
         "Microscope": {
@@ -4987,19 +4987,19 @@ addLayer("m", {
             requirementDescription: '1 molecule',
             effectDescription: 'molecules don\'t reset relics, and<br>you can autobuy essence buyables',
             done() { return player.m.points.gte(1) },
-            toggles: [["e", "auto_buyables"]],
+            toggles: [['e', "auto_buyables"]],
         },
         1: {
             requirementDescription: '2 total molecules',
             effectDescription: 'keep demon soul challenges and<br><b class="layer-ds' + getdark(this, "ref", true, true) + 'Demonic Key</b> on molecule resets,<br>and you can autobuy hex upgrades',
             done() { return player.m.total.gte(2) },
-            toggles: [["h", "auto_upgrades"]],
+            toggles: [['h', "auto_upgrades"]],
         },
         2: {
             requirementDescription: '3 total molecules',
             effectDescription: 'molecules don\'t reset essence, and<br>you can autobuy essence upgrades',
             done() { return player.m.total.gte(3) },
-            toggles: [["e", "auto_upgrades"]],
+            toggles: [['e', "auto_upgrades"]],
         },
         3: {
             requirementDescription: '4 total molecules',
@@ -5010,19 +5010,19 @@ addLayer("m", {
             requirementDescription: '5 total molecules',
             effectDescription: 'molecules don\'t reset cores, and<br>you can autobuy subatomic<br>particle upgrades and buyables',
             done() { return player.m.total.gte(5) },
-            toggles: [["sp", "auto_upgrades"], ["sp", "auto_buyables"]],
+            toggles: [['sp', "auto_upgrades"], ['sp', "auto_buyables"]],
         },
         5: {
             requirementDescription: '7 total molecules',
             effectDescription: 'molecules don\'t reset quarks, and<br>you can autobuy demon soul upgrades',
             done() { return player.m.total.gte(7) },
-            toggles: [["ds", "auto_upgrades"]],
+            toggles: [['ds', "auto_upgrades"]],
         },
         6: {
             requirementDescription: '10 total molecules',
             effectDescription: 'you can autobuy demon soul buyables',
             done() { return player.m.total.gte(10) },
-            toggles: [["ds", "auto_buyables"]],
+            toggles: [['ds', "auto_buyables"]],
         },
         7: {
             requirementDescription: '15 total molecules',
