@@ -3,7 +3,7 @@
 function respecBuyables(layer) {
 	if (!layers[layer].buyables) return;
 	if (!layers[layer].buyables.respec) return;
-	if (!player[layer].noRespecConfirm && !confirm(tmp[layer].buyables.respecMessage || "Are you sure you want to respec? This will force you to do a \"" + (tmp[layer].name ? tmp[layer].name : layer) + "\" reset as well!")) return;
+	if (!player[layer].noRespecConfirm && !confirm(tmp[layer].buyables.respecMessage || 'Are you sure you want to respec? This will force you to do a "'+(tmp[layer].name?tmp[layer].name:layer)+'" reset as well!')) return;
 	run(layers[layer].buyables.respec, layers[layer].buyables);
 	updateBuyableTemp(layer);
 	document.activeElement.blur();
@@ -132,9 +132,9 @@ function showTab(name, prev) {
 	if (tmp[name] && player.tab === name && isPlainObject(tmp[name].tabFormat)) {
 		player.subtabs[name].mainTabs = Object.keys(layers[name].tabFormat)[0];
 	};
-	var toTreeTab = name == "none";
+	var toTreeTab = name == 'none';
 	player.tab = name;
-	if (tmp[name] && (tmp[name].row !== "side") && (tmp[name].row !== "otherside")) player.lastSafeTab = name;
+	if (tmp[name] && (tmp[name].row !== 'side') && (tmp[name].row !== 'otherside')) player.lastSafeTab = name;
 	updateTabFormats();
 	needCanvasUpdate = true;
 	document.activeElement.blur();
@@ -145,20 +145,20 @@ function showNavTab(name, prev) {
 	if (LAYERS.includes(name) && !layerunlocked(name)) return;
 	if (player.navTab !== name) clearParticles(function(p) {return p.layer === player.navTab});
 	if (tmp[name] && tmp[name].previousTab !== undefined) prev = tmp[name].previousTab;
-	var toTreeTab = name == "tree-tab";
+	var toTreeTab = name == 'tree-tab';
 	console.log(name + prev);
-	if (name!== "none" && prev && !tmp[prev]?.leftTab == !tmp[name]?.leftTab) player[name].prevTab = prev;
+	if (name!== 'none' && prev && !tmp[prev]?.leftTab == !tmp[name]?.leftTab) player[name].prevTab = prev;
 	else if (player[name])
-		player[name].prevTab = "";
+		player[name].prevTab = '';
 	player.navTab = name;
 	updateTabFormats();
 	needCanvasUpdate = true;
 };
 
 function goBack(layer) {
-	let nextTab = "none";
+	let nextTab = 'none';
 	if (player[layer].prevTab) nextTab = player[layer].prevTab;
-	if (player.navTab === "none" && (tmp[layer]?.row == "side" || tmp[layer].row == "otherside")) nextTab = player.lastSafeTab;
+	if (player.navTab === 'none' && (tmp[layer]?.row == 'side' || tmp[layer].row == 'otherside')) nextTab = player.lastSafeTab;
 	if (tmp[layer].leftTab) showNavTab(nextTab, layer);
 	else showTab(nextTab, layer);
 };
@@ -184,8 +184,8 @@ function prestigeNotify(layer) {
 		};
 	};
 	if (tmp[layer].autoPrestige || tmp[layer].passiveGeneration) return false;
-	else if (tmp[layer].type == "static") return tmp[layer].canReset;
-	else if (tmp[layer].type == "normal") return (tmp[layer].canReset && (tmp[layer].resetGain.gte(player[layer].points.div(10))));
+	else if (tmp[layer].type == 'static') return tmp[layer].canReset;
+	else if (tmp[layer].type == 'normal') return (tmp[layer].canReset && (tmp[layer].resetGain.gte(player[layer].points.div(10))));
 	else return false;
 };
 
@@ -196,7 +196,7 @@ function notifyLayer(name) {
 
 function subtabShouldNotify(layer, family, id) {
     let subtab = {};
-    if (family == "mainTabs") subtab = tmp[layer].tabFormat[id];
+    if (family == 'mainTabs') subtab = tmp[layer].tabFormat[id];
     else subtab = tmp[layer].microtabs[family][id];
 	if (!subtab.unlocked) return false;
     if (subtab.embedLayer) return tmp[subtab.embedLayer].notify;
@@ -205,7 +205,7 @@ function subtabShouldNotify(layer, family, id) {
 
 function subtabResetNotify(layer, family, id) {
 	let subtab = {};
-	if (family == "mainTabs") subtab = tmp[layer].tabFormat[id];
+	if (family == 'mainTabs') subtab = tmp[layer].tabFormat[id];
 	else subtab = tmp[layer].microtabs[family][id];
 	if (subtab.embedLayer) return tmp[subtab.embedLayer].prestigeNotify;
 	else return subtab.prestigeNotify;
@@ -216,7 +216,7 @@ function nodeShown(layer) {
 };
 
 function layerunlocked(layer) {
-	if (tmp[layer] && tmp[layer].type == "none") return (player[layer].unlocked);
+	if (tmp[layer] && tmp[layer].type == 'none') return (player[layer].unlocked);
 	return LAYERS.includes(layer) && (player[layer].unlocked || (tmp[layer].canReset && tmp[layer].layerShown));
 };
 
@@ -242,7 +242,7 @@ function updateMilestones(layer) {
 		if (!(hasMilestone(layer, id)) && layers[layer].milestones[id].done()) {
 			player[layer].milestones.push(id);
 			if (layers[layer].milestones[id].onComplete) layers[layer].milestones[id].onComplete();
-			if (tmp[layer].milestonePopups || tmp[layer].milestonePopups === undefined) doPopup("milestone", tmp[layer].milestones[id].requirementDescription, "Milestone Gotten!", 3, tmp[layer].color);
+			if (tmp[layer].milestonePopups || tmp[layer].milestonePopups === undefined) doPopup('milestone',tmp[layer].milestones[id].requirementDescription,'Milestone Gotten!',3,tmp[layer].color);
 			player[layer].lastMilestone = id;
 		};
 	};
@@ -254,7 +254,7 @@ function updateAchievements(layer) {
 		if (isPlainObject(layers[layer].achievements[id]) && !(hasAchievement(layer, id)) && layers[layer].achievements[id].done()) {
 			player[layer].achievements.push(id);
 			if (layers[layer].achievements[id].onComplete) layers[layer].achievements[id].onComplete();
-			if (tmp[layer].achievementPopups || tmp[layer].achievementPopups === undefined) doPopup("achievement", tmp[layer].achievements[id].name, "Achievement Gotten!", 3, tmp[layer].color);
+			if (tmp[layer].achievementPopups || tmp[layer].achievementPopups === undefined) doPopup('achievement',tmp[layer].achievements[id].name,'Achievement Gotten!',3,tmp[layer].color);
 		};
 	};
 };
@@ -268,10 +268,10 @@ function addTime(diff, layer) {
 	};
 	//I am not that good to perfectly fix that leak. ~ DB Aarex
 	if (time + 0 !== time) {
-		console.log("Memory leak detected. Trying to fix...");
+		console.log('Memory leak detected. Trying to fix...');
 		time = toNumber(time);
 		if (isNaN(time) || time == 0) {
-			console.log("Couldn't fix! Resetting...");
+			console.log('Couldn\'t fix! Resetting...');
 			time = layer ? player.timePlayed : 0;
 			if (!layer) player.timePlayedReset = true;
 		};
@@ -291,7 +291,7 @@ document.onkeydown = function (e) {
 	if (tmp.gameEnded && !player.keepGoing) return;
 	player.nerdMode = ctrlDown ? !player.nerdMode : player.nerdMode;
 	let key = e.key;
-	if (ctrlDown) key = "ctrl+" + key;
+	if (ctrlDown) key = 'ctrl+' + key;
 	if (onFocused) return;
 	if (ctrlDown && hotkeys[key]) e.preventDefault();
 	if (hotkeys[key]) {
@@ -339,34 +339,33 @@ var activePopups = [];
 var popupID = 0;
 
 // Function to show popups
-function doPopup(type = "none", text = "This is a test popup.", title = "", timer = 3, color = "") {
+function doPopup(type = 'none', text = 'This is a test popup.', title = '', timer = 3, color = '') {
 	switch (type) {
-		case "achievement":
-			popupTitle = "Achievement Unlocked!";
-			popupType = "achievement-popup";
+		case 'achievement':
+			popupTitle = 'Achievement Unlocked!';
+			popupType = 'achievement-popup';
 			break;
-		case "challenge":
-			popupTitle = "Challenge Complete";
-			popupType = "challenge-popup";
+		case 'challenge':
+			popupTitle = 'Challenge Complete';
+			popupType = 'challenge-popup';
 			break;
 		default:
-			popupTitle = "Something Happened?";
-			popupType = "default-popup";
+			popupTitle = 'Something Happened?';
+			popupType = 'default-popup';
 			break;
 	};
-	if (title != "") popupTitle = title;
+	if (title != '') popupTitle = title;
 	popupMessage = text;
 	popupTimer = timer;
-	activePopups.push({ "time": popupTimer, "type": popupType, "title": popupTitle, "message": (popupMessage + "\n"), "id": popupID, "color": color });
+	activePopups.push({'time':popupTimer,'type':popupType,'title':popupTitle,'message':(popupMessage+'<br>'),'id':popupID,'color':color});
 	popupID++;
 };
-
 
 //Function to reduce time on active popups
 function adjustPopupTime(diff) {
 	for (popup in activePopups) {
 		activePopups[popup].time -= diff;
-		if (activePopups[popup]["time"] < 0) {
+		if (activePopups[popup]['time'] < 0) {
 			activePopups.splice(popup, 1); // Remove popup when time hits 0
 		};
 	};

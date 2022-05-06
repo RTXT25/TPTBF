@@ -137,7 +137,7 @@ var systemComponents = {
         <a class="link" href="https://discord.gg/F3xveHV" target="_blank" v-bind:style="modInfo.discordLink ? {'font-size': '16px'} : {}">The Modding Tree Discord</a><br>
         <a class="link" href="http://discord.gg/wwQfgPa" target="_blank" v-bind:style="{'font-size': '16px'}">Main Prestige Tree server</a><br>
 		<br><br>
-        Time Played: {{ formatTime(player.timePlayed) }}<br><br>
+        Time Played: {{formatTime(player.timePlayed)}}<br><br>
         <h3>Hotkeys</h3><br>
         <span v-for="key in hotkeys" v-if="player[key.layer].unlocked && tmp[key.layer].hotkeys[key.id].unlocked"><br>{{key.description}}</span></div>
     	`
@@ -148,28 +148,28 @@ var systemComponents = {
         <table>
             <tr>
                 <td><button class="opt" onclick="save()">Save</button></td>
-                <td><button class="opt" onclick="toggleOpt('autosave')">Autosave: {{ options.autosave?"ON":"OFF" }}</button></td>
+                <td><button class="opt" onclick="toggleOpt('autosave')">Autosave: {{options.autosave?"ON":"OFF"}}</button></td>
                 <td><button class="opt" onclick="hardReset()">HARD RESET</button></td>
             </tr>
             <tr>
                 <td><button class="opt" onclick="exportSave()">Export to clipboard</button></td>
                 <td><button class="opt" onclick="importSave()">Import</button></td>
-                <td><button class="opt" onclick="toggleOpt('offlineProd')">Offline Prod: {{ options.offlineProd?"ON":"OFF" }}</button></td>
+                <td><button class="opt" onclick="toggleOpt('offlineProd')">Offline Prod: {{options.offlineProd?"ON":"OFF"}}</button></td>
             </tr>
             <tr>
-                <td><button class="opt" onclick="switchTheme()">Theme: {{ getThemeName() }}</button></td>
-                <td><button class="opt" onclick="adjustMSDisp()">Show Milestones: {{ MS_DISPLAYS[MS_SETTINGS.indexOf(options.msDisplay)]}}</button></td>
-                <td><button class="opt" onclick="toggleOpt('hqTree')">High-Quality Tree: {{ options.hqTree?"ON":"OFF" }}</button></td>
+                <td><button class="opt" onclick="switchTheme()">Theme: {{getThemeName()}}</button></td>
+                <td><button class="opt" onclick="adjustMSDisp()">Show Milestones: {{MS_DISPLAYS[MS_SETTINGS.indexOf(options.msDisplay)]}}</button></td>
+                <td><button class="opt" onclick="toggleOpt('hqTree')">High-Quality Tree: {{options.hqTree?"ON":"OFF"}}</button></td>
             </tr>
             <tr>
-                <td><button class="opt" onclick="toggleOpt('hideChallenges')">Completed Challenges: {{ options.hideChallenges?"HIDDEN":"SHOWN" }}</button></td>
-                <td><button class="opt" onclick="toggleOpt('forceOneTab'); needsCanvasUpdate = true">Single-Tab Mode: {{ options.forceOneTab?"ALWAYS":"AUTO" }}</button></td>
-				<td><button class="opt" onclick="toggleOpt('forceTooltips'); needsCanvasUpdate = true">Shift-Click to Toggle Tooltips: {{ options.forceTooltips?"ON":"OFF" }}</button></td>
+                <td><button class="opt" onclick="toggleOpt('hideChallenges')">Completed Challenges: {{options.hideChallenges?"HIDDEN":"SHOWN"}}</button></td>
+                <td><button class="opt" onclick="toggleOpt('forceOneTab'); needsCanvasUpdate = true">Single-Tab Mode: {{options.forceOneTab?"ALWAYS":"AUTO"}}</button></td>
+				<td><button class="opt" onclick="toggleOpt('forceTooltips'); needsCanvasUpdate = true">Shift-Click to Toggle Tooltips: {{options.forceTooltips?"ON":"OFF"}}</button></td>
 			</tr>
 			<tr>
-                <td><button class="opt" onclick="display_mode();fullcolordisplay()">Color Text Mode: {{ DISPLAY_MODES[options.colorDisplayMode] }}</button></td>
-				<td><button class="opt" onclick="color_display();fullcolordisplay()">Colored Text: {{ COLOR_DISPLAYS[options.colorDisplay] }}</button></td>
-				<td><button class="opt" onclick="player.nerdMode=!player.nerdMode">Nerd mode is {{ player.nerdMode?"ON":"OFF" }} (you can also use the control key to toggle)</button></td>
+                <td><button class="opt" onclick="display_mode();fullcolordisplay()">Color Text Mode: {{DISPLAY_MODES[options.colorDisplayMode]}}</button></td>
+				<td><button class="opt" onclick="color_display();fullcolordisplay()">Colored Text: {{COLOR_DISPLAYS[options.colorDisplay]}}</button></td>
+				<td><button class="opt" onclick="player.nerdMode=!player.nerdMode">Nerd mode is {{player.nerdMode?"ON":"OFF"}} (you can also use the control key to toggle)</button></td>
 			</tr>
         </table>
 		`
