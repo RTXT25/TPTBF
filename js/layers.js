@@ -4911,7 +4911,9 @@ addLayer('r', {
         },
     update(diff) {
         player.r.lightreq = new Decimal(20000).mul(new Decimal(5).pow(challengeCompletions('r', 11)));
-        player.r.relic_effects[0] = player.r.light.mul(10).add(1).pow(0.15);
+        mult0 = new Decimal(1);
+        if (challengeCompletions('r', 11) >= 11) mult0 = mult0.mul(2);
+        player.r.relic_effects[0] = player.r.light.mul(10).add(1).pow(0.15).mul(mult0);
         player.r.relic_effects[1] = player.r.light.mul(1000).add(1).pow(0.05);
         mult2 = new Decimal(1);
         if (challengeCompletions('r', 11) >= 7) mult2 = mult2.mul(4);
@@ -4983,7 +4985,8 @@ addLayer('r', {
                     if (player.m.unlocked) text += '<br>Next reward: unlock Molecules (already unlocked)';
                     text += '<br>Next reward: unlock Molecules';
                 };
-                if (challengeCompletions('r', 11) >= 10) text += '<br>Next reward: N/A - wait for future updates!';
+                if (challengeCompletions('r', 11) == 10) text += '<br>Next reward: double the first activated relic effect';
+                if (challengeCompletions('r', 11) >= 11) text += '<br>Next reward: N/A - wait for future updates!';
                 return text;
             },
             canComplete() {
