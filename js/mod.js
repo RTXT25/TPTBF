@@ -1,17 +1,16 @@
 let modInfo = {
-	name: "The Primordial Tree",
-	id: "Yrahcaz7-ModTree-ThePrimordialTree",
-	author: "Yrahcaz7",
-	pointsName: "points",
-	modFiles: ["layers.js", "tree.js"],
-
+	name: 'The Primordial Tree',
+	id: 'Yrahcaz7-ModTree-ThePrimordialTree',
+	author: 'Yrahcaz7',
+	pointsName: 'points',
+	modFiles: ['layers.js', 'tree.js'],
 	initialStartPoints: new Decimal(0),
 	offlineLimit: 1, // In hours
 };
 
 let VERSION = {
-	num: "2.2",
-	name: "Advances in Science",
+	num: '2.2',
+	name: 'Advances in Science',
 };
 
 let changelog = `<h1>Changelog:</h1><br>
@@ -111,24 +110,23 @@ let changelog = `<h1>Changelog:</h1><br>
 	<br><h3>v0.1: Game Launch</h3><br>
 		- Game Launch.<br>
 		- Added six upgrades.<br>
-		- Added a buyable.`
+		- Added a buyable.`;
 
-let winText = `<h3>You won the game!</h3><br>However, it isn't the end yet...<br>Wait for more updates for further content.`
+let winText = '<h3>You won the game!</h3><br>However, it isn\'t the end yet...<br>Wait for more updates for further content.';
 
 // If you add new functions anywhere inside of a layer, and those functions have an effect when called, add them here.
-// (The ones here are examples, all official functions are already taken care of)
 function getdark(darkthis, type, special = false, research = false){
 	if (darkthis.layer !== undefined) {
-		if (colorvalue[1] == "dark") return '-dark">';
-		if (colorvalue[1] == "none") return '-OFF">';
-		if ((type == "title" && colorvalue[0][1]) || (type == "ref" && colorvalue[0][2])) {
+		if (colorvalue[1] == 'dark') return '-dark">';
+		if (colorvalue[1] == 'none') return '-OFF">';
+		if ((type == 'title' && colorvalue[0][1]) || (type == 'ref' && colorvalue[0][2])) {
 			if (research) return '">';
 			else {
 				if (special) darkcanafford = darkthis.canAfford();
 				else darkcanafford = new Decimal(player[darkthis.layer].points).gte(darkthis.cost);
 				if (darkcanafford && !hasUpgrade(darkthis.layer, darkthis.id)) return '-dark">';
 			};
-		} else if (type == "title-buyable" && colorvalue[0][1]) {
+		} else if (type == 'title-buyable' && colorvalue[0][1]) {
 			darkcanafford = darkthis.canAfford();
 			if (darkcanafford && getBuyableAmount(darkthis.layer, darkthis.id).lt(darkthis.purchaseLimit)) return '-dark">';
 		} else return '-OFF">'
@@ -181,8 +179,8 @@ function getPointGen(forced = false) {
 	if (hasUpgrade('p', 72)) gain = gain.mul(upgradeEffect('p', 72));
 	if (getBuyableAmount('c', 11).gt(0)) gain = gain.mul(getBuyableAmount('c', 11).mul(5).add(1));
 	if (getBuyableAmount('sp', 21).gt(0)) {
-		gain = gain.mul(5 ** getBuyableAmount('sp', 21));
-		if (hasUpgrade('sp', 13)) gain = gain.mul(5 ** getBuyableAmount('sp', 21));
+		gain = gain.mul(new Decimal(5).pow(getBuyableAmount('sp', 21)));
+		if (hasUpgrade('sp', 13)) gain = gain.mul(new Decimal(5).pow(getBuyableAmount('sp', 21)));
 	};
 	if (getBuyableAmount('sp', 12).gt(0)) gain = gain.mul(getBuyableAmount('sp', 12).add(1).pow(-1));
 	if (player.p.divinity.gt(0)) gain = gain.mul(player.p.divinity.add(1).pow(0.1));
@@ -208,10 +206,8 @@ var displayThings = [
 
 // Determines when the game "ends"
 function isEndgame() {
-	return player.points.gte(new Decimal("ee16"));
+	return player.points.gte(new Decimal('ee16'));
 };
-
-// Less important things beyond this point!
 
 // Style for the background, can be a function
 var backgroundStyle = {
