@@ -3363,7 +3363,7 @@ addLayer('a', {
             },
             cost: 3,
             effect() {
-                return player.a.total.sub(player.a.best).pow(0.2);
+                return player.a.total.sub(player.a.best).add(1).pow(0.2);
             },
             effectDisplay() {
                 text = format(this.effect()) + 'x';
