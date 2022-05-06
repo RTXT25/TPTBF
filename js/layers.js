@@ -6,14 +6,14 @@ addLayer('A', {
         unlocked: true,
         points: new Decimal(0),
     }},
-    color: "#A5BCC2",
+    color: '#A5BCC2',
     resource: 'achievements',
     row: 'side',
     layerShown() {return true},
-    tooltip() {return "Achievements"},
+    tooltip() {return 'Achievements'},
     effectDescription() {
-        text = ["<br>which are multiplying your point ", "", "", ""];
-        if (colorvalue[1] == "none") {
+        text = ['<br>which are multiplying your point ', '', '', ''];
+        if (colorvalue[1] == 'none') {
             if (hasUpgrade('ds', 21)) {
                 if (hasUpgrade('ds', 24)) text[0] += 'and essence gain by ' + format(player.A.points.mul(0.2)) + 'x';
                 else text[1] += 'essence gain by ' + format(player.A.points.mul(0.2)) + 'x';
@@ -48,11 +48,11 @@ addLayer('A', {
             if (hasUpgrade('a', 51)) text[3] += ' (formula: x^1.25)';
         };
         fintext = text[0];
-        if (text[1]) fintext += "<br>and also multiplying ";
+        if (text[1]) fintext += '<br>and also multiplying ';
         fintext += text[1];
-        if (text[2]) fintext += "<br>additionally, also multiplying ";
+        if (text[2]) fintext += '<br>additionally, also multiplying ';
         fintext += text[2];
-        if (text[3]) fintext += "<br>and lastly, also multiplying ";
+        if (text[3]) fintext += '<br>and lastly, also multiplying ';
         fintext += text[3];
         return fintext;
     },
@@ -69,6 +69,7 @@ addLayer('A', {
             done() {return player.points.gte(1)},
             tooltip: 'obtain 1 point.',
             image() { if (hasAchievement('A', 11)) return "images/achievements/11.png" },
+            color: '#DFDFDF',
         },
         12: {
             name: 'Very Pointy',
@@ -76,6 +77,7 @@ addLayer('A', {
             tooltip: 'obtain 1e10 points.',
             unlocked() { if (hasAchievement('A', 11)) return true },
             image() { if (hasAchievement('A', 12)) return "images/achievements/12.png" },
+            color: '#DFDFDF',
         },
         13: {
             name: 'Now That\'s Really Pointy',
@@ -83,6 +85,7 @@ addLayer('A', {
             tooltip: 'obtain 1e100 points.',
             unlocked() { if (hasAchievement('A', 12)) return true },
             image() { if (hasAchievement('A', 13)) return "images/achievements/13.png" },
+            color: '#DFDFDF',
         },
         14: {
             name: 'Cosmic Point',
@@ -90,12 +93,14 @@ addLayer('A', {
             tooltip: 'obtain 1e1,000 points.',
             unlocked() { if (hasAchievement('A', 13)) return true },
             image() { if (hasAchievement('A', 14)) return "images/achievements/14.png" },
+            color: '#DFDFDF',
         },
         15: {
             name: 'The Point of Everything',
             done() {return player.points.gte("1e10000")},
             tooltip: 'obtain 1e10,000 points.',
             unlocked() { if (hasAchievement('A', 14)) return true },
+            color: '#DFDFDF',
         },
         16: {
             name: 'Dull Points',
@@ -103,6 +108,7 @@ addLayer('A', {
             tooltip: 'obtain 1e10 points with no essence.',
             unlocked() { if (hasAchievement('A', 12) && hasAchievement('A', 21)) return true },
             image() { if (hasAchievement('A', 16)) return "images/achievements/16.png" },
+            color: '#DFDFDF',
         },
         21: {
             name: 'Essence of Rat',
@@ -110,6 +116,7 @@ addLayer('A', {
             tooltip: 'obtain 1 essence.',
             unlocked() { if (hasAchievement('A', 21)) return true },
             image() { if (hasAchievement('A', 21)) return "images/achievements/21.png" },
+            color: '#4CED13',
         },
         22: {
             name: 'Essence Cluster',
@@ -117,6 +124,7 @@ addLayer('A', {
             tooltip: 'obtain 1e10 essence.',
             unlocked() { if (hasAchievement('A', 21)) return true },
             image() { if (hasAchievement('A', 22)) return "images/achievements/22.png" },
+            color: '#4CED13',
         },
         23: {
             name: 'Gleaming, Golden Essence',
@@ -124,6 +132,7 @@ addLayer('A', {
             tooltip: 'obtain 1e100 essence.',
             unlocked() { if (hasAchievement('A', 22)) return true },
             image() { if (hasAchievement('A', 23)) return "images/achievements/23.png" },
+            color: '#4CED13',
         },
         24: {
             name: 'Essence of the Universe',
@@ -131,12 +140,14 @@ addLayer('A', {
             tooltip: 'obtain 1e1,000 essence.',
             unlocked() { if (hasAchievement('A', 23)) return true },
             image() { if (hasAchievement('A', 24)) return "images/achievements/24.png" },
+            color: '#4CED13',
         },
         25: {
             name: 'Essence of all Essence',
             done() {return player.e.points.gte("1e10000")},
             tooltip: 'obtain 1e10,000 essence.',
             unlocked() { if (hasAchievement('A', 24)) return true },
+            color: '#4CED13',
         },
         26: {
             name: 'Empty Soul',
@@ -144,6 +155,7 @@ addLayer('A', {
             tooltip: 'obtain 1e10 essence with no essence buyables.',
             unlocked() {if (hasAchievement('A', 22) && hasAchievement('A', 31)) return true },
             image() { if (hasAchievement('A', 26)) return "images/achievements/26.png" },
+            color: '#4CED13',
         },
         31: {
             name: 'Cracked Core',
@@ -504,25 +516,25 @@ addLayer('ghost0', {
 
 addLayer('SC', {
     name: 'Softcaps',
-    symbol: "SC",
+    symbol: 'SC',
     position: 2,
     startData() { return {
         unlocked: true,
         points: new Decimal(0),
         softcaps: [],
     }},
-    color: "#DFDFDF",
+    color: '#DFDFDF',
     resource: 'discovered softcaps',
     row: 'side',
     layerShown() {return player.SC.points > 0},
-    tooltip() {return "Softcaps"},
+    tooltip() {return 'Softcaps'},
     effectDescription() {
         core = 0;
         quark = 0;
         hex = 0;
         divine = 0;
-        text = ["of which "];
-        textfin = "";
+        text = ['of which '];
+        textfin = '';
         textvalue = 0;
         if (player.SC.softcaps.includes("c1")) {
             core += 1;
@@ -536,7 +548,7 @@ addLayer('SC', {
         if (player.SC.softcaps.includes("p-d1")) {
             divine += 1;
         };
-        if (colorvalue[1] == "none") {
+        if (colorvalue[1] == 'none') {
             if (core > 0) {
                 text.push(core + ' is core</h2>');
             };
@@ -568,17 +580,17 @@ addLayer('SC', {
             textfin += text[1];
         };
         if (text.length > 2) {
-            if (text.length == 3) textfin += " and ";
+            if (text.length == 3) textfin += ' and ';
             else textfin += ", ";
             textfin += text[2];
         };
         if (text.length > 3) {
-            if (text.length == 4) textfin += ", and ";
+            if (text.length == 4) textfin += ', and ';
             else textfin += ", ";
             textfin += text[3];
         };
         if (text.length > 4) {
-            if (text.length == 5) textfin += ", and ";
+            if (text.length == 5) textfin += ', and ';
             else textfin += ", ";
             textfin += text[4];
         };
@@ -625,7 +637,7 @@ addLayer('e', {
         auto_upgrades: false,
         auto_buyables: false,
     }},
-    color: "#4CED13",
+    color: '#4CED13',
     branches: ['c', 'q', 'p'],
     requires: new Decimal(5),
     resource: 'essence',
@@ -2818,12 +2830,12 @@ addLayer('ds', {
     challenges: {
         11: {
             name() {
-                if (colorvalue[0][1] && colorvalue[1] != "none") return '<h3 class="layer-ds">Blazing Curse';
+                if (colorvalue[0][1] && colorvalue[1] != 'none') return '<h3 class="layer-ds">Blazing Curse';
                 return '<h3>Blazing Curse';
             },
             challengeDescription: " - Forces a Demon Soul reset<br> - Quark gain is divided by 100,000<br> - Point gain is divided by 10,000<br> - Hex gain is divided by 1,000<br> - Core gain is divided by 100<br> - Quark gain is divided by 10",
             goalDescription() {
-                if (colorvalue[0][2] && colorvalue[1] != "none") return '<b class="layer-h">Potential Essence Potential';
+                if (colorvalue[0][2] && colorvalue[1] != 'none') return '<b class="layer-h">Potential Essence Potential';
                 return '<b>Potential Essence Potential';
             },
             canComplete() {
@@ -2842,12 +2854,12 @@ addLayer('ds', {
         },
         12: {
             name() {
-                if (colorvalue[0][1] && colorvalue[1] != "none") return '<h3 class="layer-ds">Hellfire';
+                if (colorvalue[0][1] && colorvalue[1] != 'none') return '<h3 class="layer-ds">Hellfire';
                 return '<h3>Hellfire';
             },
             challengeDescription: " - Forces a Demon Soul reset<br> - Point gain is divided by 1,000,000<br> - Hex gain is divided by 1e10<br> - Subatomic Particle gain is divided by the number of Quarks",
             goalDescription() {
-                if (colorvalue[0][2] && colorvalue[1] != "none") return '<b class="layer-h">Sub Core Particle Fusion';
+                if (colorvalue[0][2] && colorvalue[1] != 'none') return '<b class="layer-h">Sub Core Particle Fusion';
                 return '<b>Sub Core Particle Fusion';
             },
             canComplete() {
@@ -2870,12 +2882,12 @@ addLayer('ds', {
         },
         21: {
             name() {
-                if (colorvalue[0][1] && colorvalue[1] != "none") return '<h3 class="layer-ds">Opposite Polarity';
+                if (colorvalue[0][1] && colorvalue[1] != 'none') return '<h3 class="layer-ds">Opposite Polarity';
                 return '<h3>Opposite Polarity';
             },
             challengeDescription: " - Forces a Demon Soul reset<br> - Hex gain is divided by 100,000<br> - Point gain is divided by 1e10<br> - Core gain is divided by 1e15<br> - Essence gain is divided by 1e20",
             goalDescription() {
-                if (colorvalue[0][2] && colorvalue[1] != "none") return '<b class="layer-h">Sub Core Particle Fusion';
+                if (colorvalue[0][2] && colorvalue[1] != 'none') return '<b class="layer-h">Sub Core Particle Fusion';
                 return '<b>Sub Core Particle Fusion';
             },
             canComplete() {
@@ -2898,12 +2910,12 @@ addLayer('ds', {
         },
         22: {
             name() {
-                if (colorvalue[0][1] && colorvalue[1] != "none") return '<h3 class="layer-ds">Dreaded Science';
+                if (colorvalue[0][1] && colorvalue[1] != 'none') return '<h3 class="layer-ds">Dreaded Science';
                 return '<h3>Dreaded Science';
             },
             challengeDescription: " - Forces a Demon Soul reset<br> - Point gain is divided by 1e10<br> - Quark and Subatomic Particle gain is divided by 1e40",
             goalDescription() {
-                if (colorvalue[0][2] && colorvalue[1] != "none") return '<b class="layer-a">Famed Atom\'s Donations';
+                if (colorvalue[0][2] && colorvalue[1] != 'none') return '<b class="layer-a">Famed Atom\'s Donations';
                 return '<b>Famed Atom\'s Donations';
             },
             canComplete() {
@@ -3001,11 +3013,11 @@ addLayer('a', {
                     function() {
                         text = 'When you buy one of these upgrades, you cannot buy<br>any upgrades that are not on its path. When you<br>do a row 4 reset, all atom upgrades will be reset.';
                         if (hasMilestone('a', 10)) {
-                            if (!colorvalue[0][2] || colorvalue[1] == "none") text += '<br><br>From the effect of the 11th atom milestone:<br>you can buy all atom upgrades.';
+                            if (!colorvalue[0][2] || colorvalue[1] == 'none') text += '<br><br>From the effect of the 11th atom milestone:<br>you can buy all atom upgrades.';
                             else text += '<br><br>From the effect of the <b class="layer-a' + getdark(this, "ref", true, true) + '11th atom milestone</b>:<br>you can buy all atom upgrades.';
                         };
                         if (hasMilestone('a', 12)) {
-                            if (!colorvalue[0][2] || colorvalue[1] == "none") text += '<br><br>From the effect of the 13th atom milestone:<br>row 4 resets do not reset atom upgrades.';
+                            if (!colorvalue[0][2] || colorvalue[1] == 'none') text += '<br><br>From the effect of the 13th atom milestone:<br>row 4 resets do not reset atom upgrades.';
                             else text += '<br><br>From the effect of the <b class="layer-a' + getdark(this, "ref", true, true) + '13th atom milestone:</b><br>row 4 resets do not reset atom upgrades.';
                         };
                         return text;
@@ -3513,7 +3525,7 @@ addLayer('p', {
         return eff;
     },
     effectDescription() {
-        if (colorvalue[1] == "none") {
+        if (colorvalue[1] == 'none') {
             if (tmp.p.effect.lt(0.1)) return 'which are generating ' + tmp.p.effect.mul(100).round().div(100) + ' divinity/sec';
             if (tmp.p.effect.gt(player.p.divinitysoftcap_start[0])) return 'which are generating ' + format(tmp.p.effect) + ' divinity/sec (softcapped)';
             return 'which are generating ' + format(tmp.p.effect) + ' divinity/sec';
@@ -3584,7 +3596,7 @@ addLayer('p', {
         "blank",
         ["display-text",
             function() {
-                if (colorvalue[1] == "none") {
+                if (colorvalue[1] == 'none') {
                     text = 'You have ' + format(player.p.divinity) + ' divinity, which boosts point generation by ' + format(player.p.divinity.add(1).pow(0.1)) + 'x';
                     if (hasUpgrade('p', 22)) text += '<br>You have ' + format(player.p.holiness) + ' holiness, which boosts essence gain by ' + format(player.p.holiness.add(1).pow(0.055)) + 'x';
                     if (hasUpgrade('p', 41)) text += '<br>You have ' + formatWhole(player.p.hymn) + ' hymns, which boosts prayer gain by ' + format(player.p.hymnEff) + 'x';
@@ -4141,7 +4153,7 @@ addLayer('s', {
         return effBase.pow(player.s.points).mul(effBoost);
     },
     effectDescription() {
-        if (colorvalue[1] == "none") return 'which multiplies essence gain by ' + format(tmp.s.effect) + 'x';
+        if (colorvalue[1] == 'none') return 'which multiplies essence gain by ' + format(tmp.s.effect) + 'x';
         return 'which multiplies essence gain by <h2 class="layer-s">' + format(tmp.s.effect) + '</h2>x';
     },
     doReset(resettingLayer) {
@@ -4264,7 +4276,7 @@ addLayer('s', {
         13: {
             requirementDescription: '19 sanctums',
             effectDescription() {
-                if (!colorvalue[0][2] || colorvalue[1] == "none") return 'unlock Devotion';
+                if (!colorvalue[0][2] || colorvalue[1] == 'none') return 'unlock Devotion';
                 return 'unlock <b class="layer-s' + getdark(this, "ref", true, true) + 'Devotion';
             },
             done() { return player.s.points.gte(19) },
@@ -4272,7 +4284,7 @@ addLayer('s', {
         14: {
             requirementDescription: '22 sanctums',
             effectDescription() {
-                if (!colorvalue[0][2] || colorvalue[1] == "none") return 'unlock Sacrificial Ceremonies';
+                if (!colorvalue[0][2] || colorvalue[1] == 'none') return 'unlock Sacrificial Ceremonies';
                 return 'unlock <b class="layer-s' + getdark(this, "ref", true, true) + 'Sacrificial Ceremonies';
             },
             done() { return player.s.points.gte(22) },
@@ -4293,7 +4305,7 @@ addLayer('s', {
         17: {
             requirementDescription: '26 sanctums',
             effectDescription() {
-                if (!colorvalue[0][2] || colorvalue[1] == "none") return 'divide Worship cost scaling by 15';
+                if (!colorvalue[0][2] || colorvalue[1] == 'none') return 'divide Worship cost scaling by 15';
                 return 'divide <b class="layer-s' + getdark(this, "ref", true, true) + 'Worship</b> cost scaling by 15';
             },
             done() { return player.s.points.gte(26) },
@@ -4302,7 +4314,7 @@ addLayer('s', {
         18: {
             requirementDescription: '27 sanctums',
             effectDescription() {
-                if (!colorvalue[0][2] || colorvalue[1] == "none") return 'increase Devotion effect exponent<br>0.3 --> 0.4';
+                if (!colorvalue[0][2] || colorvalue[1] == 'none') return 'increase Devotion effect exponent<br>0.3 --> 0.4';
                 return 'increase <b class="layer-s' + getdark(this, "ref", true, true) + 'Devotion</b> effect exponent<br>0.3 --> 0.375';
             },
             done() { return player.s.points.gte(27) },
@@ -4311,7 +4323,7 @@ addLayer('s', {
         19: {
             requirementDescription: '30 sanctums',
             effectDescription() {
-                if (!colorvalue[0][2] || colorvalue[1] == "none") return 'you can auto Worship';
+                if (!colorvalue[0][2] || colorvalue[1] == 'none') return 'you can auto Worship';
                 return 'you can auto <b class="layer-s' + getdark(this, "ref", true, true) + 'Worship';
             },
             done() { return player.s.points.gte(30) },
@@ -4327,7 +4339,7 @@ addLayer('s', {
         21: {
             requirementDescription: '32 sanctums',
             effectDescription() {
-                if (!colorvalue[0][2] || colorvalue[1] == "none") return 'increase Devotion effect exponent<br>0.375 --> 0.45';
+                if (!colorvalue[0][2] || colorvalue[1] == 'none') return 'increase Devotion effect exponent<br>0.375 --> 0.45';
                 return 'increase <b class="layer-s' + getdark(this, "ref", true, true) + 'Devotion</b> effect exponent<br>0.375 --> 0.45';
             },
             done() { return player.s.points.gte(32) },
@@ -4336,7 +4348,7 @@ addLayer('s', {
         22: {
             requirementDescription: '35 sanctums',
             effectDescription() {
-                if (!colorvalue[0][2] || colorvalue[1] == "none") return 'increase Devotion effect exponent<br>0.45 --> 0.55';
+                if (!colorvalue[0][2] || colorvalue[1] == 'none') return 'increase Devotion effect exponent<br>0.45 --> 0.55';
                 return 'increase <b class="layer-s' + getdark(this, "ref", true, true) + 'Devotion</b> effect exponent<br>0.45 --> 0.55';
             },
             done() { return player.s.points.gte(35) },
@@ -4345,7 +4357,7 @@ addLayer('s', {
         23: {
             requirementDescription: '39 sanctums',
             effectDescription() {
-                if (!colorvalue[0][2] || colorvalue[1] == "none") return 'divide Worship cost scaling by 2';
+                if (!colorvalue[0][2] || colorvalue[1] == 'none') return 'divide Worship cost scaling by 2';
                 return 'divide <b class="layer-s' + getdark(this, "ref", true, true) + 'Worship</b> cost scaling by 2';
             },
             done() { return player.s.points.gte(39) },
@@ -4354,7 +4366,7 @@ addLayer('s', {
         24: {
             requirementDescription: '42 sanctums',
             effectDescription() {
-                if (!colorvalue[0][2] || colorvalue[1] == "none") return 'double Sacrifice\'s effect';
+                if (!colorvalue[0][2] || colorvalue[1] == 'none') return 'double Sacrifice\'s effect';
                 return 'double <b class="layer-s' + getdark(this, "ref", true, true) + 'Sacrifice</b>\'s effect';
             },
             done() { return player.s.points.gte(42) },
@@ -4369,7 +4381,7 @@ addLayer('s', {
         26: {
             requirementDescription: '44 sanctums',
             effectDescription() {
-                if (!colorvalue[0][2] || colorvalue[1] == "none") return 'divide Sacrifice cost scaling by 2';
+                if (!colorvalue[0][2] || colorvalue[1] == 'none') return 'divide Sacrifice cost scaling by 2';
                 return 'divide <b class="layer-s' + getdark(this, "ref", true, true) + 'Sacrifice</b> cost scaling by 2';
             },
             done() { return player.s.points.gte(44) },
@@ -4378,7 +4390,7 @@ addLayer('s', {
         27: {
             requirementDescription: '46 sanctums',
             effectDescription() {
-                if (!colorvalue[0][2] || colorvalue[1] == "none") return 'divide Sacrificial Ceremony<br>cost scaling by 2';
+                if (!colorvalue[0][2] || colorvalue[1] == 'none') return 'divide Sacrificial Ceremony<br>cost scaling by 2';
                 return 'divide <b class="layer-s' + getdark(this, "ref", true, true) + 'Sacrificial Ceremony</b><br>cost scaling by 2';
             },
             done() { return player.s.points.gte(46) },
@@ -4387,7 +4399,7 @@ addLayer('s', {
         28: {
             requirementDescription: '49 sanctums',
             effectDescription() {
-                if (!colorvalue[0][2] || colorvalue[1] == "none") return 'you can auto perform<br>Sacrificial Ceremonies';
+                if (!colorvalue[0][2] || colorvalue[1] == 'none') return 'you can auto perform<br>Sacrificial Ceremonies';
                 return 'you can auto perform<br><b class="layer-s' + getdark(this, "ref", true, true) + 'Sacrificial Ceremonies';
             },
             done() { return player.s.points.gte(49) },
@@ -4397,7 +4409,7 @@ addLayer('s', {
         29: {
             requirementDescription: '50 sanctums',
             effectDescription() {
-                if (!colorvalue[0][2] || colorvalue[1] == "none") return 'divide Sacrificial Ceremony<br>cost scaling by 1.5';
+                if (!colorvalue[0][2] || colorvalue[1] == 'none') return 'divide Sacrificial Ceremony<br>cost scaling by 1.5';
                 return 'divide <b class="layer-s' + getdark(this, "ref", true, true) + 'Sacrificial Ceremony</b><br>cost scaling by 1.5';
             },
             done() { return player.s.points.gte(50) },
@@ -4412,7 +4424,7 @@ addLayer('s', {
         31: {
             requirementDescription: '66 sanctums',
             effectDescription() {
-                if (!colorvalue[0][2] || colorvalue[1] == "none") return 'divide Sacrificial Ceremony<br>cost scaling by 1.2';
+                if (!colorvalue[0][2] || colorvalue[1] == 'none') return 'divide Sacrificial Ceremony<br>cost scaling by 1.2';
                 return 'divide <b class="layer-s' + getdark(this, "ref", true, true) + 'Sacrificial Ceremony</b><br>cost scaling by 1.2';
             },
             done() { return player.s.points.gte(66) },
@@ -4421,7 +4433,7 @@ addLayer('s', {
         32: {
             requirementDescription: '69 sanctums',
             effectDescription() {
-                if (!colorvalue[0][2] || colorvalue[1] == "none") return 'divide Worship<br>cost by 1e100';
+                if (!colorvalue[0][2] || colorvalue[1] == 'none') return 'divide Worship<br>cost by 1e100';
                 return 'divide <b class="layer-s' + getdark(this, "ref", true, true) + 'Worship</b><br>cost by 1e100';
             },
             done() { return player.s.points.gte(69) },
@@ -4430,7 +4442,7 @@ addLayer('s', {
         33: {
             requirementDescription: '70 sanctums',
             effectDescription() {
-                if (!colorvalue[0][2] || colorvalue[1] == "none") return 'divide Sacrifice<br>cost scaling by 1.6';
+                if (!colorvalue[0][2] || colorvalue[1] == 'none') return 'divide Sacrifice<br>cost scaling by 1.6';
                 return 'divide <b class="layer-s' + getdark(this, "ref", true, true) + 'Sacrifice</b><br>cost scaling by 1.6';
             },
             done() { return player.s.points.gte(70) },
@@ -4439,7 +4451,7 @@ addLayer('s', {
         34: {
             requirementDescription: '71 sanctums',
             effectDescription() {
-                if (!colorvalue[0][2] || colorvalue[1] == "none") return 'change Sacrifice\'s cost<br>to a requirement';
+                if (!colorvalue[0][2] || colorvalue[1] == 'none') return 'change Sacrifice\'s cost<br>to a requirement';
                 return 'change <b class="layer-s' + getdark(this, "ref", true, true) + 'Sacrifice</b>\'s cost<br>to a requirement';
             },
             done() { return player.s.points.gte(71) },
@@ -4448,7 +4460,7 @@ addLayer('s', {
         35: {
             requirementDescription: '72 sanctums',
             effectDescription() {
-                if (!colorvalue[0][2] || colorvalue[1] == "none") return 'increase Devotion effect exponent<br>0.55 --> 0.575';
+                if (!colorvalue[0][2] || colorvalue[1] == 'none') return 'increase Devotion effect exponent<br>0.55 --> 0.575';
                 return 'increase <b class="layer-s' + getdark(this, "ref", true, true) + 'Devotion</b> effect exponent<br>0.55 --> 0.575';
             },
             done() { return player.s.points.gte(72) },
@@ -4457,7 +4469,7 @@ addLayer('s', {
         36: {
             requirementDescription: '77 sanctums',
             effectDescription() {
-                if (!colorvalue[0][2] || colorvalue[1] == "none") return 'increase Devotion effect exponent<br>0.575 --> 0.6';
+                if (!colorvalue[0][2] || colorvalue[1] == 'none') return 'increase Devotion effect exponent<br>0.575 --> 0.6';
                 return 'increase <b class="layer-s' + getdark(this, "ref", true, true) + 'Devotion</b> effect exponent<br>0.575 --> 0.6';
             },
             done() { return player.s.points.gte(77) },
@@ -4466,7 +4478,7 @@ addLayer('s', {
         37: {
             requirementDescription: '80 sanctums',
             effectDescription() {
-                if (!colorvalue[0][2] || colorvalue[1] == "none") return 'divide Sacrifice<br>cost scaling by 2';
+                if (!colorvalue[0][2] || colorvalue[1] == 'none') return 'divide Sacrifice<br>cost scaling by 2';
                 return 'divide <b class="layer-s' + getdark(this, "ref", true, true) + 'Sacrifice</b><br>cost scaling by 2';
             },
             done() { return player.s.points.gte(80) },
@@ -4475,7 +4487,7 @@ addLayer('s', {
         38: {
             requirementDescription: '85 sanctums',
             effectDescription() {
-                if (!colorvalue[0][2] || colorvalue[1] == "none") return 'you can auto Sacrifice';
+                if (!colorvalue[0][2] || colorvalue[1] == 'none') return 'you can auto Sacrifice';
                 return 'you can auto <b class="layer-s' + getdark(this, "ref", true, true) + 'Sacrifice';
             },
             done() { return player.s.points.gte(85) },
@@ -4485,7 +4497,7 @@ addLayer('s', {
         39: {
             requirementDescription: '87 sanctums',
             effectDescription() {
-                if (!colorvalue[0][2] || colorvalue[1] == "none") return 'divide Sacrifice<br>cost scaling by 2';
+                if (!colorvalue[0][2] || colorvalue[1] == 'none') return 'divide Sacrifice<br>cost scaling by 2';
                 return 'divide <b class="layer-s' + getdark(this, "ref", true, true) + 'Sacrifice</b><br>cost scaling by 2';
             },
             done() { return player.s.points.gte(87) },
@@ -4494,7 +4506,7 @@ addLayer('s', {
         40: {
             requirementDescription: '96 sanctums',
             effectDescription() {
-                if (!colorvalue[0][2] || colorvalue[1] == "none") return 'divide Worship<br>cost scaling by 1.5';
+                if (!colorvalue[0][2] || colorvalue[1] == 'none') return 'divide Worship<br>cost scaling by 1.5';
                 return 'divide <b class="layer-s' + getdark(this, "ref", true, true) + 'Worship</b><br>cost scaling by 1.5';
             },
             done() { return player.s.points.gte(96) },
@@ -4509,7 +4521,7 @@ addLayer('s', {
         42: {
             requirementDescription: '110 sanctums',
             effectDescription() {
-                if (!colorvalue[0][2] || colorvalue[1] == "none") return 'divide Sacrificial Ceremony<br>cost scaling by 1.5';
+                if (!colorvalue[0][2] || colorvalue[1] == 'none') return 'divide Sacrificial Ceremony<br>cost scaling by 1.5';
                 return 'divide <b class="layer-s' + getdark(this, "ref", true, true) + 'Sacrificial Ceremony</b><br>cost scaling by 1.5';
             },
             done() { return player.s.points.gte(110) },
@@ -4518,7 +4530,7 @@ addLayer('s', {
         43: {
             requirementDescription: '112 sanctums',
             effectDescription() {
-                if (!colorvalue[0][2] || colorvalue[1] == "none") return 'divide Sacrificial Ceremony<br>hex cost scaling by 3';
+                if (!colorvalue[0][2] || colorvalue[1] == 'none') return 'divide Sacrificial Ceremony<br>hex cost scaling by 3';
                 return 'divide <b class="layer-s' + getdark(this, "ref", true, true) + 'Sacrificial Ceremony</b><br>hex cost scaling by 3';
             },
             done() { return player.s.points.gte(112) },
@@ -4527,7 +4539,7 @@ addLayer('s', {
         44: {
             requirementDescription: '120 sanctums',
             effectDescription() {
-                if (!colorvalue[0][2] || colorvalue[1] == "none") return 'auto Worship<br>works twice as fast';
+                if (!colorvalue[0][2] || colorvalue[1] == 'none') return 'auto Worship<br>works twice as fast';
                 return 'auto <b class="layer-s' + getdark(this, "ref", true, true) + 'Worship</b><br>works twice as fast';
             },
             done() { return player.s.points.gte(120) },
@@ -4536,7 +4548,7 @@ addLayer('s', {
         45: {
             requirementDescription: '125 sanctums',
             effectDescription() {
-                if (!colorvalue[0][2] || colorvalue[1] == "none") return 'divide Sacrificial Ceremony<br>hex cost scaling by 4';
+                if (!colorvalue[0][2] || colorvalue[1] == 'none') return 'divide Sacrificial Ceremony<br>hex cost scaling by 4';
                 return 'divide <b class="layer-s' + getdark(this, "ref", true, true) + 'Sacrificial Ceremony</b><br>hex cost scaling by 4';
             },
             done() { return player.s.points.gte(125) },
@@ -4545,7 +4557,7 @@ addLayer('s', {
         46: {
             requirementDescription: '140 sanctums',
             effectDescription() {
-                if (!colorvalue[0][2] || colorvalue[1] == "none") return 'auto Worship<br>works twice as fast (4x total)';
+                if (!colorvalue[0][2] || colorvalue[1] == 'none') return 'auto Worship<br>works twice as fast (4x total)';
                 return 'auto <b class="layer-s' + getdark(this, "ref", true, true) + 'Worship</b><br>works twice as fast (4x total)';
             },
             done() { return player.s.points.gte(140) },
@@ -4566,7 +4578,7 @@ addLayer('s', {
         49: {
             requirementDescription: '175 sanctums',
             effectDescription() {
-                if (!colorvalue[0][2] || colorvalue[1] == "none") return 'increase Devotion effect exponent<br>0.6 --> 0.625';
+                if (!colorvalue[0][2] || colorvalue[1] == 'none') return 'increase Devotion effect exponent<br>0.6 --> 0.625';
                 return 'increase <b class="layer-s' + getdark(this, "ref", true, true) + 'Devotion</b> effect exponent<br>0.6 --> 0.625';
             },
             done() { return player.s.points.gte(175) },
@@ -4649,7 +4661,7 @@ addLayer('d', {
                 backcolors = '#224400, #336600';
                 if (this.canAfford()) backcolors = '#112200, #448800';
                 textcolor = 'AAFF00';
-                if (colorvalue[1] == "none") textcolor = 'DFDFDF';
+                if (colorvalue[1] == 'none') textcolor = 'DFDFDF';
                 return {'background-image':'radial-gradient('+backcolors+')','color':'#'+textcolor,'border-radius':'50%'};
             },
             unlocked() { return hasMilestone('s', 13) },
@@ -4683,7 +4695,7 @@ addLayer('d', {
                 backcolors = '#224400, #336600';
                 if (this.canAfford()) backcolors = '#112200, #448800';
                 textcolor = 'AAFF00';
-                if (colorvalue[1] == "none") textcolor = 'DFDFDF';
+                if (colorvalue[1] == 'none') textcolor = 'DFDFDF';
                 return {'background-image':'radial-gradient('+backcolors+')','color':'#'+textcolor,'border-radius':'50%'};
             },
             unlocked() { return hasMilestone('s', 13) },
@@ -4730,7 +4742,7 @@ addLayer('d', {
                 backcolors = '#224400, #336600';
                 if (this.canAfford()) backcolors = '#112200, #448800';
                 textcolor = 'AAFF00';
-                if (colorvalue[1] == "none") textcolor = 'DFDFDF';
+                if (colorvalue[1] == 'none') textcolor = 'DFDFDF';
                 return {'background-image':'radial-gradient('+backcolors+')','color':'#'+textcolor,'border-radius':'50%','height':'300px','width':'300px'};
             },
             unlocked() { return hasMilestone('s', 14) },
@@ -4807,7 +4819,7 @@ addLayer('r', {
     effectDescription() {
         text = '';
         if (challengeCompletions('r', 11) >= 2) text = 'point and ';
-        if (colorvalue[1] == "none") return 'which makes Essence Influence\'s hardcap start ' + format(tmp.r.effect) + 'x later, multiplies sanctum gain by ' + format(player.r.sanctummult) + 'x, and also multiplies ' + text + 'essence gain by ' + format(player.r.essencemult) + 'x';
+        if (colorvalue[1] == 'none') return 'which makes Essence Influence\'s hardcap start ' + format(tmp.r.effect) + 'x later, multiplies sanctum gain by ' + format(player.r.sanctummult) + 'x, and also multiplies ' + text + 'essence gain by ' + format(player.r.essencemult) + 'x';
         if (!colorvalue[0][2]) return 'which makes <h3>Essence Influence\'s</h3> hardcap start <h2 class="layer-r">' + format(tmp.r.effect) + '</h2>x later, multiplies sanctum gain by <h2 class="layer-r">' + format(player.r.sanctummult) + '</h2>x, and also multiplies ' + text + 'essence gain by <h2 class="layer-r">' + format(player.r.essencemult) + '</h2>x';
         return 'which makes <h3 class="layer-e">Essence Influence\'s</h3> hardcap start <h2 class="layer-r">' + format(tmp.r.effect) + '</h2>x later, multiplies sanctum gain by <h2 class="layer-r">' + format(player.r.sanctummult) + '</h2>x, and also multiplies ' + text + 'essence gain by <h2 class="layer-r">' + format(player.r.essencemult) + '</h2>x';
     },
@@ -4846,7 +4858,7 @@ addLayer('r', {
         ["display-text",
             function() {
                 text = 'relic resets reset everything on lower layers exept prayer milestones. also, you can still buy max sanctums.<br><br>';
-                if (colorvalue[1] == "none") {
+                if (colorvalue[1] == 'none') {
                     text += 'you have ' + player.r.points.sub(challengeCompletions('r', 11)) + ' unactivated relics and ' + challengeCompletions('r', 11) + ' activated relics';
                 } else {
                     text += 'you have <h2 class="layer-r">' + player.r.points.sub(challengeCompletions('r', 11)) + '</h2> unactivated relics and <h2 class="layer-r">' + challengeCompletions('r', 11) + '</h2> activated relics';
@@ -4860,7 +4872,7 @@ addLayer('r', {
     challenges: {
         11: {
             name() {
-                if (colorvalue[0][1] && colorvalue[1] != "none") return '<h3 class="layer-r">Activate Relics';
+                if (colorvalue[0][1] && colorvalue[1] != 'none') return '<h3 class="layer-r">Activate Relics';
                 return '<h3>Activate Relics';
             },
             challengeDescription() {
@@ -4911,7 +4923,7 @@ addLayer('r', {
                 else color = '8888BB';
                 if (maxedChallenge('r', 11)) color = '000033';
                 textcolor = 'B9A975';
-                if (colorvalue[1] == "none") textcolor = 'DFDFDF';
+                if (colorvalue[1] == 'none') textcolor = 'DFDFDF';
                 return {'background-color':'#'+color,'color':'#'+textcolor,'border-radius':'25px','height':'400px','width':'400px'};
             },
         },
@@ -4955,7 +4967,7 @@ addLayer('m', {
         return player.m.best.mul(effBoost).add(1).pow(0.99);
     },
     effectDescription() {
-        if (colorvalue[1] == "none") return 'which multiplies atom gain by ' + format(tmp.m.effect) + 'x (based on best)';
+        if (colorvalue[1] == 'none') return 'which multiplies atom gain by ' + format(tmp.m.effect) + 'x (based on best)';
         return 'which multiplies atom gain by <h2 class="layer-m">' + format(tmp.m.effect) + '</h2>x (based on best)';
     },
     doReset(resettingLayer) {
