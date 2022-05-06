@@ -4217,6 +4217,7 @@ addLayer('s', {
             if (challengeCompletions('r', 11) >= 9 && resettingLayer == 'r') keep.push("milestones");
             if (layers[resettingLayer].row >= this.row) layerDataReset('s', keep);
             if (layers[resettingLayer].row >= this.row) layerDataReset('d', keep);
+            if (hasMilestone('m', 9)) player.s.milestones = ['0'];
         },
     resetsNothing() {
         if (hasMilestone('s', 47)) return true;
@@ -4644,8 +4645,8 @@ addLayer('s', {
         51: {
             requirementDescription: '200 sanctums',
             effectDescription() {
-                if (!colorvalue[0][2] || colorvalue[1] == 'none') return 'auto Worship works<br>twice as fast (8x total)';
-                return 'auto <b class="layer-s' + getdark(this, "ref", true, true) + 'Worship</b> works<br>twice as fast (8x total)';
+                if (!colorvalue[0][2] || colorvalue[1] == 'none') return 'auto Worship works<br>thrice as fast (12x total)';
+                return 'auto <b class="layer-s' + getdark(this, "ref", true, true) + 'Worship</b> works<br>thrice as fast (12x total)';
             },
             done() { return player.s.points.gte(200) && hasMilestone('m', 8) },
             unlocked() { return hasMilestone('s', 13) && hasMilestone('m', 8) },
@@ -4683,6 +4684,10 @@ addLayer('d', {
                 if (layers.d.buyables[11].canAfford()) layers.d.buyables[11].buy();
             };
             if (hasMilestone('s', 51)) {
+                if (layers.d.buyables[11].canAfford()) layers.d.buyables[11].buy();
+                if (layers.d.buyables[11].canAfford()) layers.d.buyables[11].buy();
+                if (layers.d.buyables[11].canAfford()) layers.d.buyables[11].buy();
+                if (layers.d.buyables[11].canAfford()) layers.d.buyables[11].buy();
                 if (layers.d.buyables[11].canAfford()) layers.d.buyables[11].buy();
                 if (layers.d.buyables[11].canAfford()) layers.d.buyables[11].buy();
                 if (layers.d.buyables[11].canAfford()) layers.d.buyables[11].buy();
@@ -5127,9 +5132,17 @@ addLayer('m', {
             done() { return player.m.total.gte(15) },
         },
         8: {
-            requirementDescription: '21 total molecules',
+            requirementDescription: '25 total molecules',
             effectDescription: 'unlock 3 more sanctum milestones',
-            done() { return player.m.total.gte(21) },
+            done() { return player.m.total.gte(25) },
+        },
+        9: {
+            requirementDescription: '45 total molecules',
+            effectDescription() {
+                if (!colorvalue[0][2] || colorvalue[1] == 'none') return 'keep the 1st sanctum milestone<br>on molecule resets';
+                return 'keep the <b class="layer-s' + getdark(this, "ref", true, true) + '1st sanctum milestone</b><br>on molecule resets';
+            },
+            done() { return player.m.total.gte(45) },
         },
     },
     upgrades: {
