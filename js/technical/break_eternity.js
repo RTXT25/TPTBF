@@ -1727,7 +1727,8 @@
       return lnx.div(lnx.lambertw());
     };
 
-    //Pentation/pentate: The result of tetrating 'height' times in a row. An absurdly strong operator - Decimal.pentate(2, 4.28) and Decimal.pentate(10, 2.37) are already too huge for break_eternity.js!
+    //Pentation/pentate: The result of tetrating 'height' times in a row.
+    //An absurdly strong operator - Decimal.pentate(2, 4.28) and Decimal.pentate(10, 2.37) are already too huge for break_eternity.js!
     //https://en.wikipedia.org/wiki/Pentation
     Decimal.prototype.pentate = function(height = 2, payload = FC_NN(1, 0, 1)) {
       payload = D(payload);

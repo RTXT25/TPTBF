@@ -149,3 +149,23 @@ lambertw(value)
 
 pentate(value, height = 2, payload = 1)
 > The result of tetrating 'height' times in a row.
+
+## Trig functions:
+
+sin(), asin()
+> Sine and inverse sine function for decimals.
+
+cos(), acos()
+> Cosine and inverse cosine function for decimals.
+
+tan(), atan()
+> Tangent and inverse tangent function for decimals.
+
+sinh(), asinh()
+> Hyperbolic sine and inverse hyperbolic sine function for decimals.
+
+cosh(), acosh()
+> Hyperbolic cosine and inverse hyperbolic cosine function for decimals.
+
+tanh(), atanh()
+> Hyperbolic tangent and inverse hyperbolic tangent function for decimals.
