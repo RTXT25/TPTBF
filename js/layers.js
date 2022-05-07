@@ -418,8 +418,8 @@ addLayer('A', {
         },
         85: {
             name: 'Atoms Made of Atoms',
-            done() {return player.a.points.gte(1000000)},
-            tooltip: 'obtain 1,000,000 atoms.',
+            done() {return player.a.points.gte(10000000)},
+            tooltip: 'obtain 10,000,000 atoms.',
             unlocked() { if (hasAchievement('A', 84)) return true },
             color: '#4D2FE0',
         },
@@ -826,7 +826,7 @@ addLayer('e', {
             effect() {
                 eff = player.e.points.add(1).pow(0.5);
                 hardcap = new Decimal("1e1750").mul(tmp.r.effect);
-                if (tmp.r.effect.gt(1)) hardcap = hardcap.mul(tmp.r.effect)
+                if (tmp.r.effect.gt(1)) hardcap = hardcap.mul(tmp.r.effect);
                 if (eff.gt(hardcap)) return hardcap;
                 return eff;
             },
@@ -3189,10 +3189,14 @@ addLayer('a', {
             },
             cost: 1,
             effect() {
-                return player.a.points.add(1).pow(0.5);
+                eff = player.a.points.add(1).pow(0.5);
+                hardcap = new Decimal(1000);
+                if (eff.gt(hardcap)) return hardcap;
+                return eff;
             },
             effectDisplay() {
-                text = format(this.effect()) + 'x';
+                if (this.effect().gte(1000)) text = format(this.effect()) + "x<br>(hardcapped)";
+                else text = format(this.effect()) + 'x';
                 if (player.nerdMode) text += ' <br>formula: (x+1)^0.5';
                 return text;
             },
@@ -3228,11 +3232,15 @@ addLayer('a', {
             },
             cost: 1,
             effect() {
-                return player.sp.points.add(1).pow(0.02);
+                eff = player.sp.points.add(1).pow(0.02);
+                hardcap = new Decimal(2.5);
+                if (eff.gt(hardcap)) return hardcap;
+                return eff;
             },
             effectDisplay() {
-                text = format(this.effect()) + 'x';
-                if (player.nerdMode) text += ' <br>formula: (x+1)^0.02';
+                if (this.effect().gte(2.5)) text = format(this.effect()) + "x<br>(hardcapped)";
+                else text = format(this.effect()) + 'x';
+                if (player.nerdMode) text += ' <br>formula: (x+1)^0.2';
                 return text;
             },
             branches: [32, 33],
@@ -3270,10 +3278,14 @@ addLayer('a', {
             },
             cost: 2,
             effect() {
-                return player.a.total.add(1).pow(0.05);
+                eff = player.a.total.add(1).pow(0.05);
+                hardcap = new Decimal(2.25);
+                if (eff.gt(hardcap)) return hardcap;
+                return eff;
             },
             effectDisplay() {
-                text = format(this.effect()) + 'x';
+                if (this.effect().gte(2.25)) text = format(this.effect()) + "x<br>(hardcapped)";
+                else text = format(this.effect()) + 'x';
                 if (player.nerdMode) text += ' <br>formula: (x+1)^0.05';
                 return text;
             },
@@ -3291,10 +3303,14 @@ addLayer('a', {
             },
             cost: 2,
             effect() {
-                return player.sp.points.add(1).pow(0.025);
+                eff = player.sp.points.add(1).pow(0.025);
+                hardcap = new Decimal(3.15);
+                if (eff.gt(hardcap)) return hardcap;
+                return eff;
             },
             effectDisplay() {
-                text = format(this.effect()) + 'x';
+                if (this.effect().gte(3.15)) text = format(this.effect()) + "x<br>(hardcapped)";
+                else text = format(this.effect()) + 'x';
                 if (player.nerdMode) text += ' <br>formula: (x+1)^0.025';
                 return text;
             },
@@ -3367,10 +3383,14 @@ addLayer('a', {
             },
             cost: 3,
             effect() {
-                return player.a.total.sub(player.a.best).add(1).pow(0.2);
+                eff = player.a.total.sub(player.a.best).add(1).pow(0.2);
+                hardcap = new Decimal(15);
+                if (eff.gt(hardcap)) return hardcap;
+                return eff;
             },
             effectDisplay() {
-                text = format(this.effect()) + 'x';
+                if (this.effect().gte(15)) text = format(this.effect()) + "x<br>(hardcapped)";
+                else text = format(this.effect()) + 'x';
                 if (player.nerdMode) text += ' <br>formula: (x-y+1)^0.2';
                 return text;
             },
@@ -3388,10 +3408,14 @@ addLayer('a', {
             },
             cost: 3,
             effect() {
-                return player.a.total.mul(player.a.points).pow(0.05).add(1);
+                eff = player.a.total.mul(player.a.points).pow(0.05).add(1);
+                hardcap = new Decimal(6.66);
+                if (eff.gt(hardcap)) return hardcap;
+                return eff;
             },
             effectDisplay() {
-                text = format(this.effect()) + 'x';
+                if (this.effect().gte(6.66)) text = format(this.effect()) + "x<br>(hardcapped)";
+                else text = format(this.effect()) + 'x';
                 if (player.nerdMode) text += ' <br>formula: (x*y)^0.05+1';
                 return text;
             },
@@ -3429,10 +3453,14 @@ addLayer('a', {
             },
             cost: 4,
             effect() {
-                return player.a.total.add(1).pow(0.1);
+                eff = player.a.total.add(1).pow(0.1);
+                hardcap = new Decimal(5);
+                if (eff.gt(hardcap)) return hardcap;
+                return eff;
             },
             effectDisplay() {
-                text = format(this.effect()) + 'x';
+                if (this.effect().gte(5)) text = format(this.effect()) + "x<br>(hardcapped)";
+                else text = format(this.effect()) + 'x';
                 if (player.nerdMode) text += ' <br>formula: (x+1)^0.1';
                 return text;
             },
@@ -4685,7 +4713,7 @@ addLayer('d', {
     row: 2,
     layerShown() {return false},
     automate() {
-        if (player.s.auto_worship) {
+        if (hasMilestone('s', 19) && player.s.auto_worship) {
             if (layers.d.buyables[11].canAfford()) layers.d.buyables[11].buy();
             if (hasMilestone('s', 44) && layers.d.buyables[11].canAfford()) layers.d.buyables[11].buy();
             if (hasMilestone('s', 46)) {
@@ -4703,10 +4731,10 @@ addLayer('d', {
                 if (layers.d.buyables[11].canAfford()) layers.d.buyables[11].buy();
             };
         };
-        if (player.s.auto_sacrifice && layers.d.buyables[12].canAfford()) {
+        if (hasMilestone('s', 38) && player.s.auto_sacrifice && layers.d.buyables[12].canAfford()) {
             layers.d.buyables[12].buy();
         };
-        if (player.s.auto_sacrificial_ceremony && layers.d.buyables[21].canAfford()) {
+        if (hasMilestone('s', 28) && player.s.auto_sacrificial_ceremony && layers.d.buyables[21].canAfford()) {
             layers.d.buyables[21].buy();
         };
     },
@@ -5031,9 +5059,12 @@ addLayer('m', {
         points: new Decimal(0),
         best: new Decimal(0),
         total: new Decimal(0),
+        unique_nonextra: new Decimal(0),
+        unique_extra: new Decimal(0),
+        unique_total: new Decimal(0),
     }},
     color() {
-        if (player.a.points.gte(30000) || player.m.unlocked) return "#00E0E0";
+        if (player.a.points.gte(30000) || player.m.unlocked) return "#00CCCC";
         return '#666666';
     },
     requires: 30000,
@@ -5066,6 +5097,13 @@ addLayer('m', {
         let keep = [];
             if (layers[resettingLayer].row > this.row) layerDataReset('a', keep);
         },
+    update(diff) {
+        player.m.unique_nonextra = new Decimal(player.m.upgrades.length);
+        eff = new Decimal(0);
+        if (hasUpgrade('m', 31)) eff = eff.add(upgradeEffect('m', 31));
+        player.m.unique_extra = eff;
+        player.m.unique_total = player.m.unique_nonextra.add(player.m.unique_extra);
+    },
     tabFormat: {
         "Microscope": {
             content: [
@@ -5084,8 +5122,13 @@ addLayer('m', {
                 "blank",
                 ["display-text",
                     function () {
-                        if (colorvalue[1] == 'none') return 'You have ' + formatWhole(player.m.upgrades.length) + ' total unique molecules';
-                        return 'You have <h2 class="layer-m">' + formatWhole(player.m.upgrades.length) + '</h2> total unique molecules';
+                        extra = "";
+                        if (player.m.unique_extra.gt(0)) {
+                            if (colorvalue[1] == 'none') extra = '+' + formatWhole(player.m.unique_extra);
+                            else extra = '<h3 class="layer-m-light">+' + formatWhole(player.m.unique_extra) + '</h3>';
+                        };
+                        if (colorvalue[1] == 'none') return 'You have ' + formatWhole(player.m.unique_nonextra) + extra + ' total unique molecules';
+                        return 'You have <h2 class="layer-m">' + formatWhole(player.m.unique_nonextra) + extra + '</h2> total unique molecules';
                     }],
                 "blank",
                 "upgrades",
@@ -5145,23 +5188,23 @@ addLayer('m', {
             done() { return player.m.total.gte(25) },
         },
         9: {
-            requirementDescription: '45 total molecules',
+            requirementDescription: '50 total molecules',
             effectDescription() {
                 if (!colorvalue[0][2] || colorvalue[1] == 'none') return 'keep the 1st sanctum milestone<br>on molecule resets';
                 return 'keep the <b class="layer-s' + getdark(this, "ref", true, true) + '1st sanctum milestone</b><br>on molecule resets';
             },
-            done() { return player.m.total.gte(45) },
+            done() { return player.m.total.gte(50) },
         },
         10: {
-            requirementDescription: '75 total molecules',
+            requirementDescription: '125 total molecules',
             effectDescription: 'keep 2 sanctums on molecule resets',
-            done() { return player.m.total.gte(75) },
+            done() { return player.m.total.gte(125) },
         },
     },
-    upgrades: {
+    upgrades: {//IDEAS FOR NAMES: NaCl, aka salt | O3, aka ozone | methane gas
         11: {
             title() {
-                return '<b class="layer-m' + getdark(this, "title") + 'Oxygen Gas';
+                return '<b class="layer-m' + getdark(this, "title-light") + 'Oxygen Gas';
             },
             description() {
                 return 'multiplies essence gain based on your best molecules';
@@ -5178,7 +5221,7 @@ addLayer('m', {
         },
         12: {
             title() {
-                return '<b class="layer-m' + getdark(this, "title") + 'Carbon Monoxide';
+                return '<b class="layer-m' + getdark(this, "title-light") + 'Carbon Monoxide';
             },
             description() {
                 return 'multiplies demon soul gain based on your best molecules';
@@ -5195,7 +5238,7 @@ addLayer('m', {
         },
         13: {
             title() {
-                return '<b class="layer-m' + getdark(this, "title") + 'Carbon Dioxide';
+                return '<b class="layer-m' + getdark(this, "title-light") + 'Carbon Dioxide';
             },
             description() {
                 return 'multiplies quark gain based on your best molecules';
@@ -5212,7 +5255,7 @@ addLayer('m', {
         },
         21: {
             fullDisplay() {
-                text = '<h3 class="layer-m' + getdark(this, "title", true) + 'Hydrogen Gas</h3><br>multiplies core gain based on your best molecules<br>Currently: ' + format(this.effect()) + 'x<br><br>Cost: 360,000 atoms';
+                text = '<h3 class="layer-m' + getdark(this, "title-light", true) + 'Hydrogen Gas</h3><br>multiplies core gain based on your best molecules<br>Currently: ' + format(this.effect()) + 'x<br><br>Cost: 360,000 atoms';
                 //if (player.nerdMode) text += ' <br>formula: (x*25+1)^0.3';
                 return text;
             },
@@ -5220,20 +5263,23 @@ addLayer('m', {
                 if (player.a.points.gte(360000)) return true;
                 return false;
             },
+            pay() {
+                player.a.points = player.a.points.sub(360000);
+            },
             effect() {
                 return player.m.best.mul(25).add(1).pow(0.3);
             },
         },
         22: {
             title() {
-                return '<b class="layer-m' + getdark(this, "title") + 'H<tag style="font-size:10px;">2</tag>O, aka Water';
+                return '<b class="layer-m' + getdark(this, "title-light") + 'H<tag style="font-size:10px;">2</tag>O, aka Water';
             },
             description() {
                 return 'multiplies essence gain based on your total unique molecules';
             },
-            cost: 25,
+            cost: 125,
             effect() {
-                return new Decimal(player.m.upgrades.length).add(1).mul(5);
+                return player.m.unique_total.add(1).mul(5);
             },
             effectDisplay() {
                 text = format(this.effect()) + 'x';
@@ -5243,17 +5289,38 @@ addLayer('m', {
         },
         23: {
             fullDisplay() {
-                text = '<h3 class="layer-m' + getdark(this, "title", true) + 'Ammonia</h3><br>multiplies hex gain based on your best molecules<br>Currently: ' + format(this.effect()) + 'x<br><br>Cost: 390,000 atoms';
+                text = '<h3 class="layer-m' + getdark(this, "title-light", true) + 'Ammonia</h3><br>multiplies hex gain based on your best molecules<br>Currently: ' + format(this.effect()) + 'x<br><br>Cost: 4,600,000 atoms';
                 //if (player.nerdMode) text += ' <br>formula: (x*250+1)^0.1';
                 return text;
             },
             canAfford() {
-                if (player.a.points.gte(360000)) return true;
+                if (player.a.points.gte(4600000)) return true;
                 return false;
+            },
+            pay() {
+                player.a.points = player.a.points.sub(4600000);
             },
             effect() {
                 return player.m.best.mul(250).add(1).pow(0.1);
             },
+        },
+        31: {
+            fullDisplay() {
+                text = '<h3 class="layer-m' + getdark(this, "title-light", true) + 'Nitrogen Gas</h3><br>gives free unique molecules based on your non-free ones<br>Currently: +' + formatWhole(this.effect()) + '<br><br>Cost: 7,500,000 atoms';
+                //if (player.nerdMode) text += ' <br>formula: x/2+1';
+                return text;
+            },
+            canAfford() {
+                if (player.a.points.gte(7500000)) return true;
+                return false;
+            },
+            pay() {
+                player.a.points = player.a.points.sub(7500000);
+            },
+            effect() {
+                return player.m.unique_nonextra.div(2).add(1).floor();
+            },
+            unlocked() { return hasUpgrade('m', 22) },
         },
     },
 });
