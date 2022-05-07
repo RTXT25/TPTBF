@@ -53,3 +53,61 @@ div(value), divide(value), times(value)
 recip(value), reciprocal(value), reciprocate(value)
 
 > find the reciprocal of a decimal.
+
+## Comparators:
+
+cmp(value), compare(value)
+
+> compares two values, and returns -1 for less than, 0 for equals, and 1 for greater than.
+
+cmpabs(value)
+
+> the same as <b>cmp()</b> and <b>compare()</b> but absolute values the numbers before calculating
+
+eq(value), equal(value)
+
+> returns true if the values are equal.
+
+neq(value), notEquals(value)
+
+> returns true if the values are not equal.
+
+lt(value), gt(value)
+
+> returns true if the value is less than or greater than, respectively.
+
+lte(value), gte(value)
+
+> returns true if the value is less than or equal to, or greater than or equal to, respectively.
+
+max(value), min(value)
+
+> returns the value that is bigger or smaller, respectively.
+
+maxabs(value), minabs(value)
+
+> returns the absolute value that is bigger or smaller, respectively.
+
+clamp(min, max)
+
+> returns the value if it is between the minimum and maximum.
+
+clampMin(min), clampMax(max)
+
+> the same as <b>clamp()</b> but only applies min and max, respectively.
+
+cmp_tolerance(value, tolerance), compare_tolerance(value, tolerance), eq_tolerance(value, tolerance), equals_tolerance(value, tolerance)
+
+> returns true if the values are equal, with a relative tolerance.
+
+neq_tolerance(value, tolerance), notEquals_tolerance(value, tolerance)
+
+> returns true if the values are not equal, with a relative tolerance.
+
+lt_tolerance(value, tolerance), gt_tolerance(value, tolerance)
+
+> returns true if the value is less than or greater than, respectively (with a relative tolerance).
+
+lte_tolerance(value, tolerance), gte_tolerance(value, tolerance)
+
+> returns true if the value is less than or equal to, or greater than or equal to, respectively (with a relative tolerance).
