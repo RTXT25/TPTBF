@@ -16,7 +16,7 @@ fromValue(value)
 
 > detects if it's a number or a string, then converts it to a decimal.
 
-## Normal math functions:
+## Basic math functions:
 
 abs(value)
 
@@ -111,3 +111,71 @@ lt_tolerance(value, tolerance), gt_tolerance(value, tolerance)
 lte_tolerance(value, tolerance), gte_tolerance(value, tolerance)
 
 > returns true if the value is less than or equal to, or greater than or equal to, respectively (with a relative tolerance).
+
+## Advanced math functions:
+
+log(value), logarithm(value)
+
+> Takes the logarithm (with a base of your choosing) of a decimal.
+
+ln(), log2(), log10()
+
+> Takes the natural logarithm, base 2 logarithm, or base 10 logarithm of a decimal, respectively.
+
+absLog10()
+
+> The same as <b>log10()</b> but takes the absolute value of your input before calculating.
+
+pLog10()
+
+> The same as <b>log10()</b> but if you input a negative number, it returns 0.
+
+pow(value)
+
+> Raises a decimal to the power of a value of your choosing.
+
+exp(), sqr(), cube(), pow10()
+
+> Raises a decimal to the power of e (the natural logarithm base), 2, 3, or 10, respectively.
+
+pow_base(value)
+
+> Raises a value of your choosing to the power of a decimal.
+
+root(value)
+
+> Takes the root (with a base of your choosing) of a decimal.
+
+sqrt(), cqrt()
+
+> Takes the square (base 2) root, or the cube (base 3) root of a decimal, respectively.
+
+factorial()
+
+> Takes the factorial of a decimal.
+
+gamma()
+
+> Takes the gamma function of a decimal.
+
+lngamma()
+
+> Is literally just <b>gamma()</b> taken to the natural logarithm.
+
+tetrate(height = 2, payload = 1), iteratedexp(height = 2, payload = 1)
+
+> Raises a decimal to the power of itself (height) times in a row.
+
+> If the payload is not 1, then it is 'iterated exponentiation', the result of exping (payload) to base (decimal) (height) times.
+
+iteratedlog(base = 10, times = 1)
+
+> Iterated log: The result of applying log (base) 'times' times in a row.
+
+> Equivalent to tetrating to a negative height.
+
+slog(base = 10)
+
+> Super-logarithm, one of tetration's inverses, tells you what height you'd have to tetrate (base) to to get the decimal.
+
+> Note: cannot be higher than 1.8e308.
