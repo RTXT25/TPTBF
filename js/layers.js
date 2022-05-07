@@ -4798,9 +4798,9 @@ addLayer('d', {
             style() {
                 backcolors = '#224400, #336600';
                 if (this.canAfford()) backcolors = '#112200, #448800';
-                textcolor = 'AAFF00';
-                if (colorvalue[1] == 'none') textcolor = 'DFDFDF';
-                return {'background-image':'radial-gradient('+backcolors+')','color':'#'+textcolor,'border-radius':'50%'};
+                textcolor = '#AAFF00';
+                if (colorvalue[1] == 'none') textcolor = '#DFDFDF';
+                return {'background-image':'radial-gradient('+backcolors+')','color':textcolor,'border-radius':'50%'};
             },
             unlocked() { return hasMilestone('s', 13) },
         },
@@ -4832,9 +4832,9 @@ addLayer('d', {
             style() {
                 backcolors = '#224400, #336600';
                 if (this.canAfford()) backcolors = '#112200, #448800';
-                textcolor = 'AAFF00';
-                if (colorvalue[1] == 'none') textcolor = 'DFDFDF';
-                return {'background-image':'radial-gradient('+backcolors+')','color':'#'+textcolor,'border-radius':'50%'};
+                textcolor = '#AAFF00';
+                if (colorvalue[1] == 'none') textcolor = '#DFDFDF';
+                return {'background-image':'radial-gradient('+backcolors+')','color':textcolor,'border-radius':'50%'};
             },
             unlocked() { return hasMilestone('s', 13) },
         },
@@ -4879,9 +4879,9 @@ addLayer('d', {
             style() {
                 backcolors = '#224400, #336600';
                 if (this.canAfford()) backcolors = '#112200, #448800';
-                textcolor = 'AAFF00';
-                if (colorvalue[1] == 'none') textcolor = 'DFDFDF';
-                return {'background-image':'radial-gradient('+backcolors+')','color':'#'+textcolor,'border-radius':'50%','height':'300px','width':'300px'};
+                textcolor = '#AAFF00';
+                if (colorvalue[1] == 'none') textcolor = '#DFDFDF';
+                return {'background-image':'radial-gradient('+backcolors+')','color':textcolor,'border-radius':'50%','height':'300px','width':'300px'};
             },
             unlocked() { return hasMilestone('s', 14) },
         },
