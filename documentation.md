@@ -13,7 +13,7 @@ fromNumber(value), fromString(value)
 fromValue(value)
 > Detects if it's a number or a string, then converts it to a decimal.
 
-## Basic math functions:
+## Basic math:
 
 abs(value)
 > Absolute value for decimals.
@@ -86,7 +86,7 @@ lt_tolerance(value, tolerance), gt_tolerance(value, tolerance)
 lte_tolerance(value, tolerance), gte_tolerance(value, tolerance)
 > Returns true if the value is less than or equal to, or greater than or equal to, respectively (with a relative tolerance).
 
-## Advanced math functions:
+## Advanced math:
 
 log(value), logarithm(value)
 > Takes the logarithm (with a base of your choosing) of a decimal.
@@ -129,9 +129,23 @@ tetrate(height = 2, payload = 1), iteratedexp(height = 2, payload = 1)
 If the payload is not 1, then it is 'iterated exponentiation', the result of exping (payload) to base (decimal) (height) times.
 
 iteratedlog(base = 10, times = 1)
-> Iterated log: The result of applying log (base) 'times' times in a row.<br>
+> The result of applying log (base) 'times' times in a row.<br>
 Equivalent to tetrating to a negative height.
 
 slog(base = 10)
-> Super-logarithm, one of tetration's inverses, tells you what height you'd have to tetrate (base) to to get the decimal.<br>
+> Returns what height you'd have to get the decimal from tetrate (base).<br>
 Note: cannot be higher than 1.8e308.
+
+layeradd(diff, base)
+> Adds layers to a Decimal, even fractional layers (can also subtract if you enter a negative number),<br>
+like adding 'diff' to the number's slog (base) representation.<br>
+Similar to tetrate base (base) and iterated log base (base).
+
+layeradd10(diff)
+> The same as <b>Layeradd()</b> but always has a base of 10.
+
+lambertw(value)
+> The Lambert W function, also called the omega function or product logarithm, is the solution W(x) === x*e^x.
+
+pentate(value, height = 2, payload = 1)
+> The result of tetrating 'height' times in a row.
