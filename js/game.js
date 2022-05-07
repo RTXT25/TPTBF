@@ -184,7 +184,7 @@ function doReset(layer, force=false) {
 	for (layerResetting in layers) {
 		if (row >= layers[layerResetting].row && (!force || layerResetting != layer)) completeChallenge(layerResetting);
 	};
-	player.points = (row == 0 ? decimalZero : getStartPoints());
+	player.points = (row == 0 ? decimalZero : modInfo.initialStartPoints);
 	for (let x = row; x >= 0; x--) rowReset(x, layer);
 	for (r in OTHER_LAYERS) {
 		rowReset(r, layer);
@@ -205,7 +205,7 @@ function resetRow(row) {
 		player[layer].unlocked = false;
 		if (player[layer].unlockOrder) player[layer].unlockOrder = 0;
 	};
-	player.points = getStartPoints();
+	player.points = modInfo.initialStartPoints;
 	updateTemp();
 	resizeCanvas();
 };
