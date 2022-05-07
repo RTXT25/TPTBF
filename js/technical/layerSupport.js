@@ -256,10 +256,10 @@ function someLayerUnlocked(row){
 };
 
 // This isn't worth making a .ts file over
-const UP = 0
-const DOWN = 1
-const LEFT = 2
-const RIGHT = 3
+const UP = 0;
+const DOWN = 1;
+const LEFT = 2;
+const RIGHT = 3;
 
 addLayer("info-tab", {
     tabFormat: ["info-tab"],
@@ -272,6 +272,6 @@ addLayer("options-tab", {
 });
 
 addLayer("changelog-tab", {
-    tabFormat() {return ([["raw-html", modInfo.changelog]])},
+    tabFormat() {return [["raw-html", modInfo.changelog]]},
     row: "otherside"
 });
