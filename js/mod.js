@@ -16,8 +16,8 @@ let VERSION = {
 let changelog = `<h1>Changelog:</h1><br>
 	<br><h3>v2.2: Advances in Science</h3><br>
 		- Added molecules.<br>
-		- Added eleven milestones to molecules.<br>
-		- Added six upgrades to molecules.<br>
+		- Added twelve milestones to molecules.<br>
+		- Added eight upgrades to molecules.<br>
 		- Added three milestones to sanctums.<br>
 		- Added achievement colors.<br>
 		- Added eight achievements.<br>
