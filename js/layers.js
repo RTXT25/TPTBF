@@ -418,8 +418,8 @@ addLayer('A', {
         },
         85: {
             name: 'Atoms Made of Atoms',
-            done() {return player.a.points.gte(10000000)},
-            tooltip: 'obtain 10,000,000 atoms.',
+            done() {return player.a.points.gte(1e9)},
+            tooltip: 'obtain 1e9 atoms.',
             unlocked() { if (hasAchievement('A', 84)) return true },
             color: '#4D2FE0',
         },
@@ -541,21 +541,21 @@ addLayer('A', {
             done() {return player.m.points.gte(1)},
             tooltip: 'obtain 1 molecule.',
             unlocked() { if (hasAchievement('A', 121)) return true },
-            color: '#00E0E0',
+            color: '#00CCCC',
         },
         122: {
             name: 'Varied Molecules',
-            done() {return player.m.points.gte(100)},
-            tooltip: 'obtain 100 molecules.',
+            done() {return player.m.points.gte(1000)},
+            tooltip: 'obtain 1,000 molecules.',
             unlocked() { if (hasAchievement('A', 121)) return true },
-            color: '#00E0E0',
+            color: '#00CCCC',
         },
         123: {
             name: 'Molecule Dictionary',
-            done() {return player.m.points.gte(10000)},
-            tooltip: 'obtain 10,000 molecules.',
+            done() {return player.m.points.gte(1000000)},
+            tooltip: 'obtain 1,000,000 molecules.',
             unlocked() { if (hasAchievement('A', 122)) return true },
-            color: '#00E0E0',
+            color: '#00CCCC',
         },
     },
 });
@@ -585,6 +585,7 @@ addLayer('SC', {
         quark = 0;
         hex = 0;
         divine = 0;
+        molecule = 0;
         text = ['of which '];
         textfin = '';
         textvalue = 0;
@@ -600,32 +601,21 @@ addLayer('SC', {
         if (player.SC.softcaps.includes("p-d1")) {
             divine += 1;
         };
+        if (player.SC.softcaps.includes("m-eff1")) {
+            molecule += 1;
+        };
         if (colorvalue[1] == 'none') {
-            if (core > 0) {
-                text.push(core + ' is core</h2>');
-            };
-            if (quark > 0) {
-                text.push(quark + ' is quark</h2>');
-            };
-            if (hex > 0) {
-                text.push(hex + ' is hexed</h2>');
-            };
-            if (divine > 0) {
-                text.push(divine + ' is divine</h2>');
-            };
+            if (core > 0) text.push(core + ' is core</h2>');
+            if (quark > 0) text.push(quark + ' is quark</h2>');
+            if (hex > 0) text.push(hex + ' is hexed</h2>');
+            if (divine > 0) text.push(divine + ' is divine</h2>');
+            if (molecule > 0) text.push(molecule + ' is molecular</h2>');
         } else {
-            if (core > 0) {
-                text.push('<h2 class="layer-c">' + core + '</h2> is <h2 class="layer-c">core</h2>');
-            };
-            if (quark > 0) {
-                text.push('<h2 class="layer-q">' + quark + '</h2> is <h2 class="layer-q">quirky</h2>');
-            };
-            if (hex > 0) {
-                text.push('<h2 class="layer-h">' + hex + '</h2> is <h2 class="layer-h">hexed</h2>');
-            };
-            if (divine > 0) {
-                text.push('<h2 class="layer-p">' + divine + '</h2> is <h2 class="layer-p">divine</h2>');
-            };
+            if (core > 0) text.push('<h2 class="layer-c">' + core + '</h2> is <h2 class="layer-c">core</h2>');
+            if (quark > 0) text.push('<h2 class="layer-q">' + quark + '</h2> is <h2 class="layer-q">quirky</h2>');
+            if (hex > 0) text.push('<h2 class="layer-h">' + hex + '</h2> is <h2 class="layer-h">hexed</h2>');
+            if (divine > 0) text.push('<h2 class="layer-p">' + divine + '</h2> is <h2 class="layer-p">divine</h2>');
+            if (molecule > 0) text.push('<h2 class="layer-m">' + molecule + '</h2> is <h2 class="layer-m">molecular</h2>');
         };
         textfin = text[0];
         if (text.length > 1) {
@@ -646,6 +636,11 @@ addLayer('SC', {
             else textfin += ", ";
             textfin += text[4];
         };
+        if (text.length > 5) {
+            if (text.length == 6) textfin += ', and ';
+            else textfin += ", ";
+            textfin += text[5];
+        };
         return textfin;
     },
     update(diff) {
@@ -661,6 +656,9 @@ addLayer('SC', {
         if (player.p.divinity.gte(player.p.divinitysoftcap_start[0]) && !player.SC.softcaps.includes("p-d1")) {
             player.SC.softcaps.push("p-d1");
         };
+        if (tmp.m.effect.gte(player.m.effectsoftcap_start[0]) && !player.SC.softcaps.includes("m-eff1")) {
+            player.SC.softcaps.push("m-eff1");
+        };
         player.SC.points = new Decimal(player.SC.softcaps.length);
     },
     tabFormat: [
@@ -672,6 +670,7 @@ addLayer('SC', {
                 if (player.SC.softcaps.includes("q1")) text += '<br><h2 class="layer-q">Quark Gain Softcap</h2><br>starts at ' + format(layers.q.softcap) + ', gain to ^' + layers.q.softcapPower + '<br>';
                 if (player.SC.softcaps.includes("h1")) text += '<br><h2 class="layer-h">Hex Gain Softcap</h2><br>starts at ' + format(layers.h.softcap) + ', gain to ^' + layers.h.softcapPower + '<br>';
                 if (player.SC.softcaps.includes("p-d1")) text += '<br><h2 class="layer-p">Divinity Gain Softcap</h2><br>starts at ' + format(player.p.divinitysoftcap_start[0]) + ', gain to ^' + player.p.divinitysoftcap_power[0] + '<br>';
+                if (player.SC.softcaps.includes("m-eff1")) text += '<br><h2 class="layer-m">Molecule Effect Softcap</h2><br>starts at ' + format(player.m.effectsoftcap_start[0]) + ', effect to ^' + player.m.effectsoftcap_power[0] + '<br>';
                 return text;
             }],
     ],
@@ -2223,6 +2222,7 @@ addLayer('h', {
     },
     doReset(resettingLayer) {
         let keep = [];
+            if (hasMilestone('m', 13) && resettingLayer == 'm') return;
             if (hasMilestone('ds', 8) && resettingLayer == 'ds') keep.push("milestones");
             if (hasMilestone('a', 6) && resettingLayer == 'a') keep.push("milestones");
             if (hasMilestone('a', 11) && (resettingLayer == 'a' || resettingLayer == 'ds')) keep.push("upgrades");
@@ -3043,6 +3043,7 @@ addLayer('a', {
                 keep.push("milestones", "points", "best", "total");
                 if (hasMilestone('a', 12)) keep.push("upgrades");
             };
+            if (hasMilestone('m', 12) && resettingLayer == 'm') keep.push("milestones");
             if (layers[resettingLayer].row >= this.row) layerDataReset('a', keep);
         },
     resetsNothing() {
@@ -5073,6 +5074,8 @@ addLayer('m', {
         points: new Decimal(0),
         best: new Decimal(0),
         total: new Decimal(0),
+        effectsoftcap_start: [15000],
+        effectsoftcap_power: [0.5],
         unique_nonextra: new Decimal(0),
         unique_extra: new Decimal(0),
         unique_total: new Decimal(0),
@@ -5101,11 +5104,16 @@ addLayer('m', {
     layerShown(){return challengeCompletions('r', 11) >= 10 || player.m.points.gt(0)},
     effect() {
         effBoost = new Decimal(0.5);
-        return player.m.best.mul(effBoost).add(1).pow(0.99);
+        eff = player.m.best.mul(effBoost).add(1).pow(0.99);
+        sc_start0 = player.m.effectsoftcap_start[0];
+        if (eff.gt(sc_start0)) eff = eff.sub(sc_start0).pow(player.m.effectsoftcap_power[0]).add(sc_start0);
+        return eff;
     },
     effectDescription() {
-        if (colorvalue[1] == 'none') return 'which multiplies atom gain by ' + format(tmp.m.effect) + 'x (based on best)';
-        return 'which multiplies atom gain by <h2 class="layer-m">' + format(tmp.m.effect) + '</h2>x (based on best)';
+        softcap = '';
+        if (tmp.m.effect.gt(player.m.effectsoftcap_start[0])) softcap = ' (softcapped)';
+        if (colorvalue[1] == 'none') return 'which multiplies atom gain by ' + format(tmp.m.effect) + 'x (based on best)' + softcap;
+        return 'which multiplies atom gain by <h2 class="layer-m">' + format(tmp.m.effect) + '</h2>x (based on best)' + softcap;
     },
     doReset(resettingLayer) {
         let keep = [];
@@ -5219,6 +5227,16 @@ addLayer('m', {
             requirementDescription: '500 total molecules',
             effectDescription: 'hardcapped atom upgrades always<br>have max effect',
             done() { return player.m.total.gte(500) },
+        },
+        12: {
+            requirementDescription: '4,500 total molecules',
+            effectDescription: 'keep atom milestones on molecule resets',
+            done() { return player.m.total.gte(4500) },
+        },
+        13: {
+            requirementDescription: '50,000 total molecules',
+            effectDescription: 'molecules don\'t reset hexes',
+            done() { return player.m.total.gte(50000) },
         },
     },
     upgrades: {//IDEAS FOR NAMES: O3, aka Ozone | Methane Gas
