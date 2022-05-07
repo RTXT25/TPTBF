@@ -125,9 +125,14 @@ function getdark(darkthis, type, special = false, research = false){
 			if (research) return '">';
 			else {
 				if (special) darkcanafford = darkthis.canAfford();
-				else darkcanafford = new Decimal(player[darkthis.layer].points).gte(darkthis.cost);
+				else darkcanafford = player[darkthis.layer].points.gte(darkthis.cost);
 				if (darkcanafford && !hasUpgrade(darkthis.layer, darkthis.id)) return '-dark">';
 			};
+		} else if (type == 'title-light' && colorvalue[0][1]) {
+			if (special) darkcanafford = darkthis.canAfford();
+			else darkcanafford = player[darkthis.layer].points.gte(darkthis.cost);
+			if (darkcanafford && !hasUpgrade(darkthis.layer, darkthis.id)) return '-dark">';
+			return '-light">';
 		} else if (type == 'title-buyable' && colorvalue[0][1]) {
 			darkcanafford = darkthis.canAfford();
 			if (darkcanafford && getBuyableAmount(darkthis.layer, darkthis.id).lt(darkthis.purchaseLimit)) return '-dark">';
