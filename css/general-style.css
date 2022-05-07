@@ -121,13 +121,18 @@ h1, h2, h3, b, input {
 }
 
 .layer-m {
-	color: #00E0E0;
-	text-shadow: 0 0 10px #00E0E0;
+	color: #00CCCC;
+	text-shadow: 0 0 10px #00CCCC;
 }
 
 .layer-m-dark {
 	color: #008080;
 	text-shadow: 0 0 10px #008080;
+}
+
+.layer-m-light {
+	color: #00E0E0;
+	text-shadow: 0 0 10px #00FFFF;
 }
 
 /* These are styles for different states of components. You can make layer-specific versions with .c.locked, for example */
