@@ -831,7 +831,7 @@ addLayer('e', {
                 return eff;
             },
             effectDisplay() {
-                if (this.effect().gte(new Decimal("1e1750").mul(tmp.r.effect))) text = format(this.effect()) + "x<br>(hardcapped)";
+                if (this.effect().gte(new Decimal("1e1750").mul(tmp.r.effect))) text = format(this.effect()) + 'x<br>(hardcapped)';
                 else text = format(this.effect()) + 'x';
                 if (player.nerdMode) text += ' <br>formula: (x+1)^0.5';
                 return text;
@@ -3185,17 +3185,19 @@ addLayer('a', {
                 return '<b class="layer-a' + getdark(this, "title") + 'The Demon of the Atom';
             },
             description() {
+                if (hasMilestone('m', 11)) return 'multiplies demon soul gain by 1,000x';
                 return 'multiplies demon soul gain based on your atoms';
             },
             cost: 1,
             effect() {
                 eff = player.a.points.add(1).pow(0.5);
                 hardcap = new Decimal(1000);
-                if (eff.gt(hardcap)) return hardcap;
+                if (eff.gt(hardcap) || hasMilestone('m', 11)) return hardcap;
                 return eff;
             },
             effectDisplay() {
-                if (this.effect().gte(1000)) text = format(this.effect()) + "x<br>(hardcapped)";
+                if (hasMilestone('m', 11)) return 'max effect';
+                if (this.effect().gte(1000)) text = format(this.effect()) + 'x<br>(hardcapped)';
                 else text = format(this.effect()) + 'x';
                 if (player.nerdMode) text += ' <br>formula: (x+1)^0.5';
                 return text;
@@ -3228,17 +3230,19 @@ addLayer('a', {
                 return '<b class="layer-a' + getdark(this, "title") + 'Atom Construction';
             },
             description() {
+                if (hasMilestone('m', 11)) return 'multiplies atom gain by 2.50x';
                 return 'multiplies atom gain based on your subatomic particles';
             },
             cost: 1,
             effect() {
                 eff = player.sp.points.add(1).pow(0.02);
                 hardcap = new Decimal(2.5);
-                if (eff.gt(hardcap)) return hardcap;
+                if (eff.gt(hardcap) || hasMilestone('m', 11)) return hardcap;
                 return eff;
             },
             effectDisplay() {
-                if (this.effect().gte(2.5)) text = format(this.effect()) + "x<br>(hardcapped)";
+                if (hasMilestone('m', 11)) return 'max effect';
+                if (this.effect().gte(2.5)) text = format(this.effect()) + 'x<br>(hardcapped)';
                 else text = format(this.effect()) + 'x';
                 if (player.nerdMode) text += ' <br>formula: (x+1)^0.2';
                 return text;
@@ -3274,17 +3278,19 @@ addLayer('a', {
                 return '<b class="layer-a' + getdark(this, "title") + 'Atomic Recursion';
             },
             description() {
+                if (hasMilestone('m', 11)) return 'multiplies atom gain by 2.25x';
                 return 'multiplies atom gain based on your total atoms';
             },
             cost: 2,
             effect() {
                 eff = player.a.total.add(1).pow(0.05);
                 hardcap = new Decimal(2.25);
-                if (eff.gt(hardcap)) return hardcap;
+                if (eff.gt(hardcap) || hasMilestone('m', 11)) return hardcap;
                 return eff;
             },
             effectDisplay() {
-                if (this.effect().gte(2.25)) text = format(this.effect()) + "x<br>(hardcapped)";
+                if (hasMilestone('m', 11)) return 'max effect';
+                if (this.effect().gte(2.25)) text = format(this.effect()) + 'x<br>(hardcapped)';
                 else text = format(this.effect()) + 'x';
                 if (player.nerdMode) text += ' <br>formula: (x+1)^0.05';
                 return text;
@@ -3299,17 +3305,19 @@ addLayer('a', {
                 return '<b class="layer-a' + getdark(this, "title") + 'Atom Production';
             },
             description() {
+                if (hasMilestone('m', 11)) return 'multiplies atom gain by 3.15x';
                 return 'multiplies atom gain based on your subatomic particles';
             },
             cost: 2,
             effect() {
                 eff = player.sp.points.add(1).pow(0.025);
                 hardcap = new Decimal(3.15);
-                if (eff.gt(hardcap)) return hardcap;
+                if (eff.gt(hardcap) || hasMilestone('m', 11)) return hardcap;
                 return eff;
             },
             effectDisplay() {
-                if (this.effect().gte(3.15)) text = format(this.effect()) + "x<br>(hardcapped)";
+                if (hasMilestone('m', 11)) return 'max effect';
+                if (this.effect().gte(3.15)) text = format(this.effect()) + 'x<br>(hardcapped)';
                 else text = format(this.effect()) + 'x';
                 if (player.nerdMode) text += ' <br>formula: (x+1)^0.025';
                 return text;
@@ -3379,17 +3387,19 @@ addLayer('a', {
                 return '<b class="layer-a' + getdark(this, "title") + 'Unpeaked';
             },
             description() {
+                if (hasMilestone('m', 11)) return 'multiplies atom gain by 15.00x';
                 return 'multiplies atom gain based on your total atoms minus your best atoms';
             },
             cost: 3,
             effect() {
                 eff = player.a.total.sub(player.a.best).add(1).pow(0.2);
                 hardcap = new Decimal(15);
-                if (eff.gt(hardcap)) return hardcap;
+                if (eff.gt(hardcap) || hasMilestone('m', 11)) return hardcap;
                 return eff;
             },
             effectDisplay() {
-                if (this.effect().gte(15)) text = format(this.effect()) + "x<br>(hardcapped)";
+                if (hasMilestone('m', 11)) return 'max effect';
+                if (this.effect().gte(15)) text = format(this.effect()) + 'x<br>(hardcapped)';
                 else text = format(this.effect()) + 'x';
                 if (player.nerdMode) text += ' <br>formula: (x-y+1)^0.2';
                 return text;
@@ -3404,17 +3414,19 @@ addLayer('a', {
                 return '<b class="layer-a' + getdark(this, "title") + 'Higher Peak';
             },
             description() {
+                if (hasMilestone('m', 11)) return 'multiplies atom gain by 6.66x';
                 return 'multiplies atom gain based on your total atoms times your current atoms';
             },
             cost: 3,
             effect() {
                 eff = player.a.total.mul(player.a.points).pow(0.05).add(1);
                 hardcap = new Decimal(6.66);
-                if (eff.gt(hardcap)) return hardcap;
+                if (eff.gt(hardcap) || hasMilestone('m', 11)) return hardcap;
                 return eff;
             },
             effectDisplay() {
-                if (this.effect().gte(6.66)) text = format(this.effect()) + "x<br>(hardcapped)";
+                if (hasMilestone('m', 11)) return 'max effect';
+                if (this.effect().gte(6.66)) text = format(this.effect()) + 'x<br>(hardcapped)';
                 else text = format(this.effect()) + 'x';
                 if (player.nerdMode) text += ' <br>formula: (x*y)^0.05+1';
                 return text;
@@ -3449,17 +3461,19 @@ addLayer('a', {
                 return '<b class="layer-a' + getdark(this, "title") + 'Recurred, Recurring';
             },
             description() {
+                if (hasMilestone('m', 11)) return 'multiplies atom gain by 5.00x';
                 return 'multiplies atom gain based on your total atoms';
             },
             cost: 4,
             effect() {
                 eff = player.a.total.add(1).pow(0.1);
                 hardcap = new Decimal(5);
-                if (eff.gt(hardcap)) return hardcap;
+                if (eff.gt(hardcap) || hasMilestone('m', 11)) return hardcap;
                 return eff;
             },
             effectDisplay() {
-                if (this.effect().gte(5)) text = format(this.effect()) + "x<br>(hardcapped)";
+                if (hasMilestone('m', 11)) return 'max effect';
+                if (this.effect().gte(5)) text = format(this.effect()) + 'x<br>(hardcapped)';
                 else text = format(this.effect()) + 'x';
                 if (player.nerdMode) text += ' <br>formula: (x+1)^0.1';
                 return text;
@@ -5101,6 +5115,7 @@ addLayer('m', {
         player.m.unique_nonextra = new Decimal(player.m.upgrades.length);
         eff = new Decimal(0);
         if (hasUpgrade('m', 31)) eff = eff.add(upgradeEffect('m', 31));
+        if (hasUpgrade('m', 32)) eff = eff.add(upgradeEffect('m', 32));
         player.m.unique_extra = eff;
         player.m.unique_total = player.m.unique_nonextra.add(player.m.unique_extra);
     },
@@ -5200,8 +5215,13 @@ addLayer('m', {
             effectDescription: 'keep 2 sanctums on molecule resets',
             done() { return player.m.total.gte(125) },
         },
+        11: {
+            requirementDescription: '500 total molecules',
+            effectDescription: 'hardcapped atom upgrades always<br>have max effect',
+            done() { return player.m.total.gte(500) },
+        },
     },
-    upgrades: {//IDEAS FOR NAMES: NaCl, aka salt | O3, aka ozone | methane gas
+    upgrades: {//IDEAS FOR NAMES: O3, aka Ozone | Methane Gas
         11: {
             title() {
                 return '<b class="layer-m' + getdark(this, "title-light") + 'Oxygen Gas';
@@ -5305,22 +5325,40 @@ addLayer('m', {
             },
         },
         31: {
-            fullDisplay() {
-                text = '<h3 class="layer-m' + getdark(this, "title-light", true) + 'Nitrogen Gas</h3><br>gives free unique molecules based on your non-free ones<br>Currently: +' + formatWhole(this.effect()) + '<br><br>Cost: 7,500,000 atoms';
-                //if (player.nerdMode) text += ' <br>formula: x/2+1';
-                return text;
+            title() {
+                return '<b class="layer-m' + getdark(this, "title-light") + 'Nitrogen Gas';
             },
-            canAfford() {
-                if (player.a.points.gte(7500000)) return true;
-                return false;
+            description() {
+                return 'gives free unique molecules based on your non-free ones';
             },
-            pay() {
-                player.a.points = player.a.points.sub(7500000);
-            },
+            cost: 125,
             effect() {
                 return player.m.unique_nonextra.div(2).add(1).floor();
             },
-            unlocked() { return hasUpgrade('m', 22) },
+            effectDisplay() {
+                text = '+' + formatWhole(this.effect());
+                if (player.nerdMode) text += ' <br>formula: x/2+1';
+                return text;
+            },
+            unlocked() { return hasUpgrade('m', 21) && hasUpgrade('m', 22) && hasUpgrade('m', 23) },
+        },
+        32: {
+            fullDisplay() {
+                text = '<h3 class="layer-m' + getdark(this, "title-light", true) + 'NaCl, aka Salt</h3><br>gives free unique molecules based on your atoms<br>Currently: +' + formatWhole(this.effect()) + '<br><br>Cost: 7,777,777 atoms';
+                //if (player.nerdMode) text += ' <br>formula: (x+1)^0.2';
+                return text;
+            },
+            canAfford() {
+                if (player.a.points.gte(7777777)) return true;
+                return false;
+            },
+            pay() {
+                player.a.points = player.a.points.sub(7777777);
+            },
+            effect() {
+                return player.a.points.add(1).pow(0.2).floor();
+            },
+            unlocked() { return hasUpgrade('m', 21) && hasUpgrade('m', 22) && hasUpgrade('m', 23) },
         },
     },
 });
