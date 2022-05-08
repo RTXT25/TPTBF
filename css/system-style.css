@@ -1,4 +1,4 @@
-* {
+*{
 	transition-duration: 0.5s;
 	text-align: center;
 	font-family: "Inconsolata", "monospace";
@@ -7,10 +7,9 @@
 	margin: auto;
 	-webkit-text-size-adjust: none;
 	text-size-adjust: none;
-
 }
 
-*:focus {
+:focus {
 	outline: none;
 	webkit-outline: none;
 }
@@ -143,7 +142,7 @@ td {
 	right: 0;
 }
 
-#app {
+.app {
 	column-count: 2;
 	column-width: 50%;
 	min-height: 100%;
@@ -178,13 +177,14 @@ ul {
 
 .forceTooltip .tooltip{
 	opacity: 1;
+	z-index: 999;
 }
   
 .respecCheckbox {
 	display: inline-block;
 }
 
-#loadingSection {
+.loadingSection {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -221,7 +221,7 @@ button > * {
 	visibility: hidden
 }
 
-#treeTab td button {
+.treeTab td button {
     margin: 0 10px;
 }
 
