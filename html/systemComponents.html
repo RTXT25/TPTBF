@@ -1,3 +1,25 @@
+var tab_buttons = `
+<div class="upgRow">
+    <div v-for="tab in Object.keys(data)">
+        <button v-if="data[tab].unlocked==undefined||data[tab].unlocked"
+            v-bind:class="{
+                tabButton:true,
+                notify:subtabShouldNotify(layer,name,tab),
+                resetNotify:subtabResetNotify(layer,name,tab)}"
+            v-bind:style="[
+                {'border-color':tmp[layer].color},
+                (subtabShouldNotify(layer,name,tab)?
+                    {'box-shadow':'var(--hqProperty2a),0 0 20px'+(data[tab].glowColor||defaultGlow)}
+                :{}),
+                tmp[layer].componentStyles['tab-button'],
+                data[tab].buttonStyle]"
+            v-on:click="function(){
+                player.subtabs[layer][name]=tab;
+                updateTabFormats();
+                needCanvasUpdate=true}">{{tab}}
+    </div>
+</div>`
+
 var tree_node = `
 <button v-if="nodeShown(layer)" v-bind:id="layer" v-on:click="function(){
         (shiftDown&&options.forceTooltips)?
@@ -36,9 +58,10 @@ var tree_node = `
             (tmp[layer].tooltip?
                 tmp[layer].tooltip:'I am a button!')
             :(tmp[layer].tooltipLocked?tmp[layer].tooltipLocked
-                :'I am a button!'))"></tooltip>
-    <node-mark :layer='layer' :data='tmp[layer].marked'></node-mark></span>
-</button>`
+                :'I am a button!'))">
+    </tooltip>
+    <node-mark :layer='layer' :data='tmp[layer].marked'></span>
+`
 
 var layer_tab = `
 <div v-bind:style="[
@@ -48,7 +71,7 @@ var layer_tab = `
             tmp[layer].tabFormat[player.subtabs[layer].mainTabs].style
             :{}]"
     class="noBackground">
-    <div v-if="back"><button v-bind:class="back=='big'?'other-back':'back'" v-on:click="goBack(layer)">←</button>
+    <div v-if="back"><button v-bind:class="back=='big'?'other-back':'back'" v-on:click="goBack(layer)">←
     </div>
     <div v-if="!tmp[layer].tabFormat">
         <div v-if="spacing" v-bind:style="{'height':spacing}" :key="this.$vnode.key+'-spacing'"></div>
@@ -56,32 +79,31 @@ var layer_tab = `
         <main-display v-bind:style="tmp[layer].componentStyles['main-display']" :layer="layer"></main-display>
         <div v-if="tmp[layer].type!=='none'">
             <prestige-button v-bind:style="tmp[layer].componentStyles['prestige-button']" :layer="layer">
-            </prestige-button>
         </div>
         <resource-display v-bind:style="tmp[layer].componentStyles['resource-display']" :layer="layer">
         </resource-display>
         <milestones v-bind:style="tmp[layer].componentStyles.milestones" :layer="layer"></milestones>
         <div v-if="Array.isArray(tmp[layer].midsection)">
-            <column :layer="layer" :data="tmp[layer].midsection" :key="this.$vnode.key+'-mid'"></column>
+            <column :layer="layer" :data="tmp[layer].midsection" :key="this.$vnode.key+'-mid'">
         </div>
         <clickables v-bind:style="tmp[layer].componentStyles['clickables']" :layer="layer"></clickables>
         <buyables v-bind:style="tmp[layer].componentStyles.buyables" :layer="layer"></buyables>
         <upgrades v-bind:style="tmp[layer].componentStyles['upgrades']" :layer="layer"></upgrades>
         <challenges v-bind:style="tmp[layer].componentStyles['challenges']" :layer="layer"></challenges>
-        <achievements v-bind:style="tmp[layer].componentStyles.achievements" :layer="layer"></achievements>
+        <achievements v-bind:style="tmp[layer].componentStyles.achievements" :layer="layer">
         <br><br>
     </div>
     <div v-if="tmp[layer].tabFormat">
         <div v-if="Array.isArray(tmp[layer].tabFormat)">
             <div v-if="spacing" v-bind:style="{'height':spacing}"></div>
-            <column :layer="layer" :data="tmp[layer].tabFormat" :key="this.$vnode.key+'-col'"></column>
+            <column :layer="layer" :data="tmp[layer].tabFormat" :key="this.$vnode.key+'-col'">
         </div>
         <div v-else>
             <div class="upgTable" v-bind:style="{'padding-top':(embedded?'0':'25px'),'margin-top':(embedded?'-10px':'0'),'margin-bottom':'24px'}">
-                <tab-buttons v-bind:style="tmp[layer].componentStyles['tab-buttons']" :layer="layer" :data="tmp[layer].tabFormat" :name="'mainTabs'"></tab-buttons>
+                <tab-buttons v-bind:style="tmp[layer].componentStyles['tab-buttons']" :layer="layer" :data="tmp[layer].tabFormat" :name="'mainTabs'">
             </div>
             <layer-tab v-if="tmp[layer].tabFormat[player.subtabs[layer].mainTabs].embedLayer" :layer="tmp[layer].tabFormat[player.subtabs[layer].mainTabs].embedLayer" :embedded="true" :key="this.$vnode.key+'-'+layer"></layer-tab>
-            <column v-else :layer="layer" :data="tmp[layer].tabFormat[player.subtabs[layer].mainTabs].content" :key="this.$vnode.key+'-col'"></column>
+            <column v-else :layer="layer" :data="tmp[layer].tabFormat[player.subtabs[layer].mainTabs].content" :key="this.$vnode.key+'-col'">
         </div>
     </div>
 </div>`
@@ -102,7 +124,7 @@ var overlay_head = `
     <span v-if="player.points.lt('1e1e6')" class="overlayThing">{{modInfo.pointsName}}</span>
     <br>
     <span v-if="canGenPoints()" class="overlayThing">{{tmp.other.oompsMag!=0?format(tmp.other.oomps)+" OOM"+(tmp.other.oompsMag<0?"^OOM":tmp.other.oompsMag>1?"^"+tmp.other.oompsMag:"")+"s" :formatSmall(getPointGen())}}/sec</span>
-    <div v-for="thing in tmp.displayThings" class="overlayThing"><span v-if="thing" v-html="thing"></span></div>
+    <div v-for="thing in tmp.displayThings" class="overlayThing"><span v-if="thing" v-html="thing"></div>
 </div>`
 
 var info_tab = `
@@ -133,32 +155,77 @@ var info_tab = `
 var options_tab = `
 <table>
     <tr>
-        <td><button class="opt" onclick="save()">Save</button></td>
-        <td><button class="opt" onclick="toggleOpt('autosave')">Autosave: {{options.autosave?"ON":"OFF"}}</button></td>
-        <td><button class="opt" onclick="hardReset()">HARD RESET</button></td>
+        <td><button class="opt" onclick="save()">Save</td>
+        <td><button class="opt" onclick="toggleOpt('autosave')">Autosave: {{options.autosave?"ON":"OFF"}}</td>
+        <td><button class="opt" onclick="hardReset()">HARD RESET</td>
     </tr>
     <tr>
-        <td><button class="opt" onclick="exportSave()">Export to clipboard</button></td>
-        <td><button class="opt" onclick="importSave()">Import</button></td>
-        <td><button class="opt" onclick="toggleOpt('offlineProd')">Offline Prod: {{options.offlineProd?"ON":"OFF"}}</button></td>
+        <td><button class="opt" onclick="exportSave()">Export to clipboard</td>
+        <td><button class="opt" onclick="importSave()">Import</td>
+        <td><button class="opt" onclick="toggleOpt('offlineProd')">Offline Prod: {{options.offlineProd?"ON":"OFF"}}</td>
     </tr>
     <tr>
-        <td><button class="opt" onclick="switchTheme()">Theme: {{getThemeName()}}</button></td>
-        <td><button class="opt" onclick="adjustMSDisp()">Show Milestones: {{MS_DISPLAYS[MS_SETTINGS.indexOf(options.msDisplay)]}}</button></td>
-        <td><button class="opt" onclick="toggleOpt('hqTree')">High-Quality Tree: {{options.hqTree?"ON":"OFF"}}</button>
+        <td><button class="opt" onclick="switchTheme()">Theme: {{getThemeName()}}</td>
+        <td><button class="opt" onclick="adjustMSDisp()">Show Milestones: {{MS_DISPLAYS[MS_SETTINGS.indexOf(options.msDisplay)]}}</td>
+        <td><button class="opt" onclick="toggleOpt('hqTree')">High-Quality Tree: {{options.hqTree?"ON":"OFF"}}
         </td>
     </tr>
     <tr>
-        <td><button class="opt" onclick="toggleOpt('hideChallenges')">Completed Challenges: {{options.hideChallenges?"HIDDEN" :"SHOWN"}}</button></td>
-        <td><button class="opt" onclick="toggleOpt('forceOneTab');needsCanvasUpdate=true">Single-Tab Mode: {{options.forceOneTab?"ALWAYS" :"AUTO"}}</button></td>
-        <td><button class="opt" onclick="toggleOpt('forceTooltips');needsCanvasUpdate=true">Shift-Click to Toggle Tooltips: {{options.forceTooltips?"ON":"OFF"}}</button></td>
+        <td><button class="opt" onclick="toggleOpt('hideChallenges')">Completed Challenges: {{options.hideChallenges?"HIDDEN" :"SHOWN"}}</td>
+        <td><button class="opt" onclick="toggleOpt('forceOneTab');needsCanvasUpdate=true">Single-Tab Mode: {{options.forceOneTab?"ALWAYS" :"AUTO"}}</td>
+        <td><button class="opt" onclick="toggleOpt('forceTooltips');needsCanvasUpdate=true">Shift-Click to Toggle Tooltips: {{options.forceTooltips?"ON":"OFF"}}</td>
     </tr>
     <tr>
-        <td><button class="opt" onclick="display_mode();fullcolordisplay()">Color Text Mode:
-                {{DISPLAY_MODES[options.colorDisplayMode]}}</button></td>
-        <td><button class="opt" onclick="color_display();fullcolordisplay()">Colored Text:
-                {{COLOR_DISPLAYS[options.colorDisplay]}}</button></td>
-        <td><button class="opt" onclick="player.nerdMode=!player.nerdMode">Nerd mode is {{player.nerdMode?"ON":"OFF"}}
-                (you can also use the control key to toggle)</button></td>
+        <td><button class="opt" onclick="display_mode();fullcolordisplay()">Color Text Mode: {{DISPLAY_MODES[options.colorDisplayMode]}}</td>
+        <td><button class="opt" onclick="color_display();fullcolordisplay()">Colored Text: {{COLOR_DISPLAYS[options.colorDisplay]}}</td>
+        <td><button class="opt" onclick="player.nerdMode=!player.nerdMode">Nerd mode is {{player.nerdMode?"ON":"OFF"}} (you can also use the control key to toggle)</td>
     </tr>
 </table>`
+
+var node_mark = `<div v-if='data'>
+    <div v-if='data === true' class='star' v-bind:style='{
+        position:"absolute",
+        left:(offset-10)+"px",
+        top:(offset-10)+"px",
+        transform:"scale("+scale||1+","+scale||1+")"}'>
+    </div>
+    <img v-else class='mark' v-bind:style='{
+        position:"absolute",
+        left:(offset-22)+"px",
+        top:(offset-15)+"px",
+        transform:"scale("+scale||1+","+scale||1+")"}'
+        v-bind:src="data">
+    </div>
+</div>`
+
+var particle_ = `
+<div>
+    <div class='particle instant'
+        v-bind:style="[constructParticleStyle(data), data.style]"
+        v-on:click="run(data.onClick, data)"
+        v-on:mouseenter="run(data.onMouseOver, data)"
+        v-on:mouseleave="run(data.onMouseLeave, data)">
+            <span v-html="data.text">
+    </div>
+    <svg version="2" v-if="data.color">
+        <mask v-bind:id="'pmask' + data.id">
+            <image id="img"
+                v-bind:href="data.image"
+                x="0"
+                y="0"
+                :height="data.width"
+                :width="data.height">
+        </mask>
+    </svg>
+</div>`
+
+var bg_ = `
+<div class="bg"
+    v-bind:style="[
+        tmp[layer].style?
+            tmp[layer].style
+                :{},
+        (tmp[layer].tabFormat&&!Array.isArray(tmp[layer].tabFormat))?
+            tmp[layer].tabFormat[player.subtabs[layer].mainTabs].style
+                :{}]">
+</div>`
