@@ -5,7 +5,7 @@ function exponentialFormat(num, precision, mantissa = true) {
         m = decimalOne;
         e = e.add(1);
     };
-    e = (e.gte(1e9) ? format(e, 3) : (e.gte(10000) ? commaFormat(e, 0) : e.toStringWithDecimalPlaces(0)));
+    e = e.gte(1e9) ? format(e, 3) : (e.gte(10000) ? commaFormat(e, 0) : e.toStringWithDecimalPlaces(0));
     if (mantissa) return m.toStringWithDecimalPlaces(precision) + "e" + e;
     return "e" + e;
 };
@@ -39,6 +39,7 @@ function sumValues(x) {
 
 function format(decimal, precision = 2, small) {
     small = small || modInfo.allowSmall;
+    if (options.extendplaces && precision == 2) precision = 3;
     decimal = new Decimal(decimal)
     if (isNaN(decimal.sign) || isNaN(decimal.layer) || isNaN(decimal.mag)) {
         player.hasNaN = true;
@@ -49,7 +50,7 @@ function format(decimal, precision = 2, small) {
     if (decimal.gte("eeee1000")) {
         var slog = decimal.slog();
         if (slog.gte(1e6)) return "F" + format(slog.floor());
-        return Decimal.pow(10, slog.sub(slog.floor())).toStringWithDecimalPlaces(3) + "F" + commaFormat(slog.floor(), 0);
+        return decimal.pow(10, slog.sub(slog.floor())).toStringWithDecimalPlaces(3) + "F" + commaFormat(slog.floor(), 0);
     };
     if (decimal.gte("1e1000000")) return exponentialFormat(decimal, 0, false);
     if (decimal.gte("1e10000")) return exponentialFormat(decimal, 0);

@@ -12,6 +12,7 @@ function getStartOptions() { return {
 	tooltipForcing: true,
 	colorDisplayMode: 0,
 	colorDisplay: 0,
+	extendplaces: false,
 }};
 
 function toggleOpt(name) {
