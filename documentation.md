@@ -5,7 +5,7 @@ note: all functions are written in code as Decimal.function(parameters)
 ## Format conversions:
 
 fromComponents(sign, layer, mag), fromMantissaExponent(mantissa, exponent)
-> Converts various components to decimals. Can add <b>_noNormalize</b> to the end of the function name not normalize the output.
+> Converts various components to decimals. Can add **_noNormalize** to the end of the function name not normalize the output.
 
 fromNumber(value), fromString(value)
 > Converts numbers and strings to decimals, respectively.
@@ -48,7 +48,7 @@ cmp(value), compare(value)
 > Compares two values, and returns -1 for less than, 0 for equals, and 1 for greater than.
 
 cmpabs(value)
-> The same as <b>cmp()</b> and <b>compare()</b> but absolute values the numbers before calculating
+> The same as **cmp()** and **compare()** but absolute values the numbers before calculating
 
 eq(value), equal(value)
 > Returns true if the values are equal.
@@ -72,7 +72,7 @@ clamp(min, max)
 > Returns the value if it is between the minimum and maximum.
 
 clampMin(min), clampMax(max)
-> The same as <b>clamp()</b> but only applies min and max, respectively.
+> The same as **clamp()** but only applies min and max, respectively.
 
 cmp_tolerance(value, tolerance), compare_tolerance(value, tolerance), eq_tolerance(value, tolerance), equals_tolerance(value, tolerance)
 > Returns true if the values are equal, with a relative tolerance.
@@ -95,10 +95,10 @@ ln(), log2(), log10()
 > Takes the natural logarithm, base 2 logarithm, or base 10 logarithm of a decimal, respectively.
 
 absLog10()
-> The same as <b>log10()</b> but takes the absolute value of your input before calculating.
+> The same as **log10()** but takes the absolute value of your input before calculating.
 
 pLog10()
-> The same as <b>log10()</b> but if you input a negative number, it returns 0.
+> The same as **log10()** but if you input a negative number, it returns 0.
 
 pow(value)
 > Raises a decimal to the power of a value of your choosing.
@@ -122,7 +122,7 @@ gamma()
 > Takes the gamma function of a decimal.
 
 lngamma()
-> Is literally just <b>gamma()</b> taken to the natural logarithm.
+> Is literally just **gamma()** taken to the natural logarithm.
 
 tetrate(height = 2, payload = 1), iteratedexp(height = 2, payload = 1)
 > Raises a decimal to the power of itself (height) times in a row.<br>
@@ -142,7 +142,7 @@ like adding 'diff' to the number's slog (base) representation.<br>
 Similar to tetrate base (base) and iterated log base (base).
 
 layeradd10(diff)
-> The same as <b>Layeradd()</b> but always has a base of 10.
+> The same as **Layeradd()** but always has a base of 10.
 
 lambertw(value)
 > The Lambert W function, also called the omega function or product logarithm, is the solution W(x) === x*e^x.
