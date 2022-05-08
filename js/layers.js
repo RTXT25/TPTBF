@@ -2732,15 +2732,27 @@ addLayer('ds', {
             ],
         },
         "Demon Gateway": {
-            content: [
-                "main-display",
-                "prestige-button",
-                "resource-display",
-                "blank",
-                "blank",
-                "challenges",
-                "blank",
-            ],
+            content: function() {
+                if (this.unlocked) return [
+                    "main-display",
+                    "prestige-button",
+                    "resource-display",
+                    "blank",
+                    "blank",
+                    "challenges",
+                    "blank",
+                ];
+                return [
+                    "main-display",
+                    "prestige-button",
+                    "resource-display",
+                    "blank",
+                    "milestones",
+                    "buyables",
+                    "blank",
+                    "upgrades",
+                ];
+            },
             unlocked() {
                 if (hasUpgrade('ds', 22)) return true;
                 return false;
@@ -4288,20 +4300,26 @@ addLayer('s', {
             ],
         },
         "Devotion": {
-            content: [
-                "main-display",
-                "prestige-button",
-                "resource-display",
-                "blank",
-                ["display-text",
-                    function() {
-                        return 'you have <h2 class="layer-s">' + format(player.s.devotion) + '</h2> devotion, which multiplies sanctum gain by <h2 class="layer-s">' + format(player.s.devotion_effect);
-                    }],
-                "blank",
-                ["layer-proxy", ['d', ["buyables"]]],
-                "blank",
-                "blank",
-            ],
+            content: function() {
+                if (this.unlocked) return [
+                    "main-display",
+                    "prestige-button",
+                    "resource-display",
+                    "blank",
+                    ["display-text", 'you have <h2 class="layer-s">' + format(player.s.devotion) + '</h2> devotion, which multiplies sanctum gain by <h2 class="layer-s">' + format(player.s.devotion_effect)],
+                    "blank",
+                    ["layer-proxy", ['d', ["buyables"]]],
+                    "blank",
+                    "blank"
+                ];
+                return [
+                    "main-display",
+                    "prestige-button",
+                    "resource-display",
+                    "blank",
+                    "milestones",
+                ];
+            },
             unlocked() {
                 if (hasMilestone('s', 13)) return true;
                 return false;
