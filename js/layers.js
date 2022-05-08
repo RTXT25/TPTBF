@@ -2666,6 +2666,7 @@ addLayer('ds', {
         if (hasUpgrade('a', 42)) mult = mult.mul(upgradeEffect('a', 42));
         if (hasUpgrade('a', 71)) mult = mult.mul(upgradeEffect('a', 71));
         if (hasUpgrade('m', 12)) mult = mult.mul(upgradeEffect('m', 12));
+        if (hasUpgrade('m', 33)) mult = mult.mul(upgradeEffect('m', 33));
         if (hasChallenge('ds', 11)) mult = mult.mul(player.ds.points.add(1).pow(0.25));
         if (hasChallenge('ds', 12)) mult = mult.mul(player.h.points.add(1).pow(0.02));
         return mult;
@@ -5130,6 +5131,7 @@ addLayer('m', {
         eff = new Decimal(0);
         if (hasUpgrade('m', 31)) eff = eff.add(upgradeEffect('m', 31));
         if (hasUpgrade('m', 32)) eff = eff.add(upgradeEffect('m', 32));
+        if (hasUpgrade('m', 41)) eff = eff.add(upgradeEffect('m', 41));
         player.m.unique_extra = eff;
         player.m.unique_total = player.m.unique_nonextra.add(player.m.unique_extra);
     },
@@ -5260,7 +5262,7 @@ addLayer('m', {
             done() { return player.m.total.gte(450000000) },
         },
     },
-    upgrades: {//IDEAS FOR NAMES: O3, aka Ozone | Methane Gas
+    upgrades: {
         11: {
             title() {
                 return '<b class="layer-m' + getdark(this, "title-light") + 'Oxygen Gas';
@@ -5398,6 +5400,42 @@ addLayer('m', {
                 return player.a.points.add(1).pow(0.2).floor();
             },
             unlocked() { return hasUpgrade('m', 21) && hasUpgrade('m', 22) && hasUpgrade('m', 23) },
+        },
+        33: {
+            fullDisplay() {
+                text = '<h3 class="layer-m' + getdark(this, "title-light", true) + 'O<tag style="font-size:10px;">3</tag>, aka Ozone</h3><br>multiplies demon soul based on your total unique molecules<br>Currently: ' + format(this.effect()) + 'x<br><br>Cost: 1e10 atoms';
+                //if (player.nerdMode) text += ' <br>formula: x*1000';
+                return text;
+            },
+            canAfford() {
+                if (player.a.points.gte(1e10)) return true;
+                return false;
+            },
+            pay() {
+                player.a.points = player.a.points.sub(1e10);
+            },
+            effect() {
+                return player.m.unique_total.mul(1000);
+            },
+            unlocked() { return hasUpgrade('m', 21) && hasUpgrade('m', 22) && hasUpgrade('m', 23) },
+        },
+        41: {
+            title() {
+                return '<b class="layer-m' + getdark(this, "title-light") + 'Methane Gas';
+            },
+            description() {
+                return 'gives free unique molecules based on your demon souls';
+            },
+            cost: 25000000,
+            effect() {
+                return player.ds.points.pow(10).log(10).add(1).floor();
+            },
+            effectDisplay() {
+                text = '+' + formatWhole(this.effect());
+                if (player.nerdMode) text += ' <br>formula: log(x^10)+1';
+                return text;
+            },
+            unlocked() { return hasUpgrade('m', 31) && hasUpgrade('m', 32) && hasUpgrade('m', 33) },
         },
     },
 });
