@@ -557,78 +557,48 @@
       return D(value).pentate(height, payload);
     };
 
-    /*
-     * If you're willing to spend 'resourcesAvailable' and want to buy something
-     * with exponentially increasing cost each purchase (start at priceStart,
-     * multiply by priceRatio, already own currentOwned), how much of it can you buy?
-     * Adapted from Trimps source code.
-     */
-
     Decimal.affordGeometricSeries = function(resourcesAvailable, priceStart, priceRatio, currentOwned) {
       return this.affordGeometricSeries_core(D(resourcesAvailable), D(priceStart), D(priceRatio), currentOwned);
     };
-    /*
-     * How much resource would it cost to buy (numItems) items if you already have currentOwned,
-     * the initial price is priceStart and it multiplies by priceRatio each purchase?
-     */
+
+    Decimal.affordGeometricSeries_core = function(resourcesAvailable, priceStart, priceRatio, currentOwned) { //Adapted from Trimps source code.
+      var actualStart = priceStart.mul(priceRatio.pow(currentOwned));
+      return Decimal.floor(resourcesAvailable.div(actualStart).mul(priceRatio.sub(1)).add(1).log10().div(priceRatio.log10()));
+    };
 
     Decimal.sumGeometricSeries = function(numItems, priceStart, priceRatio, currentOwned) {
       return this.sumGeometricSeries_core(numItems, D(priceStart), D(priceRatio), currentOwned);
-    };
-    /*
-     * If you're willing to spend 'resourcesAvailable' and want to buy something with additively
-     * increasing cost each purchase (start at priceStart, add by priceAdd, already own currentOwned),
-     * how much of it can you buy?
-     */
-
-    Decimal.affordArithmeticSeries = function(resourcesAvailable, priceStart, priceAdd, currentOwned) {
-      return this.affordArithmeticSeries_core(D(resourcesAvailable), D(priceStart), D(priceAdd), D(currentOwned));
-    };
-    /*
-     * How much resource would it cost to buy (numItems) items if you already have currentOwned,
-     * the initial price is priceStart and it adds priceAdd each purchase?
-     * Adapted from http://www.mathwords.com/a/arithmetic_series.htm
-     */
-
-    Decimal.sumArithmeticSeries = function(numItems, priceStart, priceAdd, currentOwned) {
-      return this.sumArithmeticSeries_core(D(numItems), D(priceStart), D(priceAdd), D(currentOwned));
-    };
-    /*
-     * When comparing two purchases that cost (resource) and increase your resource/sec by (deltaRpS),
-     * the lowest efficiency score is the better one to purchase.
-     * From Frozen Cookies:
-     * http://cookieclicker.wikia.com/wiki/Frozen_Cookies_(JavaScript_Add-on)#Efficiency.3F_What.27s_that.3F
-     */
-
-    Decimal.efficiencyOfPurchase = function(cost, currentRpS, deltaRpS) {
-      return this.efficiencyOfPurchase_core(D(cost), D(currentRpS), D(deltaRpS));
-    };
-
-    Decimal.affordGeometricSeries_core = function(resourcesAvailable, priceStart, priceRatio, currentOwned) {
-      var actualStart = priceStart.mul(priceRatio.pow(currentOwned));
-      return Decimal.floor(resourcesAvailable.div(actualStart).mul(priceRatio.sub(1)).add(1).log10().div(priceRatio.log10()));
     };
 
     Decimal.sumGeometricSeries_core = function(numItems, priceStart, priceRatio, currentOwned) {
       return priceStart.mul(priceRatio.pow(currentOwned)).mul(Decimal.sub(1, priceRatio.pow(numItems))).div(Decimal.sub(1, priceRatio));
     };
 
+    Decimal.affordArithmeticSeries = function(resourcesAvailable, priceStart, priceAdd, currentOwned) {
+      return this.affordArithmeticSeries_core(D(resourcesAvailable), D(priceStart), D(priceAdd), D(currentOwned));
+    };
+
     Decimal.affordArithmeticSeries_core = function(resourcesAvailable, priceStart, priceAdd, currentOwned) {
-      //n = (-(a-d/2) + sqrt((a-d/2)^2+2dS))/d
-      //where a is actualStart, d is priceAdd and S is resourcesAvailable
-      //then floor it and you're done!
       var actualStart = priceStart.add(currentOwned.mul(priceAdd));
       var b = actualStart.sub(priceAdd.div(2));
       var b2 = b.pow(2);
       return b.neg().add(b2.add(priceAdd.mul(resourcesAvailable).mul(2)).sqrt()).div(priceAdd).floor();
     };
 
-    Decimal.sumArithmeticSeries_core = function(numItems, priceStart, priceAdd, currentOwned) {
+    Decimal.sumArithmeticSeries = function(numItems, priceStart, priceAdd, currentOwned) {
+      return this.sumArithmeticSeries_core(D(numItems), D(priceStart), D(priceAdd), D(currentOwned));
+    };
+
+    Decimal.sumArithmeticSeries_core = function(numItems, priceStart, priceAdd, currentOwned) { //Adapted from http://www.mathwords.com/a/arithmetic_series.htm
       var actualStart = priceStart.add(currentOwned.mul(priceAdd)); //(n/2)*(2*a+(n-1)*d)
       return numItems.div(2).mul(actualStart.mul(2).plus(numItems.sub(1).mul(priceAdd)));
     };
 
-    Decimal.efficiencyOfPurchase_core = function(cost, currentRpS, deltaRpS) {
+    Decimal.efficiencyOfPurchase = function(cost, currentRpS, deltaRpS) {
+      return this.efficiencyOfPurchase_core(D(cost), D(currentRpS), D(deltaRpS));
+    };
+
+    Decimal.efficiencyOfPurchase_core = function(cost, currentRpS, deltaRpS) { //From Frozen Cookies: http://cookieclicker.wikia.com/wiki/Frozen_Cookies_(JavaScript_Add-on)#Efficiency.3F_What.27s_that.3F
       return cost.div(currentRpS).add(cost.div(deltaRpS));
     };
 
@@ -640,11 +610,10 @@
       If layer === 0 and mag < FIRST_NEG_LAYER (1/9e15), shift to 'first negative layer' (add layer, log10 mag).
       While abs(mag) > EXP_LIMIT (9e15), layer += 1, mag = maglog10(mag).
       While abs(mag) < LAYER_DOWN (15.954) and layer > 0, layer -= 1, mag = pow(10, mag).
-
       When we're done, all of the following should be true OR one of the numbers is not IsFinite OR layer is not IsInteger (error state):
-      Any 0 is totally zero (0, 0, 0).
-      Anything layer 0 has mag 0 OR mag > 1/9e15 and < 9e15.
-      Anything layer 1 or higher has abs(mag) >= 15.954 and < 9e15.
+        Any 0 is totally zero (0, 0, 0).
+        Anything layer 0 has mag 0 OR mag > 1/9e15 and < 9e15.
+        Anything layer 1 or higher has abs(mag) >= 15.954 and < 9e15.
       We will assume in calculations that all Decimals are either erroneous or satisfy these criteria. (Otherwise: Garbage in, garbage out.)
       */
       if (this.sign === 0 || (this.mag === 0 && this.layer === 0)) {
