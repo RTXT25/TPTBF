@@ -1139,9 +1139,6 @@
       return this.recip();
     };
 
-    /*
-     * -1 for less than value, 0 for equals value, 1 for greater than value
-     */
     Decimal.prototype.cmp = function(value) {
       var decimal = D(value);
       if (this.sign > decimal.sign) return 1;
@@ -1464,8 +1461,8 @@
       return this.pow(1 / 3);
     };
 
-    //Tetration/tetrate: The result of exponentiating 'this' to 'this' 'height' times in a row. https://en.wikipedia.org/wiki/Tetration
-    //If payload != 1, then this is 'iterated exponentiation', the result of exping (payload) to base (this) (height) times. https://andydude.github.io/tetration/archives/tetration2/ident.html
+    //Tetration: https://en.wikipedia.org/wiki/Tetration
+    //Iterated exponentiation: https://andydude.github.io/tetration/archives/tetration2/ident.html
     //Works with negative and positive real heights.
     Decimal.prototype.tetrate = function(height = 2, payload = FC_NN(1, 0, 1)) {
       if (height === Number.POSITIVE_INFINITY) {
@@ -1499,13 +1496,10 @@
       return payload;
     };
 
-    //iterated exponentiation: - all cases handled in tetrate, so just call it
     Decimal.prototype.iteratedexp = function(height = 2, payload = FC_NN(1, 0, 1)) {
       return this.tetrate(height, payload);
     };
 
-    //iterated log/repeated log: The result of applying log(base) 'times' times in a row.
-    //Approximately equal to subtracting (times) from the number's slog representation. Equivalent to tetrating to a negative height.
     //Works with negative and positive real heights.
     Decimal.prototype.iteratedlog = function(base = 10, times = 1) {
       if (times < 0) return Decimal.tetrate(base, -times, this);
@@ -1534,9 +1528,7 @@
       return result;
     };
 
-    //Super-logarithm, one of tetration's inverses, tells you what size power tower you'd have to tetrate base to to get number.
-    //By definition, will never be higher than 1.8e308 in break_eternity.js, since a power tower 1.8e308 numbers tall is the largest representable number.
-    //https://en.wikipedia.org/wiki/Super-logarithm
+    //Super-logarithm: https://en.wikipedia.org/wiki/Super-logarithm
     Decimal.prototype.slog = function(base = 10) {
       if (this.mag < 0) return Decimal.dNegOne;
       base = D(base);
@@ -1562,8 +1554,6 @@
       return D(result);
     };
 
-    //Function for adding/removing layers from a Decimal, even fractional layers (e.g. its slog10 representation).
-    //Everything continues to use the linear approximation ATM.
     Decimal.prototype.layeradd10 = function(diff) {
       diff = Decimal.fromValue_noAlloc(diff).toNumber();
       var result = D(this);
@@ -1586,9 +1576,6 @@
         };
       };
 
-      //layeradd10: like adding 'diff' to the number's slog(base) representation.
-      //Very similar to tetrate base 10 and iterated log base 10.
-      //Also equivalent to adding a fractional amount to the number's layer in its break_eternity.js representation.
       if (diff > 0) {
         var subtractlayerslater = 0;
         //Ironically, this edge case would be unnecessary if we had 'negative layers'.
@@ -1644,7 +1631,6 @@
       return result;
     };
 
-    //layeradd: like adding 'diff' to the number's slog(base) representation. Very similar to tetrate base 'base' and iterated log base 'base'.
     Decimal.prototype.layeradd = function(diff, base) {
       var slogthis = this.slog(base).toNumber();
       var slogdest = slogthis + diff;
@@ -1687,18 +1673,14 @@
       throw Error("Iteration failed to converge: " + z);
     };
 
-    //The super square-root function - what number, tetrated to height 2, equals this?
-    //Other sroots are possible to calculate probably through guess and check methods, this one is easy though.
-    //https://en.wikipedia.org/wiki/Tetration#Super-root
+    //Super square-root: https://en.wikipedia.org/wiki/Tetration#Super-root
     Decimal.prototype.ssqrt = function() {
       if (this.sign == 1 && this.layer >= 3) return FC_NN(this.sign, this.layer - 1, this.mag)
       var lnx = this.ln();
       return lnx.div(lnx.lambertw());
     };
 
-    //Pentation/pentate: The result of tetrating 'height' times in a row.
-    //An absurdly strong operator - Decimal.pentate(2, 4.28) and Decimal.pentate(10, 2.37) are already too huge for break_eternity.js!
-    //https://en.wikipedia.org/wiki/Pentation
+    //Pentation/pentate: https://en.wikipedia.org/wiki/Pentation
     Decimal.prototype.pentate = function(height = 2, payload = FC_NN(1, 0, 1)) {
       payload = D(payload);
       var oldheight = height;
@@ -1724,7 +1706,6 @@
       return payload;
     };
 
-    //trig functions!
     Decimal.prototype.sin = function() {
       if (this.mag < 0) return this;
       if (this.layer === 0) return D(Math.sin(this.sign * this.mag));
