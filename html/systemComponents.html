@@ -1,8 +1,12 @@
 var tree_node = `
 <button v-if="nodeShown(layer)" v-bind:id="layer" v-on:click="function(){
-        (shiftDown&&options.forceTooltips)?player[layer].forceTooltip=!player[layer].forceTooltip:
-        tmp[layer].isLayer?(tmp[layer].leftTab?showNavTab(layer,prev):showTab(layer,prev)):
-        run(layers[layer].onClick,layers[layer])
+        (shiftDown&&options.forceTooltips)?
+            player[layer].forceTooltip=!player[layer].forceTooltip
+            :tmp[layer].isLayer?
+                (tmp[layer].leftTab?
+                    showNavTab(layer,prev)
+                    :showTab(layer,prev))
+        :run(layers[layer].onClick,layers[layer])
     }" v-bind:class="{
         treeNode:tmp[layer].isLayer,
         treeButton:!tmp[layer].isLayer,
@@ -19,12 +23,31 @@ var tree_node = `
         front:!tmp.scrolled,
     }" v-bind:style="constructNodeStyle(layer)">
     <span class="nodeLabel" v-html="(abb!==''&&tmp[layer].image===undefined)?abb:''"></span>
-    <tooltip v-if="tmp[layer].tooltip!=''" :text="tmp[layer].isLayer?(player[layer].unlocked?(tmp[layer].tooltip?tmp[layer].tooltip:formatWhole(player[layer].points)+' '+tmp[layer].resource):(tmp[layer].tooltipLocked?tmp[layer].tooltipLocked:'Reach '+formatWhole(tmp[layer].requires)+' '+tmp[layer].baseResource+' to unlock (You have '+formatWhole(tmp[layer].baseAmount)+' '+tmp[layer].baseResource+')')):(tmp[layer].canClick?(tmp[layer].tooltip?tmp[layer].tooltip:'I am a button!'):(tmp[layer].tooltipLocked?tmp[layer].tooltipLocked:'I am a button!'))"></tooltip>
+    <tooltip v-if="tmp[layer].tooltip!=''" :text="
+        tmp[layer].isLayer?
+            (player[layer].unlocked?
+                (tmp[layer].tooltip?
+                    tmp[layer].tooltip
+                    :formatWhole(player[layer].points)+' '+tmp[layer].resource)
+            :(tmp[layer].tooltipLocked?
+                tmp[layer].tooltipLocked
+                :'Reach '+formatWhole(tmp[layer].requires)+' '+tmp[layer].baseResource+' to unlock (You have '+formatWhole(tmp[layer].baseAmount)+' '+tmp[layer].baseResource+')'))
+        :(tmp[layer].canClick?
+            (tmp[layer].tooltip?
+                tmp[layer].tooltip:'I am a button!')
+            :(tmp[layer].tooltipLocked?tmp[layer].tooltipLocked
+                :'I am a button!'))"></tooltip>
     <node-mark :layer='layer' :data='tmp[layer].marked'></node-mark></span>
 </button>`
 
 var layer_tab = `
-<div v-bind:style="[tmp[layer].style?tmp[layer].style:{},(tmp[layer].tabFormat&&!Array.isArray(tmp[layer].tabFormat))?tmp[layer].tabFormat[player.subtabs[layer].mainTabs].style:{}]" class="noBackground">
+<div v-bind:style="[
+        tmp[layer].style?tmp[layer].style
+            :{},
+        (tmp[layer].tabFormat&&!Array.isArray(tmp[layer].tabFormat))?
+            tmp[layer].tabFormat[player.subtabs[layer].mainTabs].style
+            :{}]"
+    class="noBackground">
     <div v-if="back"><button v-bind:class="back=='big'?'other-back':'back'" v-on:click="goBack(layer)">←</button>
     </div>
     <div v-if="!tmp[layer].tabFormat">
