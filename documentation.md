@@ -169,3 +169,25 @@ cosh(), acosh()
 
 tanh(), atanh()
 > Hyperbolic tangent and inverse hyperbolic tangent function for decimals.
+
+## Special formulas:
+
+affordGeometricSeries(resourcesAvailable, priceStart, priceRatio, currentOwned)
+> If you're willing to spend (resourcesAvailable), and you want to buy something with multiplicatively increasing cost each purchase, how much of it can you buy?<br>
+Other parameters: priceStart = starting price, priceRatio = multiplying cost, currentOwned = amount already owned.
+
+sumGeometricSeries(numItems, priceStart, priceRatio, currentOwned)
+> How much resource would it cost to buy (numItems) items if you already have (currentOwned),<br>
+the initial price is (priceStart), and it multiplies the cost by (priceRatio) each purchase?
+
+affordArithmeticSeries(resourcesAvailable, priceStart, priceAdd, currentOwned)
+> If you're willing to spend (resourcesAvailable), and you want to buy something with additively increasing cost each purchase, how much of it can you buy?<br>
+Other parameters: priceStart = starting price, priceRatio = multiplying cost, currentOwned = amount already owned.
+
+sumArithmeticSeries(numItems, priceStart, priceAdd, currentOwned)
+> How much resource would it cost to buy (numItems) items if you already have (currentOwned),<br>
+the initial price is (priceStart) and it adds (priceAdd) each to the cost purchase?
+
+efficiencyOfPurchase(cost, currentRpS, deltaRpS)
+> When comparing two purchases that cost (resource) and increase your resource/sec by (deltaRpS),<br>
+the lowest efficiency score is the better one to purchase.
