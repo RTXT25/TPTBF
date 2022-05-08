@@ -185,7 +185,7 @@ function load() {
 	};
 	if (options.offlineProd) {
 		if (player.offTime === undefined)
-			player.offTime = { remain: 0 };
+			player.offTime = {remain: 0};
 		player.offTime.remain += (Date.now() - player.time) / 1000;
 	};
 	player.time = Date.now();
@@ -277,7 +277,7 @@ function versionCheck() {
 		player.version = 0;
 	};
 	if (setVersion) {
-		if (player.versionType == modInfo.id && VERSION.num > player.version) {
+		if (player.versionType == modInfo.id && (VERSION.num > player.version || player.version == '2.2')) {
 			player.keepGoing = false;
 			if (fixOldSave)
 				fixOldSave(player.version);

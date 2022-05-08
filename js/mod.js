@@ -16,7 +16,7 @@ let VERSION = {
 let winText = '<h3>You won the game!</h3><br>However, it isn\'t the end yet...<br>Wait for more updates for further content.';
 
 // If you add new functions anywhere inside of a layer, and those functions have an effect when called, add them here.
-function getdark(darkthis, type, special = false, research = false){
+function getdark(darkthis, type, special = false, research = false) {
 	if (darkthis.layer !== undefined) {
 		if (colorvalue[1] == 'dark') return '-dark">';
 		if (colorvalue[1] == 'none') return '-OFF">';
@@ -38,6 +38,16 @@ function getdark(darkthis, type, special = false, research = false){
 		} else return '-OFF">'
 	};
 	return '">';
+};
+
+function removeachievement(value) {
+	for (var i = 0; i < player.A.achievements.length; i++) {
+		if (player.A.achievements[i] == value) {
+			player.A.achievements.splice(i, 1);
+			return true;
+		};
+	};
+	return false;
 };
 
 // Determines if it should show points/sec
@@ -108,7 +118,7 @@ var displayThings = [
 
 // Determines when the game "ends"
 function isEndgame() {
-	return player.points.gte(new Decimal('ee16'));
+	return player.points.gte('ee16');
 };
 
 // Style for the background, can be a function
@@ -121,5 +131,6 @@ function maxTickLength() {
 
 // Use this if you need to undo inflation from an older version. If the version is older than the version that fixed the issue,
 // you can cap their current resources with this.
-function fixOldSave(oldVersion){
+function fixOldSave(oldVersion) {
+	if (player.version == '2.2' && player.A.achievements.includes('123')) removeachievement('123');
 };
