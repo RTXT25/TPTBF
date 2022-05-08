@@ -545,15 +545,15 @@ addLayer('A', {
         },
         122: {
             name: 'Varied Molecules',
-            done() {return player.m.points.gte(1000)},
-            tooltip: 'obtain 1,000 molecules.',
+            done() {return player.m.points.gte(100000)},
+            tooltip: 'obtain 100,000 molecules.',
             unlocked() { if (hasAchievement('A', 121)) return true },
             color: '#00CCCC',
         },
         123: {
             name: 'Molecule Dictionary',
-            done() {return player.m.points.gte(1000000)},
-            tooltip: 'obtain 1,000,000 molecules.',
+            done() {return player.m.points.gte(1e10)},
+            tooltip: 'obtain 1e10 molecules.',
             unlocked() { if (hasAchievement('A', 122)) return true },
             color: '#00CCCC',
         },
@@ -2705,6 +2705,7 @@ addLayer('ds', {
     doReset(resettingLayer) {
         let keep = [];
         let saveupg = [];
+            if (hasMilestone('m', 14) && resettingLayer == 'm') return;
             if (hasMilestone('m', 1)) {
                 keep.push("challenges");
                 saveupg.push(22);
@@ -4977,7 +4978,9 @@ addLayer('r', {
         if (challengeCompletions('r', 11) >= 8) mult2 = mult2.mul(2);
         player.r.relic_effects[2] = player.r.light.div(1000).add(1).pow(0.25).mul(mult2);
         lightboost = new Decimal(0);
-        if (hasMilestone('m', 7)) lightboost = player.r.lightgainbest.mul(0.01);
+        if (hasMilestone('m', 16)) lightboost = player.r.lightgainbest.mul(0.05);
+        else if (hasMilestone('m', 15)) lightboost = player.r.lightgainbest.mul(0.025);
+        else if (hasMilestone('m', 7)) lightboost = player.r.lightgainbest.mul(0.01);
         else if (hasMilestone('m', 3)) lightboost = player.r.lightgainbest.mul(0.001);
         if (inChallenge('r', 11)) {
             gain = getPointGen(true).pow(0.001).div(10);
@@ -5017,7 +5020,7 @@ addLayer('r', {
                 return '<h3>Activate Relics';
             },
             challengeDescription() {
-                return 'Converts all point production into light production. Get enough light, and you can activate your relics for rewards.<br>';
+                return 'Temporarily converts all your point production into light production. Get enough light, and you can activate your relics for rewards.<br>';
             },
             goalDescription() {
                 if (maxedChallenge('r', 11)) text = 'You have ' + format(player.r.light) + ' light.<br>(' + format(player.r.lightgain) + '/sec)<br>';
@@ -5029,7 +5032,8 @@ addLayer('r', {
                 text = '';
                 if (challengeCompletions('r', 11) == 0) text += 'nothing currently<br><br>Next reward: multiply relic\'s second and third effects based on your light<br>Currently: ' + format(player.r.relic_effects[0]) + 'x';
                 if (challengeCompletions('r', 11) >= 1 && challengeCompletions('r', 11) < 4) text += 'multiply relic\'s second and third effects based on your light<br>Currently: ' + format(player.r.relic_effects[0]) + 'x<br>';
-                if (challengeCompletions('r', 11) >= 5) text += 'multiply relic\'s second and third effects, exponentially increase relic\'s first effect, and also multiply Sacrificial Ceremony\'s last effect (all based on your light)<br>Currently: ' + format(player.r.relic_effects[0]) + 'x,<br>^' + format(player.r.relic_effects[1]) + ',<br>and ' + format(player.r.relic_effects[2]) + 'x<br>';
+                if (challengeCompletions('r', 11) >= 5 && challengeCompletions('r', 11) < 12) text += 'multiply relic\'s second and third effects, exponentially increase relic\'s first effect, and also multiply Sacrificial Ceremony\'s last effect (all based on your light)<br>Currently: ' + format(player.r.relic_effects[0]) + 'x,<br>^' + format(player.r.relic_effects[1]) + ',<br>and ' + format(player.r.relic_effects[2]) + 'x<br>';
+                if (challengeCompletions('r', 11) >= 12) text += 'multiply relic\'s second and third effects and molecule gain, exponentially increase relic\'s first effect, and also multiply Sacrificial Ceremony\'s last effect (all based on your light)<br>Currently: ' + format(player.r.relic_effects[0]) + 'x,<br>^' + format(player.r.relic_effects[1]) + ',<br>and ' + format(player.r.relic_effects[2]) + 'x<br>';
                 if (challengeCompletions('r', 11) == 1) text += '<br>Next reward: relic\'s third effect also effects point gain';
                 if (challengeCompletions('r', 11) == 2) text += '<br>Next reward: multiply relic\'s first effect by 10,000 and raise it to ^3.5';
                 if (challengeCompletions('r', 11) == 3) text += '<br>Next reward: exponentially increase relic\'s first effect based on your light<br>Currently: ^' + format(player.r.relic_effects[1]);
@@ -5043,7 +5047,8 @@ addLayer('r', {
                     text += '<br>Next reward: unlock Molecules';
                 };
                 if (challengeCompletions('r', 11) == 10) text += '<br>Next reward: double the first activated relic effect';
-                if (challengeCompletions('r', 11) >= 11) text += '<br>Next reward: N/A - wait for future updates!';
+                if (challengeCompletions('r', 11) == 11) text += '<br>Next reward: the first activated relic effect also applies to molecule gain';
+                if (challengeCompletions('r', 11) >= 12) text += '<br>Next reward: N/A - wait for future updates!';
                 return text;
             },
             canComplete() {
@@ -5059,7 +5064,7 @@ addLayer('r', {
                 if (num > 205) color = 'rgb(205,205,255)';
                 textcolor = '#B9A975';
                 if (colorvalue[1] == 'none') textcolor = '#DFDFDF';
-                return {'background-color':color,'color':textcolor,'border-radius':'25px','height':'400px','width':'400px'};
+                return {'background-color':color,'color':textcolor,'border-radius':'16%','height':'425px','width':'425px'};
             },
         },
     },
@@ -5092,6 +5097,7 @@ addLayer('m', {
     exponent: 0.9,
     gainMult() {
         mult = new Decimal(1);
+        if (challengeCompletions('r', 11) >= 12) mult = mult.mul(player.r.relic_effects[0]);
         return mult;
     },
     gainExp() {
@@ -5237,6 +5243,21 @@ addLayer('m', {
             requirementDescription: '50,000 total molecules',
             effectDescription: 'molecules don\'t reset hexes',
             done() { return player.m.total.gte(50000) },
+        },
+        14: {
+            requirementDescription: '750,000 total molecules',
+            effectDescription: 'molecules don\'t reset demon souls',
+            done() { return player.m.total.gte(750000) },
+        },
+        15: {
+            requirementDescription: '15,000,000 total molecules',
+            effectDescription: 'gain +1.5% of best light gain per second',
+            done() { return player.m.total.gte(15000000) },
+        },
+        16: {
+            requirementDescription: '450,000,000 total molecules',
+            effectDescription: 'gain +2.5% of best light gain per second',
+            done() { return player.m.total.gte(450000000) },
         },
     },
     upgrades: {//IDEAS FOR NAMES: O3, aka Ozone | Methane Gas
