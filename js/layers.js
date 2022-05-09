@@ -490,6 +490,13 @@ addLayer('A', {
             unlocked() { if (hasAchievement('A', 103)) return true },
             color: '#AAFF00',
         },
+        105: {
+            name: 'Sanctum, Absolute',
+            done() {return player.s.points.gte(10000)},
+            tooltip: 'obtain 10,000 sanctums.',
+            unlocked() { if (hasAchievement('A', 104)) return true },
+            color: '#AAFF00',
+        },
         106: {
             name: 'Still Sanctum',
             done() {return player.s.points.gte(10) && player.ds.total.eq(0) && player.a.total.eq(0)},
@@ -780,6 +787,7 @@ addLayer('e', {
     },
     doReset(resettingLayer) {
         let keep = [];
+            if (challengeCompletions('r', 11) >= 21) return;
             if (hasMilestone('s', 20) && resettingLayer == 's') return;
             if (hasMilestone('m', 2) && resettingLayer == 'm') return;
             if (hasMilestone('gi', 1) && resettingLayer == 'gi') return;
@@ -1138,6 +1146,7 @@ addLayer('c', {
     },
     doReset(resettingLayer) {
         let keep = [];
+            if (challengeCompletions('r', 11) >= 26 && resettingLayer == 'r') return;
             if (hasMilestone('m', 4) && resettingLayer == 'm') return;
             if (hasMilestone('gi', 2) && resettingLayer == 'gi') return;
             if (hasMilestone('h', 2) && resettingLayer == 'h') keep.push("upgrades");
@@ -1491,6 +1500,7 @@ addLayer('q', {
     },
     doReset(resettingLayer) {
         let keep = [];
+            if (challengeCompletions('r', 11) >= 31 && resettingLayer == 'r') return;
             if (hasMilestone('m', 5) && resettingLayer == 'm') return;
             if (hasMilestone('gi', 3) && resettingLayer == 'gi') return;
             if (hasMilestone('sp', 3) && resettingLayer == 'sp') keep.push("milestones");
@@ -2224,6 +2234,7 @@ addLayer('h', {
     },
     doReset(resettingLayer) {
         let keep = [];
+            if (challengeCompletions('r', 11) >= 28 && resettingLayer == 'r') return;
             if (hasMilestone('m', 13) && resettingLayer == 'm') return;
             if (hasMilestone('gi', 4) && resettingLayer == 'gi') return;
             if (hasMilestone('ds', 8) && resettingLayer == 'ds') keep.push("milestones");
@@ -4275,6 +4286,11 @@ addLayer('s', {
                     player.s.best = new Decimal(2);
                     player.s.total = new Decimal(2);
                 };
+                if (hasMilestone('gi', 6) && resettingLayer == 'gi') {
+                    player.s.points = new Decimal(4);
+                    player.s.best = new Decimal(4);
+                    player.s.total = new Decimal(4);
+                };
             };
         },
     resetsNothing() {
@@ -4779,6 +4795,20 @@ addLayer('d', {
         if (hasMilestone('s', 38) && player.s.auto_sacrifice && layers.d.buyables[12].canAfford()) {
             layers.d.buyables[12].buy();
             if (challengeCompletions('r', 11) >= 17 && layers.d.buyables[12].canAfford()) layers.d.buyables[12].buy();
+            if (challengeCompletions('r', 11) >= 22) {
+                if (layers.d.buyables[12].canAfford()) layers.d.buyables[12].buy();
+                if (layers.d.buyables[12].canAfford()) layers.d.buyables[12].buy();
+                if (layers.d.buyables[12].canAfford()) layers.d.buyables[12].buy();
+                if (layers.d.buyables[12].canAfford()) layers.d.buyables[12].buy();
+                if (challengeCompletions('r', 11) >= 23) {
+                    if (layers.d.buyables[12].canAfford()) layers.d.buyables[12].buy();
+                    if (layers.d.buyables[12].canAfford()) layers.d.buyables[12].buy();
+                    if (layers.d.buyables[12].canAfford()) layers.d.buyables[12].buy();
+                    if (layers.d.buyables[12].canAfford()) layers.d.buyables[12].buy();
+                    if (layers.d.buyables[12].canAfford()) layers.d.buyables[12].buy();
+                    if (layers.d.buyables[12].canAfford()) layers.d.buyables[12].buy();
+                };
+            };
         };
         if (hasMilestone('s', 28) && player.s.auto_sacrificial_ceremony && layers.d.buyables[21].canAfford()) {
             layers.d.buyables[21].buy();
@@ -5009,6 +5039,12 @@ addLayer('r', {
         if (challengeCompletions('r', 11) >= 14) mult0 = mult0.mul(2);
         if (challengeCompletions('r', 11) >= 15) mult0 = mult0.mul(1.2);
         if (challengeCompletions('r', 11) >= 16) mult0 = mult0.mul(1.1);
+        if (challengeCompletions('r', 11) >= 18) mult0 = mult0.mul(1.05);
+        if (challengeCompletions('r', 11) >= 19) mult0 = mult0.mul(1.02);
+        if (challengeCompletions('r', 11) >= 20) mult0 = mult0.mul(1.01);
+        if (challengeCompletions('r', 11) >= 21) mult0 = mult0.mul(1.01);
+        if (challengeCompletions('r', 11) >= 24) mult0 = mult0.mul(1.001);
+        if (challengeCompletions('r', 11) >= 25) mult0 = mult0.mul(1.0005);
         player.r.relic_effects[0] = player.r.light.mul(10).add(1).pow(0.15).mul(mult0);
         player.r.relic_effects[1] = player.r.light.mul(1000).add(1).pow(0.05);
         mult2 = new Decimal(1);
@@ -5088,10 +5124,24 @@ addLayer('r', {
                 if (challengeCompletions('r', 11) == 11) text += '<br>Next reward: the first activated relic effect also applies to molecule gain';
                 if (challengeCompletions('r', 11) == 12) text += 'multiply relic\'s second and third effects and molecule gain, exponentially increase relic\'s first effect, and also multiply Sacrificial Ceremony\'s last effect (all based on your light)<br>Currently: ' + format(player.r.relic_effects[0]) + 'x,<br>^' + format(player.r.relic_effects[1]) + ',<br>and ' + format(player.r.relic_effects[2]) + 'x<br><br>Next reward: multiply relic gain based on your light<br>Currently: ' + format(player.r.relic_effects[3]) + 'x';
                 if (challengeCompletions('r', 11) == 13) text += '<br>Next reward: double the first activated relic effect';
-                if (challengeCompletions('r', 11) == 14) text += '<br>Next reward: multiply the first activated relic effect by 1.2';
-                if (challengeCompletions('r', 11) == 15) text += '<br>Next reward: multiply the first activated relic effect by 1.1';
+                if (challengeCompletions('r', 11) == 14) text += '<br>Next reward: multiply the first activated relic<br>effect by 1.2';
+                if (challengeCompletions('r', 11) == 15) text += '<br>Next reward: multiply the first activated relic<br>effect by 1.1';
                 if (challengeCompletions('r', 11) == 16) text += '<br>Next reward: sanctum layer autobuyers buy 2x faster';
-                if (challengeCompletions('r', 11) >= 17) text += '<br>Next reward: N/A - wait for future updates!';
+                if (challengeCompletions('r', 11) == 17) text += '<br>Next reward: multiply the first activated relic<br>effect by 1.05';
+                if (challengeCompletions('r', 11) == 18) text += '<br>Next reward: multiply the first activated relic<br>effect by 1.02';
+                if (challengeCompletions('r', 11) == 19) text += '<br>Next reward: multiply the first activated relic<br>effect by 1.01';
+                if (challengeCompletions('r', 11) == 20) text += '<br>Next reward: multiply the first activated relic<br>effect by 1.01, and essence is never reset';
+                if (challengeCompletions('r', 11) == 21) text += '<br>Next reward: auto <b class="layer-s' + getdark(this, "ref", true, true) + 'Sacrifice</b> works thrice as fast';
+                if (challengeCompletions('r', 11) == 22) text += '<br>Next reward: auto <b class="layer-s' + getdark(this, "ref", true, true) + 'Sacrifice</b> works twice as fast';
+                if (challengeCompletions('r', 11) == 23) text += '<br>Next reward: multiply the first activated relic<br>effect by 1.001';
+                if (challengeCompletions('r', 11) == 24) text += '<br>Next reward: multiply the first activated relic<br>effect by 1.0005';
+                if (challengeCompletions('r', 11) == 25) text += '<br>Next reward: relics resets don\'t reset cores';
+                if (challengeCompletions('r', 11) == 26) text += '<br>Next reward: nothing';
+                if (challengeCompletions('r', 11) == 27) text += '<br>Next reward: relics resets don\'t reset hexes';
+                if (challengeCompletions('r', 11) == 28) text += '<br>Next reward: nothing';
+                if (challengeCompletions('r', 11) == 29) text += '<br>Next reward: still nothing';
+                if (challengeCompletions('r', 11) == 30) text += '<br>Next reward: relics resets don\'t reset quarks';
+                if (challengeCompletions('r', 11) >= 31) text += '<br>Next reward: you have gotten all the rewards!';
                 return text;
             },
             canComplete() {
@@ -5114,9 +5164,9 @@ addLayer('r', {
     upgrades: {
         11: {
             fullDisplay() {
-                text = '<h3 class="layer-r' + getdark(this, "title-hasend") + 'Brighter Light</h3><br>multiplies light gain based on your sanctums<br>Currently: ' + format(this.effect()) + 'x<br><br>Cost: 1.00e12 light';
-                //if (player.nerdMode) text += ' <br>formula: (x+1)^0.3';
-                return text;
+                text = '';
+                if (player.nerdMode) text += ' <br>formula: (x+1)^0.3';
+                return '<h3 class="layer-r' + getdark(this, "title-hasend") + 'Brighter Light</h3><br>multiplies light gain based on your sanctums<br>Currently: ' + format(this.effect()) + 'x' + text + '<br><br>Cost: 1.00e12 light';
             },
             canAfford() {
                 if (player.r.light.gte(1e12)) return true;
@@ -5132,9 +5182,10 @@ addLayer('r', {
         },
         12: {
             fullDisplay() {
-                text = '<h3 class="layer-r' + getdark(this, "title-hasend") + 'Light of Light</h3><br>multiplies light gain based on your light<br>Currently: ' + format(this.effect()) + 'x<br><br>Cost: 7.50e12 light';
-                //if (player.nerdMode) text += ' <br>formula: (x+1)^0.1';
-                return text;
+                text = '';
+                if (this.effect().gte(1000)) text += '<br>(hardcapped)';
+                if (player.nerdMode) text += ' <br>formula: (x+1)^0.1';
+                return '<h3 class="layer-r' + getdark(this, "title-hasend") + 'Light of Light</h3><br>multiplies light gain based on your light<br>Currently: ' + format(this.effect()) + 'x' + text + '<br><br>Cost: 7.50e12 light';
             },
             canAfford() {
                 if (player.r.light.gte(7.5e12)) return true;
@@ -5144,7 +5195,10 @@ addLayer('r', {
                 player.r.light = player.r.light.sub(7.5e12);
             },
             effect() {
-                return player.r.light.add(1).pow(0.1);
+                eff = player.r.light.add(1).pow(0.1);
+                hardcap = new Decimal(1000);
+                if (eff.gt(hardcap)) return hardcap;
+                return eff;
             },
             unlocked() { return hasMilestone('gi', 0) },
         },
@@ -5654,6 +5708,11 @@ addLayer('gi', {
             effectDescription: 'good influence resets don\'t<br>reset demon souls',
             done() { return player.gi.points.gte(6) },
         },
+        6: {
+            requirementDescription: '7 good influence',
+            effectDescription: 'keep 4 sanctums on<br>good influence resets',
+            done() { return player.gi.points.gte(7) },
+        },
     },
     buyables: {
         11: {
@@ -5666,7 +5725,7 @@ addLayer('gi', {
             canAfford() {
                 return player.gi.points.gte(this.cost()) && getBuyableAmount(this.layer, this.id).lt(this.purchaseLimit);
             },
-            purchaseLimit: 99,
+            purchaseLimit: 8,
             buy() {
                 player.gi.points = player.gi.points.sub(this.cost());
                 setBuyableAmount('gi', 11, getBuyableAmount('gi', 11).add(1));
