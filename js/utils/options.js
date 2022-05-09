@@ -36,13 +36,13 @@ function toggleAuto(toggle) {
 	needCanvasUpdate = true;
 };
 
-const MS_DISPLAYS = ['ALL', 'LAST, AUTO, INCOMPLETE', 'AUTOMATION, INCOMPLETE', 'INCOMPLETE', 'NONE'];
+const MS_DISPLAYS = ['ALL', 'LAST, AUTO, INCOMPLETE', 'AUTOMATION, INCOMPLETE (recommended)', 'INCOMPLETE', 'NONE'];
 
 const MS_SETTINGS = ['always', 'last', 'automation', 'incomplete', 'never'];
 
-const DISPLAY_MODES = ['ALL', 'ONLY SPECIAL', 'SPECIAL AND TITLES', 'SPECIAL AND REFRENCES'];
+const DISPLAY_MODES = ['ALL (recommended)', 'ONLY SPECIAL', 'SPECIAL AND TITLES', 'SPECIAL AND REFRENCES'];
 
-const COLOR_DISPLAYS = ['ON - NORMAL', 'ON - ALWAYS DARK', 'OFF'];
+const COLOR_DISPLAYS = ['ON - NORMAL (recommended)', 'ON - ALWAYS DARK', 'OFF (recommended for colorblind)'];
 
 var colorvalue = [[true, true, true], 'normal'];
 
