@@ -12,28 +12,17 @@ addLayer('A', {
     layerShown() {return true},
     effectDescription() {
         text = ['<br>which are multiplying your point ', '', '', ''];
-        if (colorvalue[1] == 'none') {
-            if (hasUpgrade('ds', 21)) {
-                if (hasUpgrade('ds', 24)) text[0] += 'and essence gain by ' + format(player.A.points.mul(0.2)) + 'x';
-                else text[1] += 'essence gain by ' + format(player.A.points.mul(0.2)) + 'x';
-                if (hasUpgrade('ds', 23) && !hasUpgrade('ds', 24) && !hasUpgrade('p', 31)) text[2] += 'core and quark gain by ' + format(player.A.points.pow(2).div(100)) + 'x';
-                if (hasUpgrade('ds', 23) && hasUpgrade('ds', 24) && !hasUpgrade('p', 31)) text[1] += 'core and quark gain by ' + format(player.A.points.pow(2).div(100)) + 'x';
-                if (hasUpgrade('ds', 23) && hasUpgrade('ds', 24) && hasUpgrade('p', 31)) text[1] += 'core, prayer, and quark gain by ' + format(player.A.points.pow(2).div(100)) + 'x';
-            } else text[0] += 'gain by ' + format(player.A.points.mul(0.1).add(1)) + 'x';
-            if (hasUpgrade('a', 51)) text[2] += 'subatomic particle gain by ' + format(player.A.points.pow(1.25)) + 'x';
-        } else {
-            if (hasUpgrade('ds', 21)) {
-                if (hasUpgrade('ds', 24)) text[0] += 'and essence gain by <h2 class="layer-A">' + format(player.A.points.mul(0.2)) + '</h2>x';
-                else {
-                    text[0] += 'gain by <h2 class="layer-A">' + format(player.A.points.mul(0.1).add(1)) + '</h2>x';
-                    text[1] += 'essence gain by <h2 class="layer-A">' + format(player.A.points.mul(0.2)) + '</h2>x';
-                };
-                if (hasUpgrade('ds', 23) && !hasUpgrade('ds', 24) && !hasUpgrade('p', 31)) text[2] += 'core and quark gain by <h2 class="layer-A">' + format(player.A.points.pow(2).div(100)) + '</h2>x';
-                if (hasUpgrade('ds', 23) && hasUpgrade('ds', 24) && !hasUpgrade('p', 31)) text[1] += 'core and quark gain by <h2 class="layer-A">' + format(player.A.points.pow(2).div(100)) + '</h2>x';
-                if (hasUpgrade('ds', 23) && hasUpgrade('ds', 24) && hasUpgrade('p', 31)) text[1] += 'core, prayer, and quark gain by <h2 class="layer-A">' + format(player.A.points.pow(2).div(100)) + '</h2>x';
-            } else text[0] += 'gain by <h2 class="layer-A">' + format(player.A.points.mul(0.1).add(1)) + '</h2>x';
-            if (hasUpgrade('a', 51)) text[3] += 'subatomic particle gain by <h2 class="layer-A">' + format(player.A.points.pow(1.25)) + '</h2>x';
-        };
+        if (hasUpgrade('ds', 21)) {
+            if (hasUpgrade('ds', 24)) text[0] += 'and essence gain by <h2 class="layer-A">' + format(player.A.points.mul(0.2)) + '</h2>x';
+            else {
+                text[0] += 'gain by <h2 class="layer-A">' + format(player.A.points.mul(0.1).add(1)) + '</h2>x';
+                text[1] += 'essence gain by <h2 class="layer-A">' + format(player.A.points.mul(0.2)) + '</h2>x';
+            };
+            if (hasUpgrade('ds', 23) && !hasUpgrade('ds', 24) && !hasUpgrade('p', 31)) text[2] += 'core and quark gain by <h2 class="layer-A">' + format(player.A.points.pow(2).div(100)) + '</h2>x';
+            if (hasUpgrade('ds', 23) && hasUpgrade('ds', 24) && !hasUpgrade('p', 31)) text[1] += 'core and quark gain by <h2 class="layer-A">' + format(player.A.points.pow(2).div(100)) + '</h2>x';
+            if (hasUpgrade('ds', 23) && hasUpgrade('ds', 24) && hasUpgrade('p', 31)) text[1] += 'core, prayer, and quark gain by <h2 class="layer-A">' + format(player.A.points.pow(2).div(100)) + '</h2>x';
+        } else text[0] += 'gain by <h2 class="layer-A">' + format(player.A.points.mul(0.1).add(1)) + '</h2>x';
+        if (hasUpgrade('a', 51)) text[3] += 'subatomic particle gain by <h2 class="layer-A">' + format(player.A.points.pow(1.25)) + '</h2>x';
         if (player.nerdMode) {
             if (hasUpgrade('ds', 21)) {
                 if (hasUpgrade('ds', 24)) text[0] += ' (formula: x*0.2)';
@@ -604,19 +593,11 @@ addLayer('SC', {
         if (player.SC.softcaps.includes("m-eff1")) {
             molecule += 1;
         };
-        if (colorvalue[1] == 'none') {
-            if (core > 0) text.push(core + ' is core</h2>');
-            if (quark > 0) text.push(quark + ' is quark</h2>');
-            if (hex > 0) text.push(hex + ' is hexed</h2>');
-            if (divine > 0) text.push(divine + ' is divine</h2>');
-            if (molecule > 0) text.push(molecule + ' is molecular</h2>');
-        } else {
-            if (core > 0) text.push('<h2 class="layer-c">' + core + '</h2> is <h2 class="layer-c">core</h2>');
-            if (quark > 0) text.push('<h2 class="layer-q">' + quark + '</h2> is <h2 class="layer-q">quirky</h2>');
-            if (hex > 0) text.push('<h2 class="layer-h">' + hex + '</h2> is <h2 class="layer-h">hexed</h2>');
-            if (divine > 0) text.push('<h2 class="layer-p">' + divine + '</h2> is <h2 class="layer-p">divine</h2>');
-            if (molecule > 0) text.push('<h2 class="layer-m">' + molecule + '</h2> is <h2 class="layer-m">molecular</h2>');
-        };
+        if (core > 0) text.push('<h2 class="layer-c">' + core + '</h2> is <h2 class="layer-c">core</h2>');
+        if (quark > 0) text.push('<h2 class="layer-q">' + quark + '</h2> is <h2 class="layer-q">quirky</h2>');
+        if (hex > 0) text.push('<h2 class="layer-h">' + hex + '</h2> is <h2 class="layer-h">hexed</h2>');
+        if (divine > 0) text.push('<h2 class="layer-p">' + divine + '</h2> is <h2 class="layer-p">divine</h2>');
+        if (molecule > 0) text.push('<h2 class="layer-m">' + molecule + '</h2> is <h2 class="layer-m">molecular</h2>');
         textfin = text[0];
         if (text.length > 1) {
             textfin += text[1];
@@ -1248,7 +1229,7 @@ addLayer('c', {
             description() {
                 return 'multiplies the effect of <b class="layer-c' + getdark(this, "ref") + 'The Quarks\' Core</b> based on your cores';
             },
-            cost: 1e69,
+            cost: 1.00e69,
             effect() {
                 return player.c.points.add(1).pow(0.005);
             },
@@ -1266,7 +1247,7 @@ addLayer('c', {
             description() {
                 return 'multiplies the effect of <b class="layer-c' + getdark(this, "ref") + 'Quarky Core</b> based on your cores';
             },
-            cost: 1e71,
+            cost: 1.00e71,
             effect() {
                 return player.c.points.add(1).pow(0.002);
             },
@@ -1284,7 +1265,7 @@ addLayer('c', {
             description() {
                 return 'multiplies core gain based on your cores';
             },
-            cost: 1e73,
+            cost: 1.00e73,
             effect() {
                 return player.c.points.add(1).pow(0.01);
             },
@@ -1302,7 +1283,7 @@ addLayer('c', {
             description() {
                 return 'multiplies the effect of <b class="layer-c' + getdark(this, "ref") + 'Super Core</b> based on your cores';
             },
-            cost: 1e75,
+            cost: 1.00e75,
             effect() {
                 return player.c.points.add(1).pow(0.0025);
             },
@@ -1320,7 +1301,7 @@ addLayer('c', {
             description() {
                 return 'multiplies the effect of <b class="layer-c' + getdark(this, "ref") + 'Ultra Core</b> based on your hexes';
             },
-            cost: 1e77,
+            cost: 1.00e77,
             effect() {
                 return player.c.points.add(1).pow(0.001);
             },
@@ -1338,7 +1319,7 @@ addLayer('c', {
             description() {
                 return 'if you own <b class="layer-h' + getdark(this, "ref") + 'Core Production Line</b> and all subsequent upgrades, gain +25% of your core gain per second';
             },
-            cost: 1e80,
+            cost: 1.00e80,
             unlocked() { return hasUpgrade('h', 53) && hasUpgrade('c', 32) },
         },
     },
@@ -1733,7 +1714,7 @@ addLayer('q', {
             description() {
                 return 'multiplies essence gain based on your quarks';
             },
-            cost: 1e9,
+            cost: 1.00e9,
             effect() {
                return player.q.points.add(1).pow(0.15);
             },
@@ -1751,7 +1732,7 @@ addLayer('q', {
             description() {
                 return 'multiplies core gain based on your quarks';
             },
-            cost: 1e10,
+            cost: 1.00e10,
             effect() {
                return player.q.points.add(1).pow(0.075);
             },
@@ -1787,7 +1768,7 @@ addLayer('q', {
             description() {
                 return 'multiplies the effect of <b class="layer-q' + getdark(this, "ref") + 'The Quark Count</b> based on your quarks';
             },
-            cost: 1e13,
+            cost: 1.00e13,
             effect() {
                return player.q.points.add(1).pow(0.015);
             },
@@ -1805,7 +1786,7 @@ addLayer('q', {
             description() {
                 return 'multiplies the effect of <b class="layer-q' + getdark(this, "ref") + 'Quark Counting</b> based on your quarks';
             },
-            cost: 1e14,
+            cost: 1.00e14,
             effect() {
                return player.q.points.add(1).pow(0.005);
             },
@@ -1823,7 +1804,7 @@ addLayer('q', {
             description() {
                 return 'multiplies quark gain based on your subatomic particles';
             },
-            cost: 1e16,
+            cost: 1.00e16,
             effect() {
                return player.sp.points.add(1).pow(0.5);
             },
@@ -1841,7 +1822,7 @@ addLayer('q', {
             description() {
                 return 'multiplies subatomic particle gain based on your quarks';
             },
-            cost: 1e18,
+            cost: 1.00e18,
             effect() {
                return player.q.points.add(1).pow(0.01);
             },
@@ -1859,7 +1840,7 @@ addLayer('q', {
             description() {
                 return 'multiplies the effect of <b class="layer-q' + getdark(this, "ref") + 'Subatomic Quarks</b> based on your quarks';
             },
-            cost: 1e20,
+            cost: 1.00e20,
             effect() {
                return player.q.points.add(1).pow(0.005);
             },
@@ -1877,7 +1858,7 @@ addLayer('q', {
             description() {
                 return 'multiplies quark gain based on your quarks';
             },
-            cost: 1e22,
+            cost: 1.00e22,
             effect() {
                return player.q.points.add(1).pow(0.125);
             },
@@ -2069,8 +2050,7 @@ addLayer('sp', {
                     if (hasUpgrade('sp', 11)) text += '<br>formulas: 5^x^2 and (x+1)^-1';
                     else text += '<br>formulas: 5^x and (x+1)^-1';
                 };
-                if (getBuyableAmount('sp', 11).eq(0)) return 'multiplies quark gain (but also decreases essence gain at a reduced rate) based on the amount of this upgrade bought.<br>Currently: 1.00x<br>and 1.00x' + text + '<br><br>Cost: 1 subatomic particle<br><br>Bought: 0';
-                else if (hasUpgrade('sp', 11)) return 'multiplies quark gain (but also decreases essence gain at a reduced rate) based on the amount of this upgrade bought.<br>Currently: ' + format(new Decimal(5).pow(getBuyableAmount('sp', 11)).pow(2)) + 'x<br>and ' + format(getBuyableAmount('sp', 11).add(1) ** -1) + 'x' + text + '<br><br>Cost: ' + formatWhole(this.cost()) + ' subatomic particles<br><br>Bought: ' + formatWhole(getBuyableAmount('sp', 11));
+                if (hasUpgrade('sp', 11)) return 'multiplies quark gain (but also decreases essence gain at a reduced rate) based on the amount of this upgrade bought.<br>Currently: ' + format(new Decimal(5).pow(getBuyableAmount('sp', 11)).pow(2)) + 'x<br>and ' + format(getBuyableAmount('sp', 11).add(1) ** -1) + 'x' + text + '<br><br>Cost: ' + formatWhole(this.cost()) + ' subatomic particles<br><br>Bought: ' + formatWhole(getBuyableAmount('sp', 11));
                 else return 'multiplies quark gain (but also decreases essence gain at a reduced rate) based on the amount of this upgrade bought.<br>Currently: ' + format(new Decimal(5).pow(getBuyableAmount('sp', 11))) + 'x<br>and ' + format(getBuyableAmount('sp', 11).add(1) ** -1) + 'x' + text + '<br><br>Cost: ' + formatWhole(this.cost()) + ' subatomic particles<br><br>Bought: ' + formatWhole(getBuyableAmount('sp', 11));
             },
         },
@@ -2091,8 +2071,7 @@ addLayer('sp', {
                     if (hasUpgrade('sp', 12)) text += '<br>formulas: 5^x^2 and (x+1)^-1';
                     else text += '<br>formulas: 5^x and (x+1)^-1';
                 };
-                if (getBuyableAmount('sp', 12).eq(0)) return 'multiplies essence gain (but also decreases point gain at a reduced rate) based on the amount of this upgrade bought.<br>Currently: 1.00x<br>and 1.00x' + text + '<br><br>Cost: 1 subatomic particle<br><br>Bought: 0';
-                else if (hasUpgrade('sp', 12)) return 'multiplies essence gain (but also decreases point gain at a reduced rate) based on the amount of this upgrade bought.<br>Currently: ' + format(new Decimal(5).pow(getBuyableAmount('sp', 12)).pow(2)) + 'x<br>and ' + format(getBuyableAmount('sp', 12).add(1) ** -1) + 'x' + text + '<br><br>Cost: ' + formatWhole(this.cost()) + ' subatomic particles<br><br>Bought: ' + formatWhole(getBuyableAmount('sp', 12));
+                if (hasUpgrade('sp', 12)) return 'multiplies essence gain (but also decreases point gain at a reduced rate) based on the amount of this upgrade bought.<br>Currently: ' + format(new Decimal(5).pow(getBuyableAmount('sp', 12)).pow(2)) + 'x<br>and ' + format(getBuyableAmount('sp', 12).add(1) ** -1) + 'x' + text + '<br><br>Cost: ' + formatWhole(this.cost()) + ' subatomic particles<br><br>Bought: ' + formatWhole(getBuyableAmount('sp', 12));
                 else return 'multiplies essence gain (but also decreases point gain at a reduced rate) based on the amount of this upgrade bought.<br>Currently: ' + format(new Decimal(5).pow(getBuyableAmount('sp', 12))) + 'x<br>and ' + format(getBuyableAmount('sp', 12).add(1) ** -1) + 'x' + text + '<br><br>Cost: ' + formatWhole(this.cost()) + ' subatomic particles<br><br>Bought: ' + formatWhole(getBuyableAmount('sp', 12));
             },
         },
@@ -2113,8 +2092,7 @@ addLayer('sp', {
                     if (hasUpgrade('sp', 13)) text += '<br>formulas: 5^x^2 and (x+1)^-1';
                     else text += '<br>formulas: 5^x and (x+1)^-1';
                 };
-                if (getBuyableAmount('sp', 21).eq(0)) return 'multiplies point gain (but also decreases quark gain at a reduced rate) based on the amount of this upgrade bought.<br>Currently: 1.00x<br>and 1.00x' + text + '<br><br>Cost: 1 subatomic particle<br><br>Bought: 0';
-                else if (hasUpgrade('sp', 13)) return 'multiplies point gain (but also decreases quark gain at a reduced rate) based on the amount of this upgrade bought.<br>Currently: ' + format(new Decimal(5).pow(getBuyableAmount('sp', 21)).pow(2)) + 'x<br>and ' + format(getBuyableAmount('sp', 21).add(1) ** -1) + 'x' + text + '<br><br>Cost: ' + formatWhole(this.cost()) + ' subatomic particles<br><br>Bought: ' + formatWhole(getBuyableAmount('sp', 21));
+                if (hasUpgrade('sp', 13)) return 'multiplies point gain (but also decreases quark gain at a reduced rate) based on the amount of this upgrade bought.<br>Currently: ' + format(new Decimal(5).pow(getBuyableAmount('sp', 21)).pow(2)) + 'x<br>and ' + format(getBuyableAmount('sp', 21).add(1) ** -1) + 'x' + text + '<br><br>Cost: ' + formatWhole(this.cost()) + ' subatomic particles<br><br>Bought: ' + formatWhole(getBuyableAmount('sp', 21));
                 else return 'multiplies point gain (but also decreases quark gain at a reduced rate) based on the amount of this upgrade bought.<br>Currently: ' + format(new Decimal(5).pow(getBuyableAmount('sp', 21))) + 'x<br>and ' + format(getBuyableAmount('sp', 21).add(1) ** -1) + 'x' + text + '<br><br>Cost: ' + formatWhole(this.cost()) + ' subatomic particles<br><br>Bought: ' + formatWhole(getBuyableAmount('sp', 21));
             },
         },
@@ -2586,7 +2564,7 @@ addLayer('h', {
             description() {
                 return 'Increase the effect of <b class="layer-h' + getdark(this, "ref") + 'Fastest Essence</b> by 25% (total: 125%)';
             },
-            cost: 1e100,
+            cost: 1.00e100,
             unlocked() { return hasUpgrade('ds', 12) && hasUpgrade('h', 51) && hasUpgrade('h', 52) && hasUpgrade('h', 53) && hasUpgrade('h', 54) },
         },
         62: {
@@ -2596,7 +2574,7 @@ addLayer('h', {
             description() {
                 return 'multiply hex gain based on your subatomic particles';
             },
-            cost: 1e50,
+            cost: 1.00e50,
             effect() {
                 return player.sp.points.add(1).pow(2.5);
             },
@@ -2892,8 +2870,7 @@ addLayer('ds', {
             display() {
                 text = '';
                 if (player.nerdMode) text = '<br>formulas: 2^x and x*5+1';
-                if (getBuyableAmount('ds', 11).eq(0)) return 'multiplies hex gain (and also subatomic particle gain at a reduced rate) based on the amount of this upgrade bought.<br>Currently: 1.00x<br>and 1.00x' + text + '<br><br>Cost: 1 demon soul<br><br>Bought: 0';
-                else return 'multiplies hex gain (and also subatomic particle gain at a reduced rate) based on the amount of this upgrade bought.<br>Currently: ' + format(new Decimal(2).pow(getBuyableAmount('ds', 11))) + 'x<br>and ' + format(getBuyableAmount('ds', 11).mul(5).add(1)) + 'x' + text + '<br><br>Cost: ' + formatWhole(this.cost()) + ' demon souls<br><br>Bought: ' + formatWhole(getBuyableAmount('ds', 11));
+                return 'multiplies hex gain (and also subatomic particle gain at a reduced rate) based on the amount of this upgrade bought.<br>Currently: ' + format(new Decimal(2).pow(getBuyableAmount('ds', 11))) + 'x<br>and ' + format(getBuyableAmount('ds', 11).mul(5).add(1)) + 'x' + text + '<br><br>Cost: ' + formatWhole(this.cost()) + ' demon souls<br><br>Bought: ' + formatWhole(getBuyableAmount('ds', 11));
             },
         },
     },
@@ -3560,6 +3537,7 @@ addLayer('p', {
             if (hasUpgrade('p', 63)) mult = mult.mul(upgradeEffect('p', 63));
         };
         if (hasUpgrade('p', 73)) mult = mult.mul(upgradeEffect('p', 73));
+        if (player.gi.points.gt(0)) mult = mult.mul(tmp.gi.effect);
         return mult;
     },
     gainExp() {
@@ -3638,14 +3616,9 @@ addLayer('p', {
         return eff;
     },
     effectDescription() {
-        if (colorvalue[1] == 'none') {
-            if (tmp.p.effect.lt(0.1)) return 'which are generating ' + tmp.p.effect.mul(100).round().div(100) + ' divinity/sec';
-            if (tmp.p.effect.gt(player.p.divinitysoftcap_start[0])) return 'which are generating ' + format(tmp.p.effect) + ' divinity/sec (softcapped)';
-            return 'which are generating ' + format(tmp.p.effect) + ' divinity/sec';
-        };
         if (tmp.p.effect.lt(0.1)) return 'which are generating <h2 class="layer-p">' + tmp.p.effect.mul(100).round().div(100) + '</h2> divinity/sec';
-            if (tmp.p.effect.gt(player.p.divinitysoftcap_start[0])) return 'which are generating <h2 class="layer-p">' + format(tmp.p.effect) + '</h2> divinity/sec (softcapped)';
-            return 'which are generating <h2 class="layer-p">' + format(tmp.p.effect) + '</h2> divinity/sec';
+        if (tmp.p.effect.gt(player.p.divinitysoftcap_start[0])) return 'which are generating <h2 class="layer-p">' + format(tmp.p.effect) + '</h2> divinity/sec (softcapped)';
+        return 'which are generating <h2 class="layer-p">' + format(tmp.p.effect) + '</h2> divinity/sec';
     },
     doReset(resettingLayer) {
         let keep = [];
@@ -3709,15 +3682,9 @@ addLayer('p', {
         "blank",
         ["display-text",
             function() {
-                if (colorvalue[1] == 'none') {
-                    text = 'You have ' + format(player.p.divinity) + ' divinity, which boosts point generation by ' + format(player.p.divinity.add(1).pow(0.1)) + 'x';
-                    if (hasUpgrade('p', 22)) text += '<br>You have ' + format(player.p.holiness) + ' holiness, which boosts essence gain by ' + format(player.p.holiness.add(1).pow(0.055)) + 'x';
-                    if (hasUpgrade('p', 41)) text += '<br>You have ' + formatWhole(player.p.hymn) + ' hymns, which boosts prayer gain by ' + format(player.p.hymnEff) + 'x';
-                } else {
-                    text = 'You have <h2 class="layer-p">' + format(player.p.divinity) + '</h2> divinity, which boosts point generation by <h2 class="layer-p">' + format(player.p.divinity.add(1).pow(0.1)) + '</h2>x';
-                    if (hasUpgrade('p', 22)) text += '<br>You have <h2 class="layer-p">' + format(player.p.holiness) + '</h2> holiness, which boosts essence gain by <h2 class="layer-p">' + format(player.p.holiness.add(1).pow(0.055)) + '</h2>x';
-                    if (hasUpgrade('p', 41)) text += '<br>You have <h2 class="layer-p">' + formatWhole(player.p.hymn) + '</h2> hymns, which boosts prayer gain by <h2 class="layer-p">' + format(player.p.hymnEff) + '</h2>x';
-                };
+                text = 'You have <h2 class="layer-p">' + format(player.p.divinity) + '</h2> divinity, which boosts point generation by <h2 class="layer-p">' + format(player.p.divinity.add(1).pow(0.1)) + '</h2>x';
+                if (hasUpgrade('p', 22)) text += '<br>You have <h2 class="layer-p">' + format(player.p.holiness) + '</h2> holiness, which boosts essence gain by <h2 class="layer-p">' + format(player.p.holiness.add(1).pow(0.055)) + '</h2>x';
+                if (hasUpgrade('p', 41)) text += '<br>You have <h2 class="layer-p">' + formatWhole(player.p.hymn) + '</h2> hymns, which boosts prayer gain by <h2 class="layer-p">' + format(player.p.hymnEff) + '</h2>x';
                 return text;
             }],
         "blank",
@@ -4135,7 +4102,7 @@ addLayer('p', {
             description() {
                 return 'reduces sanctum gain exponent<br>5 --> 4';
             },
-            cost: 1e25,
+            cost: 1.00e25,
             unlocked() { return hasUpgrade('p', 64) },
         },
         71: {
@@ -4145,7 +4112,7 @@ addLayer('p', {
             description() {
                 return 'multiplies divinity gain (unaffected by softcaps) based on your sanctums';
             },
-            cost: 1e30,
+            cost: 1.00e30,
             effect() {
                 return player.s.points.mul(30).add(1).pow(0.95);
             },
@@ -4163,7 +4130,7 @@ addLayer('p', {
             description() {
                 return 'multiplies point gain based on your sanctums';
             },
-            cost: 1e75,
+            cost: 1.00e75,
             effect() {
                 return player.s.points.mul(25).add(1).pow(0.5);
             },
@@ -4181,7 +4148,7 @@ addLayer('p', {
             description() {
                 return 'multiplies prayer gain based on your sanctums';
             },
-            cost: 1e125,
+            cost: 1.00e125,
             effect() {
                 return player.s.points.mul(2).add(1).pow(1.5);
             },
@@ -4199,7 +4166,7 @@ addLayer('p', {
             description() {
                 return 'reduces sanctum gain exponent if you have <b class="layer-p' + getdark(this, "ref") + 'Silver Sanctums</b><br>4 --> 3.48' 
             },
-            cost: 1e175,
+            cost: 1.00e175,
             unlocked() { return hasMilestone('s', 3) && hasUpgrade('p', 41) },
         },
     },
@@ -4224,7 +4191,7 @@ addLayer('s', {
         if (player.p.points.gte(1e15) || player.s.unlocked) return "#AAFF00";
         return '#666666';
     },
-    branches: ['r'],
+    branches: ['r', 'gi'],
     requires: 1e15,
     resource: 'sanctums',
     baseResource: 'prayers',
@@ -4264,7 +4231,6 @@ addLayer('s', {
         return effBase.pow(player.s.points).mul(effBoost);
     },
     effectDescription() {
-        if (colorvalue[1] == 'none') return 'which multiplies essence gain by ' + format(tmp.s.effect) + 'x';
         return 'which multiplies essence gain by <h2 class="layer-s">' + format(tmp.s.effect) + '</h2>x';
     },
     doReset(resettingLayer) {
@@ -4306,7 +4272,7 @@ addLayer('s', {
                     "prestige-button",
                     "resource-display",
                     "blank",
-                    ["display-text", 'you have <h2 class="layer-s">' + format(player.s.devotion) + '</h2> devotion, which multiplies sanctum gain by <h2 class="layer-s">' + format(player.s.devotion_effect)],
+                    ["display-text", 'you have <h2 class="layer-s">' + format(player.s.devotion) + '</h2> devotion, which multiplies sanctum gain by <h2 class="layer-s">' + format(player.s.devotion_effect) + '</h2>x'],
                     "blank",
                     ["layer-proxy", ['d', ["buyables"]]],
                     "blank",
@@ -4921,7 +4887,7 @@ addLayer('r', {
         light: new Decimal(0),
         lightgain: new Decimal(0),
         lightgainbest: new Decimal(0),
-        relic_effects: [new Decimal(1), new Decimal(1), new Decimal(1)],
+        relic_effects: [new Decimal(1), new Decimal(1), new Decimal(1), new Decimal(1)],
         sanctummult: new Decimal(1),
         essencemult: new Decimal(1),
     }},
@@ -4929,6 +4895,7 @@ addLayer('r', {
         if (player.s.points.gte(10) || player.r.unlocked) return "#B9A975";
         return '#666666';
     },
+    branches: ['gi'],
     requires: 10,
     resource: 'relics',
     baseResource: 'sanctums',
@@ -4944,6 +4911,8 @@ addLayer('r', {
     },
     gainExp() {
         gain = new Decimal(1);
+        if (hasUpgrade('m', 43)) gain = gain.mul(upgradeEffect('m', 43));
+        if (challengeCompletions('r', 11) >= 13) gain = gain.mul(player.r.relic_effects[3]);
         return gain;
     },
     row: 3,
@@ -4984,6 +4953,7 @@ addLayer('r', {
     doReset(resettingLayer) {
         let keep = [];
             if (hasMilestone('m', 0) && resettingLayer == 'm') return;
+            if (hasMilestone('gi', 0) && resettingLayer == 'gi') return;
             if (layers[resettingLayer].row > this.row) layerDataReset('r', keep);
         },
     update(diff) {
@@ -4996,6 +4966,7 @@ addLayer('r', {
         if (challengeCompletions('r', 11) >= 7) mult2 = mult2.mul(4);
         if (challengeCompletions('r', 11) >= 8) mult2 = mult2.mul(2);
         player.r.relic_effects[2] = player.r.light.div(1000).add(1).pow(0.25).mul(mult2);
+        player.r.relic_effects[3] = player.r.light.pow(0.0021);
         lightboost = new Decimal(0);
         if (hasMilestone('m', 16)) lightboost = player.r.lightgainbest.mul(0.05);
         else if (hasMilestone('m', 15)) lightboost = player.r.lightgainbest.mul(0.025);
@@ -5003,6 +4974,7 @@ addLayer('r', {
         else if (hasMilestone('m', 3)) lightboost = player.r.lightgainbest.mul(0.001);
         if (inChallenge('r', 11)) {
             gain = getPointGen(true).pow(0.001).div(10);
+            if (hasUpgrade('r', 11)) gain = gain.mul(upgradeEffect('r', 11));
             if (getBuyableAmount('d', 21).gt(0)) gain = gain.mul(getBuyableAmount('d', 21));
             if (hasMilestone('s', 30)) gain = gain.mul(2);
             if (hasMilestone('s', 41)) gain = gain.mul(3);
@@ -5020,17 +4992,14 @@ addLayer('r', {
         "blank",
         ["display-text",
             function() {
-                text = 'relic resets reset everything on lower layers exept prayer milestones. also, you can still buy max sanctums.<br><br>';
-                if (colorvalue[1] == 'none') {
-                    text += 'you have ' + player.r.points.sub(challengeCompletions('r', 11)) + ' unactivated relics and ' + challengeCompletions('r', 11) + ' activated relics';
-                } else {
-                    text += 'you have <h2 class="layer-r">' + player.r.points.sub(challengeCompletions('r', 11)) + '</h2> unactivated relics and <h2 class="layer-r">' + challengeCompletions('r', 11) + '</h2> activated relics';
-                };
+                text = 'relic resets reset everything on lower rows exept prayer milestones. also, you can still buy max sanctums.<br><br>';
+                text += 'you have <h2 class="layer-r">' + player.r.points.sub(challengeCompletions('r', 11)) + '</h2> unactivated relics and <h2 class="layer-r">' + challengeCompletions('r', 11) + '</h2> activated relics';
                 return text;
             }],
         "blank",
         "challenges",
         "blank",
+        "upgrades",
     ],
     challenges: {
         11: {
@@ -5049,10 +5018,10 @@ addLayer('r', {
             },
             rewardDescription() {
                 text = '';
-                if (challengeCompletions('r', 11) == 0) text += 'nothing currently<br><br>Next reward: multiply relic\'s second and third effects based on your light<br>Currently: ' + format(player.r.relic_effects[0]) + 'x';
                 if (challengeCompletions('r', 11) >= 1 && challengeCompletions('r', 11) < 4) text += 'multiply relic\'s second and third effects based on your light<br>Currently: ' + format(player.r.relic_effects[0]) + 'x<br>';
                 if (challengeCompletions('r', 11) >= 5 && challengeCompletions('r', 11) < 12) text += 'multiply relic\'s second and third effects, exponentially increase relic\'s first effect, and also multiply Sacrificial Ceremony\'s last effect (all based on your light)<br>Currently: ' + format(player.r.relic_effects[0]) + 'x,<br>^' + format(player.r.relic_effects[1]) + ',<br>and ' + format(player.r.relic_effects[2]) + 'x<br>';
-                if (challengeCompletions('r', 11) >= 12) text += 'multiply relic\'s second and third effects and molecule gain, exponentially increase relic\'s first effect, and also multiply Sacrificial Ceremony\'s last effect (all based on your light)<br>Currently: ' + format(player.r.relic_effects[0]) + 'x,<br>^' + format(player.r.relic_effects[1]) + ',<br>and ' + format(player.r.relic_effects[2]) + 'x<br>';
+                if (challengeCompletions('r', 11) >= 13) text += 'multiply relic\'s second and third effects and molecule gain, exponentially increase relic\'s first effect, multiply Sacrificial Ceremony\'s last effect, and also multiply relic gain (all based on your light)<br>Currently: ' + format(player.r.relic_effects[0]) + 'x,<br>^' + format(player.r.relic_effects[1]) + ',<br>' + format(player.r.relic_effects[2]) + 'x,<br>and ' + format(player.r.relic_effects[3]) + 'x<br>';
+                if (challengeCompletions('r', 11) == 0) text += 'nothing currently<br><br>Next reward: multiply relic\'s second and third effects based on your light<br>Currently: ' + format(player.r.relic_effects[0]) + 'x';
                 if (challengeCompletions('r', 11) == 1) text += '<br>Next reward: relic\'s third effect also effects point gain';
                 if (challengeCompletions('r', 11) == 2) text += '<br>Next reward: multiply relic\'s first effect by 10,000 and raise it to ^3.5';
                 if (challengeCompletions('r', 11) == 3) text += '<br>Next reward: exponentially increase relic\'s first effect based on your light<br>Currently: ^' + format(player.r.relic_effects[1]);
@@ -5062,12 +5031,13 @@ addLayer('r', {
                 if (challengeCompletions('r', 11) == 7) text += '<br>Next reward: double the third activated relic effect';
                 if (challengeCompletions('r', 11) == 8) text += '<br>Next reward: keep sanctum milestones on relic resets';
                 if (challengeCompletions('r', 11) == 9 && !player.m.unlocked) {
-                    if (player.m.unlocked) text += '<br>Next reward: unlock Molecules (already unlocked)';
                     text += '<br>Next reward: unlock Molecules';
+                    if (player.m.unlocked) text += ' (already unlocked)';
                 };
                 if (challengeCompletions('r', 11) == 10) text += '<br>Next reward: double the first activated relic effect';
                 if (challengeCompletions('r', 11) == 11) text += '<br>Next reward: the first activated relic effect also applies to molecule gain';
-                if (challengeCompletions('r', 11) >= 12) text += '<br>Next reward: N/A - wait for future updates!';
+                if (challengeCompletions('r', 11) == 12) text += 'multiply relic\'s second and third effects and molecule gain, exponentially increase relic\'s first effect, and also multiply Sacrificial Ceremony\'s last effect (all based on your light)<br>Currently: ' + format(player.r.relic_effects[0]) + 'x,<br>^' + format(player.r.relic_effects[1]) + ',<br>and ' + format(player.r.relic_effects[2]) + 'x<br><br>Next reward: multiply relic gain based on your light<br>Currently: ' + format(player.r.relic_effects[3]) + 'x';
+                if (challengeCompletions('r', 11) >= 13) text += '<br>Next reward: N/A - wait for future updates!';
                 return text;
             },
             canComplete() {
@@ -5085,6 +5055,44 @@ addLayer('r', {
                 if (colorvalue[1] == 'none') textcolor = '#DFDFDF';
                 return {'background-color':color,'color':textcolor,'border-radius':'16%','height':'425px','width':'425px'};
             },
+        },
+    },
+    upgrades: {
+        11: {
+            fullDisplay() {
+                text = '<h3 class="layer-r' + getdark(this, "title-hasend") + 'Brighter Light</h3><br>multiplies light gain based on your sanctums<br>Currently: ' + format(this.effect()) + 'x<br><br>Cost: 1.00e12 light';
+                //if (player.nerdMode) text += ' <br>formula: (x+1)^0.3';
+                return text;
+            },
+            canAfford() {
+                if (player.r.light.gte(1e12)) return true;
+                return false;
+            },
+            pay() {
+                player.r.light = player.r.light.sub(1e12);
+            },
+            effect() {
+                return player.s.points.add(1).pow(0.3);
+            },
+            unlocked() { return hasMilestone('gi', 0) },
+        },
+        12: {
+            fullDisplay() {
+                text = '<h3 class="layer-r' + getdark(this, "title-hasend") + 'Light of Light</h3><br>multiplies light gain based on your light<br>Currently: ' + format(this.effect()) + 'x<br><br>Cost: 7.50e12 light';
+                //if (player.nerdMode) text += ' <br>formula: (x+1)^0.1';
+                return text;
+            },
+            canAfford() {
+                if (player.r.light.gte(7.5e12)) return true;
+                return false;
+            },
+            pay() {
+                player.r.light = player.r.light.sub(7.5e12);
+            },
+            effect() {
+                return player.r.light.add(1).pow(0.1);
+            },
+            unlocked() { return hasMilestone('gi', 0) },
         },
     },
 });
@@ -5137,20 +5145,21 @@ addLayer('m', {
     effectDescription() {
         softcap = '';
         if (tmp.m.effect.gt(player.m.effectsoftcap_start[0])) softcap = ' (softcapped)';
-        if (colorvalue[1] == 'none') return 'which multiplies atom gain by ' + format(tmp.m.effect) + 'x (based on best)' + softcap;
         return 'which multiplies atom gain by <h2 class="layer-m">' + format(tmp.m.effect) + '</h2>x (based on best)' + softcap;
     },
     doReset(resettingLayer) {
         let keep = [];
-            if (layers[resettingLayer].row > this.row) layerDataReset('a', keep);
+            if (layers[resettingLayer].row > this.row) layerDataReset('m', keep);
         },
     update(diff) {
-        player.m.unique_nonextra = new Decimal(player.m.upgrades.length);
-        eff = new Decimal(0);
-        if (hasUpgrade('m', 31)) eff = eff.add(upgradeEffect('m', 31));
-        if (hasUpgrade('m', 32)) eff = eff.add(upgradeEffect('m', 32));
-        if (hasUpgrade('m', 41)) eff = eff.add(upgradeEffect('m', 41));
-        player.m.unique_extra = eff;
+        effnon = new Decimal(player.m.upgrades.length);
+        if (hasUpgrade('m', 42)) effnon = effnon.mul(upgradeEffect('m', 42));
+        player.m.unique_nonextra = effnon;
+        effex = new Decimal(0);
+        if (hasUpgrade('m', 31) && upgradeEffect('m', 31).gt(0)) effex = effex.add(upgradeEffect('m', 31));
+        if (hasUpgrade('m', 32) && upgradeEffect('m', 32).gt(0)) effex = effex.add(upgradeEffect('m', 32));
+        if (hasUpgrade('m', 41) && upgradeEffect('m', 41).gt(0)) effex = effex.add(upgradeEffect('m', 41));
+        player.m.unique_extra = effex;
         player.m.unique_total = player.m.unique_nonextra.add(player.m.unique_extra);
     },
     tabFormat: {
@@ -5170,12 +5179,8 @@ addLayer('m', {
                 "resource-display",
                 "blank",
                 ["display-text",
-                    function () {
+                    function() {
                         extra = "";
-                        if (player.m.unique_extra.gt(0)) {
-                            if (colorvalue[1] == 'none') extra = '+' + formatWhole(player.m.unique_extra);
-                            else extra = '<h3 class="layer-m-light">+' + formatWhole(player.m.unique_extra) + '</h3>';
-                        };
                         if (colorvalue[1] == 'none') return 'You have ' + formatWhole(player.m.unique_nonextra) + extra + ' total unique molecules';
                         return 'You have <h2 class="layer-m">' + formatWhole(player.m.unique_nonextra) + extra + '</h2> total unique molecules';
                     }],
@@ -5193,7 +5198,7 @@ addLayer('m', {
         },
         1: {
             requirementDescription: '2 total molecules',
-            effectDescription: 'keep demon soul challenges and<br><b class="layer-ds' + getdark(this, "ref", true, true) + 'Demonic Key</b> on molecule resets,<br>and you can autobuy hex upgrades',
+            effectDescription: 'keep demon soul challenges and<br><b class="layer-ds' + getdark(this, "ref", true, true) + 'Demonic Key</b> on row 5 resets,<br>and you can autobuy hex upgrades',
             done() { return player.m.total.gte(2) },
             toggles: [['h', "auto_upgrades"]],
         },
@@ -5388,7 +5393,7 @@ addLayer('m', {
                 return '<b class="layer-m' + getdark(this, "title-light") + 'Nitrogen Gas';
             },
             description() {
-                return 'gives free unique molecules based on your non-free ones';
+                return 'gives extra unique molecules based on your non-extra ones\' amount and worth';
             },
             cost: 125,
             effect() {
@@ -5396,14 +5401,14 @@ addLayer('m', {
             },
             effectDisplay() {
                 text = '+' + formatWhole(this.effect());
-                if (player.nerdMode) text += ' <br>formula: x/2+1';
+                if (player.nerdMode) text += ' <br>formula: (x*y)/2+1';
                 return text;
             },
             unlocked() { return hasUpgrade('m', 21) && hasUpgrade('m', 22) && hasUpgrade('m', 23) },
         },
         32: {
             fullDisplay() {
-                text = '<h3 class="layer-m' + getdark(this, "title-light", true) + 'NaCl, aka Salt</h3><br>gives free unique molecules based on your atoms<br>Currently: +' + formatWhole(this.effect()) + '<br><br>Cost: 7,777,777 atoms';
+                text = '<h3 class="layer-m' + getdark(this, "title-light", true) + 'NaCl, aka Salt</h3><br>gives extra unique molecules based on your atoms<br>Currently: +' + formatWhole(this.effect()) + '<br><br>Cost: 7,777,777 atoms';
                 //if (player.nerdMode) text += ' <br>formula: (x+1)^0.2';
                 return text;
             },
@@ -5421,7 +5426,7 @@ addLayer('m', {
         },
         33: {
             fullDisplay() {
-                text = '<h3 class="layer-m' + getdark(this, "title-light", true) + 'O<tag style="font-size:10px;">3</tag>, aka Ozone</h3><br>multiplies demon soul based on your total unique molecules<br>Currently: ' + format(this.effect()) + 'x<br><br>Cost: 1e10 atoms';
+                text = '<h3 class="layer-m' + getdark(this, "title-light", true) + 'O<tag style="font-size:10px;">3</tag>, aka Ozone</h3><br>multiplies demon soul based on your total unique molecules<br>Currently: ' + format(this.effect()) + 'x<br><br>Cost: 1.00e10 atoms';
                 //if (player.nerdMode) text += ' <br>formula: x*1000';
                 return text;
             },
@@ -5442,7 +5447,7 @@ addLayer('m', {
                 return '<b class="layer-m' + getdark(this, "title-light") + 'Methane Gas';
             },
             description() {
-                return 'gives free unique molecules based on your demon souls';
+                return 'gives extra unique molecules based on your demon souls';
             },
             cost: 25000000,
             effect() {
@@ -5454,6 +5459,151 @@ addLayer('m', {
                 return text;
             },
             unlocked() { return hasUpgrade('m', 31) && hasUpgrade('m', 32) && hasUpgrade('m', 33) },
+        },
+        42: {
+            title() {
+                return '<b class="layer-m' + getdark(this, "title-light") + 'Calcium Oxide';
+            },
+            description() {
+                return 'non-extra unique molecules are worth more based on your relics';
+            },
+            cost: 50000000,
+            effect() {
+                return player.r.points.mul(5).add(1).pow(2);
+            },
+            effectDisplay() {
+                text = format(this.effect()) + 'x';
+                if (player.nerdMode) text += ' <br>formula: (x*5+1)^2';
+                return text;
+            },
+            unlocked() { return hasUpgrade('m', 31) && hasUpgrade('m', 32) && hasUpgrade('m', 33) },
+        },
+        43: {
+            fullDisplay() {
+                text = '<h3 class="layer-m' + getdark(this, "title-light", true) + 'Calcium Hydroxide</h3><br>multiplies relic gain based on your extra unique molecules<br>Currently: ' + format(this.effect()) + 'x<br><br>Cost: 1.61e10 atoms';
+                //if (player.nerdMode) text += ' <br>formula: (x+1)^0.01';
+                return text;
+            },
+            canAfford() {
+                if (player.a.points.gte(1.61e10)) return true;
+                return false;
+            },
+            pay() {
+                player.a.points = player.a.points.sub(1.61e10);
+            },
+            effect() {
+                return player.m.unique_extra.add(1).pow(0.01);
+            },
+            unlocked() { return hasUpgrade('m', 21) && hasUpgrade('m', 22) && hasUpgrade('m', 23) },
+        },
+    },
+});
+
+addLayer('gi', {
+    name: 'Good Influence',
+    symbol: 'GI',
+    position: 1,
+    startData() { return {
+        unlocked: false,
+        points: new Decimal(0),
+        best: new Decimal(0),
+        total: new Decimal(0),
+        req_devotion: new Decimal(1),
+    }},
+    color() {
+        if (player.r.points.gte(15) || player.gi.unlocked) return "#08FF87";
+        return '#666666';
+    },
+    requires: 15,
+    resource: 'good influence',
+    baseResource: 'relics',
+    baseAmount() {return player.r.points},
+    type: 'static',
+    exponent: 1,
+    canBuyMax() {
+        if (hasMilestone('gi', 1)) return true;
+        return false;
+    },
+    gainMult() {
+        mult = new Decimal(1);
+        return mult;
+    },
+    gainExp() {
+        gain = new Decimal(1);
+        gain = gain.mul(player.gi.req_devotion);
+        return gain;
+    },
+    row: 4,
+    hotkeys: [
+        {key: 'G', description: "Shift-G: Reset for good influence", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
+    ],
+    layerShown(){return player.m.unlocked},
+    effect() {
+        effBase = new Decimal(2);
+        if (getBuyableAmount('gi', 11).gt(0)) effBase = effBase.add(getBuyableAmount('gi', 11));
+        effBoost = new Decimal(1);
+        return effBase.pow(player.gi.points).mul(effBoost);
+    },
+    effectDescription() {
+        if (colorvalue[1] == 'none') return 'which multiplies prayer gain by ' + format(tmp.gi.effect) + 'x';
+        return 'which multiplies prayer gain by <h2 class="layer-gi">' + format(tmp.gi.effect) + '</h2>x';
+    },
+    doReset(resettingLayer) {
+        let keep = [];
+            if (layers[resettingLayer].row > this.row) layerDataReset('gi', keep);
+        },
+    update(diff) {
+        eff = player.s.devotion.add(1).pow(0.2);
+        player.gi.req_devotion = eff;
+    },
+    tabFormat: [
+        "main-display",
+        "prestige-button",
+        "resource-display",
+        "blank",
+        ["display-text",
+            function() {
+                return 'you have <h2 class="layer-s">' + format(player.s.devotion) + '</h2> devotion, which multiplies good influence gain by <h2 class="layer-gi">' + format(player.gi.req_devotion) + '</h2>x';
+            }],
+        "blank",
+        "milestones",
+        "buyables",
+        "blank",
+    ],
+    milestones: {
+        0: {
+            requirementDescription: '1 good influence',
+            effectDescription: 'unlock relic upgrades, and good<br>influence doesn\'t reset relics',
+            done() { return player.gi.points.gte(1) },
+        },
+        1: {
+            requirementDescription: '2 good influence',
+            effectDescription: 'you can buy max good influence',
+            done() { return player.gi.points.gte(2) },
+        },
+    },
+    buyables: {
+        11: {
+            cost(x = 0) {
+                if (x == 0) return getBuyableAmount('gi', 11).add(1);
+                return getBuyableAmount('gi', 11).add(x).add(1);
+            },
+            title() {
+                return '<h3 class="layer-gi' + getdark(this, "title-buyable") + 'Better Good';
+            },
+            canAfford() {
+                return player.gi.points.gte(this.cost()) && getBuyableAmount(this.layer, this.id).lt(this.purchaseLimit);
+            },
+            purchaseLimit: 99,
+            buy() {
+                player.gi.points = player.gi.points.sub(this.cost());
+                setBuyableAmount('gi', 11, getBuyableAmount('gi', 11).add(1));
+            },
+            display() {
+                text = '';
+                if (player.nerdMode) text = '<br>formula: x. that\'s it!';
+                return 'increases the good influence effect base based on the amount of this upgrade bought.<br>Currently: +' + format(getBuyableAmount('gi', 11)) + text + '<br><br>Cost: ' + formatWhole(this.cost()) + ' good influence<br><br>Bought: ' + formatWhole(getBuyableAmount('gi', 11));
+            },
         },
     },
 });
