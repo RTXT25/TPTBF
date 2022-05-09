@@ -761,6 +761,7 @@ addLayer('e', {
         let keep = [];
             if (hasMilestone('s', 20) && resettingLayer == 's') return;
             if (hasMilestone('m', 2) && resettingLayer == 'm') return;
+            if (hasMilestone('gi', 1) && resettingLayer == 'gi') return;
             if (hasMilestone('c', 0) && resettingLayer == 'c') keep.push("upgrades");
             if (hasMilestone('c', 2) && resettingLayer == 'c') keep.push("buyables");
             if (hasMilestone('q', 1) && resettingLayer == 'q') keep.push("upgrades");
@@ -1117,6 +1118,7 @@ addLayer('c', {
     doReset(resettingLayer) {
         let keep = [];
             if (hasMilestone('m', 4) && resettingLayer == 'm') return;
+            if (hasMilestone('gi', 2) && resettingLayer == 'gi') return;
             if (hasMilestone('h', 2) && resettingLayer == 'h') keep.push("upgrades");
             if (hasMilestone('h', 3) && resettingLayer == 'h') keep.push("buyables");
             if (hasMilestone('h', 4) && resettingLayer == 'sp') keep.push("upgrades");
@@ -1469,6 +1471,7 @@ addLayer('q', {
     doReset(resettingLayer) {
         let keep = [];
             if (hasMilestone('m', 5) && resettingLayer == 'm') return;
+            if (hasMilestone('gi', 3) && resettingLayer == 'gi') return;
             if (hasMilestone('sp', 3) && resettingLayer == 'sp') keep.push("milestones");
             if (hasMilestone('sp', 5) && resettingLayer == 'sp') keep.push("upgrades");
             if (hasMilestone('h', 5) && resettingLayer == 'h') keep.push("milestones");
@@ -4960,6 +4963,7 @@ addLayer('r', {
         player.r.lightreq = new Decimal(20000).mul(new Decimal(5).pow(challengeCompletions('r', 11)));
         mult0 = new Decimal(1);
         if (challengeCompletions('r', 11) >= 11) mult0 = mult0.mul(2);
+        if (challengeCompletions('r', 11) >= 14) mult0 = mult0.mul(2);
         player.r.relic_effects[0] = player.r.light.mul(10).add(1).pow(0.15).mul(mult0);
         player.r.relic_effects[1] = player.r.light.mul(1000).add(1).pow(0.05);
         mult2 = new Decimal(1);
@@ -4975,6 +4979,7 @@ addLayer('r', {
         if (inChallenge('r', 11)) {
             gain = getPointGen(true).pow(0.001).div(10);
             if (hasUpgrade('r', 11)) gain = gain.mul(upgradeEffect('r', 11));
+            if (hasUpgrade('r', 12)) gain = gain.mul(upgradeEffect('r', 12));
             if (getBuyableAmount('d', 21).gt(0)) gain = gain.mul(getBuyableAmount('d', 21));
             if (hasMilestone('s', 30)) gain = gain.mul(2);
             if (hasMilestone('s', 41)) gain = gain.mul(3);
@@ -5037,7 +5042,8 @@ addLayer('r', {
                 if (challengeCompletions('r', 11) == 10) text += '<br>Next reward: double the first activated relic effect';
                 if (challengeCompletions('r', 11) == 11) text += '<br>Next reward: the first activated relic effect also applies to molecule gain';
                 if (challengeCompletions('r', 11) == 12) text += 'multiply relic\'s second and third effects and molecule gain, exponentially increase relic\'s first effect, and also multiply Sacrificial Ceremony\'s last effect (all based on your light)<br>Currently: ' + format(player.r.relic_effects[0]) + 'x,<br>^' + format(player.r.relic_effects[1]) + ',<br>and ' + format(player.r.relic_effects[2]) + 'x<br><br>Next reward: multiply relic gain based on your light<br>Currently: ' + format(player.r.relic_effects[3]) + 'x';
-                if (challengeCompletions('r', 11) >= 13) text += '<br>Next reward: N/A - wait for future updates!';
+                if (challengeCompletions('r', 11) == 13) text += '<br>Next reward: double the first activated relic effect';
+                if (challengeCompletions('r', 11) >= 14) text += '<br>Next reward: N/A - wait for future updates!';
                 return text;
             },
             canComplete() {
@@ -5521,8 +5527,7 @@ addLayer('gi', {
     type: 'static',
     exponent: 1,
     canBuyMax() {
-        if (hasMilestone('gi', 1)) return true;
-        return false;
+        return true;
     },
     gainMult() {
         mult = new Decimal(1);
@@ -5578,8 +5583,18 @@ addLayer('gi', {
         },
         1: {
             requirementDescription: '2 good influence',
-            effectDescription: 'you can buy max good influence',
+            effectDescription: 'influence doesn\'t reset essence',
             done() { return player.gi.points.gte(2) },
+        },
+        2: {
+            requirementDescription: '3 good influence',
+            effectDescription: 'influence doesn\'t reset cores',
+            done() { return player.gi.points.gte(3) },
+        },
+        3: {
+            requirementDescription: '4 good influence',
+            effectDescription: 'influence doesn\'t reset quarks',
+            done() { return player.gi.points.gte(4) },
         },
     },
     buyables: {
@@ -5600,9 +5615,7 @@ addLayer('gi', {
                 setBuyableAmount('gi', 11, getBuyableAmount('gi', 11).add(1));
             },
             display() {
-                text = '';
-                if (player.nerdMode) text = '<br>formula: x. that\'s it!';
-                return 'increases the good influence effect base based on the amount of this upgrade bought.<br>Currently: +' + format(getBuyableAmount('gi', 11)) + text + '<br><br>Cost: ' + formatWhole(this.cost()) + ' good influence<br><br>Bought: ' + formatWhole(getBuyableAmount('gi', 11));
+                return 'increases the good influence effect base by 1 per this upgrade bought.<br>Currently: +' + format(getBuyableAmount('gi', 11)) + '<br><br>Cost: ' + formatWhole(this.cost()) + ' good influence<br><br>Bought: ' + formatWhole(getBuyableAmount('gi', 11));
             },
         },
     },
