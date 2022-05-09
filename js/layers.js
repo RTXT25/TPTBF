@@ -546,6 +546,27 @@ addLayer('A', {
             unlocked() { if (hasAchievement('A', 122)) return true },
             color: '#00CCCC',
         },
+        126: {
+            name: 'Shiny New Molecules',
+            done() {return player.m.points.gte(100000) && player.r.total.eq(0)},
+            tooltip: 'obtain 100,000 molecules with no relics.',
+            unlocked() { if (hasAchievement('A', 122) && hasAchievement('A', 131)) return true },
+            color: '#00CCCC',
+        },
+        131: {
+            name: 'Spread the Word',
+            done() {return player.gi.points.gte(1)},
+            tooltip: 'obtain 1 good influence.',
+            unlocked() { if (hasAchievement('A', 131)) return true },
+            color: '#08FF87',
+        },
+        132: {
+            name: 'Good Deeds All Around',
+            done() {return player.gi.points.gte(10)},
+            tooltip: 'obtain 10 good influence.',
+            unlocked() { if (hasAchievement('A', 131)) return true },
+            color: '#08FF87',
+        },
     },
 });
 
@@ -4363,7 +4384,7 @@ addLayer('s', {
         },
         12: {
             requirementDescription: '18 sanctums',
-            effectDescription: 'atoms don\'t reset sanctums',
+            effectDescription: 'atoms resets don\'t reset sanctums',
             done() { return player.s.points.gte(18) },
         },
         13: {
@@ -4719,10 +4740,18 @@ addLayer('d', {
     automate() {
         if (hasMilestone('s', 19) && player.s.auto_worship) {
             if (layers.d.buyables[11].canAfford()) layers.d.buyables[11].buy();
-            if (hasMilestone('s', 44) && layers.d.buyables[11].canAfford()) layers.d.buyables[11].buy();
+            if (challengeCompletions('r', 11) >= 17 && layers.d.buyables[11].canAfford()) layers.d.buyables[11].buy();
+            if (hasMilestone('s', 44) && layers.d.buyables[11].canAfford()) {
+                layers.d.buyables[11].buy();
+                if (challengeCompletions('r', 11) >= 17 && layers.d.buyables[11].canAfford()) layers.d.buyables[11].buy();
+            };
             if (hasMilestone('s', 46)) {
                 if (layers.d.buyables[11].canAfford()) layers.d.buyables[11].buy();
                 if (layers.d.buyables[11].canAfford()) layers.d.buyables[11].buy();
+                if (challengeCompletions('r', 11) >= 17) {
+                    if (layers.d.buyables[11].canAfford()) layers.d.buyables[11].buy();
+                    if (layers.d.buyables[11].canAfford()) layers.d.buyables[11].buy();
+                };
             };
             if (hasMilestone('s', 51)) {
                 if (layers.d.buyables[11].canAfford()) layers.d.buyables[11].buy();
@@ -4733,13 +4762,25 @@ addLayer('d', {
                 if (layers.d.buyables[11].canAfford()) layers.d.buyables[11].buy();
                 if (layers.d.buyables[11].canAfford()) layers.d.buyables[11].buy();
                 if (layers.d.buyables[11].canAfford()) layers.d.buyables[11].buy();
+                if (challengeCompletions('r', 11) >= 17) {
+                    if (layers.d.buyables[11].canAfford()) layers.d.buyables[11].buy();
+                    if (layers.d.buyables[11].canAfford()) layers.d.buyables[11].buy();
+                    if (layers.d.buyables[11].canAfford()) layers.d.buyables[11].buy();
+                    if (layers.d.buyables[11].canAfford()) layers.d.buyables[11].buy();
+                    if (layers.d.buyables[11].canAfford()) layers.d.buyables[11].buy();
+                    if (layers.d.buyables[11].canAfford()) layers.d.buyables[11].buy();
+                    if (layers.d.buyables[11].canAfford()) layers.d.buyables[11].buy();
+                    if (layers.d.buyables[11].canAfford()) layers.d.buyables[11].buy();
+                };
             };
         };
         if (hasMilestone('s', 38) && player.s.auto_sacrifice && layers.d.buyables[12].canAfford()) {
             layers.d.buyables[12].buy();
+            if (challengeCompletions('r', 11) >= 17 && layers.d.buyables[12].canAfford()) layers.d.buyables[12].buy();
         };
         if (hasMilestone('s', 28) && player.s.auto_sacrificial_ceremony && layers.d.buyables[21].canAfford()) {
             layers.d.buyables[21].buy();
+            if (challengeCompletions('r', 11) >= 17 && layers.d.buyables[21].canAfford()) layers.d.buyables[21].buy();
         };
     },
     update(diff) {
@@ -4964,6 +5005,8 @@ addLayer('r', {
         mult0 = new Decimal(1);
         if (challengeCompletions('r', 11) >= 11) mult0 = mult0.mul(2);
         if (challengeCompletions('r', 11) >= 14) mult0 = mult0.mul(2);
+        if (challengeCompletions('r', 11) >= 15) mult0 = mult0.mul(1.2);
+        if (challengeCompletions('r', 11) >= 16) mult0 = mult0.mul(1.1);
         player.r.relic_effects[0] = player.r.light.mul(10).add(1).pow(0.15).mul(mult0);
         player.r.relic_effects[1] = player.r.light.mul(1000).add(1).pow(0.05);
         mult2 = new Decimal(1);
@@ -5043,7 +5086,10 @@ addLayer('r', {
                 if (challengeCompletions('r', 11) == 11) text += '<br>Next reward: the first activated relic effect also applies to molecule gain';
                 if (challengeCompletions('r', 11) == 12) text += 'multiply relic\'s second and third effects and molecule gain, exponentially increase relic\'s first effect, and also multiply Sacrificial Ceremony\'s last effect (all based on your light)<br>Currently: ' + format(player.r.relic_effects[0]) + 'x,<br>^' + format(player.r.relic_effects[1]) + ',<br>and ' + format(player.r.relic_effects[2]) + 'x<br><br>Next reward: multiply relic gain based on your light<br>Currently: ' + format(player.r.relic_effects[3]) + 'x';
                 if (challengeCompletions('r', 11) == 13) text += '<br>Next reward: double the first activated relic effect';
-                if (challengeCompletions('r', 11) >= 14) text += '<br>Next reward: N/A - wait for future updates!';
+                if (challengeCompletions('r', 11) == 14) text += '<br>Next reward: multiply the first activated relic effect by 1.2';
+                if (challengeCompletions('r', 11) == 15) text += '<br>Next reward: multiply the first activated relic effect by 1.1';
+                if (challengeCompletions('r', 11) == 16) text += '<br>Next reward: sanctum layer autobuyers buy 2x faster';
+                if (challengeCompletions('r', 11) >= 17) text += '<br>Next reward: N/A - wait for future updates!';
                 return text;
             },
             canComplete() {
@@ -5547,18 +5593,17 @@ addLayer('gi', {
         effBase = new Decimal(2);
         if (getBuyableAmount('gi', 11).gt(0)) effBase = effBase.add(getBuyableAmount('gi', 11));
         effBoost = new Decimal(1);
-        return effBase.pow(player.gi.points).mul(effBoost);
+        return effBase.pow(player.gi.total).mul(effBoost);
     },
     effectDescription() {
-        if (colorvalue[1] == 'none') return 'which multiplies prayer gain by ' + format(tmp.gi.effect) + 'x';
-        return 'which multiplies prayer gain by <h2 class="layer-gi">' + format(tmp.gi.effect) + '</h2>x';
+        return 'which multiplies prayer gain by <h2 class="layer-gi">' + format(tmp.gi.effect) + '</h2>x (based on total)';
     },
     doReset(resettingLayer) {
         let keep = [];
             if (layers[resettingLayer].row > this.row) layerDataReset('gi', keep);
         },
     update(diff) {
-        eff = player.s.devotion.add(1).pow(0.2);
+        eff = player.s.devotion.mul(1.05).add(1).pow(0.2);
         player.gi.req_devotion = eff;
     },
     tabFormat: [
@@ -5568,6 +5613,7 @@ addLayer('gi', {
         "blank",
         ["display-text",
             function() {
+                if (player.nerdMode) return 'you have <h2 class="layer-s">' + format(player.s.devotion) + '</h2> devotion, which multiplies good influence gain by <h2 class="layer-gi">' + format(player.gi.req_devotion) + '</h2>x (formula: (x*1.05+1)^0.2)';
                 return 'you have <h2 class="layer-s">' + format(player.s.devotion) + '</h2> devotion, which multiplies good influence gain by <h2 class="layer-gi">' + format(player.gi.req_devotion) + '</h2>x';
             }],
         "blank",
@@ -5583,25 +5629,24 @@ addLayer('gi', {
         },
         1: {
             requirementDescription: '2 good influence',
-            effectDescription: 'influence doesn\'t reset essence',
+            effectDescription: 'influence resets don\'t reset essence',
             done() { return player.gi.points.gte(2) },
         },
         2: {
             requirementDescription: '3 good influence',
-            effectDescription: 'influence doesn\'t reset cores',
+            effectDescription: 'influence resets don\'t reset cores',
             done() { return player.gi.points.gte(3) },
         },
         3: {
             requirementDescription: '4 good influence',
-            effectDescription: 'influence doesn\'t reset quarks',
+            effectDescription: 'influence resets don\'t reset quarks',
             done() { return player.gi.points.gte(4) },
         },
     },
     buyables: {
         11: {
-            cost(x = 0) {
-                if (x == 0) return getBuyableAmount('gi', 11).add(1);
-                return getBuyableAmount('gi', 11).add(x).add(1);
+            cost() {
+                return getBuyableAmount('gi', 11).add(1);
             },
             title() {
                 return '<h3 class="layer-gi' + getdark(this, "title-buyable") + 'Better Good';
