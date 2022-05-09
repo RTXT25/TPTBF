@@ -9,8 +9,8 @@ let modInfo = {
 };
 
 let VERSION = {
-	num: '2.2',
-	name: 'Advances in Science',
+	num: '2.3',
+	name: 'Influence of Good',
 };
 
 let winText = '<h3>You won the game!</h3><br>However, it isn\'t the end yet...<br>Wait for more updates for further content.';
@@ -20,12 +20,12 @@ function getdark(darkthis, type, special = false, research = false) {
 	if (darkthis.layer !== undefined) {
 		if (colorvalue[1] == 'dark') return '-dark">';
 		if (colorvalue[1] == 'none') return '-OFF">';
-		if ((type == 'title' && colorvalue[0][1]) || (type == 'ref' && colorvalue[0][2])) {
+		if (((type == 'title' || type == 'title-hasend') && colorvalue[0][1]) || (type == 'ref' && colorvalue[0][2])) {
 			if (research) return '">';
 			else {
 				if (special) darkcanafford = darkthis.canAfford();
 				else darkcanafford = player[darkthis.layer].points.gte(darkthis.cost);
-				if (darkcanafford && !hasUpgrade(darkthis.layer, darkthis.id)) return '-dark">';
+				if ((darkcanafford && !hasUpgrade(darkthis.layer, darkthis.id)) || (type == 'title-hasend' && hasUpgrade(darkthis.layer, darkthis.id))) return '-dark">';
 			};
 		} else if (type == 'title-light' && colorvalue[0][1]) {
 			if (special) darkcanafford = darkthis.canAfford();
