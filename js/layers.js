@@ -2225,6 +2225,7 @@ addLayer('h', {
     doReset(resettingLayer) {
         let keep = [];
             if (hasMilestone('m', 13) && resettingLayer == 'm') return;
+            if (hasMilestone('gi', 4) && resettingLayer == 'gi') return;
             if (hasMilestone('ds', 8) && resettingLayer == 'ds') keep.push("milestones");
             if (hasMilestone('a', 6) && resettingLayer == 'a') keep.push("milestones");
             if (hasMilestone('a', 11) && (resettingLayer == 'a' || resettingLayer == 'ds')) keep.push("upgrades");
@@ -2709,6 +2710,7 @@ addLayer('ds', {
         let keep = [];
         let saveupg = [];
             if (hasMilestone('m', 14) && resettingLayer == 'm') return;
+            if (hasMilestone('gi', 5) && resettingLayer == 'gi') return;
             if (hasMilestone('m', 1)) {
                 keep.push("challenges");
                 saveupg.push(22);
@@ -5624,23 +5626,33 @@ addLayer('gi', {
     milestones: {
         0: {
             requirementDescription: '1 good influence',
-            effectDescription: 'unlock relic upgrades, and good<br>influence doesn\'t reset relics',
+            effectDescription: 'unlock relic upgrades, and good<br>influence resets don\'t reset relics',
             done() { return player.gi.points.gte(1) },
         },
         1: {
             requirementDescription: '2 good influence',
-            effectDescription: 'influence resets don\'t reset essence',
+            effectDescription: 'good influence resets don\'t<br>reset essence',
             done() { return player.gi.points.gte(2) },
         },
         2: {
             requirementDescription: '3 good influence',
-            effectDescription: 'influence resets don\'t reset cores',
+            effectDescription: 'good influence resets don\'t<br>reset cores',
             done() { return player.gi.points.gte(3) },
         },
         3: {
             requirementDescription: '4 good influence',
-            effectDescription: 'influence resets don\'t reset quarks',
+            effectDescription: 'good influence resets don\'t<br>reset quarks',
             done() { return player.gi.points.gte(4) },
+        },
+        4: {
+            requirementDescription: '5 good influence',
+            effectDescription: 'good influence resets don\'t<br>reset hexes',
+            done() { return player.gi.points.gte(5) },
+        },
+        5: {
+            requirementDescription: '6 good influence',
+            effectDescription: 'good influence resets don\'t<br>reset demon souls',
+            done() { return player.gi.points.gte(6) },
         },
     },
     buyables: {
