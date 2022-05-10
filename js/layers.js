@@ -603,6 +603,7 @@ addLayer('SC', {
         hex = 0;
         divine = 0;
         molecule = 0;
+        light = 0;
         text = ['of which '];
         textfin = '';
         textvalue = 0;
@@ -621,11 +622,15 @@ addLayer('SC', {
         if (player.SC.softcaps.includes("m-eff1")) {
             molecule += 1;
         };
+        if (player.SC.softcaps.includes("r-l1")) {
+            light += 1;
+        };
         if (core > 0) text.push('<h2 class="layer-c">' + core + '</h2> is <h2 class="layer-c">core</h2>');
         if (quark > 0) text.push('<h2 class="layer-q">' + quark + '</h2> is <h2 class="layer-q">quirky</h2>');
         if (hex > 0) text.push('<h2 class="layer-h">' + hex + '</h2> is <h2 class="layer-h">hexed</h2>');
         if (divine > 0) text.push('<h2 class="layer-p">' + divine + '</h2> is <h2 class="layer-p">divine</h2>');
         if (molecule > 0) text.push('<h2 class="layer-m">' + molecule + '</h2> is <h2 class="layer-m">molecular</h2>');
+        if (light > 0) text.push('<h2 class="layer-r">' + light + '</h2> is <h2 class="layer-r">light</h2>');
         textfin = text[0];
         if (text.length > 1) {
             textfin += text[1];
@@ -650,6 +655,11 @@ addLayer('SC', {
             else textfin += ", ";
             textfin += text[5];
         };
+        if (text.length > 6) {
+            if (text.length == 7) textfin += ', and ';
+            else textfin += ", ";
+            textfin += text[6];
+        };
         return textfin;
     },
     update(diff) {
@@ -668,6 +678,9 @@ addLayer('SC', {
         if (tmp.m.effect.gte(player.m.effectsoftcap_start[0]) && !player.SC.softcaps.includes("m-eff1")) {
             player.SC.softcaps.push("m-eff1");
         };
+        if (tmp.m.effect.gte(player.r.lightsoftcap_start[0]) && !player.SC.softcaps.includes("r-l1")) {
+            player.SC.softcaps.push("r-l1");
+        };
         player.SC.points = new Decimal(player.SC.softcaps.length);
     },
     tabFormat: [
@@ -675,11 +688,12 @@ addLayer('SC', {
         ["display-text",
             function() {
                 text = '';
-                if (player.SC.softcaps.includes("c1")) text += '<br><h2 class="layer-c">Core Gain Softcap</h2><br>starts at ' + format(layers.c.softcap) + ', gain to ^' + layers.c.softcapPower + '<br>';
-                if (player.SC.softcaps.includes("q1")) text += '<br><h2 class="layer-q">Quark Gain Softcap</h2><br>starts at ' + format(layers.q.softcap) + ', gain to ^' + layers.q.softcapPower + '<br>';
-                if (player.SC.softcaps.includes("h1")) text += '<br><h2 class="layer-h">Hex Gain Softcap</h2><br>starts at ' + format(layers.h.softcap) + ', gain to ^' + layers.h.softcapPower + '<br>';
-                if (player.SC.softcaps.includes("p-d1")) text += '<br><h2 class="layer-p">Divinity Gain Softcap</h2><br>starts at ' + format(player.p.divinitysoftcap_start[0]) + ', gain to ^' + player.p.divinitysoftcap_power[0] + '<br>';
-                if (player.SC.softcaps.includes("m-eff1")) text += '<br><h2 class="layer-m">Molecule Effect Softcap</h2><br>starts at ' + format(player.m.effectsoftcap_start[0]) + ', effect to ^' + player.m.effectsoftcap_power[0] + '<br>';
+                if (player.SC.softcaps.includes("c1")) text += '<br><h2 class="layer-c">Core Gain Softcap</h2><br>starts at ' + format(layers.c.softcap) + ', gain to ^' + format(layers.c.softcapPower) + '<br>';
+                if (player.SC.softcaps.includes("q1")) text += '<br><h2 class="layer-q">Quark Gain Softcap</h2><br>starts at ' + format(layers.q.softcap) + ', gain to ^' + format(layers.q.softcapPower) + '<br>';
+                if (player.SC.softcaps.includes("h1")) text += '<br><h2 class="layer-h">Hex Gain Softcap</h2><br>starts at ' + format(layers.h.softcap) + ', gain to ^' + format(layers.h.softcapPower) + '<br>';
+                if (player.SC.softcaps.includes("p-d1")) text += '<br><h2 class="layer-p">Divinity Gain Softcap</h2><br>starts at ' + format(player.p.divinitysoftcap_start[0]) + ', gain to ^' + format(player.p.divinitysoftcap_power[0]) + '<br>';
+                if (player.SC.softcaps.includes("m-eff1")) text += '<br><h2 class="layer-m">Molecule Effect Softcap</h2><br>starts at ' + format(player.m.effectsoftcap_start[0]) + ', effect to ^' + format(player.m.effectsoftcap_power[0]) + '<br>';
+                if (player.SC.softcaps.includes("r-l1")) text += '<br><h2 class="layer-r">Light Gain Softcap</h2><br>starts at ' + format(player.r.lightsoftcap_start[0]) + ', effect to ^' + format(player.r.lightsoftcap_power[0]) + '<br>';
                 return text;
             }],
     ],
@@ -1068,7 +1082,7 @@ addLayer('c', {
     }},
     color() {
         if (player.e.points.gte(10000) || player.c.unlocked) return "#D2D237";
-        return '#666666';
+        return '#A0A0A0';
     },
     branches: ['h'],
     requires: 10000,
@@ -1414,7 +1428,7 @@ addLayer('q', {
     }},
     color() {
         if (player.e.points.gte(1e9) || player.q.unlocked) return "#DB5196";
-        return '#666666';
+        return '#A0A0A0';
     },
     branches: ['sp'],
     requires: 1e9,
@@ -1920,7 +1934,7 @@ addLayer('sp', {
     }},
     color() {
         if (player.q.points.gte(1e15) || player.sp.unlocked) return "#710CC4";
-        return '#666666';
+        return '#A0A0A0';
     },
     branches: ['a'],
     requires: 1e15,
@@ -2146,7 +2160,7 @@ addLayer('h', {
     }},
     color() {
         if (player.c.points.gte(1e60) || player.h.unlocked) return "#E36409";
-        return '#666666';
+        return '#A0A0A0';
     },
     branches: ['ds'],
     requires: 1e60,
@@ -2666,7 +2680,7 @@ addLayer('ds', {
     }},
     color() {
         if (player.h.points.gte(1e60) || player.ds.unlocked) return "#BA0035";
-        return '#666666';
+        return '#A0A0A0';
     },
     requires: 1e60,
     resource: 'demon souls',
@@ -3030,7 +3044,7 @@ addLayer('a', {
     }},
     color() {
         if (player.sp.points.gte(10000) || player.a.unlocked) return "#4D2FE0";
-        return '#666666';
+        return '#A0A0A0';
     },
     branches: ['m'],
     requires: 1000,
@@ -3554,7 +3568,7 @@ addLayer('p', {
     }},
     color() {
         if (player.e.points.gte(new Decimal('1e1000')) || player.p.unlocked) return "#FDBBFF";
-        return '#666666';
+        return '#A0A0A0';
     },
     branches: ['s'],
     requires: new Decimal('1e1000'),
@@ -4226,7 +4240,7 @@ addLayer('s', {
     }},
     color() {
         if (player.p.points.gte(1e15) || player.s.unlocked) return "#AAFF00";
-        return '#666666';
+        return '#A0A0A0';
     },
     branches: ['r', 'gi'],
     requires: 1e15,
@@ -4963,13 +4977,15 @@ addLayer('r', {
         light: new Decimal(0),
         lightgain: new Decimal(0),
         lightgainbest: new Decimal(0),
+        lightsoftcap_start: [1e20],
+        lightsoftcap_power: [0.9],
         relic_effects: [new Decimal(1), new Decimal(1), new Decimal(1), new Decimal(1)],
         sanctummult: new Decimal(1),
         essencemult: new Decimal(1),
     }},
     color() {
         if (player.s.points.gte(10) || player.r.unlocked) return "#B9A975";
-        return '#666666';
+        return '#A0A0A0';
     },
     branches: ['gi'],
     requires: 10,
@@ -5064,6 +5080,8 @@ addLayer('r', {
             if (hasMilestone('s', 41)) gain = gain.mul(3);
             if (hasMilestone('s', 50)) gain = gain.mul(3);
             if (hasMilestone('s', 52)) gain = gain.mul(3);
+            sc_start0 = player.r.lightsoftcap_start[0];
+            if (gain.gt(sc_start0)) gain = gain.sub(sc_start0).pow(player.r.lightsoftcap_power[0]).add(sc_start0);
             player.r.lightgain = gain.add(lightboost);
         } else player.r.lightgain = new Decimal(0).add(lightboost);
         player.r.light = player.r.light.add(player.r.lightgain.mul(diff));
@@ -5221,7 +5239,7 @@ addLayer('m', {
     }},
     color() {
         if (player.a.points.gte(30000) || player.m.unlocked) return "#00CCCC";
-        return '#666666';
+        return '#A0A0A0';
     },
     requires: 30000,
     resource: 'molecules',
@@ -5618,7 +5636,7 @@ addLayer('gi', {
     }},
     color() {
         if (player.r.points.gte(15) || player.gi.unlocked) return "#08FF87";
-        return '#666666';
+        return '#A0A0A0';
     },
     requires: 15,
     resource: 'good influence',
