@@ -541,22 +541,29 @@ addLayer('A', {
         },
         122: {
             name: 'Varied Molecules',
-            done() {return player.m.points.gte(100000)},
-            tooltip: 'obtain 100,000 molecules.',
+            done() {return player.m.points.gte(1000000)},
+            tooltip: 'obtain 1,000,000 molecules.',
             unlocked() { if (hasAchievement('A', 121)) return true },
             color: '#00CCCC',
         },
         123: {
             name: 'Molecule Dictionary',
-            done() {return player.m.points.gte(1e11)},
-            tooltip: 'obtain 1e11 molecules.',
+            done() {return player.m.points.gte(1e12)},
+            tooltip: 'obtain 1e12 molecules.',
             unlocked() { if (hasAchievement('A', 122)) return true },
+            color: '#00CCCC',
+        },
+        124: {
+            name: 'Plethora of Molecules',
+            done() {return player.m.points.gte(1e24)},
+            tooltip: 'obtain 1e24 molecules.',
+            unlocked() { if (hasAchievement('A', 123)) return true },
             color: '#00CCCC',
         },
         126: {
             name: 'Shiny New Molecules',
-            done() {return player.m.points.gte(100000) && player.r.total.eq(0)},
-            tooltip: 'obtain 100,000 molecules with no relics.',
+            done() {return player.m.points.gte(1000000) && player.r.total.eq(0)},
+            tooltip: 'obtain 1,000,000 molecules with no relics.',
             unlocked() { if (hasAchievement('A', 122) && hasAchievement('A', 131)) return true },
             color: '#00CCCC',
         },
@@ -4821,14 +4828,28 @@ addLayer('d', {
                 if (layers.d.buyables[12].canAfford()) layers.d.buyables[12].buy();
                 if (layers.d.buyables[12].canAfford()) layers.d.buyables[12].buy();
                 if (layers.d.buyables[12].canAfford()) layers.d.buyables[12].buy();
-                if (challengeCompletions('r', 11) >= 23) {
-                    if (layers.d.buyables[12].canAfford()) layers.d.buyables[12].buy();
-                    if (layers.d.buyables[12].canAfford()) layers.d.buyables[12].buy();
-                    if (layers.d.buyables[12].canAfford()) layers.d.buyables[12].buy();
-                    if (layers.d.buyables[12].canAfford()) layers.d.buyables[12].buy();
-                    if (layers.d.buyables[12].canAfford()) layers.d.buyables[12].buy();
-                    if (layers.d.buyables[12].canAfford()) layers.d.buyables[12].buy();
-                };
+            };
+            if (challengeCompletions('r', 11) >= 23) {
+                if (layers.d.buyables[12].canAfford()) layers.d.buyables[12].buy();
+                if (layers.d.buyables[12].canAfford()) layers.d.buyables[12].buy();
+                if (layers.d.buyables[12].canAfford()) layers.d.buyables[12].buy();
+                if (layers.d.buyables[12].canAfford()) layers.d.buyables[12].buy();
+                if (layers.d.buyables[12].canAfford()) layers.d.buyables[12].buy();
+                if (layers.d.buyables[12].canAfford()) layers.d.buyables[12].buy();
+            };
+            if (challengeCompletions('r', 11) >= 32) {
+                if (layers.d.buyables[12].canAfford()) layers.d.buyables[12].buy();
+                if (layers.d.buyables[12].canAfford()) layers.d.buyables[12].buy();
+                if (layers.d.buyables[12].canAfford()) layers.d.buyables[12].buy();
+                if (layers.d.buyables[12].canAfford()) layers.d.buyables[12].buy();
+                if (layers.d.buyables[12].canAfford()) layers.d.buyables[12].buy();
+                if (layers.d.buyables[12].canAfford()) layers.d.buyables[12].buy();
+                if (layers.d.buyables[12].canAfford()) layers.d.buyables[12].buy();
+                if (layers.d.buyables[12].canAfford()) layers.d.buyables[12].buy();
+                if (layers.d.buyables[12].canAfford()) layers.d.buyables[12].buy();
+                if (layers.d.buyables[12].canAfford()) layers.d.buyables[12].buy();
+                if (layers.d.buyables[12].canAfford()) layers.d.buyables[12].buy();
+                if (layers.d.buyables[12].canAfford()) layers.d.buyables[12].buy();
             };
         };
         if (hasMilestone('s', 28) && player.s.auto_sacrificial_ceremony && layers.d.buyables[21].canAfford()) {
@@ -5078,7 +5099,8 @@ addLayer('r', {
         player.r.relic_effects[2] = player.r.light.div(1000).add(1).pow(0.25).mul(mult2);
         player.r.relic_effects[3] = player.r.light.pow(0.0021);
         lightboost = new Decimal(0);
-        if (hasMilestone('m', 16)) lightboost = player.r.lightgainbest.mul(0.05);
+        if (hasMilestone('m', 17)) lightboost = player.r.lightgainbest.mul(0.1);
+        else if (hasMilestone('m', 16)) lightboost = player.r.lightgainbest.mul(0.05);
         else if (hasMilestone('m', 15)) lightboost = player.r.lightgainbest.mul(0.025);
         else if (hasMilestone('m', 7)) lightboost = player.r.lightgainbest.mul(0.01);
         else if (hasMilestone('m', 3)) lightboost = player.r.lightgainbest.mul(0.001);
@@ -5167,7 +5189,9 @@ addLayer('r', {
                 if (challengeCompletions('r', 11) == 27) text += '<br>Next reward: nothing';
                 if (challengeCompletions('r', 11) == 28) text += '<br>Next reward: still nothing';
                 if (challengeCompletions('r', 11) == 29) text += '<br>Next reward: relic resets don\'t reset quarks';
-                if (challengeCompletions('r', 11) >= 30) text += '<br>Next reward: you have gotten all the rewards!';
+                if (challengeCompletions('r', 11) == 30) text += '<br>Next reward: nothing';
+                if (challengeCompletions('r', 11) == 31) text += '<br>Next reward: auto <b class="layer-s' + getdark(this, "ref", true, true) + 'Sacrifice</b> works twice as fast';
+                if (challengeCompletions('r', 11) >= 32) text += '<br>Next reward: you have gotten all the rewards!';
                 return text;
             },
             canComplete() {
@@ -5192,7 +5216,7 @@ addLayer('r', {
             fullDisplay() {
                 text = '';
                 if (player.nerdMode) text += ' <br>formula: (x+1)^0.3';
-                return '<h3 class="layer-r' + getdark(this, "title-hasend") + 'Brighter Light</h3><br>multiplies light gain based on your sanctums<br>Currently: ' + format(this.effect()) + 'x' + text + '<br><br>Cost: 1.00e12 light';
+                return '<h3 class="layer-r' + getdark(this, "title-hasend") + 'Brighter Light</h3><br>multiplies light gain based on your sanctums<br>Currently: ' + format(this.effect()) + 'x' + text + '<br><br>Cost: ' + formatWhole(1e12) + ' light';
             },
             canAfford() {
                 if (player.r.light.gte(1e12)) return true;
@@ -5209,8 +5233,9 @@ addLayer('r', {
         12: {
             fullDisplay() {
                 text = '';
+                if (this.effect().gte(500)) text += format(this.effect()) + '<br>(hardcapped)';
                 if (player.nerdMode) text += ' <br>formula: (x+1)^0.1';
-                return '<h3 class="layer-r' + getdark(this, "title-hasend") + 'Light of Light</h3><br>multiplies light gain based on your light<br>Currently: ' + format(this.effect()) + 'x' + text + '<br><br>Cost: 1e13 light';
+                return '<h3 class="layer-r' + getdark(this, "title-hasend") + 'Light of Light</h3><br>multiplies light gain based on your light<br>Currently: ' + format(this.effect()) + 'x' + text + '<br><br>Cost: ' + formatWhole(1e13) + ' light';
             },
             canAfford() {
                 if (player.r.light.gte(1e13)) return true;
@@ -5220,7 +5245,10 @@ addLayer('r', {
                 player.r.light = player.r.light.sub(1e13);
             },
             effect() {
-                return player.r.light.add(1).pow(0.1);
+                eff = player.r.light.add(1).pow(0.1);
+                hardcap = new Decimal(500);
+                if (eff.gt(hardcap)) return hardcap;
+                return eff;
             },
             unlocked() { return hasMilestone('gi', 0) },
         },
@@ -5412,6 +5440,11 @@ addLayer('m', {
             requirementDescription: '450,000,000 total molecules',
             effectDescription: 'gain +2.5% of best light gain per second',
             done() { return player.m.total.gte(450000000) },
+        },
+        17: {
+            requirementDescription: '2.5e10 total molecules',
+            effectDescription: 'gain +5% of best light gain per second',
+            done() { return player.m.total.gte(2.5e10) },
         },
     },
     upgrades: {
