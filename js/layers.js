@@ -5115,8 +5115,9 @@ addLayer('r', {
             if (hasMilestone('s', 52)) gain = gain.mul(3);
             sc_start0 = player.r.lightsoftcap_start[0];
             if (gain.gt(sc_start0)) gain = gain.sub(sc_start0).pow(player.r.lightsoftcap_power[0]).add(sc_start0);
-            player.r.lightgain = gain.add(lightboost);
-        } else player.r.lightgain = new Decimal(0).add(lightboost);
+            if (gain.lt(lightboost)) gain = lightboost;
+            player.r.lightgain = gain;
+        } else player.r.lightgain = lightboost;
         player.r.light = player.r.light.add(player.r.lightgain.mul(diff));
         if (player.r.lightgain.gt(player.r.lightgainbest)) player.r.lightgainbest = player.r.lightgain;
     },
