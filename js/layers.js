@@ -5221,7 +5221,7 @@ addLayer('r', {
         12: {
             fullDisplay() {
                 text = '';
-                if (this.effect().gte(500)) text += format(this.effect()) + '<br>(hardcapped)';
+                if (this.effect().gte(500)) text += '<br>(hardcapped)';
                 if (player.nerdMode) text += ' <br>formula: (x+1)^0.1';
                 return '<h3 class="layer-r' + getdark(this, "title-hasend") + 'Light of Light</h3><br>multiplies light gain based on your light<br>Currently: ' + format(this.effect()) + 'x' + text + '<br><br>Cost: ' + formatWhole(1e13) + ' light';
             },
