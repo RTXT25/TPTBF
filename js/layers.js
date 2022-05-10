@@ -791,7 +791,7 @@ addLayer('e', {
         return gen;
     },
     automate() {
-        if (player.e.auto_upgrades) {
+        if (hasMilestone('m', 2) && player.e.auto_upgrades) {
             buyUpgrade('e', 11);
             if (hasUpgrade('e', 11)) buyUpgrade('e', 12);
             if (hasUpgrade('e', 12)) buyUpgrade('e', 13);
@@ -804,7 +804,7 @@ addLayer('e', {
             if (hasMilestone('q', 0) && hasUpgrade('e', 33)) buyUpgrade('e', 41);
             if (hasMilestone('q', 0) && hasUpgrade('e', 41)) buyUpgrade('e', 42);
         };
-        if (player.e.auto_buyables) {
+        if (hasMilestone('m', 0) && player.e.auto_buyables) {
             if (layers.e.buyables[11].canAfford()) {
                 layers.e.buyables[11].buy();
             };
@@ -814,7 +814,7 @@ addLayer('e', {
         };
     },
     doReset(resettingLayer) {
-        let keep = [];
+        let keep = ["auto_upgrades", "auto_buyables"];
             if (challengeCompletions('r', 11) >= 21) return;
             if (hasMilestone('s', 20) && resettingLayer == 's') return;
             if (hasMilestone('m', 2) && resettingLayer == 'm') return;
@@ -829,8 +829,6 @@ addLayer('e', {
             if (hasMilestone('h', 1) && resettingLayer == 'h') keep.push("buyables");
             if (hasMilestone('ds', 3)) keep.push("upgrades");
             if (hasMilestone('ds', 4)) keep.push("buyables");
-            if (hasMilestone('m', 0)) keep.push("auto_buyables");
-            if (hasMilestone('m', 2)) keep.push("auto_upgrades");
             if (layers[resettingLayer].row > this.row) layerDataReset('e', keep);
         },
     tabFormat: [
@@ -1152,7 +1150,7 @@ addLayer('c', {
         return gen;
     },
     automate() {
-        if (player.c.auto_upgrades) {
+        if (hasMilestone('s', 1) && player.c.auto_upgrades) {
             if (hasMilestone('c', 1)) buyUpgrade('c', 11);
             if (hasMilestone('c', 1) && hasUpgrade('c', 11)) buyUpgrade('c', 12);
             if (hasMilestone('c', 1) && hasUpgrade('c', 12)) buyUpgrade('c', 13);
@@ -1163,7 +1161,7 @@ addLayer('c', {
             if (hasUpgrade('h', 53) && hasUpgrade('c', 31)) buyUpgrade('c', 32);
             if (hasUpgrade('h', 53) && hasUpgrade('c', 32)) buyUpgrade('c', 33);
         };
-        if (player.c.auto_buyables) {
+        if (hasMilestone('s', 2) && player.c.auto_buyables) {
             if (layers.c.buyables[11].canAfford()) {
                 layers.c.buyables[11].buy();
             };
@@ -1173,7 +1171,7 @@ addLayer('c', {
         };
     },
     doReset(resettingLayer) {
-        let keep = [];
+        let keep = ["auto_upgrades", "auto_buyables"];
             if (challengeCompletions('r', 11) >= 25 && resettingLayer == 'r') return;
             if (hasMilestone('m', 4) && resettingLayer == 'm') return;
             if (hasMilestone('gi', 2) && resettingLayer == 'gi') return;
@@ -1189,8 +1187,6 @@ addLayer('c', {
             if (hasMilestone('a', 1) && resettingLayer == 'a') keep.push("buyables");
             if (hasMilestone('a', 2) && resettingLayer == 'a') keep.push("upgrades");
             if (hasMilestone('a', 4) && resettingLayer == 'a') keep.push("milestones");
-            if (hasMilestone('s', 1)) keep.push("auto_upgrades");
-            if (hasMilestone('s', 2)) keep.push("auto_buyables");
             if (hasMilestone('s', 25) && resettingLayer == 's') keep.push("milestones");
             if (layers[resettingLayer].row > this.row) layerDataReset('c', keep);
         },
@@ -1503,7 +1499,7 @@ addLayer('q', {
         return gen;
     },
     automate() {
-        if (player.q.auto_upgrades) {
+        if (hasMilestone('s', 4) && player.q.auto_upgrades) {
             buyUpgrade('q', 11);
             if (hasUpgrade('q', 11)) buyUpgrade('q', 12);
             if (hasUpgrade('q', 12)) buyUpgrade('q', 13);
@@ -1527,7 +1523,7 @@ addLayer('q', {
         };
     },
     doReset(resettingLayer) {
-        let keep = [];
+        let keep = ["auto_upgrades"];
             if (challengeCompletions('r', 11) >= 30 && resettingLayer == 'r') return;
             if (hasMilestone('m', 5) && resettingLayer == 'm') return;
             if (hasMilestone('gi', 3) && resettingLayer == 'gi') return;
@@ -1542,7 +1538,6 @@ addLayer('q', {
             if (hasMilestone('a', 0) && resettingLayer == 'a') keep.push("buyables");
             if (hasMilestone('a', 1) && resettingLayer == 'a') keep.push("upgrades");
             if (hasMilestone('a', 5) && resettingLayer == 'a') keep.push("milestones");
-            if (hasMilestone('s', 4)) keep.push("auto_upgrades");
             if (hasMilestone('s', 25) && resettingLayer == 's') keep.push("milestones");
             if (layers[resettingLayer].row > this.row) layerDataReset('q', keep);
     },
@@ -1989,12 +1984,12 @@ addLayer('sp', {
     ],
     layerShown(){return player.q.unlocked},
     automate() {
-        if (player.sp.auto_upgrades && hasUpgrade('h', 53)) {
+        if (hasMilestone('m', 4) && player.sp.auto_upgrades && hasUpgrade('h', 53)) {
             buyUpgrade('sp', 11);
             buyUpgrade('sp', 12);
             buyUpgrade('sp', 13);
         };
-        if (player.sp.auto_buyables) {
+        if (hasMilestone('m', 4) && player.sp.auto_buyables) {
             if (layers.sp.buyables[11].canAfford()) {
                 layers.sp.buyables[11].buy();
             };
@@ -2007,13 +2002,12 @@ addLayer('sp', {
         };
     },
     doReset(resettingLayer) {
-        let keep = [];
+        let keep = ["auto_upgrades", "auto_buyables"];
             if (hasMilestone('ds', 0) && resettingLayer == 'ds') keep.push("buyables");
             if (hasMilestone('ds', 1) && resettingLayer == 'ds') keep.push("upgrades");
             if (hasMilestone('a', 0) && resettingLayer == 'a') keep.push("buyables");
             if (hasMilestone('a', 3) && resettingLayer == 'a') keep.push("upgrades");
             if (hasMilestone('a', 13) && resettingLayer == 'a') keep.push("milestones");
-            if (hasMilestone('m', 4)) keep.push("auto_upgrades", "auto_buyables");
             if (layers[resettingLayer].row > this.row) layerDataReset('sp', keep);
         },
     resetsNothing() {
@@ -2223,7 +2217,7 @@ addLayer('h', {
         return gen;
     },
     automate() {
-        if (player.h.auto_upgrades) {
+        if (hasMilestone('m', 1) && player.h.auto_upgrades) {
             buyUpgrade('h', 11);
             buyUpgrade('h', 12);
             buyUpgrade('h', 13);
@@ -2261,14 +2255,13 @@ addLayer('h', {
         };
     },
     doReset(resettingLayer) {
-        let keep = [];
+        let keep = ["auto_upgrades"];
             if (challengeCompletions('r', 11) >= 27 && resettingLayer == 'r') return;
             if (hasMilestone('m', 13) && resettingLayer == 'm') return;
             if (hasMilestone('gi', 4) && resettingLayer == 'gi') return;
             if (hasMilestone('ds', 8) && resettingLayer == 'ds') keep.push("milestones");
             if (hasMilestone('a', 6) && resettingLayer == 'a') keep.push("milestones");
             if (hasMilestone('a', 11) && (resettingLayer == 'a' || resettingLayer == 'ds')) keep.push("upgrades");
-            if (hasMilestone('m', 1)) keep.push("auto_upgrades");
             if (layers[resettingLayer].row > this.row) layerDataReset('h', keep);
         },
     tabFormat: [
@@ -2729,7 +2722,7 @@ addLayer('ds', {
         return gen;
     },
     automate() {
-        if (player.ds.auto_upgrades) {
+        if (hasMilestone('m', 5) && player.ds.auto_upgrades) {
             buyUpgrade('ds', 11);
             buyUpgrade('ds', 12);
             if (hasUpgrade('ds', 11) && hasUpgrade('ds', 12)) {
@@ -2739,14 +2732,14 @@ addLayer('ds', {
                 if (hasUpgrade('ds', 23)) buyUpgrade('ds', 24);
             };
         };
-        if (player.ds.auto_buyables) {
+        if (hasMilestone('m', 6) && player.ds.auto_buyables) {
             if (layers.ds.buyables[11].canAfford()) {
                 layers.ds.buyables[11].buy();
             };
         };
     },
     doReset(resettingLayer) {
-        let keep = [];
+        let keep = ["auto_upgrades", "auto_buyables"];
         let saveupg = [];
             if (hasMilestone('m', 14) && resettingLayer == 'm') return;
             if (hasMilestone('gi', 5) && resettingLayer == 'gi') return;
@@ -2754,8 +2747,6 @@ addLayer('ds', {
                 keep.push("challenges");
                 saveupg.push(22);
             };
-            if (hasMilestone('m', 5)) keep.push("auto_upgrades");
-            if (hasMilestone('m', 6)) keep.push("auto_buyables");
             if (layers[resettingLayer].row > this.row) {
                 layerDataReset('ds', keep);
                 player[this.layer].upgrades = saveupg;
@@ -3622,8 +3613,9 @@ addLayer('p', {
         return gen;
     },
     automate() {
-        if (player.p.auto_upgrades) {
-            notsmart = !player.p.smart_auto_upgrades;
+        if (hasMilestone('s', 5) && player.p.auto_upgrades) {
+            if (hasMilestone('s', 6)) notsmart = !player.p.smart_auto_upgrades;
+            else notsmart = true;
             buyUpgrade('p', 11);
             if (notsmart || player.p.points.gte(1000)) buyUpgrade('p', 12);
             buyUpgrade('p', 13);
@@ -3686,12 +3678,10 @@ addLayer('p', {
         return 'which are generating <h2 class="layer-p">' + format(tmp.p.effect) + '</h2> divinity/sec';
     },
     doReset(resettingLayer) {
-        let keep = [];
+        let keep = ["auto_upgrades", "smart_auto_upgrades"];
             if (resettingLayer == 'h') keep.push("points", "best", "total", "milestones");
             if (resettingLayer == 'sp') keep.push("points", "best", "total", "milestones");
             if (resettingLayer == 'r') keep.push("milestones");
-            if (hasMilestone('s', 5)) keep.push("auto_upgrades");
-            if (hasMilestone('s', 6)) keep.push("smart_auto_upgrades");
             if (hasMilestone('s', 25) && resettingLayer == 's') keep.push("milestones");
             if (hasUpgrade('p', 22) && resettingLayer == 'p') {
                 mult = new Decimal(1);
@@ -4299,11 +4289,8 @@ addLayer('s', {
         return 'which multiplies essence gain by <h2 class="layer-s">' + format(tmp.s.effect) + '</h2>x';
     },
     doReset(resettingLayer) {
-        let keep = [];
+        let keep = ["auto_worship", "auto_sacrifice", "auto_sacrificial_ceremony"];
             if (hasMilestone('s', 12) && resettingLayer == 'a') return;
-            if (hasMilestone('s', 19)) keep.push("auto_worship");
-            if (hasMilestone('s', 28)) keep.push("auto_sacrificial_ceremony");
-            if (hasMilestone('s', 38)) keep.push("auto_sacrifice");
             if (challengeCompletions('r', 11) >= 9 && resettingLayer == 'r') keep.push("milestones");
             if (layers[resettingLayer].row > this.row) {
                 layerDataReset('s', keep);
