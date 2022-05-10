@@ -5489,9 +5489,9 @@ addLayer('m', {
         },
         21: {
             fullDisplay() {
-                text = '<h3 class="layer-m' + getdark(this, "title-light", true) + 'Hydrogen Gas</h3><br>multiplies core gain based on your best molecules<br>Currently: ' + format(this.effect()) + 'x<br><br>Cost: 360,000 atoms';
-                //if (player.nerdMode) text += ' <br>formula: (x*25+1)^0.3';
-                return text;
+                text = '';
+                if (player.nerdMode) text += ' <br>formula: (x*25+1)^0.3';
+                return '<h3 class="layer-m' + getdark(this, "title-light", true) + 'Hydrogen Gas</h3><br>multiplies core gain based on your best molecules<br>Currently: ' + format(this.effect()) + 'x' + text + '<br><br>Cost: 360,000 atoms';
             },
             canAfford() {
                 if (player.a.points.gte(360000)) return true;
@@ -5523,9 +5523,9 @@ addLayer('m', {
         },
         23: {
             fullDisplay() {
-                text = '<h3 class="layer-m' + getdark(this, "title-light", true) + 'Ammonia</h3><br>multiplies hex gain based on your best molecules<br>Currently: ' + format(this.effect()) + 'x<br><br>Cost: 4,600,000 atoms';
-                //if (player.nerdMode) text += ' <br>formula: (x*250+1)^0.1';
-                return text;
+                text = '';
+                if (player.nerdMode) text += ' <br>formula: (x*250+1)^0.1';
+                return '<h3 class="layer-m' + getdark(this, "title-light", true) + 'Ammonia</h3><br>multiplies hex gain based on your best molecules<br>Currently: ' + format(this.effect()) + 'x' + text + '<br><br>Cost: 4,600,000 atoms';
             },
             canAfford() {
                 if (player.a.points.gte(4600000)) return true;
@@ -5558,9 +5558,9 @@ addLayer('m', {
         },
         32: {
             fullDisplay() {
-                text = '<h3 class="layer-m' + getdark(this, "title-light", true) + 'NaCl, aka Salt</h3><br>gives extra unique molecules based on your atoms<br>Currently: +' + formatWhole(this.effect()) + '<br><br>Cost: 7,777,777 atoms';
-                //if (player.nerdMode) text += ' <br>formula: (x+1)^0.2';
-                return text;
+                text = '';
+                if (player.nerdMode) text += ' <br>formula: (x+1)^0.2';
+                return '<h3 class="layer-m' + getdark(this, "title-light", true) + 'NaCl, aka Salt</h3><br>gives extra unique molecules based on your atoms<br>Currently: +' + formatWhole(this.effect()) + text + '<br><br>Cost: 7,777,777 atoms';
             },
             canAfford() {
                 if (player.a.points.gte(7777777)) return true;
@@ -5576,9 +5576,9 @@ addLayer('m', {
         },
         33: {
             fullDisplay() {
-                text = '<h3 class="layer-m' + getdark(this, "title-light", true) + 'O<tag style="font-size:10px;">3</tag>, aka Ozone</h3><br>multiplies demon soul based on your total unique molecules<br>Currently: ' + format(this.effect()) + 'x<br><br>Cost: ' + format(1e10) + ' atoms';
-                //if (player.nerdMode) text += ' <br>formula: x*1000';
-                return text;
+                text = '';
+                if (player.nerdMode) text += ' <br>formula: x*1000';
+                return '<h3 class="layer-m' + getdark(this, "title-light", true) + 'O<tag style="font-size:10px;">3</tag>, aka Ozone</h3><br>multiplies demon soul based on your total unique molecules<br>Currently: ' + format(this.effect()) + 'x' + text + '<br><br>Cost: ' + format(1e10) + ' atoms';
             },
             canAfford() {
                 if (player.a.points.gte(1e10)) return true;
@@ -5630,9 +5630,9 @@ addLayer('m', {
         },
         43: {
             fullDisplay() {
-                text = '<h3 class="layer-m' + getdark(this, "title-light", true) + 'Calcium Hydroxide</h3><br>multiplies relic gain based on your extra unique molecules<br>Currently: ' + format(this.effect()) + 'x<br><br>Cost: ' + format(1.61e10) + ' atoms';
-                //if (player.nerdMode) text += ' <br>formula: (x+1)^0.01';
-                return text;
+                text = '';
+                if (player.nerdMode) text += ' <br>formula: (x+1)^0.01';
+                return'<h3 class="layer-m' + getdark(this, "title-light", true) + 'Calcium Hydroxide</h3><br>multiplies relic gain based on your extra unique molecules<br>Currently: ' + format(this.effect()) + 'x' + text + '<br><br>Cost: ' + format(1.61e10) + ' atoms';
             },
             canAfford() {
                 if (player.a.points.gte(1.61e10)) return true;
