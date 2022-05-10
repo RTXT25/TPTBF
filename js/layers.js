@@ -696,6 +696,7 @@ addLayer('SC', {
             player.SC.softcaps.push("r-l1");
         };
         player.SC.points = new Decimal(player.SC.softcaps.length);
+        player.r.lightsoftcap_power[0] = new Decimal(0.9).div(player.r.light.sub(player.r.lightsoftcap_start).pow(1.025).div(4e25).add(1));
     },
     tabFormat: [
         "main-display",
@@ -707,7 +708,10 @@ addLayer('SC', {
                 if (player.SC.softcaps.includes("h1")) text += '<br><h2 class="layer-h">Hex Gain Softcap</h2><br>starts at ' + format(layers.h.softcap) + ', gain to ^' + format(layers.h.softcapPower) + '<br>';
                 if (player.SC.softcaps.includes("p-d1")) text += '<br><h2 class="layer-p">Divinity Gain Softcap</h2><br>starts at ' + format(player.p.divinitysoftcap_start[0]) + ', gain to ^' + format(player.p.divinitysoftcap_power[0]) + '<br>';
                 if (player.SC.softcaps.includes("m-eff1")) text += '<br><h2 class="layer-m">Molecule Effect Softcap</h2><br>starts at ' + format(player.m.effectsoftcap_start[0]) + ', effect to ^' + format(player.m.effectsoftcap_power[0]) + '<br>';
-                if (player.SC.softcaps.includes("r-l1")) text += '<br><h2 class="layer-r">Light Gain Softcap</h2><br>starts at ' + format(player.r.lightsoftcap_start[0]) + ', gain to ^' + format(player.r.lightsoftcap_power[0]) + '<br>';
+                if (player.SC.softcaps.includes("r-l1")) {
+                    text += '<br><h2 class="layer-r">Light Gain Softcap</h2><br>starts at ' + format(player.r.lightsoftcap_start[0]) + ', gain to ^' + formatSmall(player.r.lightsoftcap_power[0]) + '<br>';
+                    if (player.nerdMode) text += 'formula: 0.9/(x^1.025/4e25+1) where x is light after softcap<br>';
+                };
                 return text;
             }],
     ],
@@ -2218,39 +2222,8 @@ addLayer('h', {
     },
     automate() {
         if (hasMilestone('m', 1) && player.h.auto_upgrades) {
-            buyUpgrade('h', 11);
-            buyUpgrade('h', 12);
-            buyUpgrade('h', 13);
-            buyUpgrade('h', 14);
-            if (hasUpgrade('h', 11) && hasUpgrade('h', 12) && hasUpgrade('h', 13) && hasUpgrade('h', 14)) {
-                buyUpgrade('h', 21);
-                buyUpgrade('h', 22);
-                buyUpgrade('h', 23);
-                buyUpgrade('h', 24);
-            };
-            if (hasUpgrade('h', 21) && hasUpgrade('h', 22) && hasUpgrade('h', 23) && hasUpgrade('h', 24)) {
-                buyUpgrade('h', 31);
-                buyUpgrade('h', 32);
-                buyUpgrade('h', 33);
-                buyUpgrade('h', 34);
-            };
-            if (hasUpgrade('h', 31) && hasUpgrade('h', 32) && hasUpgrade('h', 33) && hasUpgrade('h', 34)) {
-                buyUpgrade('h', 41);
-                buyUpgrade('h', 42);
-                buyUpgrade('h', 43);
-                buyUpgrade('h', 44);
-            };
-            if (hasUpgrade('h', 41) && hasUpgrade('h', 42) && hasUpgrade('h', 43) && hasUpgrade('h', 44)) {
-                if (hasUpgrade('ds', 11)) buyUpgrade('h', 51);
-                buyUpgrade('h', 52);
-                buyUpgrade('h', 53);
-                if (hasUpgrade('ds', 11)) buyUpgrade('h', 54);
-            };
-            if (hasUpgrade('h', 52) && hasUpgrade('h', 53)) {
-                if (hasUpgrade('ds', 11) && hasUpgrade('h', 51) && hasUpgrade('h', 54)) buyUpgrade('h', 61);
-                buyUpgrade('h', 62);
-                buyUpgrade('h', 63);
-                if (hasUpgrade('ds', 11) && hasUpgrade('h', 51) && hasUpgrade('h', 54)) buyUpgrade('h', 64);
+            for (id in layers.h.upgrades) {
+                if (layers.h.upgrades[id].unlocked) buyUpgrade('h', id);
             };
         };
     },
@@ -5221,7 +5194,6 @@ addLayer('r', {
         12: {
             fullDisplay() {
                 text = '';
-                if (this.effect().gte(500)) text += '<br>(hardcapped)';
                 if (player.nerdMode) text += ' <br>formula: (x+1)^0.1';
                 return '<h3 class="layer-r' + getdark(this, "title-hasend") + 'Light of Light</h3><br>multiplies light gain based on your light<br>Currently: ' + format(this.effect()) + 'x' + text + '<br><br>Cost: ' + formatWhole(1e13) + ' light';
             },
@@ -5233,10 +5205,7 @@ addLayer('r', {
                 player.r.light = player.r.light.sub(1e13);
             },
             effect() {
-                eff = player.r.light.add(1).pow(0.1);
-                hardcap = new Decimal(500);
-                if (eff.gt(hardcap)) return hardcap;
-                return eff;
+                return player.r.light.add(1).pow(0.1);
             },
             unlocked() { return hasMilestone('gi', 0) },
         },
