@@ -4071,7 +4071,7 @@ addLayer('p', {
         },
         54: {
             fullDisplay() {
-                text = '<h3 class="layer-p' + getdark(this, "title", true, true) + 'Even Shorter</h3><br>Req: 1.00e10 hymns without owning <b class="layer-p' + getdark(this, "ref", true, true) + 'Holy Hymns</b>';
+                text = '<h3 class="layer-p' + getdark(this, "title", true, true) + 'Even Shorter</h3><br>Req: 1e10 hymns without owning <b class="layer-p' + getdark(this, "ref", true, true) + 'Holy Hymns</b>';
                 if (this.canAfford()) text += '<br><br><b>Requirements met!';
                 return text;
             },
@@ -4083,7 +4083,7 @@ addLayer('p', {
             unlocked() { return hasMilestone('s', 0) && hasUpgrade('p', 41) && !hasUpgrade('p', 54) },
         },
         55: {
-            fullDisplay() { return '<h3 class="layer-p' + getdark(this, "title", true) + 'Even Shorter</h3><br>decreases hymn requirement if you own <b class="layer-p' + getdark(this, "ref", true) + 'Shorter Hymns</b><br>200 --> 175<br><br>Cost: 2.50e9 hymns';
+            fullDisplay() { return '<h3 class="layer-p' + getdark(this, "title", true) + 'Even Shorter</h3><br>decreases hymn requirement if you own <b class="layer-p' + getdark(this, "ref", true) + 'Shorter Hymns</b><br>200 --> 175<br><br>Cost: ' + format(2.5e9) + ' hymns';
             },
             canAfford() {
                 if (player.p.hymn.gte(2.5e9)) return true;
@@ -4095,7 +4095,7 @@ addLayer('p', {
             unlocked() { return hasUpgrade('p', 54) },
         },
         61: {
-            fullDisplay() { return '<h3 class="layer-p' + getdark(this, "title", true) + 'Holy Hymns</h3><br>multiplies holiness gain based on your hymns<br>Currently: ' + format(this.effect()) + 'x<br><br>Cost: 1.00e9 hymns' },
+            fullDisplay() { return '<h3 class="layer-p' + getdark(this, "title", true) + 'Holy Hymns</h3><br>multiplies holiness gain based on your hymns<br>Currently: ' + format(this.effect()) + 'x<br><br>Cost: ' + format(1e9) + ' hymns' },
             canAfford() {
                 if (player.p.hymn.gte(1e9)) return true;
                 return false;
@@ -4109,7 +4109,7 @@ addLayer('p', {
             unlocked() { if (hasUpgrade('p', 41)) return true },
         },
         62: {
-            fullDisplay() { return '<h3 class="layer-p' + getdark(this, "title", true) + 'Hymn Deconstruction</h3><br>multiplies prayer gain based on your hymns<br>Currently: ' + format(this.effect()) + 'x<br><br>Cost: 1.00e11 hymns' },
+            fullDisplay() { return '<h3 class="layer-p' + getdark(this, "title", true) + 'Hymn Deconstruction</h3><br>multiplies prayer gain based on your hymns<br>Currently: ' + format(this.effect()) + 'x<br><br>Cost: ' + format(1e11) + ' hymns' },
             canAfford() {
                 if (player.p.hymn.gte(1e11)) return true;
                 return false;
@@ -4123,7 +4123,7 @@ addLayer('p', {
             unlocked() { if (hasUpgrade('p', 41)) return true },
         },
         63: {
-            fullDisplay() { return '<h3 class="layer-p' + getdark(this, "title", true) + 'Hymn Resolve</h3><br>multiplies the effect of <b class="layer-p' + getdark(this, "ref", true) + 'Hymn Deconstruction</b> based on your essence<br>Currently: ' + format(this.effect()) + 'x<br><br>Cost: 1.00e15 hymns';
+            fullDisplay() { return '<h3 class="layer-p' + getdark(this, "title", true) + 'Hymn Resolve</h3><br>multiplies the effect of <b class="layer-p' + getdark(this, "ref", true) + 'Hymn Deconstruction</b> based on your essence<br>Currently: ' + format(this.effect()) + 'x<br><br>Cost: ' + format(1e15) + ' hymns';
             },
             canAfford() {
                 if (player.p.hymn.gte(1e15)) return true;
@@ -4139,7 +4139,7 @@ addLayer('p', {
         },
         64: {
             fullDisplay() {
-                text = '<h3 class="layer-p' + getdark(this, "title", true, true) + 'Silver Sanctums</h3><br>Req: 2.50e25 prayers, 2 sanctums, and all previous research';
+                text = '<h3 class="layer-p' + getdark(this, "title", true, true) + 'Silver Sanctums</h3><br>Req: 2.5e25 prayers, 2 sanctums, and all previous research';
                 if (this.canAfford()) text += '<br><br><b>Requirements met!';
                 return text;
             },
@@ -5576,7 +5576,7 @@ addLayer('m', {
         },
         33: {
             fullDisplay() {
-                text = '<h3 class="layer-m' + getdark(this, "title-light", true) + 'O<tag style="font-size:10px;">3</tag>, aka Ozone</h3><br>multiplies demon soul based on your total unique molecules<br>Currently: ' + format(this.effect()) + 'x<br><br>Cost: 1.00e10 atoms';
+                text = '<h3 class="layer-m' + getdark(this, "title-light", true) + 'O<tag style="font-size:10px;">3</tag>, aka Ozone</h3><br>multiplies demon soul based on your total unique molecules<br>Currently: ' + format(this.effect()) + 'x<br><br>Cost: ' + format(1e10) + ' atoms';
                 //if (player.nerdMode) text += ' <br>formula: x*1000';
                 return text;
             },
@@ -5630,7 +5630,7 @@ addLayer('m', {
         },
         43: {
             fullDisplay() {
-                text = '<h3 class="layer-m' + getdark(this, "title-light", true) + 'Calcium Hydroxide</h3><br>multiplies relic gain based on your extra unique molecules<br>Currently: ' + format(this.effect()) + 'x<br><br>Cost: 1.61e10 atoms';
+                text = '<h3 class="layer-m' + getdark(this, "title-light", true) + 'Calcium Hydroxide</h3><br>multiplies relic gain based on your extra unique molecules<br>Currently: ' + format(this.effect()) + 'x<br><br>Cost: ' + format(1.61e10) + ' atoms';
                 //if (player.nerdMode) text += ' <br>formula: (x+1)^0.01';
                 return text;
             },
