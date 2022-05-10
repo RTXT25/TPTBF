@@ -277,7 +277,7 @@ function versionCheck() {
 		player.version = 0;
 	};
 	if (setVersion) {
-		if (player.versionType == modInfo.id && (VERSION.num > player.version || player.version == '2.2')) {
+		if (player.versionType == modInfo.id && (VERSION.num > player.version || player.version == '2.2' || player.version == '2.3')) {
 			player.keepGoing = false;
 			if (fixOldSave)
 				fixOldSave(player.version);
