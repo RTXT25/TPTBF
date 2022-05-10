@@ -84,10 +84,11 @@ addLayer('A', {
             color: '#DFDFDF',
         },
         15: {
-            name: 'The Point of Everything',
+            name: 'Everything is Points',
             done() {return player.points.gte('1e10000')},
             tooltip: 'obtain 1e10,000 points.',
             unlocked() { if (hasAchievement('A', 14)) return true },
+            image() { if (hasAchievement('A', 15)) return "images/achievements/15.png" },
             color: '#DFDFDF',
         },
         16: {
@@ -135,6 +136,7 @@ addLayer('A', {
             done() {return player.e.points.gte('1e10000')},
             tooltip: 'obtain 1e10,000 essence.',
             unlocked() { if (hasAchievement('A', 24)) return true },
+            image() { if (hasAchievement('A', 25)) return "images/achievements/25.png" },
             color: '#4CED13',
         },
         26: {
@@ -406,10 +408,11 @@ addLayer('A', {
             color: '#4D2FE0',
         },
         85: {
-            name: 'Atoms Made of Atoms',
+            name: 'Atomic Hole',
             done() {return player.a.points.gte(1e9)},
             tooltip: 'obtain 1e9 atoms.',
             unlocked() { if (hasAchievement('A', 84)) return true },
+            image() { if (hasAchievement('A', 85)) return "images/achievements/85.png" },
             color: '#4D2FE0',
         },
         86: {
