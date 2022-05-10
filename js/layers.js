@@ -5288,9 +5288,8 @@ addLayer('m', {
                 "blank",
                 ["display-text",
                     function() {
-                        extra = "";
-                        if (colorvalue[1] == 'none') return 'You have ' + formatWhole(player.m.unique_nonextra) + extra + ' total unique molecules';
-                        return 'You have <h2 class="layer-m">' + formatWhole(player.m.unique_nonextra) + extra + '</h2> total unique molecules';
+                        if (player.m.unique_extra.gt(0)) return 'You have <h2 class="layer-m">' + formatWhole(player.m.unique_nonextra) + '</h2><h3 class="layer-m-light">+' + formatWhole(player.m.unique_extra) + '</h3> total unique molecules';
+                        return 'You have <h2 class="layer-m">' + formatWhole(player.m.unique_nonextra) + '</h2> total unique molecules';
                     }],
                 "blank",
                 "upgrades",
@@ -5503,7 +5502,7 @@ addLayer('m', {
             description() {
                 return 'gives extra unique molecules based on your non-extra ones\' amount and worth';
             },
-            cost: 125,
+            cost: 250,
             effect() {
                 return player.m.unique_nonextra.div(2).add(1).floor();
             },
@@ -5602,7 +5601,7 @@ addLayer('m', {
             effect() {
                 return player.m.unique_extra.add(1).pow(0.01);
             },
-            unlocked() { return hasUpgrade('m', 21) && hasUpgrade('m', 22) && hasUpgrade('m', 23) },
+            unlocked() { return hasUpgrade('m', 31) && hasUpgrade('m', 32) && hasUpgrade('m', 33) },
         },
     },
 });
