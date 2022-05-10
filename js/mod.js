@@ -34,7 +34,7 @@ function getdark(darkthis, type, special = false, research = false) {
 			return '-light">';
 		} else if (type == 'title-buyable' && colorvalue[0][1]) {
 			darkcanafford = darkthis.canAfford();
-			if (darkcanafford && getBuyableAmount(darkthis.layer, darkthis.id).lt(darkthis.purchaseLimit)) return '-dark">';
+			if (darkcanafford && getBuyableAmount(darkthis.layer, darkthis.id)) return '-dark">';
 		} else return '-OFF">'
 	};
 	return '">';
@@ -139,7 +139,7 @@ function fixOldSave(oldVersion) {
 	endloop = false;
 	count = 0;
 	while (endloop === false) {
-		if (player.version == '2.3' && player.r.light.gt(1e30)) {
+		if (player.version == '2.3' && player.r.light.gt(1e40)) {
 			if (player.points.gt('1e15000')) player.points = new Decimal('1e15000');
 			if (player.e.points.gt('1e15000')) {
 				player.e.points = new Decimal('1e15000');

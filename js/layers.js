@@ -767,6 +767,7 @@ addLayer('e', {
             if (hasUpgrade('sp', 12)) mult = mult.mul(new Decimal(5).pow(getBuyableAmount('sp', 12)));
         };
         if (getBuyableAmount('sp', 11).gt(0)) mult = mult.mul(getBuyableAmount('sp', 11).add(1).pow(-1));
+        if (getBuyableAmount('gi', 12).gt(0)) mult = mult.mul(getBuyableAmount('gi', 12).add(1).pow(3));
         if (hasUpgrade('p', 22)) mult = mult.mul(player.p.holiness.add(1).pow(0.055));
         if (player.s.points.gt(0)) mult = mult.mul(tmp.s.effect);
         if (player.r.points.gt(0)) mult = mult.mul(player.r.essencemult);
@@ -4278,9 +4279,11 @@ addLayer('s', {
                     player.s.total = new Decimal(2);
                 };
                 if (hasMilestone('gi', 6) && resettingLayer == 'gi') {
-                    player.s.points = new Decimal(4);
-                    player.s.best = new Decimal(4);
-                    player.s.total = new Decimal(4);
+                    if (hasMilestone('gi', 7)) set = 7;
+                    else set = 4;
+                    player.s.points = new Decimal(set);
+                    player.s.best = new Decimal(set);
+                    player.s.total = new Decimal(set);
                 };
             };
         },
@@ -5180,7 +5183,7 @@ addLayer('r', {
             fullDisplay() {
                 text = '';
                 if (player.nerdMode) text += ' <br>formula: (x+1)^0.3';
-                return '<h3 class="layer-r' + getdark(this, "title-hasend") + 'Brighter Light</h3><br>multiplies light gain based on your sanctums<br>Currently: ' + format(this.effect()) + 'x' + text + '<br><br>Cost: ' + formatWhole(1e12) + ' light';
+                return '<h3 class="layer-r' + getdark(this, "title-hasend") + 'Brighter Light</h3><br>multiplies light gain based on your sanctums<br>Currently: ' + format(this.effect()) + 'x' + text + '<br><br>Cost: ' + format(1e12) + ' light';
             },
             canAfford() {
                 if (player.r.light.gte(1e12)) return true;
@@ -5198,7 +5201,7 @@ addLayer('r', {
             fullDisplay() {
                 text = '';
                 if (player.nerdMode) text += ' <br>formula: (x+1)^0.1';
-                return '<h3 class="layer-r' + getdark(this, "title-hasend") + 'Light of Light</h3><br>multiplies light gain based on your light<br>Currently: ' + format(this.effect()) + 'x' + text + '<br><br>Cost: ' + formatWhole(1e13) + ' light';
+                return '<h3 class="layer-r' + getdark(this, "title-hasend") + 'Light of Light</h3><br>multiplies light gain based on your light<br>Currently: ' + format(this.effect()) + 'x' + text + '<br><br>Cost: ' + format(1e13) + ' light';
             },
             canAfford() {
                 if (player.r.light.gte(1e13)) return true;
@@ -5699,33 +5702,38 @@ addLayer('gi', {
         },
         1: {
             requirementDescription: '2 good influence',
-            effectDescription: 'good influence resets don\'t<br>reset essence',
+            effectDescription: 'good influence resets don\'t reset essence',
             done() { return player.gi.points.gte(2) },
         },
         2: {
             requirementDescription: '3 good influence',
-            effectDescription: 'good influence resets don\'t<br>reset cores',
+            effectDescription: 'good influence resets don\'t reset cores',
             done() { return player.gi.points.gte(3) },
         },
         3: {
             requirementDescription: '4 good influence',
-            effectDescription: 'good influence resets don\'t<br>reset quarks',
+            effectDescription: 'good influence resets don\'t reset quarks',
             done() { return player.gi.points.gte(4) },
         },
         4: {
             requirementDescription: '5 good influence',
-            effectDescription: 'good influence resets don\'t<br>reset hexes',
+            effectDescription: 'good influence resets don\'t reset hexes',
             done() { return player.gi.points.gte(5) },
         },
         5: {
             requirementDescription: '6 good influence',
-            effectDescription: 'good influence resets don\'t<br>reset demon souls',
+            effectDescription: 'good influence resets don\'t reset demon souls',
             done() { return player.gi.points.gte(6) },
         },
         6: {
-            requirementDescription: '7 good influence',
-            effectDescription: 'keep 4 sanctums on<br>good influence resets',
-            done() { return player.gi.points.gte(7) },
+            requirementDescription: '8 good influence',
+            effectDescription: 'keep 4 sanctums on good influence resets',
+            done() { return player.gi.points.gte(8) },
+        },
+        7: {
+            requirementDescription: '10 good influence',
+            effectDescription: 'keep 3 sanctums (7 total) on good influence resets',
+            done() { return player.gi.points.gte(10) },
         },
     },
     buyables: {
@@ -5737,7 +5745,7 @@ addLayer('gi', {
                 return '<h3 class="layer-gi' + getdark(this, "title-buyable") + 'Better Good';
             },
             canAfford() {
-                return player.gi.points.gte(this.cost()) && getBuyableAmount(this.layer, this.id).lt(this.purchaseLimit);
+                return player.gi.points.gte(this.cost()) && getBuyableAmount('gi', 11).lt(this.purchaseLimit);
             },
             purchaseLimit: 8,
             buy() {
@@ -5747,6 +5755,29 @@ addLayer('gi', {
             display() {
                 return 'increases the good influence effect base by 1 per this upgrade bought.<br>Currently: +' + format(getBuyableAmount('gi', 11)) + '<br><br>Cost: ' + formatWhole(this.cost()) + ' good influence<br><br>Bought: ' + formatWhole(getBuyableAmount('gi', 11));
             },
+        },
+        12: {
+            cost() {
+                return getBuyableAmount('gi', 12).div(5).add(1).floor();
+            },
+            title() {
+                return '<h3 class="layer-gi' + getdark(this, "title-buyable") + 'Drive out Evil';
+            },
+            canAfford() {
+                return player.gi.points.gte(this.cost()) && getBuyableAmount('gi', 12).lt(this.purchaseLimit());
+            },
+            purchaseLimit() {
+                return player.ds.points.log(10).div(10).floor();
+            },
+            buy() {
+                player.gi.points = player.gi.points.sub(this.cost());
+                setBuyableAmount('gi', 12, getBuyableAmount('gi', 12).add(1));
+            },
+            display() {
+                if (player.nerdMode) return 'multiplies essence gain based on the amount of this upgrade bought.<br>Currently: ' + format(getBuyableAmount('gi', 12).add(1).pow(3)) + 'x<br>formula: (x+1)^3<br><br>Cost: ' + formatWhole(this.cost()) + ' good influence<br><br>Bought: ' + formatWhole(getBuyableAmount('gi', 12)) + '/' + formatWhole(this.purchaseLimit()) + '<br>limit formula: log10(x)/10 (floored)<br>where x is demon souls';
+                return 'multiplies essence gain based on the amount of this upgrade bought.<br>Currently: ' + format(getBuyableAmount('gi', 12).add(1).pow(3)) + 'x<br><br>Cost: ' + formatWhole(this.cost()) + ' good influence<br><br>Bought: ' + formatWhole(getBuyableAmount('gi', 12)) + '/' + formatWhole(this.purchaseLimit());
+            },
+            unlocked() {return getBuyableAmount('gi', 11).gte(8)}
         },
     },
 });
