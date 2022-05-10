@@ -678,7 +678,7 @@ addLayer('SC', {
         if (tmp.m.effect.gte(player.m.effectsoftcap_start[0]) && !player.SC.softcaps.includes("m-eff1")) {
             player.SC.softcaps.push("m-eff1");
         };
-        if (tmp.m.effect.gte(player.r.lightsoftcap_start[0]) && !player.SC.softcaps.includes("r-l1")) {
+        if (player.r.lightgain.gte(player.r.lightsoftcap_start[0]) && !player.SC.softcaps.includes("r-l1")) {
             player.SC.softcaps.push("r-l1");
         };
         player.SC.points = new Decimal(player.SC.softcaps.length);
@@ -693,7 +693,7 @@ addLayer('SC', {
                 if (player.SC.softcaps.includes("h1")) text += '<br><h2 class="layer-h">Hex Gain Softcap</h2><br>starts at ' + format(layers.h.softcap) + ', gain to ^' + format(layers.h.softcapPower) + '<br>';
                 if (player.SC.softcaps.includes("p-d1")) text += '<br><h2 class="layer-p">Divinity Gain Softcap</h2><br>starts at ' + format(player.p.divinitysoftcap_start[0]) + ', gain to ^' + format(player.p.divinitysoftcap_power[0]) + '<br>';
                 if (player.SC.softcaps.includes("m-eff1")) text += '<br><h2 class="layer-m">Molecule Effect Softcap</h2><br>starts at ' + format(player.m.effectsoftcap_start[0]) + ', effect to ^' + format(player.m.effectsoftcap_power[0]) + '<br>';
-                if (player.SC.softcaps.includes("r-l1")) text += '<br><h2 class="layer-r">Light Gain Softcap</h2><br>starts at ' + format(player.r.lightsoftcap_start[0]) + ', effect to ^' + format(player.r.lightsoftcap_power[0]) + '<br>';
+                if (player.SC.softcaps.includes("r-l1")) text += '<br><h2 class="layer-r">Light Gain Softcap</h2><br>starts at ' + format(player.r.lightsoftcap_start[0]) + ', gain to ^' + format(player.r.lightsoftcap_power[0]) + '<br>';
                 return text;
             }],
     ],
@@ -1160,7 +1160,7 @@ addLayer('c', {
     },
     doReset(resettingLayer) {
         let keep = [];
-            if (challengeCompletions('r', 11) >= 27 && resettingLayer == 'r') return;
+            if (challengeCompletions('r', 11) >= 25 && resettingLayer == 'r') return;
             if (hasMilestone('m', 4) && resettingLayer == 'm') return;
             if (hasMilestone('gi', 2) && resettingLayer == 'gi') return;
             if (hasMilestone('h', 2) && resettingLayer == 'h') keep.push("upgrades");
@@ -1514,7 +1514,7 @@ addLayer('q', {
     },
     doReset(resettingLayer) {
         let keep = [];
-            if (challengeCompletions('r', 11) >= 32 && resettingLayer == 'r') return;
+            if (challengeCompletions('r', 11) >= 30 && resettingLayer == 'r') return;
             if (hasMilestone('m', 5) && resettingLayer == 'm') return;
             if (hasMilestone('gi', 3) && resettingLayer == 'gi') return;
             if (hasMilestone('sp', 3) && resettingLayer == 'sp') keep.push("milestones");
@@ -2248,7 +2248,7 @@ addLayer('h', {
     },
     doReset(resettingLayer) {
         let keep = [];
-            if (challengeCompletions('r', 11) >= 29 && resettingLayer == 'r') return;
+            if (challengeCompletions('r', 11) >= 27 && resettingLayer == 'r') return;
             if (hasMilestone('m', 13) && resettingLayer == 'm') return;
             if (hasMilestone('gi', 4) && resettingLayer == 'gi') return;
             if (hasMilestone('ds', 8) && resettingLayer == 'ds') keep.push("milestones");
@@ -5150,15 +5150,13 @@ addLayer('r', {
                 if (challengeCompletions('r', 11) == 21) text += '<br>Next reward: auto <b class="layer-s' + getdark(this, "ref", true, true) + 'Sacrifice</b> works thrice as fast';
                 if (challengeCompletions('r', 11) == 22) text += '<br>Next reward: auto <b class="layer-s' + getdark(this, "ref", true, true) + 'Sacrifice</b> works twice as fast';
                 if (challengeCompletions('r', 11) == 23) text += '<br>Next reward: nothing';
-                if (challengeCompletions('r', 11) == 24) text += '<br>Next reward: multiply the first activated relic<br>effect by 1.001';
+                if (challengeCompletions('r', 11) == 24) text += '<br>Next reward: relic resets don\'t reset cores';
                 if (challengeCompletions('r', 11) == 25) text += '<br>Next reward: nothing';
-                if (challengeCompletions('r', 11) == 26) text += '<br>Next reward: relic resets don\'t reset cores';
+                if (challengeCompletions('r', 11) == 26) text += '<br>Next reward: relic resets don\'t reset hexes';
                 if (challengeCompletions('r', 11) == 27) text += '<br>Next reward: nothing';
-                if (challengeCompletions('r', 11) == 28) text += '<br>Next reward: relic resets don\'t reset hexes';
-                if (challengeCompletions('r', 11) == 29) text += '<br>Next reward: nothing';
-                if (challengeCompletions('r', 11) == 30) text += '<br>Next reward: still nothing';
-                if (challengeCompletions('r', 11) == 31) text += '<br>Next reward: relic resets don\'t reset quarks';
-                if (challengeCompletions('r', 11) >= 32) text += '<br>Next reward: you have gotten all the rewards!';
+                if (challengeCompletions('r', 11) == 28) text += '<br>Next reward: still nothing';
+                if (challengeCompletions('r', 11) == 29) text += '<br>Next reward: relic resets don\'t reset quarks';
+                if (challengeCompletions('r', 11) >= 30) text += '<br>Next reward: you have gotten all the rewards!';
                 return text;
             },
             canComplete() {
@@ -5200,7 +5198,6 @@ addLayer('r', {
         12: {
             fullDisplay() {
                 text = '';
-                if (this.effect().gte(250)) text += '<br>(hardcapped)';
                 if (player.nerdMode) text += ' <br>formula: (x+1)^0.1';
                 return '<h3 class="layer-r' + getdark(this, "title-hasend") + 'Light of Light</h3><br>multiplies light gain based on your light<br>Currently: ' + format(this.effect()) + 'x' + text + '<br><br>Cost: 1e13 light';
             },
@@ -5212,10 +5209,7 @@ addLayer('r', {
                 player.r.light = player.r.light.sub(1e13);
             },
             effect() {
-                eff = player.r.light.add(1).pow(0.1);
-                hardcap = new Decimal(250);
-                if (eff.gt(hardcap)) return hardcap;
-                return eff;
+                return player.r.light.add(1).pow(0.1);
             },
             unlocked() { return hasMilestone('gi', 0) },
         },
