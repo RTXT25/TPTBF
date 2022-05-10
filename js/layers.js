@@ -548,8 +548,8 @@ addLayer('A', {
         },
         123: {
             name: 'Molecule Dictionary',
-            done() {return player.m.points.gte(1e10)},
-            tooltip: 'obtain 1e10 molecules.',
+            done() {return player.m.points.gte(1e11)},
+            tooltip: 'obtain 1e11 molecules.',
             unlocked() { if (hasAchievement('A', 122)) return true },
             color: '#00CCCC',
         },
@@ -572,6 +572,13 @@ addLayer('A', {
             done() {return player.gi.points.gte(10)},
             tooltip: 'obtain 10 good influence.',
             unlocked() { if (hasAchievement('A', 131)) return true },
+            color: '#08FF87',
+        },
+        133: {
+            name: 'World of Good',
+            done() {return player.gi.points.gte(100)},
+            tooltip: 'obtain 100 good influence.',
+            unlocked() { if (hasAchievement('A', 132)) return true },
             color: '#08FF87',
         },
     },
@@ -4988,6 +4995,10 @@ addLayer('r', {
         return '#A0A0A0';
     },
     branches: ['gi'],
+    tooltip() {
+        if (player.nerdMode) return formatWhole(challengeCompletions('r', 11)) + ' activated relics and ' + formatWhole(player.r.points) + ' total relics';
+        return formatWhole(player.r.points) + ' relics';
+    },
     requires: 10,
     resource: 'relics',
     baseResource: 'sanctums',
@@ -5253,7 +5264,7 @@ addLayer('m', {
     hotkeys: [
         {key: 'm', description: "M: Reset for molecules", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
-    layerShown(){return challengeCompletions('r', 11) >= 10 || player.m.points.gt(0)},
+    layerShown(){return challengeCompletions('r', 11) >= 10 || player.m.unlocked},
     effect() {
         effBoost = new Decimal(0.5);
         eff = player.m.best.mul(effBoost).add(1).pow(0.99);
