@@ -130,7 +130,7 @@ function maxTickLength() {
 
 function fixOldSave(oldVersion) {
 	// this is for the achievement that had it's reqirement increased to be impossible to get in 2.2
-	if (player.version == '2.2' && player.A.achievements.includes('123')) removeachievement('123');
+	if (oldVersion == '2.2' && player.A.achievements.includes('123')) removeachievement('123');
 
 	// this is for the infinite light gain loop.
 	// It caps all your resources at around where they would have been before the loop.
@@ -139,7 +139,7 @@ function fixOldSave(oldVersion) {
 	endloop = false;
 	count = 0;
 	while (endloop === false) {
-		if (player.version == '2.3' && player.r.light.gt(1e40)) {
+		if (oldVersion == '2.3' && player.r.light.gt(1e40)) {
 			if (player.points.gt('1e15000')) player.points = new Decimal('1e15000');
 			if (player.e.points.gt('1e15000')) {
 				player.e.points = new Decimal('1e15000');
